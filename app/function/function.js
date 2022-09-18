@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation-stack';
 
-import Home from '../../app/navigation/Home';
+import Home from '../../app/screen/LoginScreen';
 import ShowNear from '../../app/navigation/Home';
 
 class Functions {
