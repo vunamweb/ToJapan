@@ -1,16 +1,17 @@
-import React, {Component} from 'react';
-import {TouchableOpacity, StyleSheet, View} from 'react-native';
-import {Text} from 'react-native-paper';
-import Background from '../components/Background';
-import Logo from '../components/Logo';
-import Header from '../components/Header';
-import Button from '../components/Button';
-import TextInput from '../components/TextInput';
+import React, { Component } from "react";
+import { TouchableOpacity, StyleSheet, View } from "react-native";
+import { CheckBox } from "react-native-elements";
+import { Text } from "react-native-paper";
+import Background from "../components/Background";
+import Logo from "../components/Logo";
+import Header from "../components/Header";
+import Button from "../components/Button";
+import TextInput from "../components/TextInput";
 //import BackButton from '../components/BackButton'
 //import { theme } from '../core/theme'
 //import { emailValidator } from '../helpers/emailValidator'
 //import { passwordValidator } from '../helpers/passwordValidator'
-import styles from '../../app/style/style';
+import styles from "../../app/style/style";
 
 class LoginScreen extends Component {
   render() {
@@ -30,7 +31,7 @@ class LoginScreen extends Component {
           autoCompleteType="email"
           textContentType="emailAddress"
           keyboardType="email-address"
-          right={<TextInput.Icon icon="eye" />}
+          leftIcon="email"
         />
         <View style={styles.titleTextinput}>
           <Text>Mật khẩu</Text>
@@ -39,21 +40,35 @@ class LoginScreen extends Component {
         <TextInput
           title="Mật khẩu *"
           label="Nhập mật khẩu"
-          returnKeyType="done"
-          secureTextEntry
+          returnKeyType="next"
+          autoCapitalize="none"
+          autoCompleteType="email"
+          textContentType="emailAddress"
+          keyboardType="email-address"
+          leftIcon="lock"
+          rightIcon="eye"
         />
-        <View style={styles.forgotPassword}>
+        <View style={styles.remember}>
+        <CheckBox containerStyle={styles.checkbox}
+  title='Nhớ mật khẩu'
+/>
+          <View style={styles.forgotPassword}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('ResetPasswordScreen')}>
-            <Text style={styles.forgot}>Forgot your password?</Text>
+            onPress={() => navigation.navigate("ResetPasswordScreen")}
+          >
+            <Text style={styles.forgot}>Quên mật khẩu?</Text>
           </TouchableOpacity>
         </View>
-        <Button mode="contained">Login</Button>
+        </View>
+        <TouchableOpacity style={[styles.button, {backgroundColor: '#3187EA', marginTop: 0}]}>
+          <Text style={{ color: 'white' }}>Đăng nhâp</Text>
+        </TouchableOpacity>
         <View style={styles.row}>
-          <Text>Don’t have an account? </Text>
+          <Text>Bạn đã chưa có tài khoản?</Text>
           <TouchableOpacity
-            onPress={() => navigation.replace('RegisterScreen')}>
-            <Text style={styles.link}>Sign up</Text>
+            onPress={() => navigation.replace("RegisterScreen")}
+          >
+            <Text style={styles.link}> Đăng ký</Text>
           </TouchableOpacity>
         </View>
       </Background>

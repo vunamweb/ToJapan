@@ -52,10 +52,15 @@ module.exports = StyleSheet.create({
     marginEnd: 20,
     marginTop: 20,
     borderRadius: 16,
+    width: '100%'
   },
   forgotPassword: {
+    marginBottom: 24,
+  },
+  remember: {
+    flexDirection: 'row',
     width: '100%',
-    alignItems: 'flex-end',
+    justifyContent: 'space-between',
     marginBottom: 24,
   },
   row: {
@@ -64,10 +69,12 @@ module.exports = StyleSheet.create({
   },
   forgot: {
     fontSize: 13,
+    color: '#3187EA',
     //color: theme.colors.secondary,
   },
   link: {
     fontWeight: 'bold',
+    color: '#3187EA'
     //color: theme.colors.primary,
   },
   titleTextinput: {
@@ -77,5 +84,13 @@ module.exports = StyleSheet.create({
   mandatoryColor: {
     color: '#D63F5C',
     marginStart: 5,
+  },
+  checkbox: {
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    marginLeft: -10,
+    marginTop: -15,
+    color: '#23262F',
+    size: 16
   },
 });

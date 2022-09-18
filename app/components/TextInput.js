@@ -1,17 +1,20 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
-import { TextInput as Input } from 'react-native-paper'
+import { TextInput } from 'react-native-paper'
 import { theme } from '../core/theme'
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function TextInput({ errorText, description, ...props }) {
+export default function TextInputzzzz({ errorText, description, ...props }) {
   return (
     <View style={styles.container}>
-      <Input
+      <TextInput
         style={styles.input}
         selectionColor={theme.colors.primary}
         underlineColor="transparent"
         mode="outlined"
         {...props}
+        left={<TextInput.Icon icon={props.leftIcon} />}
+        right={<TextInput.Icon icon={props.rightIcon} />}
       />
       {description && !errorText ? (
         <Text style={styles.description}>{description}</Text>
@@ -26,19 +29,11 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 3,
     marginBottom: 20,
-    borderRadius: 60,
   },
   input: {
     backgroundColor: theme.colors.surface,
-    borderRadius: 30,
-    width: 300,
-    height: 40,
-    backgroundColor: '#fff',
-    
-    borderColor: '#ccc',
-    
-    borderRadius: 45, 
-    fontSize: 16,
+    borderRadius: 60,
+    //overflow: 'hidden'
   },
   description: {
     fontSize: 13,
