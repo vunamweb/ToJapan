@@ -35,6 +35,7 @@ class RegisterScreen extends Component {
         />
         <TouchableOpacity
           style={[styles.button, { backgroundColor: "#3187EA", marginTop: 0 }]}
+          onPress={() => this.props.navigation.navigate('ConfirmScreen')}
         >
           <Text style={{ color: "white" }}>Đăng Ký</Text>
         </TouchableOpacity>

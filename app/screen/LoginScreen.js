@@ -16,7 +16,7 @@ import styles from "../../app/style/style";
 class LoginScreen extends Component {
   render() {
     return (
-      <Background>
+      <Background center="true">
         <Logo type="login" />
         <Header>Đăng nhập</Header>
         <View style={[styles.titleTextinput, styles.textGeneral]}>
@@ -54,7 +54,7 @@ class LoginScreen extends Component {
 />
           <View style={styles.forgotPassword}>
           <TouchableOpacity
-            onPress={() => navigation.navigate("ResetPasswordScreen")}
+             onPress={() => this.props.navigation.navigate('ForgotPassWordScreen')}
           >
             <Text style={styles.forgot}>Quên mật khẩu?</Text>
           </TouchableOpacity>
@@ -66,7 +66,7 @@ class LoginScreen extends Component {
         <View style={styles.row}>
           <Text>Bạn đã chưa có tài khoản?</Text>
           <TouchableOpacity
-            onPress={() => navigation.replace("RegisterScreen")}
+            onPress={() => this.props.navigation.navigate('RegisterScreen')}
           >
             <Text style={styles.link}> Đăng ký</Text>
           </TouchableOpacity>
