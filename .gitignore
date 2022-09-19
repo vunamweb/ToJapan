@@ -1,4 +1,7 @@
 node_modules/
+iOS/
+Android/
+__tests__/
 .expo/
 dist/
 npm-debug.*
