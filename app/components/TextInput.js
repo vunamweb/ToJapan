@@ -5,10 +5,12 @@ import { theme } from '../core/theme'
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function TextInputzzzz({ errorText, description, ...props }) {
+  let style = (props.bg != null) ? [styles.input, {backgroundColor: props.bg}] : [styles.input];
+
   return (
     <View style={styles.container}>
       <TextInput
-        style={styles.input}
+        style={style}
         selectionColor={theme.colors.primary}
         underlineColor="transparent"
         mode="outlined"
@@ -32,7 +34,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: theme.colors.surface,
-    borderRadius: 60,
+    borderRadius: 20,
     //overflow: 'hidden'
   },
   description: {

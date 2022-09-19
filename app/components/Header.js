@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#3187EA',
     paddingVertical: 12,
-    fontWeight: '600'
+    fontWeight: '600',
+    textAlign: 'center'
   },
 })

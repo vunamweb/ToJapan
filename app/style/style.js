@@ -48,11 +48,9 @@ module.exports = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 16,
     paddingHorizontal: 24,
-    marginStart: 20,
-    marginEnd: 20,
     marginTop: 20,
     borderRadius: 16,
-    width: '100%'
+    width: '100%',
   },
   forgotPassword: {
     marginBottom: 24,
@@ -93,4 +91,30 @@ module.exports = StyleSheet.create({
     color: '#23262F',
     size: 16
   },
+  flexRow: {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    marginTop: 30,
+  },
+  LineRegistration: {
+    borderBottomColor: '#E6E8EC;',
+    borderBottomWidth: 1,
+    flex: 1,
+  },
+  viewTextRegistration: {
+    flex: 2, 
+    alignItems: 'center',
+  },
+  textRegistration: {
+    bottom: -8, 
+    position: 'absolute'
+  },
+  googleButton: {
+    
+  },
+  textCenter: {
+    textAlign: 'center'
+  } 
+
 });

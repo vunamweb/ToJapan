@@ -17,7 +17,7 @@ class LoginScreen extends Component {
   render() {
     return (
       <Background>
-        <Logo />
+        <Logo type="login" />
         <Header>Đăng nhập</Header>
         <View style={[styles.titleTextinput, styles.textGeneral]}>
           <Text>Email</Text>
