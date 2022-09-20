@@ -1,6 +1,6 @@
 import { createStackNavigator } from "react-navigation-stack";
 
-import Home from "../../app/screen/Splash1";
+import Splash1 from "../../app/screen/Splash1";
 import Splash2 from "../../app/screen/Splash2";
 import RegisterScreen from "../../app/screen/RegisterScreen";
 import LoginScreen from "../../app/screen/LoginScreen";
@@ -10,8 +10,8 @@ import ForgotPassWordScreen from "../../app/screen/ForgotPassWordScreen";
 class Functions {
   initNavigarion = () => {
     return createStackNavigator({
-      Home: {
-        screen: Home,
+      Splash1: {
+        screen: Splash1,
         navigationOptions: {
           header: null,
         },
@@ -44,6 +44,10 @@ class Functions {
       },
     });
   };
+
+  gotoScreen = (navigation, screen) => {
+    navigation.navigate(screen);
+  }
 }
 
 const functions = new Functions();

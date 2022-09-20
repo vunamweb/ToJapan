@@ -1,6 +1,40 @@
 import {StyleSheet} from 'react-native';
 
 module.exports = StyleSheet.create({
+  //Background 
+  background_1: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: '#FAFAFA',
+  },
+  // END
+  // Container root
+  container_root_full_center: {
+    flex: 1,
+    padding: 20,
+    width: '100%',
+    maxWidth: 340,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  container_root_align_center: {
+    flex: 1,
+    padding: 20,
+    width: '100%',
+    maxWidth: 340,
+    alignSelf: 'center',
+  },
+  // END
+  // HEADER
+  header: {
+    fontSize: 24,
+    color: '#3187EA',
+    paddingVertical: 12,
+    fontWeight: '600',
+    textAlign: 'center'
+  },
+  // END
   center: {
     justifyContent: 'center',
     flex: 1,

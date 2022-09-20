@@ -1,17 +1,17 @@
 import React, { Component } from "react";
+
 import { TouchableOpacity, StyleSheet, View } from "react-native";
 import { CheckBox } from "react-native-elements";
 import { Text } from "react-native-paper";
+
 import Background from "../components/Background";
 import Logo from "../components/Logo";
 import Header from "../components/Header";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
-//import BackButton from '../components/BackButton'
-//import { theme } from '../core/theme'
-//import { emailValidator } from '../helpers/emailValidator'
-//import { passwordValidator } from '../helpers/passwordValidator'
+
 import styles from "../../app/style/style";
+import functions from "../../app/function/function";
 
 class RegisterScreen extends Component {
   render() {
@@ -35,7 +35,7 @@ class RegisterScreen extends Component {
         />
         <TouchableOpacity
           style={[styles.button, { backgroundColor: "#3187EA", marginTop: 0 }]}
-          onPress={() => this.props.navigation.navigate('ConfirmScreen')}
+          onPress={() => functions.gotoScreen(this.props.navigation, "ConfirmScreen")} 
         >
           <Text style={{ color: "white" }}>Đăng Ký</Text>
         </TouchableOpacity>
@@ -85,7 +85,7 @@ class RegisterScreen extends Component {
         <View style={[styles.row, { marginTop: 30 }]}>
           <Text>Bạn đã có tài khoản?</Text>
           <TouchableOpacity
-            onPress={() => navigation.replace("RegisterScreen")}
+            onPress={() => functions.gotoScreen(this.props.navigation, "LoginScreen")} 
           >
             <Text style={styles.link}> Đăng Nhập</Text>
           </TouchableOpacity>
