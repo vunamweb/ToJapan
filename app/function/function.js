@@ -6,6 +6,7 @@ import RegisterScreen from "../../app/screen/RegisterScreen";
 import LoginScreen from "../../app/screen/LoginScreen";
 import ConfirmScreen from "../../app/screen/ConfirmScreen";
 import ForgotPassWordScreen from "../../app/screen/ForgotPassWordScreen";
+import HomeScreen from "../../app/screen/HomeScreen";
 
 class Functions {
   initNavigarion = () => {
@@ -41,6 +42,13 @@ class Functions {
 
       ForgotPassWordScreen: {
         screen: ForgotPassWordScreen,
+      },
+
+      HomeScreen: {
+        screen: HomeScreen,
+        navigationOptions: {
+          header: null,
+        },
       },
     });
   };

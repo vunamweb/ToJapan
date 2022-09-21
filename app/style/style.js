@@ -25,6 +25,12 @@ module.exports = StyleSheet.create({
     maxWidth: 340,
     alignSelf: 'center',
   },
+  container_root_align_center_full: {
+    flex: 1,
+    padding: 20,
+    width: '100%',
+    alignItems: 'center'
+  },
   // END
   // HEADER
   header: {
@@ -149,6 +155,32 @@ module.exports = StyleSheet.create({
   },
   textCenter: {
     textAlign: 'center'
-  } 
+  },
+  
+  // CUSTOM HEADER 
+  navBar: {
+    flexDirection: "row",
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 20
+  },
+  leftContainer: {
+    /*justifyContent: "flex-start",
+    flexDirection: "row",*/
+    
+  },
+  rightContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    flex: 1
+  },
+  rightIcon: {
+    paddingHorizontal: 10,
+    resizeMode: "contain",
+  },
+  // END 
+  fullWith: {
+    width: '100%'
+  }
 
 });

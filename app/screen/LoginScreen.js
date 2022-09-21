@@ -62,6 +62,9 @@ class LoginScreen extends Component {
         </View>
         <TouchableOpacity
           style={[styles.button, { backgroundColor: "#3187EA", marginTop: 0 }]}
+          onPress={() =>
+            functions.gotoScreen(this.props.navigation, "HomeScreen")
+          }
         >
           <Text style={{ color: "white" }}>Đăng nhâp</Text>
         </TouchableOpacity>
