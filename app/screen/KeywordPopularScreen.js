@@ -26,7 +26,7 @@ import HeaderBg from "../components/HeaderBackground";
 import ListView from "../components/ListView";
 
 import styles from "../style/style";
-import { HeaderBackground } from "react-navigation-stack";
+import functions from "../../app/function/function";
 
 const carouselItems = [
   {
@@ -110,6 +110,11 @@ class KeyWordPopularScreen extends Component {
     );
   }
 
+  onChangeSearch = (navigation) => {
+    functions.gotoScreen(navigation, "ForgotPassWordScreen");
+  }
+  
+
   static navigationOptions = ({ navigation }) => ({
     //headerStyle: { backgroundColor: '#00FF57' },
     headerBackground: () => <HeaderBg />,
@@ -123,7 +128,13 @@ class KeyWordPopularScreen extends Component {
           }}
           placeholder="Nhập tên sản phẩm"
         />
-        <Image source={image3} style={{ marginTop: 10 }} />
+        <TouchableOpacity
+        onPress={() =>
+          functions.gotoScreen(navigation, "SearchScreen")
+        }
+        >
+          <Image source={image3} style={{ marginTop: 10 }} />
+        </TouchableOpacity>
       </View>
     ),
     headerTitleStyle: {

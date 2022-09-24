@@ -9,6 +9,7 @@ import ForgotPassWordScreen from "../../app/screen/ForgotPassWordScreen";
 import HomeScreen from "../../app/screen/HomeScreen";
 import CategoryScreen from "../screen/CategoryScreen";
 import KeywordPopularScreen from "../screen/KeywordPopularScreen";
+import SearchScreen from "../screen/SearchScreen";
 
 class Functions {
   initNavigarion = () => {
@@ -64,6 +65,10 @@ class Functions {
       /*KeywordPopularScreen: {
         screen: KeywordPopularScreen,
       },*/
+
+      SearchScreen: {
+        screen: SearchScreen,
+      },
     });
   };
 

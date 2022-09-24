@@ -278,6 +278,13 @@ module.exports = StyleSheet.create({
      width: '100%', 
      justifyContent: 'space-between', 
      marginTop: 50
+  },
+  // END
+  // SEARCH
+  seach: {
+    flexDirection: "row", 
+    justifyContent: 'space-between', 
+    marginTop: 50
   }
   // END
 });
