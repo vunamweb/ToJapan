@@ -7,10 +7,16 @@ import LoginScreen from "../../app/screen/LoginScreen";
 import ConfirmScreen from "../../app/screen/ConfirmScreen";
 import ForgotPassWordScreen from "../../app/screen/ForgotPassWordScreen";
 import HomeScreen from "../../app/screen/HomeScreen";
+import CategoryScreen from "../screen/CategoryScreen";
+import KeywordPopularScreen from "../screen/KeywordPopularScreen";
 
 class Functions {
   initNavigarion = () => {
     return createStackNavigator({
+      KeywordPopularScreen: {
+        screen: KeywordPopularScreen,
+      },
+
       Splash1: {
         screen: Splash1,
         navigationOptions: {
@@ -50,6 +56,14 @@ class Functions {
           header: null,
         },
       },
+
+      CategoryScreen: {
+        screen: CategoryScreen,
+      },
+
+      /*KeywordPopularScreen: {
+        screen: KeywordPopularScreen,
+      },*/
     });
   };
 

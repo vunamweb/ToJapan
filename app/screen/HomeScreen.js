@@ -1,4 +1,4 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 
 import {
   TouchableOpacity,
@@ -6,7 +6,7 @@ import {
   View,
   Image,
   ScrollView,
-  LogBox
+  LogBox,
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
 import { Text } from "react-native-paper";
@@ -18,10 +18,11 @@ import Banner from "../components/Banner";
 import Carousel from "../components/Carousel";
 import ContainerHeader from "../components/ContainerHeader";
 import Header1 from "../components/Header1";
-import SliderProduct from "../components/SliderProduct"
-import IconBottom from "../components/IconBottom"
+import SliderProduct from "../components/SliderProduct";
+import IconBottom from "../components/IconBottom";
 
 import styles from "../../app/style/style";
+import functions from "../../app/function/function";
 
 const carouselItems = [
   {
@@ -87,19 +88,19 @@ const carouselItems2 = [
 const carouselItems3 = [
   {
     title: "Ssol",
-    text: "9826 Đơn Hàng"
+    text: "9826 Đơn Hàng",
   },
   {
     title: "Ssol",
-    text: "9826 Đơn Hàng"
+    text: "9826 Đơn Hàng",
   },
   {
     title: "Ssol",
-    text: "9826 Đơn Hàng"
+    text: "9826 Đơn Hàng",
   },
   {
     title: "Ssol",
-    text: "9826 Đơn Hàng"
+    text: "9826 Đơn Hàng",
   },
 ];
 
@@ -158,11 +159,17 @@ const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
 
 class HomeScreen extends Component {
-  _renderItem({ item, index }) {
+  _renderItem = ({ item, index }) => {
     return (
       <View style={{ alignItems: "center" }}>
-        <Image source={item.img} />
-        <Text>{item.title}</Text>
+        <TouchableOpacity
+          onPress={() =>
+            functions.gotoScreen(this.props.navigation, "CategoryScreen")
+          }
+        >
+          <Image source={item.img} />
+          <Text>{item.title}</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -170,82 +177,102 @@ class HomeScreen extends Component {
   _renderItem_1({ item, index }) {
     return (
       <View style={styles.shop}>
-         <View style={{flexDirection: 'row'}}>
-            <View style={[styles.circle, {marginRight: 20}]}/>
-            <View>
-              <Text style={styles.shopText1}>{item.title}</Text>
-              <Text style={styles.shopText2}>{item.text}</Text>
-            </View>
-         </View>
-         <View style={{marginTop: 10}}>
-           <Image source={img3}/>
-         </View>
+        <View style={{ flexDirection: "row" }}>
+          <View style={[styles.circle, { marginRight: 20 }]} />
+          <View>
+            <Text style={styles.shopText1}>{item.title}</Text>
+            <Text style={styles.shopText2}>{item.text}</Text>
+          </View>
+        </View>
+        <View style={{ marginTop: 10 }}>
+          <Image source={img3} />
+        </View>
       </View>
     );
   }
 
   _renderItem_2({ item, index }) {
-    if(index == 0)
-    return (
-      <View style={{ alignItems: "center", backgroundColor: '#3187EA', borderRadius: 16, padding: 10 }}>
-        <Text style={{color: 'white', fontSize: 16, fontWeight: '500'}}>{item.title}</Text>
-      </View>
-    );
-    else 
-    return (
-        <View style={{ alignItems: "center", borderRadius: 16, backgroundColor: '#E6E8EC', padding: 10 }}>
-           <Text style={{color: 'black', fontSize: 16, fontWeight: '500'}}>{item.title}</Text>
+    if (index == 0)
+      return (
+        <View
+          style={{
+            alignItems: "center",
+            backgroundColor: "#3187EA",
+            borderRadius: 16,
+            padding: 10,
+          }}
+        >
+          <Text style={{ color: "white", fontSize: 16, fontWeight: "500" }}>
+            {item.title}
+          </Text>
+        </View>
+      );
+    else
+      return (
+        <View
+          style={{
+            alignItems: "center",
+            borderRadius: 16,
+            backgroundColor: "#E6E8EC",
+            padding: 10,
+          }}
+        >
+          <Text style={{ color: "black", fontSize: 16, fontWeight: "500" }}>
+            {item.title}
+          </Text>
         </View>
       );
   }
 
   _renderItem_3 = ({ item, index }) => {
     return (
-      <View style={{ padding: 15, width: '50%' }}>
-      <View style={{borderRadius: 30, backgroundColor: 'white', width: '100%'}}>
-        <Image source={img} />
-        <View style={{ position: "absolute", top: 5, right: 5 }}>
-          <Image source={image1} />
-        </View>
-        <View style={{ marginTop: 30 }}>
-          <Text style={{ color: "#23262F", fontSize: 16 }}>
-            {item.text1}
-          </Text>
-          <Text style={{ color: "#23262F", fontSize: 16 }}>
-          {item.text2}
-          </Text>
-          <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
-          {item.text3}
-          </Text>
-          <Rating
-  imageSize={15}
-  readonly
-  startingValue={3}
-  style={styles.rating}
-/>
-          <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-            <View>
-              <Text style={{ color: "#D63F5C", fontSize: 16 }}>{item.text4} ¥</Text>
-              <Text style={{ fontSize: 12, color: "#777E90" }}>
-              {item.text5} VND
-              </Text>
+      <View style={{ padding: 15, width: "50%" }}>
+        <View
+          style={{ borderRadius: 30, backgroundColor: "white", width: "100%" }}
+        >
+          <Image source={img} />
+          <View style={{ position: "absolute", top: 5, right: 5 }}>
+            <Image source={image1} />
+          </View>
+          <View style={{ marginTop: 30 }}>
+            <Text style={{ color: "#23262F", fontSize: 16 }}>{item.text1}</Text>
+            <Text style={{ color: "#23262F", fontSize: 16 }}>{item.text2}</Text>
+            <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
+              {item.text3}
+            </Text>
+            <Rating
+              imageSize={15}
+              readonly
+              startingValue={3}
+              style={styles.rating}
+            />
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <View>
+                <Text style={{ color: "#D63F5C", fontSize: 16 }}>
+                  {item.text4} ¥
+                </Text>
+                <Text style={{ fontSize: 12, color: "#777E90" }}>
+                  {item.text5} VND
+                </Text>
+              </View>
+              <Image source={image2} />
             </View>
-            <Image source={image2} />
           </View>
         </View>
-      </View>
       </View>
     );
   };
 
   componentDidMount() {
-    LogBox.ignoreAllLogs(['VirtualizedLists should never be nested']);
-}
+    LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+  }
 
   render() {
     return (
       <ScrollView>
-        <Background sourse="true" style="1">
+        <Background sourse="true" start="1">
           {/* Toolbar */}
           <CustomToolbar />
           {/* END */}
@@ -267,7 +294,12 @@ class HomeScreen extends Component {
           <View style={styles.homeBody}>
             <View style={styles.homeContent}>
               {/* Container Header */}
-              <ContainerHeader top="0" img={img1} text1="Tại sao chọn chúng tôi" text2="Mua hàng thuận tiện, thanh toán dễ dàng" />
+              <ContainerHeader
+                top="0"
+                img={img1}
+                text1="Tại sao chọn chúng tôi"
+                text2="Mua hàng thuận tiện, thanh toán dễ dàng"
+              />
               {/* END */}
               <Header1>Sàn thương mại</Header1>
               {/* Slider 1 */}
@@ -299,7 +331,12 @@ class HomeScreen extends Component {
               />
               {/* END */}
               {/* Container Header */}
-              <ContainerHeader top="50" img={img2} text1="Quy trình dịch vụ" text2="Xem chi tiết quy trình dịch vụ Janbox" />
+              <ContainerHeader
+                top="50"
+                img={img2}
+                text1="Quy trình dịch vụ"
+                text2="Xem chi tiết quy trình dịch vụ Janbox"
+              />
               {/* END */}
               <Header1>Shop danh cho bạn</Header1>
               {/* Slider 4 */}
@@ -322,17 +359,17 @@ class HomeScreen extends Component {
               {/* END */}
               <Header1>Sản phẩm nổi bật</Header1>
               {/* Slider Product */}
-              <SliderProduct 
-                  dataCarouselSlider={dataCarouselSlider}
-                  renderCarouselSlider={this._renderItem_2}
-                  dataProductSlider={dataProductSlider}
-                  renderProductSlider={this._renderItem_3}
+              <SliderProduct
+                dataCarouselSlider={dataCarouselSlider}
+                renderCarouselSlider={this._renderItem_2}
+                dataProductSlider={dataProductSlider}
+                renderProductSlider={this._renderItem_3}
               />
               {/* END */}
             </View>
             <View style={styles.bottom}>
               {/* Bottom */}
-              <IconBottom/>
+              <IconBottom />
               {/* END */}
             </View>
           </View>

@@ -16,9 +16,9 @@ export default function Background({ children, ...props }) {
       ? styles.container_root_full_center
       : styles.container_root_align_center;
 
-  style = (props.sourse != null) ? styles.container_root_align_center_full : style;
+  style = (props.sourse != null || props.full == 1) ? styles.container_root_align_center_full : style;
   
-  if(props.style == 1)
+  if(props.start == 1)
     style = [style, {alignSelf: 'flex-start', padding: 0}];    
 
   if(props.sourse != null)

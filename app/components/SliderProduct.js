@@ -21,13 +21,14 @@ export default class App extends React.Component {
         renderItem={this.props.renderCarouselSlider}
         sliderWidth={350}
         top={0}
-        itemWidth={100}
+        itemWidth={140}
       />
       {/* END */}
       {/* List Product */}
       <ListView
          data={this.props.dataProductSlider}
          renderItem={this.props.renderProductSlider}
+         col="2"
       />
       {/* END */}
       </View>

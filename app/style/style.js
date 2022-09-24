@@ -270,6 +270,14 @@ module.exports = StyleSheet.create({
   touchableOpacityBottom: {
     alignItems: 'center', 
     padding: 10
+  },
+  // END
+  // HISTORY SEARCH
+  history: {
+    flexDirection: 'row',
+     width: '100%', 
+     justifyContent: 'space-between', 
+     marginTop: 50
   }
   // END
 });
