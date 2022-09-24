@@ -11,7 +11,7 @@ import {
   ImageBackground,
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
-import { Text, Modal } from "react-native-paper";
+import { Text, Modal, Portal, Provider, RadioButton } from "react-native-paper";
 
 import Background from "../components/Background";
 import TextInput from "../components/TextInput";
@@ -28,6 +28,7 @@ import styles from "../style/style";
 import functions from "../../app/function/function";
 
 import { HeaderBackground } from "react-navigation-stack";
+//import { Provider } from "react-native-paper/lib/typescript/core/settings";
 
 const carouselItems = [
   {
@@ -231,7 +232,11 @@ const image3 = require("../../app/assets/search-normal.png");
 const image4 = require("../../app/assets/Filler.png");
 
 class SearchScreen extends Component {
-  _renderItem({ item, index }) {
+    state = {
+        visible: false 
+      };  
+
+_renderItem({ item, index }) {
     return (
       <View style={{ alignItems: "center" }}>
         <Image source={item.img} />
@@ -373,13 +378,46 @@ class SearchScreen extends Component {
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
   }
 
+  showModal = () => {
+    this.setState({
+        visible: true
+      });
+  }
+
+  hideModal = () => {
+    this.setState({
+        visible: false
+      });
+  }
+
   render() {
     return (
+      <Provider>
       <ScrollView>
         {/* Modal */}
-        <Modal visible={true} contentContainerStyle={{height: 200, backgroundColor: 'black'}}>
-          <Text style={{color: 'red'}}>Example Modal.  Click outside this area to dismiss.</Text>
+        <Portal>
+        <Modal visible={this.state.visible} contentContainerStyle={styles.shortModal}>
+          {/* HEADER */}
+          <View style={styles.shortHeaderModal}>
+<Text style={{color: 'white', fontSize: 20}}>Sắp xếp</Text>
+<TouchableOpacity onPress={this.hideModal.bind(this)} style={{position: 'absolute', top: 10, right: 0, marginRight: 20}}>
+    <Text style={{color: 'white'}}>x</Text>
+</TouchableOpacity>
+          </View>
+          {/* END */}
+          {/* Body */}
+          <View style={{backgroundColor: 'white'}}>
+          <View style={styles.shortOption}><RadioButton/><Text style={styles.shortText}>Mặc định</Text></View>
+          <View style={{height: 1, backgroundColor: '#cccccc'}}></View>
+          <View style={styles.shortOption}><RadioButton/><Text style={styles.shortText}>Giá từ thấp đến cao</Text></View>
+          <View style={{height: 1, backgroundColor: '#cccccc'}}></View>
+          <View style={styles.shortOption}><RadioButton/><Text style={styles.shortText}>Giá từ cao đến thấp</Text></View>
+          <View style={{height: 1, backgroundColor: '#cccccc'}}></View>
+          <View style={styles.shortOption}><RadioButton/><Text style={styles.shortText}>Sản phẩm mới</Text></View>
+          </View>
+          {/* END */}
         </Modal>
+        </Portal>
               {/* END */}
         <Background full="1">
           <View style={styles.homeBody}>
@@ -390,7 +428,9 @@ class SearchScreen extends Component {
                   Kết quả tìm kiếm:
                   <Text style={{ fontWeight: "700" }}>5.44</Text>
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity
+                onPress={this.showModal.bind(this)}
+                >
                   <Image source={img1} />
                 </TouchableOpacity>
               </View>
@@ -418,6 +458,7 @@ class SearchScreen extends Component {
           </View>
         </Background>
       </ScrollView>
+      </Provider>
     );
   }
 }

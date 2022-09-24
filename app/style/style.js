@@ -227,7 +227,6 @@ module.exports = StyleSheet.create({
   shop: {
     flexDirection: 'row', 
     justifyContent: 'space-around', 
-    backgroundColor: 'white', 
     padding: 20, 
     borderRadius: 16, 
     borderWidth: 1,
@@ -285,6 +284,29 @@ module.exports = StyleSheet.create({
     flexDirection: "row", 
     justifyContent: 'space-between', 
     marginTop: 50
+  },
+  // END
+  // Short
+  shortOption: {
+    flexDirection: 'row', 
+    padding: 10
+  },
+  shortText: {
+    marginLeft: 10, 
+    marginTop: 8
+  },
+  shortModal: {
+    position: 'absolute', 
+    bottom: 0, 
+    width: '100%'
+  },
+  shortHeaderModal: {
+    backgroundColor: '#3187EA', 
+    padding: 10, 
+    justifyContent: 'center', 
+    flexDirection: 'row', 
+    borderTopLeftRadius: 20, 
+    borderTopRightRadius: 20
   }
   // END
 });
