@@ -232,11 +232,11 @@ const image3 = require("../../app/assets/search-normal.png");
 const image4 = require("../../app/assets/Filler.png");
 
 class SearchScreen extends Component {
-    state = {
-        visible: false 
-      };  
+  state = {
+    visible: false,
+  };
 
-_renderItem({ item, index }) {
+  _renderItem({ item, index }) {
     return (
       <View style={{ alignItems: "center" }}>
         <Image source={item.img} />
@@ -380,84 +380,125 @@ _renderItem({ item, index }) {
 
   showModal = () => {
     this.setState({
-        visible: true
-      });
-  }
+      visible: true,
+    });
+  };
 
   hideModal = () => {
     this.setState({
-        visible: false
-      });
-  }
+      visible: false,
+    });
+  };
 
   render() {
     return (
       <Provider>
-      <ScrollView>
-        {/* Modal */}
-        <Portal>
-        <Modal visible={this.state.visible} contentContainerStyle={styles.shortModal}>
-          {/* HEADER */}
-          <View style={styles.shortHeaderModal}>
-<Text style={{color: 'white', fontSize: 20}}>Sắp xếp</Text>
-<TouchableOpacity onPress={this.hideModal.bind(this)} style={{position: 'absolute', top: 10, right: 0, marginRight: 20}}>
-    <Text style={{color: 'white'}}>x</Text>
-</TouchableOpacity>
-          </View>
-          {/* END */}
-          {/* Body */}
-          <View style={{backgroundColor: 'white'}}>
-          <View style={styles.shortOption}><RadioButton/><Text style={styles.shortText}>Mặc định</Text></View>
-          <View style={{height: 1, backgroundColor: '#cccccc'}}></View>
-          <View style={styles.shortOption}><RadioButton/><Text style={styles.shortText}>Giá từ thấp đến cao</Text></View>
-          <View style={{height: 1, backgroundColor: '#cccccc'}}></View>
-          <View style={styles.shortOption}><RadioButton/><Text style={styles.shortText}>Giá từ cao đến thấp</Text></View>
-          <View style={{height: 1, backgroundColor: '#cccccc'}}></View>
-          <View style={styles.shortOption}><RadioButton/><Text style={styles.shortText}>Sản phẩm mới</Text></View>
-          </View>
-          {/* END */}
-        </Modal>
-        </Portal>
-              {/* END */}
-        <Background full="1">
-          <View style={styles.homeBody}>
-            <View>
-              {/* kết quả tìm kiếm */}
-              <View style={styles.seach}>
-                <Text>
-                  Kết quả tìm kiếm:
-                  <Text style={{ fontWeight: "700" }}>5.44</Text>
-                </Text>
+        <ScrollView>
+          {/* Modal */}
+          <Portal>
+            {/* Modal short */}
+            <Modal
+              visible={this.state.visible}
+              contentContainerStyle={styles.shortModal}
+            >
+              {/* HEADER */}
+              <View style={styles.shortHeaderModal}>
+                <Text style={{ color: "white", fontSize: 20 }}>Sắp xếp</Text>
                 <TouchableOpacity
-                onPress={this.showModal.bind(this)}
+                  onPress={this.hideModal.bind(this)}
+                  style={{
+                    position: "absolute",
+                    top: 10,
+                    right: 0,
+                    marginRight: 20,
+                  }}
                 >
-                  <Image source={img1} />
+                  <Text style={{ color: "white" }}>x</Text>
                 </TouchableOpacity>
               </View>
               {/* END */}
-              {/* Từ khoá phổ biến */}
-              <Header1>Từ khoá phổ biến</Header1>
-              <Carousel
-                data={dataTKPB1}
-                renderItem={this._renderItem_2_}
-                sliderWidth={350}
-                top={0}
-                itemWidth={140}
-              />
+              {/* Body */}
+              <View style={{ backgroundColor: "white" }}>
+                <View style={styles.shortOption}>
+                  <RadioButton />
+                  <Text style={styles.shortText}>Mặc định</Text>
+                </View>
+                <View style={{ height: 1, backgroundColor: "#cccccc" }} />
+                <View style={styles.shortOption}>
+                  <RadioButton />
+                  <Text style={styles.shortText}>Giá từ thấp đến cao</Text>
+                </View>
+                <View style={{ height: 1, backgroundColor: "#cccccc" }} />
+                <View style={styles.shortOption}>
+                  <RadioButton />
+                  <Text style={styles.shortText}>Giá từ cao đến thấp</Text>
+                </View>
+                <View style={{ height: 1, backgroundColor: "#cccccc" }} />
+                <View style={styles.shortOption}>
+                  <RadioButton />
+                  <Text style={styles.shortText}>Sản phẩm mới</Text>
+                </View>
+              </View>
               {/* END */}
-              <View style={{ marginTop: 30 }} />
-              {/* Slider Product */}
-              <SliderProduct
-                dataCarouselSlider={null}
-                renderCarouselSlider={this._renderItem_2}
-                dataProductSlider={dataProductSlider}
-                renderProductSlider={this._renderItem_3}
-              />
+            </Modal>
+            {/* END */}
+            {/* Modal filter */}
+            <Modal visible={true} contentContainerStyle={styles.filterModal}>
+              {/* HEADER */}
+              <View style={styles.filterHeaderModal}>
+                <TouchableOpacity onPress={this.hideModal.bind(this)}>
+                  <Text style={{ color: "black" }}>x</Text>
+                </TouchableOpacity>
+                <Text style={{ color: "black", fontSize: 20 }}>Bộ lọc</Text>
+                <Text style={{ color: "#3187EA", fontSize: 20 }}>Đặt lại</Text>
+              </View>
               {/* END */}
+              {/* Body */}
+              <View style={{ backgroundColor: "white", padding: 20 }}>
+                <Text style={styles.filterTitle}>Danh mục</Text>
+              </View>
+              {/* END */}
+            </Modal>
+            {/* END */}
+          </Portal>
+          {/* END */}
+          <Background full="1">
+            <View style={styles.homeBody}>
+              <View>
+                {/* kết quả tìm kiếm */}
+                <View style={styles.seach}>
+                  <Text>
+                    Kết quả tìm kiếm:
+                    <Text style={{ fontWeight: "700" }}>5.44</Text>
+                  </Text>
+                  <TouchableOpacity onPress={this.showModal.bind(this)}>
+                    <Image source={img1} />
+                  </TouchableOpacity>
+                </View>
+                {/* END */}
+                {/* Từ khoá phổ biến */}
+                <Header1>Từ khoá phổ biến</Header1>
+                <Carousel
+                  data={dataTKPB1}
+                  renderItem={this._renderItem_2_}
+                  sliderWidth={350}
+                  top={0}
+                  itemWidth={140}
+                />
+                {/* END */}
+                <View style={{ marginTop: 30 }} />
+                {/* Slider Product */}
+                <SliderProduct
+                  dataCarouselSlider={null}
+                  renderCarouselSlider={this._renderItem_2}
+                  dataProductSlider={dataProductSlider}
+                  renderProductSlider={this._renderItem_3}
+                />
+                {/* END */}
+              </View>
             </View>
-          </View>
-        </Background>
-      </ScrollView>
+          </Background>
+        </ScrollView>
       </Provider>
     );
   }

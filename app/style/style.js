@@ -307,6 +307,25 @@ module.exports = StyleSheet.create({
     flexDirection: 'row', 
     borderTopLeftRadius: 20, 
     borderTopRightRadius: 20
+  },
+  // END
+  // FILTER
+  filterModal: {
+    position: 'absolute', 
+    top: 0, 
+    width: '100%',
+    backgroundColor: 'white'
+  },
+  filterHeaderModal: {
+    padding: 10, 
+    justifyContent: 'space-between', 
+    flexDirection: 'row', 
+  },
+  filterTitle: {
+    color: '#3187EA',
+    fontSize: 18,
+    fontWeight: '700',
+    marginTop: 20
   }
   // END
 });
