@@ -8,6 +8,14 @@ module.exports = StyleSheet.create({
     borderRadius: 56 / 2,
     backgroundColor: '#3187EA'
   },
+  circleSmall: {
+    width: 20,
+    height: 20,
+    borderRadius: 20 / 2,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    alignItems: 'center'
+  },
   // END
   //Background
   background_1: {
@@ -337,6 +345,22 @@ module.exports = StyleSheet.create({
     fontWeight: '700',
     marginTop: 10,
     marginBottom: 10
-  }
+  },
   // END
+  // CART
+  money1: {
+    fontSize: 18, 
+    color: '#23262F'
+  },
+  money2: {
+    fontSize: 18, 
+    color: '#23262F', 
+    fontWeight: '700'
+  },
+  money3: {
+    color: "#23262F", 
+    fontSize: 16, 
+    fontWeight: '700'
+  }
+  //
 });

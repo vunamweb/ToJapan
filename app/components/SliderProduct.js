@@ -13,6 +13,8 @@ export default class App extends React.Component {
   }
 
   render() {
+    let col = (this.props.col != null) ? this.props.col : '2';
+
     return (
         <View>
         {/* Header */}
@@ -28,7 +30,7 @@ export default class App extends React.Component {
       <ListView
          data={this.props.dataProductSlider}
          renderItem={this.props.renderProductSlider}
-         col="2"
+         col={col}
       />
       {/* END */}
       </View>

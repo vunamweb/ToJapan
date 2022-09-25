@@ -4,6 +4,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import styles from "../../app/style/style";
+import functions from "../../app/function/function";
 
 export default function CustomToolbar1({ mode, style, ...props }) {
   let order = props.component.state.order;
@@ -52,7 +53,9 @@ export default function CustomToolbar1({ mode, style, ...props }) {
       <View style={[styles.fullWith, { position: "absolute", backgroundColor: '#13AB2C', padding: 20 }]}>
         <View style={[styles.leftContainer, { flexDirection: "row" }]}>
           <TouchableOpacity
-          onPress={null}
+          onPress={() =>
+            functions.gotoScreen(props.component.props.navigation, "CartScreen")
+          }
           >
             <Image source={require("../assets/shopping-bag.png")} />
           </TouchableOpacity>

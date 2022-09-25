@@ -10,7 +10,8 @@ import HomeScreen from "../../app/screen/HomeScreen";
 import CategoryScreen from "../screen/CategoryScreen";
 import KeywordPopularScreen from "../screen/KeywordPopularScreen";
 import SearchScreen from "../screen/SearchScreen";
-import ProductScreen from "../screen/ProductScreen"
+import ProductScreen from "../screen/ProductScreen";
+import CartScreen from "../screen/CartScreen";
 
 class Functions {
   initNavigarion = () => {
@@ -80,6 +81,10 @@ class Functions {
           header: null,
         },
       }, */
+
+      CartScreen: {
+        screen: CartScreen,
+      },
     });
   };
 
