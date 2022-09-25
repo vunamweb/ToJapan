@@ -371,9 +371,13 @@ class SearchScreen extends Component {
           <Image source={image3} style={{ marginRight: 20 }} />
         </TouchableOpacity>
         <TouchableOpacity
-        onPress={() =>
-          navigation.getParam('my').showModalFilter.bind(navigation.getParam('my'))
-        }
+          onPress={
+            () =>
+              navigation.getParam("my").setState({
+                visibleFilter: true,
+              })
+            //navigation.getParam('my').showModalFilter.bind(navigation.getParam('my'))
+          }
         >
           <Image source={image4} />
         </TouchableOpacity>
@@ -390,8 +394,8 @@ class SearchScreen extends Component {
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
 
     this.props.navigation.setParams({
-      my: this
-  })
+      my: this,
+    });
   }
 
   showModal = () => {
@@ -471,101 +475,91 @@ class SearchScreen extends Component {
             </Modal>
             {/* END */}
             {/* Modal filter */}
-            <ScrollView>
-              <Portal>
-                <Modal
-                  visible={this.state.visibleFilter}
-                  contentContainerStyle={styles.filterModal}
-                >
-                  {/* HEADER */}
-                  <View style={styles.filterHeaderModal}>
-                    <TouchableOpacity onPress={this.hideModal.bind(this)}>
-                      <Text style={{ color: "black" }}>x</Text>
-                    </TouchableOpacity>
-                    <Text style={{ color: "black", fontSize: 20 }}>Bộ lọc</Text>
-                    <Text style={{ color: "#3187EA", fontSize: 20 }}>
-                      Đặt lại
-                    </Text>
-                  </View>
-                  {/* END */}
-                  {/* Body */}
-                  <View style={{ backgroundColor: "white", padding: 20 }}>
-                    <Text style={styles.filterTitle}>Danh mục</Text>
-                    <Dropdown
-                      data={countries}
-                      defaultButtonText="Chọn danh mục"
-                    />
-                    <Text style={styles.filterTitle}>Kích thước</Text>
-                    <Dropdown data={countries} defaultButtonText="Tất cả" />
-                    <Text style={styles.filterTitle}>
-                      Lọc theo tình trạng hàng hoá
-                    </Text>
-                    <CheckBox label="Mới" status="checked" onPress={null} />
-                    <CheckBox
-                      label="Không có vết xước"
-                      status="checked"
+            <Portal>
+              <Modal
+                visible={this.state.visibleFilter}
+                contentContainerStyle={styles.filterModal}
+              >
+                {/* HEADER */}
+                <View style={styles.filterHeaderModal}>
+                  <TouchableOpacity onPress={this.hideModalFilter.bind(this)}>
+                    <Text style={{ color: "black" }}>x</Text>
+                  </TouchableOpacity>
+                  <Text style={{ color: "black", fontSize: 20 }}>Bộ lọc</Text>
+                  <Text style={{ color: "#3187EA", fontSize: 20 }}>
+                    Đặt lại
+                  </Text>
+                </View>
+                {/* END */}
+                {/* Body */}
+                <View style={{ backgroundColor: "white", padding: 20 }}>
+                  <Text style={styles.filterTitle}>Danh mục</Text>
+                  <Dropdown
+                    data={countries}
+                    defaultButtonText="Chọn danh mục"
+                  />
+                  <Text style={styles.filterTitle}>Kích thước</Text>
+                  <Dropdown data={countries} defaultButtonText="Tất cả" />
+                  <Text style={styles.filterTitle}>
+                    Lọc theo tình trạng hàng hoá
+                  </Text>
+                  <CheckBox label="Mới" status="checked" onPress={null} />
+                  <CheckBox
+                    label="Không có vết xước"
+                    status="checked"
+                    onPress={null}
+                  />
+                  <CheckBox label="Vết xước" status="checked" onPress={null} />
+                  <CheckBox
+                    label="Ít khi sử dụng"
+                    status="checked"
+                    onPress={null}
+                  />
+                  <CheckBox label="Hơi xước" status="checked" onPress={null} />
+                  <CheckBox
+                    label="Đã sử dụng"
+                    status="checked"
+                    onPress={null}
+                  />
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      marginTop: 10,
+                    }}
+                  >
+                    {/* Button huy */}
+                    <TouchableOpacity
+                      style={[
+                        styles.buttonNotFull,
+                        {
+                          backgroundColor: "white",
+                          marginTop: 0,
+                          borderColor: "#23262F",
+                          borderWidth: 1,
+                        },
+                      ]}
                       onPress={null}
-                    />
-                    <CheckBox
-                      label="Vết xước"
-                      status="checked"
-                      onPress={null}
-                    />
-                    <CheckBox
-                      label="Ít khi sử dụng"
-                      status="checked"
-                      onPress={null}
-                    />
-                    <CheckBox
-                      label="Hơi xước"
-                      status="checked"
-                      onPress={null}
-                    />
-                    <CheckBox
-                      label="Đã sử dụng"
-                      status="checked"
-                      onPress={null}
-                    />
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        marginTop: 10,
-                      }}
                     >
-                      {/* Button huy */}
-                      <TouchableOpacity
-                        style={[
-                          styles.buttonNotFull,
-                          {
-                            backgroundColor: "white",
-                            marginTop: 0,
-                            borderColor: "#23262F",
-                            borderWidth: 1,
-                          },
-                        ]}
-                        onPress={null}
-                      >
-                        <Text style={{ color: "#23262F" }}>Huỷ</Text>
-                      </TouchableOpacity>
-                      {/* END */}
-                      {/* Button ap dung */}
-                      <TouchableOpacity
-                        style={[
-                          styles.buttonNotFull,
-                          { backgroundColor: "#3187EA", marginTop: 0 },
-                        ]}
-                        onPress={null}
-                      >
-                        <Text style={{ color: "white" }}>Áp dụng</Text>
-                      </TouchableOpacity>
-                      {/* END */}
-                    </View>
+                      <Text style={{ color: "#23262F" }}>Huỷ</Text>
+                    </TouchableOpacity>
+                    {/* END */}
+                    {/* Button ap dung */}
+                    <TouchableOpacity
+                      style={[
+                        styles.buttonNotFull,
+                        { backgroundColor: "#3187EA", marginTop: 0 },
+                      ]}
+                      onPress={null}
+                    >
+                      <Text style={{ color: "white" }}>Áp dụng</Text>
+                    </TouchableOpacity>
+                    {/* END */}
                   </View>
-                  {/* END */}
-                </Modal>
-              </Portal>
-            </ScrollView>
+                </View>
+                {/* END */}
+              </Modal>
+            </Portal>
             {/* END */}
           </Portal>
           {/* END */}
