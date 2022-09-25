@@ -10,7 +10,7 @@ import {
   SearchBox,
   ImageBackground,
 } from "react-native";
-import { Rating, AirbnbRating } from "react-native-elements";
+import { Rating, AirbnbRating, Slider } from "react-native-elements";
 import { Text, Modal, Portal, Provider, RadioButton } from "react-native-paper";
 
 import Background from "../components/Background";
@@ -500,7 +500,16 @@ class SearchScreen extends Component {
                   />
                   <Text style={styles.filterTitle}>Kích thước</Text>
                   <Dropdown data={countries} defaultButtonText="Tất cả" />
-                  <Text style={styles.filterTitle}>
+                  <Text style={styles.filterTitle}>Khoảng giá</Text>
+                  <Slider
+  style={{width: '100%', height: 1}}
+  minimumValue={0}
+  maximumValue={100}
+  minimumTrackTintColor="#FFFFFF"
+  maximumTrackTintColor="#777E90"
+  thumbStyle={{width: 10, height: 10, backgroundColor: '#777E90'}}
+/>
+                  <Text style={[styles.filterTitle, {marginTop: 40}]}>
                     Lọc theo tình trạng hàng hoá
                   </Text>
                   <CheckBox label="Mới" status="checked" onPress={null} />

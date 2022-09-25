@@ -319,9 +319,12 @@ module.exports = StyleSheet.create({
   // FILTER
   filterModal: {
     position: 'absolute', 
-    top: 0, 
-    width: '100%',
-    backgroundColor: 'white'
+    top: -10, 
+    backgroundColor: 'white',
+    right: 0,
+    width: '90%',
+    borderTopLeftRadius: 20,
+    borderBottomStartRadius: 20
   },
   filterHeaderModal: {
     padding: 10, 
@@ -332,8 +335,8 @@ module.exports = StyleSheet.create({
     color: '#3187EA',
     fontSize: 18,
     fontWeight: '700',
-    marginTop: 20,
-    marginBottom: 20
+    marginTop: 10,
+    marginBottom: 10
   }
   // END
 });

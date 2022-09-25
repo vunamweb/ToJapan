@@ -11,7 +11,7 @@ import SelectDropdown from "react-native-select-dropdown";
 
 import styles from "../../app/style/style";
 
-export default function ListView({ mode, style, ...props }) {
+export default function Select({ mode, style, ...props }) {
   return (
     <SelectDropdown
       onSelect={(selectedItem, index) => {
