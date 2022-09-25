@@ -10,12 +10,16 @@ import HomeScreen from "../../app/screen/HomeScreen";
 import CategoryScreen from "../screen/CategoryScreen";
 import KeywordPopularScreen from "../screen/KeywordPopularScreen";
 import SearchScreen from "../screen/SearchScreen";
+import ProductScreen from "../screen/ProductScreen"
 
 class Functions {
   initNavigarion = () => {
     return createStackNavigator({
-      KeywordPopularScreen: {
-        screen: KeywordPopularScreen,
+      ProductScreen: {
+        screen: ProductScreen,
+        navigationOptions: {
+          header: null,
+        },
       },
 
       Splash1: {
@@ -62,13 +66,20 @@ class Functions {
         screen: CategoryScreen,
       },
 
-      /*KeywordPopularScreen: {
+      KeywordPopularScreen: {
         screen: KeywordPopularScreen,
-      },*/
+      },
 
       SearchScreen: {
         screen: SearchScreen,
       },
+
+      /*ProductScreen: {
+        screen: ProductScreen,
+        navigationOptions: {
+          header: null,
+        },
+      }, */
     });
   };
 
