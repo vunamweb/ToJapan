@@ -107,6 +107,13 @@ module.exports = StyleSheet.create({
     borderRadius: 16,
     width: "100%",
   },
+  buttonNotFull: {
+    alignItems: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 50,
+    marginTop: 20,
+    borderRadius: 16,
+  },
   forgotPassword: {
     marginBottom: 24,
   },
@@ -325,7 +332,8 @@ module.exports = StyleSheet.create({
     color: '#3187EA',
     fontSize: 18,
     fontWeight: '700',
-    marginTop: 20
+    marginTop: 20,
+    marginBottom: 20
   }
   // END
 });

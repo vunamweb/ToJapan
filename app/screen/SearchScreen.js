@@ -10,7 +10,7 @@ import {
   SearchBox,
   ImageBackground,
 } from "react-native";
-import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
+import { Rating, AirbnbRating } from "react-native-elements";
 import { Text, Modal, Portal, Provider, RadioButton } from "react-native-paper";
 
 import Background from "../components/Background";
@@ -23,12 +23,16 @@ import Header1 from "../components/Header1";
 import SliderProduct from "../components/SliderProduct";
 import IconBottom from "../components/IconBottom";
 import HeaderBg from "../components/HeaderBackground";
+import Dropdown from "../components/Select";
+import CheckBox from "../components/Checkbox";
 
 import styles from "../style/style";
 import functions from "../../app/function/function";
 
 import { HeaderBackground } from "react-navigation-stack";
 //import { Provider } from "react-native-paper/lib/typescript/core/settings";
+
+const countries = ["Egypt", "Canada", "Australia", "Ireland"];
 
 const carouselItems = [
   {
@@ -234,6 +238,7 @@ const image4 = require("../../app/assets/Filler.png");
 class SearchScreen extends Component {
   state = {
     visible: false,
+    visibleFilter: false,
   };
 
   _renderItem({ item, index }) {
@@ -365,9 +370,16 @@ class SearchScreen extends Component {
         >
           <Image source={image3} style={{ marginRight: 20 }} />
         </TouchableOpacity>
-        <Image source={image4} />
+        <TouchableOpacity
+        onPress={() =>
+          navigation.getParam('my').showModalFilter.bind(navigation.getParam('my'))
+        }
+        >
+          <Image source={image4} />
+        </TouchableOpacity>
       </View>
     ),
+
     headerTitleStyle: {
       color: "white",
     },
@@ -376,6 +388,10 @@ class SearchScreen extends Component {
 
   componentDidMount() {
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+
+    this.props.navigation.setParams({
+      my: this
+  })
   }
 
   showModal = () => {
@@ -387,6 +403,18 @@ class SearchScreen extends Component {
   hideModal = () => {
     this.setState({
       visible: false,
+    });
+  };
+
+  showModalFilter = () => {
+    this.setState({
+      visibleFilter: true,
+    });
+  };
+
+  hideModalFilter = () => {
+    this.setState({
+      visibleFilter: false,
     });
   };
 
@@ -443,22 +471,101 @@ class SearchScreen extends Component {
             </Modal>
             {/* END */}
             {/* Modal filter */}
-            <Modal visible={true} contentContainerStyle={styles.filterModal}>
-              {/* HEADER */}
-              <View style={styles.filterHeaderModal}>
-                <TouchableOpacity onPress={this.hideModal.bind(this)}>
-                  <Text style={{ color: "black" }}>x</Text>
-                </TouchableOpacity>
-                <Text style={{ color: "black", fontSize: 20 }}>Bộ lọc</Text>
-                <Text style={{ color: "#3187EA", fontSize: 20 }}>Đặt lại</Text>
-              </View>
-              {/* END */}
-              {/* Body */}
-              <View style={{ backgroundColor: "white", padding: 20 }}>
-                <Text style={styles.filterTitle}>Danh mục</Text>
-              </View>
-              {/* END */}
-            </Modal>
+            <ScrollView>
+              <Portal>
+                <Modal
+                  visible={this.state.visibleFilter}
+                  contentContainerStyle={styles.filterModal}
+                >
+                  {/* HEADER */}
+                  <View style={styles.filterHeaderModal}>
+                    <TouchableOpacity onPress={this.hideModal.bind(this)}>
+                      <Text style={{ color: "black" }}>x</Text>
+                    </TouchableOpacity>
+                    <Text style={{ color: "black", fontSize: 20 }}>Bộ lọc</Text>
+                    <Text style={{ color: "#3187EA", fontSize: 20 }}>
+                      Đặt lại
+                    </Text>
+                  </View>
+                  {/* END */}
+                  {/* Body */}
+                  <View style={{ backgroundColor: "white", padding: 20 }}>
+                    <Text style={styles.filterTitle}>Danh mục</Text>
+                    <Dropdown
+                      data={countries}
+                      defaultButtonText="Chọn danh mục"
+                    />
+                    <Text style={styles.filterTitle}>Kích thước</Text>
+                    <Dropdown data={countries} defaultButtonText="Tất cả" />
+                    <Text style={styles.filterTitle}>
+                      Lọc theo tình trạng hàng hoá
+                    </Text>
+                    <CheckBox label="Mới" status="checked" onPress={null} />
+                    <CheckBox
+                      label="Không có vết xước"
+                      status="checked"
+                      onPress={null}
+                    />
+                    <CheckBox
+                      label="Vết xước"
+                      status="checked"
+                      onPress={null}
+                    />
+                    <CheckBox
+                      label="Ít khi sử dụng"
+                      status="checked"
+                      onPress={null}
+                    />
+                    <CheckBox
+                      label="Hơi xước"
+                      status="checked"
+                      onPress={null}
+                    />
+                    <CheckBox
+                      label="Đã sử dụng"
+                      status="checked"
+                      onPress={null}
+                    />
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        marginTop: 10,
+                      }}
+                    >
+                      {/* Button huy */}
+                      <TouchableOpacity
+                        style={[
+                          styles.buttonNotFull,
+                          {
+                            backgroundColor: "white",
+                            marginTop: 0,
+                            borderColor: "#23262F",
+                            borderWidth: 1,
+                          },
+                        ]}
+                        onPress={null}
+                      >
+                        <Text style={{ color: "#23262F" }}>Huỷ</Text>
+                      </TouchableOpacity>
+                      {/* END */}
+                      {/* Button ap dung */}
+                      <TouchableOpacity
+                        style={[
+                          styles.buttonNotFull,
+                          { backgroundColor: "#3187EA", marginTop: 0 },
+                        ]}
+                        onPress={null}
+                      >
+                        <Text style={{ color: "white" }}>Áp dụng</Text>
+                      </TouchableOpacity>
+                      {/* END */}
+                    </View>
+                  </View>
+                  {/* END */}
+                </Modal>
+              </Portal>
+            </ScrollView>
             {/* END */}
           </Portal>
           {/* END */}
