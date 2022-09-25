@@ -16,12 +16,12 @@ import CartScreen from "../screen/CartScreen";
 class Functions {
   initNavigarion = () => {
     return createStackNavigator({
-      ProductScreen: {
+      /*ProductScreen: {
         screen: ProductScreen,
         navigationOptions: {
           header: null,
         },
-      },
+      },*/
 
       Splash1: {
         screen: Splash1,
@@ -75,12 +75,12 @@ class Functions {
         screen: SearchScreen,
       },
 
-      /*ProductScreen: {
+      ProductScreen: {
         screen: ProductScreen,
         navigationOptions: {
           header: null,
         },
-      }, */
+      },
 
       CartScreen: {
         screen: CartScreen,

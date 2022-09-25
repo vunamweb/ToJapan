@@ -282,7 +282,13 @@ class CategoryScreen extends Component {
 
   _renderItem_3 = ({ item, index }) => {
     return (
-      <View style={{ padding: 15, width: '50%' }}>
+      <TouchableOpacity
+      style={{width: '50%'}}
+      onPress={() =>
+        functions.gotoScreen(this.props.navigation, "ProductScreen")
+      }
+      >
+      <View style={{ padding: 15, width: '100%' }}>
       <View style={{borderRadius: 30, backgroundColor: 'white', width: '100%'}}>
         <Image source={img} />
         <View style={{ position: "absolute", top: 5, right: 5 }}>
@@ -316,6 +322,7 @@ class CategoryScreen extends Component {
         </View>
       </View>
       </View>
+      </TouchableOpacity>
     );
   };
 

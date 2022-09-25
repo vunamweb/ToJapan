@@ -226,7 +226,13 @@ class HomeScreen extends Component {
 
   _renderItem_3 = ({ item, index }) => {
     return (
-      <View style={{ padding: 15, width: "50%" }}>
+      <TouchableOpacity
+      style={{width: '50%'}}
+      onPress={() =>
+        functions.gotoScreen(this.props.navigation, "ProductScreen")
+      }
+      >
+      <View style={{ padding: 15, width: "100%" }}>
         <View
           style={{ borderRadius: 30, backgroundColor: "white", width: "100%" }}
         >
@@ -262,6 +268,7 @@ class HomeScreen extends Component {
           </View>
         </View>
       </View>
+      </TouchableOpacity>
     );
   };
 
