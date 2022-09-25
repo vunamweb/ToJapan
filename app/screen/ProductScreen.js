@@ -24,101 +24,6 @@ import IconBottom from "../components/IconBottom";
 import styles from "../../app/style/style";
 import functions from "../../app/function/function";
 
-const carouselItems = [
-  {
-    title: "Y!Auction",
-    img: require("../../app/assets/Y!Auction.png"),
-  },
-  {
-    title: "Mercari",
-    img: require("../../app/assets/mercari_1.png"),
-  },
-  {
-    title: "Amazon JP",
-    img: require("../../app/assets/Amazon_JS.png"),
-  },
-  {
-    title: "Rakuten",
-    img: require("../../app/assets/Rakuten_1.png"),
-  },
-  {
-    title: "Y!Shop",
-    img: require("../../app/assets/yshopping_1.png"),
-  },
-];
-
-const carouselItems1 = [
-  {
-    title: "Bape",
-    img: require("../../app/assets/Maskgroup_1.png"),
-  },
-  {
-    title: "Zara",
-    img: require("../../app/assets/Maskgroup_2.png"),
-  },
-  {
-    title: "Zippo",
-    img: require("../../app/assets/Maskgroup_3.png"),
-  },
-  {
-    title: "Credor",
-    img: require("../../app/assets/Maskgroup_4.png"),
-  },
-];
-
-const carouselItems2 = [
-  {
-    title: "Playstation",
-    img: require("../../app/assets/Maskgroup_5.png"),
-  },
-  {
-    title: "GUCCI",
-    img: require("../../app/assets/Maskgroup_6.png"),
-  },
-  {
-    title: "Canon",
-    img: require("../../app/assets/Maskgroup_7.png"),
-  },
-  {
-    title: "Adidas",
-    img: require("../../app/assets/Maskgroup_8.png"),
-  },
-];
-
-const carouselItems3 = [
-  {
-    title: "Ssol",
-    text: "9826 Đơn Hàng",
-  },
-  {
-    title: "Ssol",
-    text: "9826 Đơn Hàng",
-  },
-  {
-    title: "Ssol",
-    text: "9826 Đơn Hàng",
-  },
-  {
-    title: "Ssol",
-    text: "9826 Đơn Hàng",
-  },
-];
-
-const dataCarouselSlider = [
-  {
-    title: "Tất cả",
-  },
-  {
-    title: "Y!Auction",
-  },
-  {
-    title: "Mercari",
-  },
-  {
-    title: "Amazon",
-  },
-];
-
 const dataProductSlider = [
   {
     text1: "[Crocs] Classic All",
@@ -159,6 +64,10 @@ const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
 
 class ProductScreen extends Component {
+    state = {
+        order: false,
+      };
+
   _renderItem = ({ item, index }) => {
     return (
       <View style={{ alignItems: "center" }}>
@@ -269,6 +178,11 @@ class ProductScreen extends Component {
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
   }
 
+  addProduct = () => {
+    this.setState({
+      order: true,
+    });
+  };
   render() {
     return (
       <ScrollView>
@@ -276,7 +190,7 @@ class ProductScreen extends Component {
           {/* Toolbar */}
           <View style={styles.fullWith}>
             <Image style={styles.fullWith} source={img1} />
-            <CustomToolbar1 />
+            <CustomToolbar1 component={this} />
           </View>
           {/* END */}
           <View style={[styles.homeBody, { marginTop: -40 }]}>
@@ -357,6 +271,7 @@ class ProductScreen extends Component {
               {/* END button2 */}
               {/* BUTTON 3 */}
               <TouchableOpacity
+              onPress={this.addProduct.bind(this)}
                 style={[
                   styles.button,
                   {
