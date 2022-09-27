@@ -276,16 +276,16 @@ class CartScreen extends Component {
               style={[
                 styles.seach,
                 {
-                  paddingRight: 20,
-                  paddingLeft: 20,
+                  padding: 20,
                   marginTop: 20,
+                  alignItems: 'center',
                   borderTopColor: "#ccc",
                   borderTopWidth: 3,
                 },
               ]}
             >
               {/* LEFT */}
-              <View style={{ marginTop: 20 }}>
+              <View style={{ marginTop: 0 }}>
                 <Text
                   style={{ fontSize: 18, color: "#23262F", fontWeight: "700" }}
                 >
@@ -303,11 +303,14 @@ class CartScreen extends Component {
               {/* end */}
               <TouchableOpacity
                 style={[
-                  styles.button,
+                  //styles.button,
                   {
                     backgroundColor: "#3187EA",
-                    width: 200,
-                    paddingVertical: 20,
+                    paddingVertical: 10,
+                    paddingHorizontal: 24,
+                    borderRadius: 16
+                    //paddingVertical: 20, 
+                    //alignItems: 'center'
                   },
                 ]}
                 onPress={null}
