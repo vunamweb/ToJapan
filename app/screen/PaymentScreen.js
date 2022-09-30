@@ -226,7 +226,7 @@ class AddressScreen extends Component {
                   { marginTop: 0 },
                 ]}
                 onPress={() =>
-                  functions.gotoScreen(this.props.navigation, "HomeScreen")
+                  functions.gotoScreen(this.props.navigation, "ManagerOrder")
                 }
               >
                 <Text style={[{ color: "#3187EA", fontSize: 18}, styles.fontBold]}>Quản lý đơn hàng</Text>
