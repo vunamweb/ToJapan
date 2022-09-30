@@ -17,7 +17,7 @@ export default function Select({ mode, style, ...props }) {
       onSelect={(selectedItem, index) => {
         console.log(selectedItem, index);
       }}
-      dropdownStyle={{ borderRadius: 20 }}
+      dropdownStyle={{ borderRadius: 20}}
       buttonStyle={{ borderRadius: 20, width: '100%', backgroundColor: 'transparent', borderColor: '#ccc', borderWidth: 1 }}
       buttonTextStyle={{alignItems: 'flex-start', alignContent: 'flex-start'}}
       {...props}

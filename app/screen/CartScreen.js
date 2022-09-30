@@ -278,7 +278,7 @@ class CartScreen extends Component {
                 {
                   padding: 20,
                   marginTop: 20,
-                  alignItems: 'center',
+                  alignItems: "center",
                   borderTopColor: "#ccc",
                   borderTopWidth: 3,
                 },
@@ -308,12 +308,14 @@ class CartScreen extends Component {
                     backgroundColor: "#3187EA",
                     paddingVertical: 10,
                     paddingHorizontal: 24,
-                    borderRadius: 16
-                    //paddingVertical: 20, 
+                    borderRadius: 16,
+                    //paddingVertical: 20,
                     //alignItems: 'center'
                   },
                 ]}
-                onPress={null}
+                onPress={() =>
+                  functions.gotoScreen(this.props.navigation, "PaymentScreen")
+                }
               >
                 <Text
                   style={{ color: "white", fontSize: 18, fontWeight: "700" }}

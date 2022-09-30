@@ -6,15 +6,64 @@ module.exports = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 56 / 2,
-    backgroundColor: '#3187EA'
+    backgroundColor: "#3187EA",
   },
   circleSmall: {
     width: 20,
     height: 20,
     borderRadius: 20 / 2,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderWidth: 1,
-    alignItems: 'center'
+    alignItems: "center",
+  },
+  padding: {
+    padding: 20,
+  },
+  paddingLeft: {
+    paddingLeft: 20,
+  },
+  borderNormal: {
+    borderRadius: 20,
+  },
+  flexRowStart: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+  },
+  flexRowEnd: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    flex: 1,
+  },
+  alignCenter: {
+    alignItems: "center",
+  },
+  marginHeader: {
+    marginTop: 30,
+  },
+  marginLeft10: {
+    marginLeft: 10,
+  },
+  marginTop10: {
+    marginTop: 10,
+  },
+  marginTop20: {
+    marginTop: 20,
+  },
+  marginBottom20: {
+    marginBottom: 20,
+  },
+  paddingBottom20: {
+    paddingBottom: 20,
+  },
+  bgWhite: {
+    backgroundColor: "white",
+  },
+  fontBold: {
+    fontWeight: "700",
+  },
+  href: {
+   fontSize: 18,
+   color: '#3187EA'
   },
   // END
   //Background
@@ -240,127 +289,178 @@ module.exports = StyleSheet.create({
   },
   // SHOP
   shop: {
-    flexDirection: 'row', 
-    justifyContent: 'space-around', 
-    padding: 20, 
-    borderRadius: 16, 
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 20,
+    borderRadius: 16,
     borderWidth: 1,
-    borderColor: 'white',
-    backgroundColor: 'white'
+    borderColor: "white",
+    backgroundColor: "white",
   },
   shopText1: {
-    fontSize: 20, 
-    color: 'black', 
-    fontWeight: '700',
-    marginBottom: 5
+    fontSize: 20,
+    color: "black",
+    fontWeight: "700",
+    marginBottom: 5,
   },
   shopText2: {
-    fontSize: 16, 
-    fontWeight: '500', 
-    color: '#777E90'
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#777E90",
   },
   // END
   // RATING
   rating: {
-    alignItems: 'flex-start',
+    alignItems: "flex-start",
     marginTop: 10,
-    marginBottom: 10
+    marginBottom: 10,
   },
   // END
   // BOTTOM
   bottom: {
     width: "100%",
-    justifyContent: 'space-around',
-    backgroundColor: 'white',
-    marginTop: 20
+    justifyContent: "space-around",
+    backgroundColor: "white",
+    marginTop: 20,
   },
   iconBottom: {
-    width: '100%', 
-    backgroundColor: 'white', 
-    alignItems: 'center', 
-    paddingTop: 20, 
-    paddingBottom: 20
+    width: "100%",
+    backgroundColor: "white",
+    alignItems: "center",
+    paddingTop: 20,
+    paddingBottom: 20,
   },
   touchableOpacityBottom: {
-    alignItems: 'center', 
-    padding: 10
+    alignItems: "center",
+    padding: 10,
   },
   // END
   // HISTORY SEARCH
   history: {
-    flexDirection: 'row',
-     width: '100%', 
-     justifyContent: 'space-between', 
-     marginTop: 50
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
+    marginTop: 50,
   },
   // END
   // SEARCH
   seach: {
-    flexDirection: "row", 
-    justifyContent: 'space-between', 
-    marginTop: 50
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 50,
   },
   // END
   // Short
   shortOption: {
-    flexDirection: 'row', 
-    padding: 10
+    flexDirection: "row",
+    padding: 10,
   },
   shortText: {
-    marginLeft: 10, 
-    marginTop: 8
+    marginLeft: 10,
+    marginTop: 8,
   },
   shortModal: {
-    position: 'absolute', 
-    bottom: 0, 
-    width: '100%'
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
   },
   shortHeaderModal: {
-    backgroundColor: '#3187EA', 
-    padding: 10, 
-    justifyContent: 'center', 
-    flexDirection: 'row', 
-    borderTopLeftRadius: 20, 
-    borderTopRightRadius: 20
+    backgroundColor: "#3187EA",
+    padding: 10,
+    justifyContent: "center",
+    flexDirection: "row",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   // END
   // FILTER
   filterModal: {
-    position: 'absolute', 
-    top: -10, 
-    backgroundColor: 'white',
+    position: "absolute",
+    top: -10,
+    backgroundColor: "white",
     right: 0,
-    width: '90%',
+    width: "90%",
     borderTopLeftRadius: 20,
-    borderBottomStartRadius: 20
+    borderBottomStartRadius: 20,
   },
   filterHeaderModal: {
-    padding: 10, 
-    justifyContent: 'space-between', 
-    flexDirection: 'row', 
+    padding: 10,
+    justifyContent: "space-between",
+    flexDirection: "row",
   },
   filterTitle: {
-    color: '#3187EA',
+    color: "#3187EA",
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: "700",
     marginTop: 10,
-    marginBottom: 10
+    marginBottom: 10,
   },
   // END
   // CART
   money1: {
-    fontSize: 18, 
-    color: '#23262F'
+    fontSize: 18,
+    color: "#23262F",
   },
   money2: {
-    fontSize: 18, 
-    color: '#23262F', 
-    fontWeight: '700'
+    fontSize: 18,
+    color: "#23262F",
+    fontWeight: "700",
   },
   money3: {
-    color: "#23262F", 
-    fontSize: 16, 
-    fontWeight: '700'
-  }
-  //
+    color: "#23262F",
+    fontSize: 16,
+    fontWeight: "700",
+  },
+  // END
+  // Adress
+  address: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+  addressText1: {
+    fontSize: 14,
+    color: "#23262F",
+  },
+  addressText2: {
+    fontSize: 12,
+    color: "#23262F",
+  },
+  addressContent: {
+    paddingLeft: 20,
+    paddingRight: 25,
+  },
+  // END
+  // PAYMENT
+  paymentText1: {
+    fontWeight: "700",
+    fontSize: 16,
+    color: "#23262F",
+  },
+  paymentText2: {
+    fontSize: 14,
+    color: "#777E90",
+  },
+  paymentText3: {
+    fontSize: 16,
+    color: "#23262F",
+  },
+  paymentText4: {
+    fontSize: 18,
+    color: "#23262F",
+    fontWeight: "700",
+  },
+  paymentText5: {
+    fontSize: 16,
+    color: "#23262F",
+  },
+  paymentText6: {
+    fontSize: 16,
+    color: "#777E90",
+  },
+  paymentText7: {
+    fontSize: 18,
+    color: "#777E90",
+  },
+  // END
 });

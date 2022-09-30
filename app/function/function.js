@@ -12,6 +12,7 @@ import KeywordPopularScreen from "../screen/KeywordPopularScreen";
 import SearchScreen from "../screen/SearchScreen";
 import ProductScreen from "../screen/ProductScreen";
 import CartScreen from "../screen/CartScreen";
+import PaymentScreen from "../screen/PaymentScreen";
 
 class Functions {
   initNavigarion = () => {
@@ -79,8 +80,12 @@ class Functions {
         },
       },
 
-      CartScreen: {
+      /*CartScreen: {
         screen: CartScreen,
+      },*/
+
+      PaymentScreen: {
+        screen: PaymentScreen,
       },
     });
   };
