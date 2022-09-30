@@ -46,6 +46,9 @@ module.exports = StyleSheet.create({
   marginTop10: {
     marginTop: 10,
   },
+  marginTop5: {
+    marginTop: 5,
+  },
   marginTop20: {
     marginTop: 20,
   },
@@ -461,6 +464,10 @@ module.exports = StyleSheet.create({
   paymentText7: {
     fontSize: 18,
     color: "#777E90",
+  },
+  paymentText8: {
+    fontSize: 18,
+    color: "#141416",
   },
   // END
 });
