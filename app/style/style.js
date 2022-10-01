@@ -24,6 +24,9 @@ module.exports = StyleSheet.create({
   padding: {
     padding: 20,
   },
+  margin: {
+    margin: 20
+  },
   paddingLeft: {
     paddingLeft: 20,
   },
@@ -47,6 +50,9 @@ module.exports = StyleSheet.create({
   },
   marginLeft10: {
     marginLeft: 10,
+  },
+  marginLeft5: {
+    marginLeft: 5,
   },
   marginTop10: {
     marginTop: 10,
@@ -72,6 +78,11 @@ module.exports = StyleSheet.create({
   href: {
    fontSize: 18,
    color: '#3187EA'
+  },
+  line: {
+    height: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc'
   },
   // END
   //Background
@@ -474,5 +485,19 @@ module.exports = StyleSheet.create({
     fontSize: 18,
     color: "#141416",
   },
+  // END
+  // MANAGER ORDER
+  mangerOderText1: {
+    fontSize: 14,
+    color: '#F5B204'
+  },
+  mangerOderText2: {
+    fontSize: 14,
+    color: '#23262F'
+  },
+  mangerOderText3: {
+    fontSize: 16,
+    color: '#D63F5C'
+  }
   // END
 });

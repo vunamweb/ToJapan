@@ -199,30 +199,30 @@ const dataTKPB2 = [
 
 const dataProductSlider = [
   {
-    text1: "[Crocs] Classic All",
+    text1: "釣り用フックキーパー 釣り用フ...",
     text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
+    text3: "x1",
     text4: "5,434",
     text5: "1,016,158",
   },
   {
-    text1: "[Crocs] Classic All",
+    text1: "釣り用フックキーパー 釣り用フ...",
     text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
+    text3: "x1",
     text4: "5,434",
     text5: "1,016,158",
   },
   {
-    text1: "[Crocs] Classic All",
+    text1: "釣り用フックキーパー 釣り用フ...",
     text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
+    text3: "x1",
     text4: "5,434",
     text5: "1,016,158",
   },
   {
-    text1: "[Crocs] Classic All",
+    text1: "釣り用フックキーパー 釣り用フ...",
     text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
+    text3: "x1",
     text4: "5,434",
     text5: "1,016,158",
   },
@@ -233,7 +233,7 @@ const img2 = require("../../app/assets/star_1.png");
 const img3 = require("../../app/assets/heart.png");
 
 const img = require("../../app/assets/image_6.png");
-const image1 = require("../../app/assets/heart.png");
+const image1 = require("../../app/assets/arrow-right.png");
 const image2 = require("../../app/assets/shopping_bag.png");
 const image3 = require("../../app/assets/search-normal.png");
 const image4 = require("../../app/assets/Filler.png");
@@ -288,46 +288,32 @@ class ManagerOrder extends Component {
     });
   }
 
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-
-  hideModal = () => {
-    this.setState({
-      visible: false,
-    });
-  };
-
-  showModalFilter = () => {
-    this.setState({
-      visibleFilter: true,
-    });
-  };
-
-  hideModalFilter = () => {
-    this.setState({
-      visibleFilter: false,
-    });
-  };
-
   _handleIndexChange = (index) => {
     this.setState({ index });
   };
 
   FirstRoute = () => 
-  <View style={{ flex: 1, height: 600 }}>
-    <SliderProduct
+  <View style={[{ flex: 1, backgroundColor: '#FAFAFA'}, styles.borderNormal, styles.margin]}>
+     <SliderProduct
               dataCarouselSlider={null}
               renderCarouselSlider={this._renderItem_2_}
               dataProductSlider={dataProductSlider}
               renderProductSlider={this._renderItem_3}
               col={1}
+              style="1"
             />
   </View>;
 
-  SecondRoute = () => <View style={{ flex: 1, backgroundColor: "#673ab7" }} />;
+  SecondRoute = () => <View style={[{ flex: 1, backgroundColor: '#FAFAFA'}, styles.borderNormal, styles.margin]}>
+  <SliderProduct
+           dataCarouselSlider={null}
+           renderCarouselSlider={this._renderItem_2_}
+           dataProductSlider={dataProductSlider}
+           renderProductSlider={this._renderItem_3}
+           col={1}
+           style="1"
+         />
+</View>;
 
   _renderScene = SceneMap({
     "1": this.FirstRoute,
@@ -364,16 +350,21 @@ class ManagerOrder extends Component {
         style={{
           padding: 10,
           width: "100%",
-          backgroundColor: "white",
-          borderBottomColor: "#ccc",
-          borderBottomWidth: 3,
+          marginBottom: 20,
+          backgroundColor: 'white'
         }}
       >
+        {/* Text HEADER */}
+        <View style={[styles.seach, styles.marginBottom20, {marginTop: 0}]}>
+          <Text style={[styles.fontBold, styles.paymentText4]}>MER220718103</Text>
+          <Text style={styles.mangerOderText1}>Chờ hàng lấy hàng</Text>
+        </View>
+        <Text style={styles.mangerOderText2, styles.marginBottom20}>Ngày tạo đơn: 19/07/2022 - 08:53 (GMT+9)</Text>
+        {/* END TEXT HEADER */}
         <View style={{ width: "100%", flexDirection: "row" }}>
           <Image source={img} />
           <View style={{ marginTop: 0, marginLeft: 20 }}>
             <Text style={styles.money3}>{item.text1}</Text>
-            <Text style={styles.money3}>{item.text2}</Text>
             <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
               {item.text3}
             </Text>
@@ -382,56 +373,46 @@ class ManagerOrder extends Component {
             >
               <View>
                 <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                  {item.text4} ¥
-                </Text>
-                <Text style={{ fontSize: 12, color: "#777E90" }}>
-                  {item.text5} VND
+                  {item.text4} đ
                 </Text>
               </View>
             </View>
           </View>
         </View>
-        {/* Footer */}
-        <View style={[styles.seach, { marginTop: 0 }]}>
-          <CheckBox label="" status="checked" onPress={null} />
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              width: 100,
-            }}
-          >
-            {/* Minutes */}
-            <View style={[styles.circleSmall, { marginRight: 0 }]}>
-              <TouchableOpacity>
-                <Text style={{ fontSize: 12 }}>-</Text>
-              </TouchableOpacity>
-            </View>
-            {/* END */}
-            <Text>1</Text>
-            {/* Plus */}
-            <View
-              style={[
-                styles.circleSmall,
-                { marginRight: 0, backgroundColor: "black" },
-              ]}
-            >
-              <TouchableOpacity>
-                <Text style={{ fontSize: 12, color: "white" }}>+</Text>
-              </TouchableOpacity>
-            </View>
-            {/* END */}
+        {/* Text FOOTER */}
+        <View style={[styles.seach, styles.marginBottom20]}>
+          <Text style={[styles.fontBold, styles.paymentText6]}>Tổng thanh toán</Text>
+          <View style={styles.flexRowStart}>
+          <Text style={styles.mangerOderText3}>1.250.000đ</Text>
+          <Image source={image1} style={[styles.marginLeft5, {marginTop: 2}]} />
           </View>
         </View>
-        {/* END */}
+        {/* END TEXT FOOTER */}
+        {/* LINE */}
+        <View style={styles.line} />
+        {/* LINE */}
+        <TouchableOpacity
+              style={[
+                  styles.button,
+                  {
+                    backgroundColor: "white",
+                    marginTop: 20,
+                    borderColor: "#3187EA",
+                    borderWidth: 1,
+                  },
+                ]}
+              >
+                <Text style={{ color: "#3187EA" }}>Xem chi tiết</Text>
+              </TouchableOpacity>
+
       </View>
     );
   };
 
   render() {
     return (
-      <View style={{ marginTop: 20, flex: 1 }}>
-        <TabView
+<View style={{marginTop: 30, flex: 1}}>
+<TabView
           navigationState={this.state}
           renderScene={this._renderScene}
           onIndexChange={this._handleIndexChange}
@@ -470,8 +451,8 @@ class ManagerOrder extends Component {
             />
           )}
         />
-      </View>
-    );
+        </View>
+);
   }
 }
 
