@@ -14,9 +14,6 @@ import styles from "../../app/style/style";
 export default function Select({ mode, style, ...props }) {
   return (
     <SelectDropdown
-      onSelect={(selectedItem, index) => {
-        console.log(selectedItem, index);
-      }}
       dropdownStyle={{ borderRadius: 20}}
       buttonStyle={{ borderRadius: 20, width: '100%', backgroundColor: 'transparent', borderColor: '#ccc', borderWidth: 1 }}
       buttonTextStyle={{alignItems: 'flex-start', alignContent: 'flex-start'}}

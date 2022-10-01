@@ -18,8 +18,8 @@ import ManagerOrder from "../screen/ManagerOrder";
 class Functions {
   initNavigarion = () => {
     return createStackNavigator({
-      CartScreen: {
-        screen: CartScreen,
+      PaymentScreen: {
+        screen: PaymentScreen,
       },
 
       Splash1: {
@@ -81,13 +81,13 @@ class Functions {
         },
       },
 
-      /*CartScreen: {
+      CartScreen: {
         screen: CartScreen,
-      },*/
-
-      PaymentScreen: {
-        screen: PaymentScreen,
       },
+
+      /*PaymentScreen: {
+        screen: PaymentScreen,
+      },*/
 
       ManagerOrder: {
         screen: ManagerOrder,

@@ -60,6 +60,7 @@ const image10 = require("../../app/assets/Icon_R.png");
 class AddressScreen extends Component {
   state = {
     visible: false,
+    visibleGTGT: false,
   };
 
   _renderItem({ item, index }) {
@@ -181,6 +182,237 @@ class AddressScreen extends Component {
       <Provider>
         <ScrollView>
           <Portal>
+            {/* Modal short */}
+            <Modal
+              visible={this.state.visibleGTGT}
+              contentContainerStyle={styles.shortModal}
+            >
+              {/* HEADER */}
+              <View style={styles.shortHeaderModal}>
+                <Text style={{ color: "white", fontSize: 20 }}>
+                  Chọn dịch vụ GTGT
+                </Text>
+                <TouchableOpacity
+                  onPress={() =>
+                    this.setState({
+                      visibleGTGT: false,
+                    })
+                  }
+                  style={{
+                    position: "absolute",
+                    top: 10,
+                    right: 0,
+                    marginRight: 20,
+                  }}
+                >
+                  <Text style={{ color: "white" }}>x</Text>
+                </TouchableOpacity>
+              </View>
+              {/* END */}
+              {/* Body */}
+              <View style={{ backgroundColor: "white" }}>
+                <View
+                  style={[
+                    styles.shortOption,
+                    {
+                      justifyContent: "space-between",
+                      paddingTop: 0,
+                      paddingBottom: 0,
+                    },
+                  ]}
+                >
+                  <CheckBox
+                    label="Gói cơ bản"
+                    status="checked"
+                    onPress={null}
+                  />
+                  <Text style={[styles.shortText, styles.fontBold]}>0¥</Text>
+                </View>
+                <View style={{ height: 1, backgroundColor: "#cccccc" }} />
+                <View
+                  style={[
+                    styles.shortOption,
+                    {
+                      justifyContent: "space-between",
+                      paddingTop: 0,
+                      paddingBottom: 0,
+                    },
+                  ]}
+                >
+                  <CheckBox
+                    label="Gói kiểm tra hàng hóa"
+                    status="checked"
+                    onPress={null}
+                  />
+                  <Text style={[styles.shortText, styles.fontBold]}>0¥</Text>
+                </View>
+                <View style={{ height: 1, backgroundColor: "#cccccc" }} />
+                <View
+                  style={[
+                    styles.shortOption,
+                    {
+                      justifyContent: "space-between",
+                      paddingTop: 0,
+                      paddingBottom: 0,
+                    },
+                  ]}
+                >
+                  <CheckBox
+                    label="Bảo hiểm hàng hóa"
+                    status="checked"
+                    onPress={null}
+                  />
+                  <Text style={[styles.shortText, styles.fontBold]}>0¥</Text>
+                </View>
+                <View style={{ height: 1, backgroundColor: "#cccccc" }} />
+                <View
+                  style={[
+                    styles.shortOption,
+                    {
+                      justifyContent: "space-between",
+                      paddingTop: 0,
+                      paddingBottom: 0,
+                    },
+                  ]}
+                >
+                  <CheckBox label="Chụp ảnh" status="checked" onPress={null} />
+                  <Text style={[styles.shortText, styles.fontBold]}>0¥</Text>
+                </View>
+                <View style={{ height: 1, backgroundColor: "#cccccc" }} />
+                <View>
+                  <View
+                    style={[
+                      styles.shortOption,
+                      { justifyContent: "space-between", paddingBottom: 0 },
+                    ]}
+                  >
+                    <CheckBox
+                      label="Gói tiêu chuẩn"
+                      status="checked"
+                      onPress={null}
+                    />
+                    <View>
+                      <Text style={[styles.shortText, styles.fontBold]}>
+                        500¥
+                      </Text>
+                      <View style={styles.flexRowStart}>
+                        <Text style={[styles.shortText]}>800¥</Text>
+                        <Text style={{ position: "absolute", top: 8 }}>
+                          ------------
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={{ paddingLeft: 50 }}>
+                    <View
+                      style={[styles.shortOption, { paddingTop: 0, margin: 0 }]}
+                    >
+                      <RadioButton />
+                      <Text style={styles.shortText}>
+                        Gói kiểm tra hàng hóa
+                      </Text>
+                    </View>
+                    <View
+                      style={[styles.shortOption, { paddingTop: 0, margin: 0 }]}
+                    >
+                      <RadioButton />
+                      <Text style={styles.shortText}>Bảo hiểm hàng hóa</Text>
+                    </View>
+                  </View>
+                  <View style={{ height: 1, backgroundColor: "#cccccc" }} />
+                </View>
+
+                <View>
+                  <View
+                    style={[
+                      styles.shortOption,
+                      { justifyContent: "space-between", paddingBottom: 0 },
+                    ]}
+                  >
+                    <CheckBox
+                      label="Gói Bổ sung"
+                      status="checked"
+                      onPress={null}
+                    />
+                    <View>
+                      <Text style={[styles.shortText, styles.fontBold]}>
+                        500¥
+                      </Text>
+                      <View style={styles.flexRowStart}>
+                        <Text style={[styles.shortText]}>800¥</Text>
+                        <Text style={{ position: "absolute", top: 8 }}>
+                          ------------
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={{ paddingLeft: 50 }}>
+                    <View
+                      style={[styles.shortOption, { paddingTop: 0, margin: 0 }]}
+                    >
+                      <RadioButton />
+                      <Text style={styles.shortText}>
+                        Gói kiểm tra hàng hóa
+                      </Text>
+                    </View>
+                    <View
+                      style={[styles.shortOption, { paddingTop: 0, margin: 0 }]}
+                    >
+                      <RadioButton />
+                      <Text style={styles.shortText}>Bảo hiểm hàng hóa</Text>
+                    </View>
+                    <View
+                      style={[styles.shortOption, { paddingTop: 0, margin: 0 }]}
+                    >
+                      <RadioButton />
+                      <Text style={styles.shortText}>Chụp ảnh</Text>
+                    </View>
+                  </View>
+                  <View style={{ height: 1, backgroundColor: "#cccccc" }} />
+                  <View
+                    style={[
+                      {
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                      },
+                      styles.padding,
+                    ]}
+                  >
+                    {/* Button huy */}
+                    <TouchableOpacity
+                      style={[
+                        styles.buttonNotFull,
+                        {
+                          backgroundColor: "white",
+                          marginTop: 0,
+                          borderColor: "#3187EA",
+                          borderWidth: 1,
+                        },
+                      ]}
+                      onPress={null}
+                    >
+                      <Text style={{ color: "#3187EA" }}>Huỷ bỏ</Text>
+                    </TouchableOpacity>
+                    {/* END */}
+                    {/* Button ap dung */}
+                    <TouchableOpacity
+                      style={[
+                        styles.buttonNotFull,
+                        { backgroundColor: "#3187EA", marginTop: 0 },
+                      ]}
+                      onPress={null}
+                    >
+                      <Text style={{ color: "white" }}>Áp dụng</Text>
+                    </TouchableOpacity>
+                    {/* END */}
+                  </View>
+                </View>
+              </View>
+              {/* END */}
+            </Modal>
+            {/* END */}
+          </Portal>
+          <Portal>
             <Modal
               visible={this.state.visible}
               transparent={true}
@@ -221,15 +453,16 @@ class AddressScreen extends Component {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
-                style={[
-                  styles.button,
-                  { marginTop: 0 },
-                ]}
+                style={[styles.button, { marginTop: 0 }]}
                 onPress={() =>
                   functions.gotoScreen(this.props.navigation, "ManagerOrder")
                 }
               >
-                <Text style={[{ color: "#3187EA", fontSize: 18}, styles.fontBold]}>Quản lý đơn hàng</Text>
+                <Text
+                  style={[{ color: "#3187EA", fontSize: 18 }, styles.fontBold]}
+                >
+                  Quản lý đơn hàng
+                </Text>
               </TouchableOpacity>
             </Modal>
           </Portal>
@@ -281,6 +514,11 @@ class AddressScreen extends Component {
                 </Text>
                 {/* Dropdown1 */}
                 <Dropdown
+                  onSelect={(selectedItem, index) => {
+                    this.setState({
+                      visibleGTGT: true,
+                    })
+                  }}
                   data={countries}
                   renderCustomizedButtonChild={(selectedItem, index) => {
                     return (
@@ -289,7 +527,7 @@ class AddressScreen extends Component {
                         <Text
                           style={[styles.marginLeft10, styles.paymentText4]}
                         >
-                          {selectedItem ? selectedItem : "Gói tiêu chuẩn 500¥"}
+                          {selectedItem ? selectedItem : "Chọn gói"}
                         </Text>
                         <View style={[styles.flexRowEnd]}>
                           <Image source={image3} />
