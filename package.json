@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-community/checkbox": "^0.5.12",
     "@react-native-community/masked-view": "^0.1.11",
+    "@react-native-community/viewpager": "^5.0.11",
     "@react-navigation/native": "^6.0.13",
     "deprecated-react-native-prop-types": "^2.3.0",
     "react": "18.0.0",
@@ -24,6 +25,7 @@
     "react-native-screens": "^3.13.0",
     "react-native-select-dropdown": "^2.0.4",
     "react-native-snap-carousel": "^3.9.1",
+    "react-native-tab-view": "^3.2.1",
     "react-native-vector-icons": "^9.2.0",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4"

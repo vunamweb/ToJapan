@@ -12,6 +12,11 @@ module.exports = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 20 / 2,
+  },
+  circleSmall: {
+    width: 20,
+    height: 20,
+    borderRadius: 20 / 2,
     borderColor: "#ccc",
     borderWidth: 1,
     alignItems: "center",

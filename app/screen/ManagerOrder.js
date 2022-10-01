@@ -9,10 +9,12 @@ import {
   LogBox,
   SearchBox,
   ImageBackground,
+  Text,
+  useWindowDimensions,
 } from "react-native";
 import { Rating, AirbnbRating, Slider } from "react-native-elements";
-import { Text, Modal, Portal, Provider, RadioButton } from "react-native-paper";
-import ViewPager from '@react-native-community/viewpager';
+import { Modal, Portal, Provider, RadioButton } from "react-native-paper";
+import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 
 import Background from "../components/Background";
 import TextInput from "../components/TextInput";
@@ -238,125 +240,12 @@ const image4 = require("../../app/assets/Filler.png");
 
 class ManagerOrder extends Component {
   state = {
-    visible: false,
-    visibleFilter: false,
-  };
-
-  _renderItem({ item, index }) {
-    return (
-      <View style={{ alignItems: "center" }}>
-        <Image source={item.img} />
-        <Text>{item.title}</Text>
-      </View>
-    );
-  }
-
-  _renderItem_1({ item, index }) {
-    return (
-      <View style={styles.shop}>
-        <View style={{ flexDirection: "row" }}>
-          <View style={[styles.circle, { marginRight: 20 }]} />
-          <View>
-            <Text style={styles.shopText1}>{item.title}</Text>
-            <Text style={styles.shopText2}>{item.text}</Text>
-          </View>
-        </View>
-        <View style={{ marginTop: 10 }}>
-          <Image source={img3} />
-        </View>
-      </View>
-    );
-  }
-
-  _renderItem_2({ item, index }) {
-    if (index == 0)
-      return (
-        <View
-          style={{
-            alignItems: "center",
-            backgroundColor: "#3187EA",
-            borderRadius: 16,
-            padding: 10,
-          }}
-        >
-          <Text style={{ color: "white", fontSize: 16, fontWeight: "500" }}>
-            {item.title}
-          </Text>
-        </View>
-      );
-    else
-      return (
-        <View
-          style={{
-            alignItems: "center",
-            borderRadius: 16,
-            backgroundColor: "#E6E8EC",
-            padding: 10,
-          }}
-        >
-          <Text style={{ color: "black", fontSize: 16, fontWeight: "500" }}>
-            {item.title}
-          </Text>
-        </View>
-      );
-  }
-
-  _renderItem_2_({ item, index }) {
-    return (
-      <View
-        style={{
-          alignItems: "center",
-          borderRadius: 16,
-          backgroundColor: "#E6E8EC",
-          padding: 10,
-        }}
-      >
-        <Text style={{ color: "black", fontSize: 16, fontWeight: "500" }}>
-          {item.title}
-        </Text>
-      </View>
-    );
-  }
-
-  _renderItem_3 = ({ item, index }) => {
-    return (
-      <View style={{ padding: 15, width: "50%" }}>
-        <View
-          style={{ borderRadius: 30, backgroundColor: "white", width: "100%" }}
-        >
-          <Image source={img} />
-          <View style={{ position: "absolute", top: 5, right: 5 }}>
-            <Image source={image1} />
-          </View>
-          <View style={{ marginTop: 30 }}>
-            <Text style={{ color: "#23262F", fontSize: 16 }}>{item.text1}</Text>
-            <Text style={{ color: "#23262F", fontSize: 16 }}>{item.text2}</Text>
-            <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
-              {item.text3}
-            </Text>
-            <Rating
-              imageSize={15}
-              readonly
-              startingValue={3}
-              style={styles.rating}
-            />
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <View>
-                <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                  {item.text4} ¥
-                </Text>
-                <Text style={{ fontSize: 12, color: "#777E90" }}>
-                  {item.text5} VND
-                </Text>
-              </View>
-              <Image source={image2} />
-            </View>
-          </View>
-        </View>
-      </View>
-    );
+    index: 0,
+    routes: [
+      { key: "1", title: "Tất cả", icon: "ios-paper" },
+      { icon: "ios-paper", key: "2", title: "Đang vận chuyển" },
+      { icon: "ios-paper", key: "3", title: "Đã giao" },
+    ],
   };
 
   static navigationOptions = ({ navigation }) => ({
@@ -423,16 +312,165 @@ class ManagerOrder extends Component {
     });
   };
 
+  _handleIndexChange = (index) => {
+    this.setState({ index });
+  };
+
+  FirstRoute = () => 
+  <View style={{ flex: 1, height: 600 }}>
+    <SliderProduct
+              dataCarouselSlider={null}
+              renderCarouselSlider={this._renderItem_2_}
+              dataProductSlider={dataProductSlider}
+              renderProductSlider={this._renderItem_3}
+              col={1}
+            />
+  </View>;
+
+  SecondRoute = () => <View style={{ flex: 1, backgroundColor: "#673ab7" }} />;
+
+  _renderScene = SceneMap({
+    "1": this.FirstRoute,
+    "2": this.SecondRoute,
+    "3": this.SecondRoute,
+  });
+
+  //layout = useWindowDimensions();
+
+  TabBar = () => {
+    return;
+  };
+
+  _renderItem_2_({ item, index }) {
+    return (
+      <View
+        style={{
+          alignItems: "center",
+          borderRadius: 16,
+          backgroundColor: "#E6E8EC",
+          padding: 10,
+        }}
+      >
+        <Text style={{ color: "black", fontSize: 16, fontWeight: "500" }}>
+          {item.title}
+        </Text>
+      </View>
+    );
+  }
+
+  _renderItem_3 = ({ item, index }) => {
+    return (
+      <View
+        style={{
+          padding: 10,
+          width: "100%",
+          backgroundColor: "white",
+          borderBottomColor: "#ccc",
+          borderBottomWidth: 3,
+        }}
+      >
+        <View style={{ width: "100%", flexDirection: "row" }}>
+          <Image source={img} />
+          <View style={{ marginTop: 0, marginLeft: 20 }}>
+            <Text style={styles.money3}>{item.text1}</Text>
+            <Text style={styles.money3}>{item.text2}</Text>
+            <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
+              {item.text3}
+            </Text>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <View>
+                <Text style={{ color: "#D63F5C", fontSize: 16 }}>
+                  {item.text4} ¥
+                </Text>
+                <Text style={{ fontSize: 12, color: "#777E90" }}>
+                  {item.text5} VND
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        {/* Footer */}
+        <View style={[styles.seach, { marginTop: 0 }]}>
+          <CheckBox label="" status="checked" onPress={null} />
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: 100,
+            }}
+          >
+            {/* Minutes */}
+            <View style={[styles.circleSmall, { marginRight: 0 }]}>
+              <TouchableOpacity>
+                <Text style={{ fontSize: 12 }}>-</Text>
+              </TouchableOpacity>
+            </View>
+            {/* END */}
+            <Text>1</Text>
+            {/* Plus */}
+            <View
+              style={[
+                styles.circleSmall,
+                { marginRight: 0, backgroundColor: "black" },
+              ]}
+            >
+              <TouchableOpacity>
+                <Text style={{ fontSize: 12, color: "white" }}>+</Text>
+              </TouchableOpacity>
+            </View>
+            {/* END */}
+          </View>
+        </View>
+        {/* END */}
+      </View>
+    );
+  };
+
   render() {
     return (
-        <ViewPager style={styles.viewPager} initialPage={0}>
-        <View key="1">
-          <Text>First page</Text>
-        </View>
-        <View key="2">
-          <Text>Second page</Text>
-        </View>
-      </ViewPager>
+      <View style={{ marginTop: 20, flex: 1 }}>
+        <TabView
+          navigationState={this.state}
+          renderScene={this._renderScene}
+          onIndexChange={this._handleIndexChange}
+          tabStyle={{ color: "red" }}
+          //initialLayout={{ width: layout.width }}
+          renderTabBar={(props) => (
+            <TabBar
+              {...props}
+              style={{ backgroundColor: "white" }}
+              renderLabel={({ route, color }) => (
+                <View style={{ flexDirection: "row", paddingTop: 5 }}>
+                  <Text style={{ color: "black" }}>{route.title}</Text>
+                  {route.key == "1" ? (
+                    <View
+                      style={[
+                        styles.circleSmall,
+                        styles.marginLeft10,
+                        { backgroundColor: "#3187EA" },
+                      ]}
+                    >
+                      <Text>2</Text>
+                    </View>
+                  ) : (
+                    <View
+                      style={[
+                        styles.circleSmall,
+                        styles.marginLeft10,
+                        { backgroundColor: "#ccc" },
+                      ]}
+                    >
+                      <Text>2</Text>
+                    </View>
+                  )}
+                </View>
+              )}
+            />
+          )}
+        />
+      </View>
     );
   }
 }
