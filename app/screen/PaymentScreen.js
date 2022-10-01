@@ -472,6 +472,7 @@ class AddressScreen extends Component {
               <Address
                 text1="Nguyen Van Nam | +84 0393301497"
                 text2="Số 9 ngõ 25/36 Phú Minh, Phường Minh Khai, Quận Bắc Từ Liêm, Hà Nội, Việt Nam"
+                component={this}
               />
               {/* END */}
               {/* Container 1 */}

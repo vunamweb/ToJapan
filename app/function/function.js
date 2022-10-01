@@ -14,6 +14,7 @@ import ProductScreen from "../screen/ProductScreen";
 import CartScreen from "../screen/CartScreen";
 import PaymentScreen from "../screen/PaymentScreen";
 import ManagerOrder from "../screen/ManagerOrder";
+import ListAddress from "../screen/ListAddressScreen";
 
 class Functions {
   initNavigarion = () => {
@@ -92,6 +93,10 @@ class Functions {
       ManagerOrder: {
         screen: ManagerOrder,
       },
+
+      ListAddress: {
+        screen: ListAddress,
+      }
     });
   };
 
