@@ -29,6 +29,7 @@ export default function TextInputzzzz({ errorText, description, ...props }) {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    flex: 1,
     marginTop: 3,
     marginBottom: 20,
   },

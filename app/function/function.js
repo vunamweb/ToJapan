@@ -15,6 +15,7 @@ import CartScreen from "../screen/CartScreen";
 import PaymentScreen from "../screen/PaymentScreen";
 import ManagerOrder from "../screen/ManagerOrder";
 import ListAddress from "../screen/ListAddressScreen";
+import AddDressScreen from "../screen/AddDressScreen";
 
 class Functions {
   initNavigarion = () => {
@@ -96,6 +97,10 @@ class Functions {
 
       ListAddress: {
         screen: ListAddress,
+      },
+
+      AddDressScreen: {
+        screen: AddDressScreen,
       }
     });
   };

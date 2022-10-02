@@ -85,7 +85,13 @@ class ListAddressScreen extends Component {
                 ]}
               >
                 <Text>Thêm địa chỉ mới</Text>
+                <TouchableOpacity
+                onPress={() =>
+                  functions.gotoScreen(this.props.navigation, "AddDressScreen")
+                }
+                >
                 <Image source={img} />
+                </TouchableOpacity>
               </View>
             </View>
           </Background>

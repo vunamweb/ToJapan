@@ -66,6 +66,9 @@ module.exports = StyleSheet.create({
   marginBottom20: {
     marginBottom: 20,
   },
+  marginBottom10: {
+    marginBottom: 10,
+  },
   paddingBottom20: {
     paddingBottom: 20,
   },
