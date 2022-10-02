@@ -17,6 +17,7 @@ import ManagerOrder from "../screen/ManagerOrder";
 import ListAddress from "../screen/ListAddressScreen";
 import AddDressScreen from "../screen/AddDressScreen";
 import WaletScreen from "../screen/WaletScreen";
+import AddMoneyScreen from "../screen/AddMoneyScreen";
 
 class Functions {
   initNavigarion = () => {
@@ -106,6 +107,10 @@ class Functions {
 
       WaletScreen: {
         screen: WaletScreen,
+      },
+
+      AddMoneyScreen: {
+        screen: AddMoneyScreen,
       }
     });
   };

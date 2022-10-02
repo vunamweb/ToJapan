@@ -6,9 +6,10 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function TextInputzzzz({ errorText, description, ...props }) {
   let style = (props.bg != null) ? [styles.input, {backgroundColor: props.bg}] : [styles.input];
+  let style1 = (props.notflex == null) ? [styles.container] : [styles.container1];
 
   return (
-    <View style={styles.container}>
+    <View style={style1}>
       <TextInput
         style={style}
         selectionColor={theme.colors.primary}
@@ -30,6 +31,11 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     flex: 1,
+    marginTop: 3,
+    marginBottom: 20,
+  },
+  container1: {
+    width: '100%',
     marginTop: 3,
     marginBottom: 20,
   },

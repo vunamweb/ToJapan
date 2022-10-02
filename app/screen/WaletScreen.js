@@ -224,7 +224,9 @@ class WaletScreen extends Component {
                       styles.buttonNotFull,
                       { backgroundColor: "#3187EA", marginTop: 0 },
                     ]}
-                    onPress={null}
+                    onPress={() =>
+                      functions.gotoScreen(this.props.navigation, "AddMoneyScreen")
+                    }
                   >
                     <Text style={{ color: "white" }}>Nạp tiền</Text>
                   </TouchableOpacity>
@@ -356,7 +358,9 @@ class WaletScreen extends Component {
                       styles.buttonNotFull,
                       { backgroundColor: "#3187EA", marginTop: 0 },
                     ]}
-                    onPress={null}
+                    onPress={() =>
+                      functions.gotoScreen(this.props.navigation, "AddMoneyScreen")
+                    }
                   >
                     <Text style={{ color: "white" }}>Nạp tiền</Text>
                   </TouchableOpacity>
