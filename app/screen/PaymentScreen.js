@@ -682,6 +682,11 @@ class AddressScreen extends Component {
                       </Text>
                     </View>
                   </View>
+                  <TouchableOpacity
+                  onPress={() =>
+                    functions.gotoScreen(this.props.navigation, "WaletScreen")
+                  }
+                  >
                   <View style={[styles.shortOption, styles.marginTop20]}>
                     <RadioButton />
                     <View style={{ flex: 1 }}>
@@ -691,6 +696,8 @@ class AddressScreen extends Component {
                       </Text>
                     </View>
                   </View>
+                  </TouchableOpacity>
+
                 </View>
                 {/* END OPTION PAYMENT */}
               </View>

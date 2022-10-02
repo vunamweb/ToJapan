@@ -501,6 +501,16 @@ module.exports = StyleSheet.create({
   mangerOderText3: {
     fontSize: 16,
     color: '#D63F5C'
-  }
+  },
   // END
+  // WALET 
+  waletText1: {
+fontSize: 22,
+color: '#23262F'
+  },
+  waletText2: {
+    fontSize: 20,
+    color: '#23262F'
+      }
+  // END 
 });
