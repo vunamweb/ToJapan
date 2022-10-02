@@ -298,7 +298,7 @@ class AddMoneyScreen extends Component {
             autoCompleteType="email"
             textContentType="emailAddress"
             keyboardType="email-address"
-            notflex="1"
+            notflex="2"
           />
 
           <View style={[styles.titleTextinput, styles.textGeneral]}>

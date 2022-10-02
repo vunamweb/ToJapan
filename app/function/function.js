@@ -22,9 +22,9 @@ import AddMoneyScreen from "../screen/AddMoneyScreen";
 class Functions {
   initNavigarion = () => {
     return createStackNavigator({
-      PaymentScreen: {
+      /*PaymentScreen: {
         screen: PaymentScreen,
-      },
+      },*/
 
       Splash1: {
         screen: Splash1,
@@ -89,9 +89,9 @@ class Functions {
         screen: CartScreen,
       },
 
-      /*PaymentScreen: {
+      PaymentScreen: {
         screen: PaymentScreen,
-      },*/
+      },
 
       ManagerOrder: {
         screen: ManagerOrder,

@@ -79,6 +79,7 @@ class AddDressScreen extends Component {
             autoCompleteType="email"
             textContentType="emailAddress"
             keyboardType="email-address"
+            notflex="1"
           />
           </View>
 

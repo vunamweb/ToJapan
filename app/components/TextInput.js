@@ -6,7 +6,9 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function TextInputzzzz({ errorText, description, ...props }) {
   let style = (props.bg != null) ? [styles.input, {backgroundColor: props.bg}] : [styles.input];
-  let style1 = (props.notflex == null) ? [styles.container] : [styles.container1];
+
+  let style1 = (props.notflex == null) ? [styles.container1] : [styles.container];
+  style1 = (props.notflex == "1") ? [styles.container] : [styles.container1];
 
   return (
     <View style={style1}>
