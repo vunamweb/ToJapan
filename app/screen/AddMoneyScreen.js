@@ -228,8 +228,8 @@ const dataProductSlider = [
   },
 ];
 
-const img1 = require("../../app/assets/sort-down.png");
-const img2 = require("../../app/assets/star_1.png");
+const img1 = require("../../app/assets/copy.png");
+const img2 = require("../../app/assets/canbao.png");
 const img3 = require("../../app/assets/heart.png");
 
 const img = require("../../app/assets/image_6.png");
@@ -241,6 +241,7 @@ const image4 = require("../../app/assets/Filler.png");
 class AddMoneyScreen extends Component {
   state = {
     index: 0,
+    visible: false,
     routes: [
       { key: "1", title: "JYP", icon: "ios-paper" },
       { icon: "ios-paper", key: "2", title: "VND" },
@@ -490,235 +491,113 @@ class AddMoneyScreen extends Component {
     </View>
   );
 
-  SecondRoute = () => (
-    <View style={[{ flex: 1, backgroundColor: "#FAFAFA" }]}>
-      <View
-        style={{
-          width: "100%",
-          marginBottom: 20,
-          flex: 1,
-          justifyContent: "flex-start",
-        }}
-      >
-        <View style={styles.padding}>
-          <View
-            style={[
-              styles.titleTextinput,
-              styles.textGeneral,
-              styles.marginHeader,
-            ]}
-          >
-            <Text style={styles.shopText2}>Nạp tiền</Text>
-          </View>
-          <TextInput
-            label="Nhập số tiền nạp"
-            title="Nhập số tiền nạp"
-            returnKeyType="next"
-            autoCapitalize="none"
-            autoCompleteType="email"
-            textContentType="emailAddress"
-            keyboardType="email-address"
-            notflex="1"
-          />
-
-          <View style={[styles.titleTextinput, styles.textGeneral]}>
-            <Text style={(styles.shopText2, styles.marginBottom20)}>
-              Phương thức thanh toán
-            </Text>
-          </View>
-          <View style={(styles.borderNormal, styles.bgWhite)}>
-            <View style={[styles.shortOption, { padding: 0 }]}>
-              <RadioButton />
-              <Text style={styles.shortText}>
-                Thanh toán chuyển khoản bằng mã QR
-              </Text>
-
-              <View
-                style={[
-                  {
-                    backgroundColor: "##E3F2FC",
-                    paddingVertical: 8,
-                    paddingHorizontal: 15,
-                    borderRadius: 10,
-                  },
-                  styles.flexRowStart,
-                ]}
-              >
-                <Text style={{ color: "#777E90" }}>
-                  Phí:
-                  <Text style={[{ color: "black" }, styles.marginLeft5]}>
-                    1,000 đ
-                  </Text>
-                </Text>
-              </View>
-            </View>
-            <View style={styles.line} />
-
-            <View style={[styles.shortOption, { padding: 0 }]}>
-              <RadioButton />
-              <Text style={styles.shortText}>Thẻ ATM</Text>
-
-              <View
-                style={[
-                  {
-                    backgroundColor: "##E3F2FC",
-                    paddingVertical: 8,
-                    paddingHorizontal: 15,
-                    borderRadius: 10,
-                  },
-                  styles.flexRowStart,
-                ]}
-              >
-                <Text style={{ color: "#777E90" }}>
-                  Phí:
-                  <Text style={[{ color: "black" }, styles.marginLeft5]}>
-                    1,000 đ
-                  </Text>
-                </Text>
-              </View>
-            </View>
-            <View style={styles.line} />
-
-            <View style={[styles.shortOption, { padding: 0 }]}>
-              <RadioButton />
-              <Text style={styles.shortText}>Mã QR</Text>
-
-              <View
-                style={[
-                  {
-                    backgroundColor: "##E3F2FC",
-                    paddingVertical: 8,
-                    paddingHorizontal: 15,
-                    borderRadius: 10,
-                  },
-                  styles.flexRowStart,
-                ]}
-              >
-                <Text style={{ color: "#777E90" }}>
-                  Phí:
-                  <Text style={[{ color: "black" }, styles.marginLeft5]}>
-                    1,000 đ
-                  </Text>
-                </Text>
-              </View>
-            </View>
-            <View style={styles.line} />
-
-            <View>
-              <Text style={styles.shortText}>Chuyển khoản ngân hàng</Text>
-
-              <View style={[styles.shortOption, { padding: 0 }]}>
-                <RadioButton />
-                <View
-                  style={[
-                    {
-                      backgroundColor: "##E3F2FC",
-                      paddingVertical: 8,
-                      paddingHorizontal: 15,
-                      borderRadius: 10,
-                    },
-                  ]}
-                >
-                  <Text style={[styles.shortText, { marginTop: 0 }]}>VCB</Text>
-                  <Text style={(styles.shopText2, styles.marginTop10)}>
-                    Ngân hàng thương mại cổ phần Ngoại thương Việt Nam
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.line} />
-
-              <View style={[styles.shortOption, { padding: 0 }]}>
-                <RadioButton />
-                <View
-                  style={[
-                    {
-                      backgroundColor: "##E3F2FC",
-                      paddingVertical: 8,
-                      paddingHorizontal: 15,
-                      borderRadius: 10,
-                    },
-                  ]}
-                >
-                  <Text style={[styles.shortText, { marginTop: 0 }]}>STB</Text>
-                  <Text style={(styles.shopText2, styles.marginTop10)}>
-                    Ngân hàng TMCP Sài Gòn Thương Tín
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.line} />
-            </View>
-          </View>
-        </View>
-        {/* Total */}
-        <View
-          style={[
-            styles.seach,
-            styles.bgWhite,
-            {
-              padding: 20,
-              marginTop: 40,
-              alignItems: "center",
-            },
-          ]}
-        >
-          {/* LEFT */}
-          <View style={{ marginTop: 0 }}>
-            <Text
-              style={{
-                fontSize: 18,
-                color: "#23262F",
-                fontWeight: "700",
-              }}
-            >
-              Tổng thanh toán
-            </Text>
-            <Text
-              style={{
-                fontSize: 22,
-                color: "#D63F5C",
-                fontWeight: "700",
-              }}
-            >
-              22222 ¥
-            </Text>
-          </View>
-          {/* end */}
-          <TouchableOpacity
-            style={[
-              //styles.button,
-              {
-                backgroundColor: "#3187EA",
-                paddingVertical: 10,
-                paddingHorizontal: 24,
-                borderRadius: 16,
-                //paddingVertical: 20,
-                //alignItems: 'center'
-              },
-            ]}
-            onPress={() =>
-              this.setState({
-                visible: true,
-              })
-            }
-          >
-            <Text style={{ color: "white", fontSize: 18, fontWeight: "700" }}>
-              Xác nhận
-            </Text>
-          </TouchableOpacity>
-        </View>
-        {/* END */}
-      </View>
-    </View>
-  );
-
   _renderScene = SceneMap({
     "1": this.FirstRoute,
-    "2": this.SecondRoute,
+    "2": this.FirstRoute,
     //"3": this.SecondRoute,
   });
 
   render() {
     return (
+      <Provider>
+      <Portal>
+        <Modal
+        visible={this.state.visible}
+        contentContainerStyle={styles.shortModal}
+        >
+          {/* HEADER */}
+          <View style={styles.shortHeaderModal}>
+                <Text style={{ color: "white", fontSize: 20 }}>
+                  Thông tin thanh toán
+                </Text>
+                <TouchableOpacity
+                  onPress={() =>
+                    this.setState({
+                      visible: false,
+                    })
+                  }
+                  style={{
+                    position: "absolute",
+                    top: 10,
+                    right: 0,
+                    marginRight: 20,
+                  }}
+                >
+                  <Text style={{ color: "white" }}>x</Text>
+                </TouchableOpacity>
+              </View>
+              {/* END */}
+              {/* BODY */}
+              <View style={styles.bgWhite}>
+              <View
+                  style={[
+                    styles.shortOption,
+                    {
+                      justifyContent: "space-between",
+                      paddingTop: 0,
+                      paddingBottom: 0,
+                    },
+                  ]}
+                >
+                  <Text style={styles.containerHeaderText1}>Tổng thanh toán</Text>
+                  <Text style={[styles.inforPaymentText1, styles.fontBold]}>50,000 đ</Text>
+                </View>
+
+                <View style={[styles.marginLeft10, styles.marginTop20]}>
+                  <Text style={styles.shopText2}>Ngân hàng</Text>
+                  <Text style={[styles.shortText, {marginLeft: 0, marginTop: 0}]}>Ngân hàng thương mại cổ phần Ngoại thương Việt Nam</Text>
+                </View>
+
+                <View style={[styles.flexRowStart, styles.marginTop20, {justifyContent: 'space-between'}]}>
+                <View style={styles.marginLeft10}>
+                  <Text style={styles.shopText2}>Số tài khoản</Text>
+                  <Text style={[styles.shortText, {marginLeft: 0, marginTop: 0}]}>89999000</Text>
+                </View>
+                <Image source={img1}/>
+                </View>
+
+                <View style={[styles.marginLeft10, styles.marginTop20]}>
+                  <Text style={styles.shopText2}>Chủ tài khoản</Text>
+                  <Text style={[styles.shortText, {marginLeft: 0, marginTop: 0}]}>Lê văn Yên</Text>
+                </View>
+
+                <View style={[styles.marginLeft10, styles.marginTop20]}>
+                  <Text style={styles.shopText2}>chi nhánh</Text>
+                  <Text style={[styles.shortText, {marginLeft: 0, marginTop: 0}]}>Đông Anh</Text>
+                </View>
+
+                <View style={[styles.flexRowStart, styles.marginTop20, {justifyContent: 'space-between'}]}>
+                <View style={styles.marginLeft10}>
+                  <Text style={styles.shopText2}>Nội dung chuyển khoản</Text>
+                  <Text style={[styles.shortText, {marginLeft: 0, marginTop: 0}]}>DB712050FFI EZ6763 linh le</Text>
+                </View>
+                <Image source={img1}/>
+                </View>
+
+                <View style={[styles.shortHeaderModal, styles.padding, styles.marginTop20, {marginLeft: 20, marginRight: 20, backgroundColor: '#FFF8DE', flexDirection: 'column'}]}>
+
+                  <View style={styles.flexRowStart}>
+<Image source={img2}/>
+<Text style={styles.marginLeft5}>Lưu ý</Text>
+                 </View>
+
+                 <Text style={styles.marginTop10}>
+                 Vui lòng chuyển tiền chính xác theo thông tin tài khoản ngân hàng và nội dung chuyển khoản.
+                 </Text>
+
+                 <Text style={[styles.marginTop20, styles.marginLeft10]}>
+                 Trường hợp được thanh toán tại máy ATM, vì không thể ghi được nội dung thanh toán nên quý khách vui lòng thông báo qua email hoặc gọi trực tiếp tổng đài ToJapan để được hỗ trợ.
+                 </Text>
+
+                 <Text style={[styles.marginTop10, styles.marginLeft10]}>
+                 Giao dịch của quý khách chỉ được xác nhận thanh toán sau khi ToJapan nhận được thông báo từ Ngân hàng với nội dung thanh toán đầy đủ.
+                 </Text>
+                </View>
+
+</View>
+              {/* END BODY */}
+</Modal>
+      </Portal>
       <View style={{ marginTop: 30, flex: 1, justifyContent: "flex-start" }}>
         <TabView
           navigationState={this.state}
@@ -739,6 +618,8 @@ class AddMoneyScreen extends Component {
           )}
         />
       </View>
+      
+      </Provider>
     );
   }
 }

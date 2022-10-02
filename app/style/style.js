@@ -63,6 +63,9 @@ module.exports = StyleSheet.create({
   marginTop20: {
     marginTop: 20,
   },
+  marginTop30: {
+    marginTop: 30,
+  },
   marginBottom20: {
     marginBottom: 20,
   },
@@ -511,6 +514,12 @@ color: '#23262F'
   waletText2: {
     fontSize: 20,
     color: '#23262F'
-      }
+      },
+  // END
+  // INFORMATION PAYMENT
+  inforPaymentText1: {
+color: '#3187EA',
+fontSize: 22
+},
   // END 
 });
