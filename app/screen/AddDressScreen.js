@@ -47,6 +47,7 @@ class AddDressScreen extends Component {
             autoCompleteType="email"
             textContentType="emailAddress"
             keyboardType="email-address"
+            styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
           />
 
           <View style={[styles.titleTextinput, styles.textGeneral]}>
@@ -80,6 +81,7 @@ class AddDressScreen extends Component {
             textContentType="emailAddress"
             keyboardType="email-address"
             notflex="1"
+            styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
           />
           </View>
 
@@ -216,6 +218,7 @@ class AddDressScreen extends Component {
             autoCompleteType="email"
             textContentType="emailAddress"
             keyboardType="email-address"
+            styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
           />
 
           <View
@@ -235,6 +238,7 @@ class AddDressScreen extends Component {
             autoCompleteType="email"
             textContentType="emailAddress"
             keyboardType="email-address"
+            styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
           />
 
           <CheckBox

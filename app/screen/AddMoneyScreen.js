@@ -299,6 +299,7 @@ class AddMoneyScreen extends Component {
             textContentType="emailAddress"
             keyboardType="email-address"
             notflex="2"
+            styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
           />
 
           <View style={[styles.titleTextinput, styles.textGeneral]}>
@@ -308,8 +309,8 @@ class AddMoneyScreen extends Component {
           </View>
           <View style={(styles.borderNormal, styles.bgWhite)}>
             <View style={[styles.shortOption, { padding: 0 }]}>
-              <RadioButton />
-              <Text style={styles.shortText}>
+              <RadioButton status="checked" />
+              <Text style={[styles.shortText, {marginLeft: 0}]}>
                 Thanh toán chuyển khoản bằng mã QR
               </Text>
 
@@ -318,7 +319,7 @@ class AddMoneyScreen extends Component {
                   {
                     backgroundColor: "##E3F2FC",
                     paddingVertical: 8,
-                    paddingHorizontal: 15,
+                    paddingHorizontal: 8,
                     borderRadius: 10,
                   },
                   styles.flexRowStart,
@@ -388,7 +389,7 @@ class AddMoneyScreen extends Component {
               <Text style={styles.shortText}>Chuyển khoản ngân hàng</Text>
 
               <View style={[styles.shortOption, { padding: 0 }]}>
-                <RadioButton />
+                <RadioButton status="checked" />
                 <View
                   style={[
                     {

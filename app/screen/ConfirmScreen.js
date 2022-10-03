@@ -26,7 +26,11 @@ class ConfirmScreen extends Component {
           autoCompleteType="email"
           textContentType="emailAddress"
           keyboardType="email-address"
-          bg="#E3F2FC"
+          //bg="#E3F2FC"
+          styleParent={{borderColor: '#E6E8EC', borderWidth: 0, backgroundColor: '#E3F2FC'}}
+          theme={{
+            colors: { placeholder: '#3187EA'}
+          }}
         />
         <Text style={[{marginTop: 10}]}>
         Chúng tôi đã gửi một email đến địa chỉ email bạn đã nhập. Vui lòng nhấp vào URL đính kèm trong emial. Vui lòng nhấp các thông tin cần thiết và tiếp tục đăng ký.

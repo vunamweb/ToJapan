@@ -35,7 +35,8 @@ class ForgotPassWordScreen extends Component {
           autoCompleteType="email"
           textContentType="emailAddress"
           keyboardType="email-address"
-          leftIcon="email"
+          leftIcon="email-outline"
+          styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
         />
         <TouchableOpacity
           style={[styles.button, { backgroundColor: "#3187EA", marginTop: 0 }]}

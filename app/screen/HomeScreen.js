@@ -286,14 +286,20 @@ class HomeScreen extends Component {
           <View style={[styles.fullWith, { padding: 20 }]}>
             <TextInput
               label="Tìm kiếm"
-              title=""
+              title="Tìm kiếm"
               returnKeyType="next"
               autoCapitalize="none"
               autoCompleteType="email"
               textContentType="emailAddress"
               keyboardType="email-address"
-              leftIcon="email"
-            />
+              leftIcon="search"
+              rightIcon="line-scan"
+              fontAwesome="true"
+              colorIcon="white"
+              theme={{
+                colors: { placeholder: 'white'}
+              }}
+             />
             {/* Banner */}
             <Banner />
             {/* END */}

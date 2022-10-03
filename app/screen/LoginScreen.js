@@ -31,7 +31,8 @@ class LoginScreen extends Component {
           autoCompleteType="email"
           textContentType="emailAddress"
           keyboardType="email-address"
-          leftIcon="email"
+          leftIcon="email-outline"
+          styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
         />
         <View style={[styles.titleTextinput, styles.textGeneral]}>
           <Text>Mật khẩu</Text>
@@ -45,8 +46,9 @@ class LoginScreen extends Component {
           autoCompleteType="email"
           textContentType="emailAddress"
           keyboardType="email-address"
-          leftIcon="lock"
-          rightIcon="eye"
+          leftIcon="lock-outline"
+          rightIcon="eye-outline"
+          styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
         />
         <View style={styles.remember}>
           <CheckBox containerStyle={styles.checkbox} title="Nhớ mật khẩu" />

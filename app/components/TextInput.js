@@ -2,25 +2,49 @@ import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import { theme } from '../core/theme'
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
+
+import styleRoot from "../style/style";
 
 export default function TextInputzzzz({ errorText, description, ...props }) {
-  let style = (props.bg != null) ? [styles.input, {backgroundColor: props.bg}] : [styles.input];
+  //let style = (props.bg != null) ? [styles.input] : [styles.input];
 
   let style1 = (props.notflex == null) ? [styles.container1] : [styles.container];
   style1 = (props.notflex == "1") ? [styles.container] : [styles.container1];
 
+  let left = (props.fontAwesome == "true") ? <TextInput.Icon
+  name={() => (
+    <IconFontAwesome
+      name={props.leftIcon}
+      size={24}
+      color={props.colorIcon}
+    />
+  )}
+  />
+  : 
+  <TextInput.Icon name={props.leftIcon} />;
+
+  let right = <TextInput.Icon color={props.colorIcon} name={props.rightIcon} />;
+
   return (
-    <View style={style1}>
+    <View style={[style1, styleRoot.borderNormal, {borderWidth: 1, borderColor: 'white'}, props.styleParent]}>
       <TextInput
-        style={style}
+        style={{
+          backgroundColor: 'none',
+        }}
+        theme={{
+                colors: {
+                           placeholder: '#777E90', text: '#3187EA', primary: 'transparent',
+                           underlineColor: 'transparent', background: '#003489'
+                   }
+             }}
         selectionColor={theme.colors.primary}
         underlineColor="transparent"
-        mode="outlined"
+        mode="flat"
         {...props}
-        left={<TextInput.Icon icon={props.leftIcon} />}
-        right={<TextInput.Icon icon={props.rightIcon} />}
-      />
+        left={left}
+        right={right}
+        />
       {description && !errorText ? (
         <Text style={styles.description}>{description}</Text>
       ) : null}
@@ -42,8 +66,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    backgroundColor: theme.colors.surface,
     borderRadius: 20,
+    borderColor: 'white',
     //overflow: 'hidden'
   },
   description: {

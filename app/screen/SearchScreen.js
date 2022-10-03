@@ -228,6 +228,7 @@ const dataProductSlider = [
 const img1 = require("../../app/assets/sort-down.png");
 const img2 = require("../../app/assets/star_1.png");
 const img3 = require("../../app/assets/heart.png");
+const image3_1 = require("../../app/assets/downright-3.png");
 
 const img = require("../../app/assets/image_6.png");
 const image1 = require("../../app/assets/heart.png");
@@ -452,7 +453,7 @@ class SearchScreen extends Component {
               {/* Body */}
               <View style={{ backgroundColor: "white" }}>
                 <View style={styles.shortOption}>
-                  <RadioButton />
+                  <RadioButton status="checked" />
                   <Text style={styles.shortText}>Mặc định</Text>
                 </View>
                 <View style={{ height: 1, backgroundColor: "#cccccc" }} />
@@ -494,12 +495,55 @@ class SearchScreen extends Component {
                 {/* Body */}
                 <View style={{ backgroundColor: "white", padding: 20 }}>
                   <Text style={styles.filterTitle}>Danh mục</Text>
-                  <Dropdown
-                    data={countries}
-                    defaultButtonText="Chọn danh mục"
-                  />
+                  {/* Dropdown1 */}
+                <Dropdown
+                  onSelect={(selectedItem, index) => {
+                    this.setState({
+                      visibleGTGT: true,
+                    })
+                  }}
+                  data={countries}
+                  renderCustomizedButtonChild={(selectedItem, index) => {
+                    return (
+                      <View style={[styles.flexRowStart]}>
+                        <Text
+                          style={[styles.marginLeft10, styles.paymentText7]}
+                        >
+                          {selectedItem ? selectedItem : "Chọn Danh mục"}
+                        </Text>
+                        <View style={[styles.flexRowEnd]}>
+                          <Image source={image3_1} />
+                        </View>
+                      </View>
+                    );
+                  }}
+                />
+                {/* END Dropdown1 */}
                   <Text style={styles.filterTitle}>Kích thước</Text>
-                  <Dropdown data={countries} defaultButtonText="Tất cả" />
+                   {/* Dropdown2 */}
+                <Dropdown
+                  onSelect={(selectedItem, index) => {
+                    this.setState({
+                      visibleGTGT: true,
+                    })
+                  }}
+                  data={countries}
+                  renderCustomizedButtonChild={(selectedItem, index) => {
+                    return (
+                      <View style={[styles.flexRowStart]}>
+                        <Text
+                          style={[styles.marginLeft10, styles.paymentText7]}
+                        >
+                          {selectedItem ? selectedItem : "Tất cả"}
+                        </Text>
+                        <View style={[styles.flexRowEnd]}>
+                          <Image source={image3_1} />
+                        </View>
+                      </View>
+                    );
+                  }}
+                />
+                {/* END Dropdown2 */}
                   <Text style={styles.filterTitle}>Khoảng giá</Text>
                   <Slider
   style={{width: '100%', height: 1}}

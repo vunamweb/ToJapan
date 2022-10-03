@@ -307,7 +307,7 @@ class AddressScreen extends Component {
                     <View
                       style={[styles.shortOption, { paddingTop: 0, margin: 0 }]}
                     >
-                      <RadioButton />
+                      <RadioButton status="checked" />
                       <Text style={styles.shortText}>
                         Gói kiểm tra hàng hóa
                       </Text>
@@ -350,7 +350,7 @@ class AddressScreen extends Component {
                     <View
                       style={[styles.shortOption, { paddingTop: 0, margin: 0 }]}
                     >
-                      <RadioButton />
+                      <RadioButton status="checked" />
                       <Text style={styles.shortText}>
                         Gói kiểm tra hàng hóa
                       </Text>
