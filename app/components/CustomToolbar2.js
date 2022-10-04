@@ -1,8 +1,10 @@
 import React from "react";
 import { Text, View, StyleSheet, Image } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import styles from "../../app/style/style";
+import functions from "../function/function";
 
 export default function CustomToolbar2({ mode, style, ...props }) {
   return (
@@ -24,7 +26,13 @@ export default function CustomToolbar2({ mode, style, ...props }) {
           <Image source={require("../assets/SMS.png")} />
         </View>
         <View style={styles.rightIcon}>
-          <Image source={require("../assets/setting-2.png")} />
+          <TouchableOpacity
+          onPress={() =>
+            functions.gotoScreen(props.component.props.navigation, "SettingScreen")
+          }
+          >
+            <Image source={require("../assets/setting-2.png")} />
+          </TouchableOpacity>
         </View>
       </View>
     </View>

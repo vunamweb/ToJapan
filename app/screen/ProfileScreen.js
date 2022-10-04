@@ -155,7 +155,7 @@ class ProfileScreen extends Component {
       <ScrollView>
         <Background sourse="true" start="1">
           {/* Toolbar */}
-          <CustomToolbar2 />
+          <CustomToolbar2 component={this} />
           {/* END */}
           <View style={[styles.homeBody, styles.padding, styles.marginTop10, {borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
           {/* MONEY */}
