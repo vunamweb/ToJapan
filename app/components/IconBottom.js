@@ -46,7 +46,11 @@ const data = [
 class IconBottom extends Component {
   render() {
     const renderItem = ({ item, index }) =>
-      <TouchableOpacity style={styles.touchableOpacityBottom}>
+      <TouchableOpacity style={styles.touchableOpacityBottom}
+      onPress={() =>
+        functions.gotoScreen(this.props.component.props.navigation, "ProfileScreen")
+      }
+      >
         <Image
           style={styles.img}
           source={item.src}

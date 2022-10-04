@@ -382,7 +382,7 @@ class HomeScreen extends Component {
             </View>
             <View style={styles.bottom}>
               {/* Bottom */}
-              <IconBottom />
+              <IconBottom component={this} />
               {/* END */}
             </View>
           </View>

@@ -18,6 +18,8 @@ import ListAddress from "../screen/ListAddressScreen";
 import AddDressScreen from "../screen/AddDressScreen";
 import WaletScreen from "../screen/WaletScreen";
 import AddMoneyScreen from "../screen/AddMoneyScreen";
+import ProfileScreen from "../screen/ProfileScreen";
+import SettingScreen from "../screen/SettingScreen"
 
 class Functions {
   initNavigarion = () => {
@@ -111,7 +113,19 @@ class Functions {
 
       AddMoneyScreen: {
         screen: AddMoneyScreen,
-      }
+      },
+
+      ProfileScreen: {
+        screen: ProfileScreen,
+        navigationOptions: {
+          header: null,
+        },
+      },
+
+      SettingScreen: {
+        screen: SettingScreen
+      },
+
     });
   };
 

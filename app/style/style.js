@@ -24,6 +24,9 @@ module.exports = StyleSheet.create({
   padding: {
     padding: 20,
   },
+  paddingSmall: {
+    padding: 10,
+  },
   margin: {
     margin: 20
   },
@@ -57,6 +60,9 @@ module.exports = StyleSheet.create({
   marginTop10: {
     marginTop: 10,
   },
+  marginTop15: {
+    marginTop: 15,
+  },
   marginTop5: {
     marginTop: 5,
   },
@@ -68,6 +74,9 @@ module.exports = StyleSheet.create({
   },
   marginBottom20: {
     marginBottom: 20,
+  },
+  marginBottom15: {
+    marginBottom: 15,
   },
   marginBottom10: {
     marginBottom: 10,
@@ -265,6 +274,7 @@ module.exports = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingTop: 20,
+    marginTop: 40
   },
   leftContainer: {
     /*justifyContent: "flex-start",
@@ -521,5 +531,15 @@ color: '#23262F'
 color: '#3187EA',
 fontSize: 22
 },
-  // END 
+  // END
+  // PROFILE
+  profileText1: {
+    fontSize: 22,
+    color: 'white'
+  },
+  profileText2: {
+    fontSize: 14,
+    color: "#E6E8EC"
+  },
+  // END  
 });
