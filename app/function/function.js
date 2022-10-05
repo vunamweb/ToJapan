@@ -20,7 +20,9 @@ import AddDressScreen from "../screen/AddDressScreen";
 import WaletScreen from "../screen/WaletScreen";
 import AddMoneyScreen from "../screen/AddMoneyScreen";
 import ProfileScreen from "../screen/ProfileScreen";
-import SettingScreen from "../screen/SettingScreen"
+import SettingScreen from "../screen/SettingScreen";
+import AuctionScreen from "../screen/AuctionScreen";
+import LastMinutesScreen from "../screen/LastMinutesScreen";
 
 class Functions {
   initNavigarion = () => {
@@ -132,6 +134,14 @@ class Functions {
 
       SettingScreen: {
         screen: SettingScreen
+      },
+
+      AuctionScreen: {
+        screen: AuctionScreen
+      },
+
+      LastMinutesScreen: {
+        screen: LastMinutesScreen
       },
 
     });

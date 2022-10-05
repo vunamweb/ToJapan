@@ -327,6 +327,10 @@ class ProductDaugiaScreen extends Component {
                   styles.button,
                   { backgroundColor: "#3187EA", marginTop: 20 },
                 ]}
+
+                onPress={() =>
+                  functions.gotoScreen(this.props.navigation, "AuctionScreen")
+                }
               >
                 <Text style={{ color: "white" }}>Đấu giá</Text>
               </TouchableOpacity>
@@ -337,6 +341,10 @@ class ProductDaugiaScreen extends Component {
                   styles.button,
                   { backgroundColor: "#E3F2FC", marginTop: 20 },
                 ]}
+
+                onPress={() =>
+                  functions.gotoScreen(this.props.navigation, "LastMinutesScreen")
+                }
               >
                 <Text style={{ color: "black" }}>Săn phút chót</Text>
               </TouchableOpacity>
