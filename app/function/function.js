@@ -11,6 +11,7 @@ import CategoryScreen from "../screen/CategoryScreen";
 import KeywordPopularScreen from "../screen/KeywordPopularScreen";
 import SearchScreen from "../screen/SearchScreen";
 import ProductScreen from "../screen/ProductScreen";
+import ProductDaugiaScreen from "../screen/ProductDaugiaScreen";
 import CartScreen from "../screen/CartScreen";
 import PaymentScreen from "../screen/PaymentScreen";
 import ManagerOrder from "../screen/ManagerOrder";
@@ -82,6 +83,13 @@ class Functions {
 
       ProductScreen: {
         screen: ProductScreen,
+        navigationOptions: {
+          header: null,
+        },
+      },
+
+      ProductDaugiaScreen: {
+        screen: ProductDaugiaScreen,
         navigationOptions: {
           header: null,
         },

@@ -9,7 +9,7 @@ import {
   LogBox,
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
-import { Text } from "react-native-paper";
+import { Text, Switch } from "react-native-paper";
 
 import Background from "../components/Background";
 import TextInput from "../components/TextInput";
@@ -20,6 +20,7 @@ import ContainerHeader from "../components/ContainerHeader";
 import Header1 from "../components/Header1";
 import SliderProduct from "../components/SliderProduct";
 import IconBottom from "../components/IconBottom";
+import Address from "../components/Address";
 
 import styles from "../../app/style/style";
 import functions from "../../app/function/function";
@@ -62,11 +63,12 @@ const img3 = require("../../app/assets/heart.png");
 const img = require("../../app/assets/image_6.png");
 const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
+const image3 = require("../../app/assets/ship.png");
 
-class ProductScreen extends Component {
-    state = {
-        order: false,
-      };
+class ProductDaugiaScreen extends Component {
+  state = {
+    order: false,
+  };
 
   _renderItem = ({ item, index }) => {
     return (
@@ -195,9 +197,47 @@ class ProductScreen extends Component {
           {/* END */}
           <View style={[styles.homeBody, { marginTop: -40 }]}>
             <View style={styles.homeContent}>
-              <Text style={{ fontSize: 18, fontWeight: "700" }}>
-                CASIO g-shock mini Gショックミニ g-baller カスタム
+              <Text
+                style={[
+                  { fontSize: 18, fontWeight: "700" },
+                  styles.marginBottom20,
+                ]}
+              >
+                CASIOzzzz g-shock mini Gショックミニ g-baller カスタム
               </Text>
+
+              <View
+                style={[
+                  { backgroundColor: "white" },
+                  styles.padding,
+                  styles.borderNormal,
+                ]}
+              >
+                <Text style={styles.paymentText6}>Thời gian đấu giá:</Text>
+                <View
+                  style={[
+                    { alignItems: "center" },
+                    styles.marginTop20,
+                    styles.marginBottom20,
+                  ]}
+                >
+                  <Text style={styles.money2}>00d: 02h : 30m : 49s</Text>
+                </View>
+                <View style={[styles.flexRowStart]}>
+                  <Image source={require("../assets/Auction.png")} />
+                  <Text style={(styles.paymentText2, styles.marginLeft5)}>
+                    Đang đấu giá: <Text style={styles.money3}>50</Text>
+                  </Text>
+                  <View
+                    style={[
+                      styles.flexRowStart,
+                      { justifyContent: "flex-end", flex: 1 },
+                    ]}
+                  >
+                    <Image source={require("../assets/Button.png")} />
+                  </View>
+                </View>
+              </View>
               {/* 1 */}
               <View style={{ marginTop: 20 }}>
                 <Text
@@ -205,6 +245,36 @@ class ProductScreen extends Component {
                 >
                   Giá hiện tại
                 </Text>
+
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={{ color: "#D63F5C", fontSize: 22 }}>
+                    20.400 ¥
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      color: "#23262F",
+                      marginLeft: 10,
+                      marginTop: 5,
+                    }}
+                  >
+                    3.753.600 đ
+                  </Text>
+                </View>
+
+                <Text style={[styles.paymentText2, styles.marginTop10]}>
+                  (Thuế tại Nhật 0%)
+                </Text>
+              </View>
+              {/* END 1 */}
+              {/* 2 */}
+              <View style={{ marginTop: 20 }}>
+                <Text
+                  style={{ fontSize: 14, color: "#23262F", fontWeight: "700" }}
+                >
+                  Giá mua ngay
+                </Text>
+
                 <View style={{ flexDirection: "row" }}>
                   <Text style={{ color: "#D63F5C", fontSize: 22 }}>
                     20.400 ¥
@@ -221,46 +291,44 @@ class ProductScreen extends Component {
                   </Text>
                 </View>
               </View>
-              {/* END 1 */}
-              {/* 2 */}
-              <View style={{ marginTop: 20 }}>
-                <Text
-                  style={{ fontSize: 14, color: "#23262F", fontWeight: "700" }}
-                >
-                  Giá bạn đã trả cho sản phẩm
-                </Text>
-                <View style={{ flexDirection: "row" }}>
-                  <Text style={{ color: "#13AB2C", fontSize: 22 }}>
-                    19.400 ¥
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      color: "#23262F",
-                      marginLeft: 10,
-                      marginTop: 5,
-                    }}
-                  >
-                    3.753.600 đ
-                  </Text>
-                </View>
-              </View>
               {/* END 2 */}
-              <Text style={{ fontSize: 14, color: "#777E90", marginTop: 5 }}>
-                Trạng thái đơn hàng: Tạm ứng
-              </Text>
+              <View
+                style={[
+                  styles.flexRowStart,
+                  styles.marginTop20,
+                  styles.marginBottom20,
+                ]}
+              >
+                <Image source={image3} />
+                <Text style={[{ marginTop: 5, marginLeft: 5 }, styles.money1]}>
+                  Phí vận chuyển nội địa: <Text style={styles.money2}>Có</Text>
+                </Text>
+              </View>
+              <View
+                style={[
+                  styles.address,
+                  { backgroundColor: "#E6E8EC" },
+                  styles.padding,
+                  styles.borderNormal,
+                ]}
+              >
+                <Image source={require("../assets/Y!Auction.png")} />
+                <View style={[styles.addressContent, { paddingLeft: 5 }]}>
+                  <Text style={styles.paymentText2}>
+                    Kích hoạt VIP Yahoo! Auction
+                  </Text>
+                  <Text style={styles.money3}>10.000 Point</Text>
+                </View>
+                <Switch />
+              </View>
               {/* BUTTON 1 */}
               <TouchableOpacity
                 style={[
                   styles.button,
                   { backgroundColor: "#3187EA", marginTop: 20 },
                 ]}
-
-                onPress={() =>
-                  functions.gotoScreen(this.props.navigation, "ProductDaugiaScreen")
-                }
               >
-                <Text style={{ color: "white" }}>Trả giá lại</Text>
+                <Text style={{ color: "white" }}>Đấu giá</Text>
               </TouchableOpacity>
               {/* END button1 */}
               {/* BUTTON 2 */}
@@ -270,12 +338,12 @@ class ProductScreen extends Component {
                   { backgroundColor: "#E3F2FC", marginTop: 20 },
                 ]}
               >
-                <Text style={{ color: "black" }}>Mua ngay</Text>
+                <Text style={{ color: "black" }}>Săn phút chót</Text>
               </TouchableOpacity>
               {/* END button2 */}
               {/* BUTTON 3 */}
               <TouchableOpacity
-              onPress={this.addProduct.bind(this)}
+                onPress={this.addProduct.bind(this)}
                 style={[
                   styles.button,
                   {
@@ -286,7 +354,7 @@ class ProductScreen extends Component {
                   },
                 ]}
               >
-                <Text style={{ color: "#3187EA" }}>Thêm vào giỏ hàng</Text>
+                <Text style={{ color: "#3187EA" }}>Mua ngay</Text>
               </TouchableOpacity>
               {/* END button3 */}
               {/* 3 */}
@@ -486,11 +554,14 @@ class ProductScreen extends Component {
                   Antique
                   {"\n"}
                   Country of origin ... Made in Switzerland
-                  {"\n"}{"\n"}
+                  {"\n"}
+                  {"\n"}
                   Specifications ... Mechanical manual winding
-                  {"\n"}{"\n"}
+                  {"\n"}
+                  {"\n"}
                   Case size: about 39 mm
-                  {"\n"}{"\n"}
+                  {"\n"}
+                  {"\n"}
                   Consumption tax, shipping fee, and because we are opening an
                   individual store, we do not charge consumption tax. The
                   shipping fee is freight collect.
@@ -515,4 +586,4 @@ class ProductScreen extends Component {
   }
 }
 
-export default ProductScreen;
+export default ProductDaugiaScreen;
