@@ -209,7 +209,13 @@ class ManagerAuctionScreen extends Component {
         }}
       >
         <View style={{ width: "100%", flexDirection: "row" }}>
+          <TouchableOpacity
+          onPress={() =>
+            functions.gotoScreen(this.props.navigation, "ProductDaugiaScreen")
+          }
+          >
           <Image source={img} style={{width: 70}} />
+          </TouchableOpacity>
           <View style={{ marginTop: 0, marginLeft: 20, flex: 1 }}>
             <View
               style={[
