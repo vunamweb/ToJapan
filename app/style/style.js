@@ -541,5 +541,15 @@ fontSize: 22
     fontSize: 14,
     color: "#E6E8EC"
   },
-  // END  
+  // END 
+  // AUCTION
+  auctionText1: {
+    color: '#D63F5C',
+    fontSize: 14
+  },
+  auctionText2: {
+    color: '#3187EA',
+    fontSize: 16
+  }
+  // END 
 });

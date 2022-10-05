@@ -23,7 +23,8 @@ const data = [
   },
   {
     title: 'Đấu giá',
-    src: require('../../app/assets/Auction.png')
+    src: require('../../app/assets/Auction.png'),
+    link: 'ManagerAuctionScreen'
   },
   {
     title: 'Yêu thích',
@@ -39,7 +40,8 @@ const data = [
   },
   {
     title: 'Cá nhân',
-    src: require('../../app/assets/users.png')
+    src: require('../../app/assets/users.png'),
+    link: 'ProfileScreen'
   }
 ];
 
@@ -48,7 +50,7 @@ class IconBottom extends Component {
     const renderItem = ({ item, index }) =>
       <TouchableOpacity style={styles.touchableOpacityBottom}
       onPress={() =>
-        functions.gotoScreen(this.props.component.props.navigation, "ProfileScreen")
+        functions.gotoScreen(this.props.component.props.navigation, item.link)
       }
       >
         <Image

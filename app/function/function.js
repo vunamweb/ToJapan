@@ -23,6 +23,7 @@ import ProfileScreen from "../screen/ProfileScreen";
 import SettingScreen from "../screen/SettingScreen";
 import AuctionScreen from "../screen/AuctionScreen";
 import LastMinutesScreen from "../screen/LastMinutesScreen";
+import ManagerAuctionScreen from "../screen/ManagerAuctionScreen";
 
 class Functions {
   initNavigarion = () => {
@@ -142,6 +143,10 @@ class Functions {
 
       LastMinutesScreen: {
         screen: LastMinutesScreen
+      },
+
+      ManagerAuctionScreen: {
+        screen: ManagerAuctionScreen
       },
 
     });

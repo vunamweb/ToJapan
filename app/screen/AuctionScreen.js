@@ -802,7 +802,7 @@ class AuctionScreen extends Component {
                     { backgroundColor: "#3187EA", marginTop: 0 },
                   ]}
                   onPress={() =>
-                    functions.gotoScreen(this.props.navigation, "HomeScreen")
+                    functions.gotoScreen(this.props.navigation, "ManagerAuctionScreen")
                   }
                 >
                   <Text style={{ color: "white" }}>Đấu giá</Text>
