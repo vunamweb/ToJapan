@@ -28,7 +28,8 @@ const data = [
   },
   {
     title: 'Yêu thích',
-    src: require('../../app/assets/heart_1.png')
+    src: require('../../app/assets/heart_1.png'),
+    link: 'FavourScreen'
   },
   {
     title: 'Đơn hàng',

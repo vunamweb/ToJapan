@@ -26,6 +26,7 @@ import AuctionScreen from "../screen/AuctionScreen";
 import LastMinutesScreen from "../screen/LastMinutesScreen";
 import ManagerAuctionScreen from "../screen/ManagerAuctionScreen";
 import DetailOrderScreen from "../screen/DetailOrderScreen";
+import FavourScreen from "../screen/FavourScreen";
 
 class Functions {
   initNavigarion = () => {
@@ -157,7 +158,11 @@ class Functions {
 
       DetailOrderScreen: {
         screen: DetailOrderScreen
-      }
+      },
+
+      FavourScreen: {
+        screen: FavourScreen
+      },
 
     });
   };
