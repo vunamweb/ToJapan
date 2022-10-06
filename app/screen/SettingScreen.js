@@ -39,6 +39,7 @@ const data1 = [
   {
     text: "Đổi mật khẩu",
     img: require("../../app/assets/lock-1.png"),
+    link: "ChangePasswordScreen",
     border: "none",
   },
 ];

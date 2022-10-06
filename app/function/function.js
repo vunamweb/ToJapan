@@ -30,6 +30,7 @@ import FavourScreen from "../screen/FavourScreen";
 import HistorySearchScreen from "../screen/HistorySearchScreen";
 import ComplainScreen from "../screen/ComplainScreen";
 import PersonalScreen from "../screen/PersonalScreen";
+import ChangePasswordScreen from "../screen/ChangePasswordScreen";
 
 class Functions {
   initNavigarion = () => {
@@ -177,6 +178,10 @@ class Functions {
 
       PersonalScreen: {
         screen: PersonalScreen
+      },
+
+      ChangePasswordScreen: {
+        screen: ChangePasswordScreen
       }
 
     });
