@@ -28,6 +28,7 @@ import ManagerAuctionScreen from "../screen/ManagerAuctionScreen";
 import DetailOrderScreen from "../screen/DetailOrderScreen";
 import FavourScreen from "../screen/FavourScreen";
 import HistorySearchScreen from "../screen/HistorySearchScreen";
+import ComplainScreen from "../screen/ComplainScreen";
 
 class Functions {
   initNavigarion = () => {
@@ -167,7 +168,11 @@ class Functions {
 
       HistorySearchScreen: {
         screen: HistorySearchScreen
-      }
+      },
+
+      ComplainScreen: {
+        screen: ComplainScreen
+      },
 
     });
   };

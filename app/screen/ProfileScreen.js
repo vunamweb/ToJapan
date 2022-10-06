@@ -83,6 +83,7 @@ const data3 = [
     text: "Liên hệ ToJapan",
     img: require("../../app/assets/Contact.png"),
     border: "none",
+    link: "ComplainScreen"
   },
 ];
 
