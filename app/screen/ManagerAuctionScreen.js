@@ -146,7 +146,7 @@ class ManagerAuctionScreen extends Component {
         col={1}
         style="1"
       />
-      <IconBottom/>
+      <IconBottom component={this}/>
     </View>
   );
 

@@ -118,7 +118,7 @@ class FavourScreen extends Component {
     headerTitleStyle: {
       color: "white",
     },
-    title: "Quản lý đấu giá",
+    title: "Yêu thích",
   });
 
   componentDidMount() {
@@ -146,7 +146,7 @@ class FavourScreen extends Component {
         col={1}
         style="1"
       />
-      <IconBottom />
+      <IconBottom component={this} />
     </View>
   );
 
