@@ -32,7 +32,8 @@ const data = [
   },
   {
     title: 'Đơn hàng',
-    src: require('../../app/assets/oder.png')
+    src: require('../../app/assets/oder.png'),
+    link: 'ManagerOrder'
   },
   {
     title: 'Bưu phẩm',

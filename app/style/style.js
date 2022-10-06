@@ -550,6 +550,18 @@ fontSize: 22
   auctionText2: {
     color: '#3187EA',
     fontSize: 16
-  }
+  },
   // END 
+  // FILTER
+  filter1: {
+    backgroundColor: "white",
+    marginTop: 0,
+    borderColor: "#23262F",
+    borderWidth: 1,
+    paddingVertical: 4,
+    paddingHorizontal: 20,
+    marginBottom: 20,
+    marginLeft: 20
+  }
+  // END
 });

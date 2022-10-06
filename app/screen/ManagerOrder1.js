@@ -13,7 +13,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { Rating, AirbnbRating, Slider } from "react-native-elements";
-import { Modal, Portal, Provider, RadioButton } from "react-native-paper";
+import { Modal, Portal, Provider, RadioButton, Searchbar } from "react-native-paper";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 
 import Background from "../components/Background";
@@ -236,10 +236,9 @@ const img = require("../../app/assets/image_6.png");
 const image1 = require("../../app/assets/arrow-right.png");
 const image2 = require("../../app/assets/shopping_bag.png");
 const image3 = require("../../app/assets/search-normal.png");
-const image3_1 = require("../../app/assets/downright-3.png");
 const image4 = require("../../app/assets/Filler.png");
 
-class ManagerOrder extends Component {
+class ManagerOrder1 extends Component {
   state = {
     index: 0,
     routes: [
@@ -247,31 +246,39 @@ class ManagerOrder extends Component {
       { icon: "ios-paper", key: "2", title: "Đang vận chuyển" },
       { icon: "ios-paper", key: "3", title: "Đã giao" },
     ],
-    visibleFilter: false,
   };
 
   static navigationOptions = ({ navigation }) => ({
     //headerStyle: { backgroundColor: '#00FF57' },
     headerBackground: () => <HeaderBg />,
     headerRight: (
-      <View style={{ paddingRight: 20, flexDirection: "row" }}>
-        <TouchableOpacity
-          onPress={() =>
-            functions.gotoScreen(navigation, "ManagerOrder1")
+        <View style={{ paddingRight: 20, marginTop: 0, flexDirection: "row", alignItems: 'center' }}>
+        <Searchbar
+          style={{
+            backgroundColor: "none",
+            marginRight: 10,
+            borderRadius: 20,
+            borderColor: '#ccc',
+            borderWidth: 1,
+            marginBottom: 15,
+            padding: 0
+          }}
+          inputStyle={
+              {
+                color: 'white',
+                paddingStart: 0
+              }
           }
-        >
-          <Image source={image3} style={{ marginRight: 20 }} />
-        </TouchableOpacity>
+          iconColor="white"
+          placeholder="Nhập tên sản phẩm"
+          placeholderTextColor="white"
+        />
         <TouchableOpacity
-          onPress={
-            () =>
-              navigation.getParam("my").setState({
-                visibleFilter: true,
-              })
-            //navigation.getParam('my').showModalFilter.bind(navigation.getParam('my'))
-          }
+        onPress={() =>
+          functions.gotoScreen(navigation, "ManagerOrder")
+        }
         >
-          <Image source={image4} />
+          <Text style={{color: 'white'}}>Huỷ</Text>
         </TouchableOpacity>
       </View>
     ),
@@ -279,7 +286,9 @@ class ManagerOrder extends Component {
     headerTitleStyle: {
       color: "white",
     },
-    title: "Quản lý đơn hàng",
+    title: "",
+
+    headerLeft: null,
   });
 
   componentDidMount() {
@@ -411,183 +420,8 @@ class ManagerOrder extends Component {
     );
   };
 
-  hideModalFilter = () => {
-    this.setState({
-      visibleFilter: false,
-    });
-  };
-
   render() {
     return (
-      <Provider>
- {/* Modal filter */}
-<Portal>
-              <Modal
-                visible={this.state.visibleFilter}
-                contentContainerStyle={styles.filterModal}
-              >
-                {/* HEADER */}
-                <View style={styles.filterHeaderModal}>
-                  <TouchableOpacity onPress={this.hideModalFilter.bind(this)}>
-                    <Text style={{ color: "black" }}>x</Text>
-                  </TouchableOpacity>
-                  <Text style={{ color: "black", fontSize: 20 }}>Bộ lọc</Text>
-                  <Text style={{ color: "#3187EA", fontSize: 20 }}>
-                    Đặt lại
-                  </Text>
-                </View>
-                {/* END */}
-                {/* Body */}
-                <View style={{ backgroundColor: "white", padding: 20 }}>
-                  
-                <View style={[styles.flexRowStart]}>
-        <TouchableOpacity
-                      style={[
-                        styles.buttonNotFull,
-                        styles.filter1
-                      ]}
-                      onPress={null}
-                    >
-                      <Text style={styles.money2}>Y!Auction</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={[
-                        styles.buttonNotFull,
-                        styles.filter1
-                      ]}
-                      onPress={null}
-                    >
-                      <Text style={styles.money2}>Mercari</Text>
-                    </TouchableOpacity>
-      </View>
-
-      <View style={styles.flexRowStart}>
-        <TouchableOpacity
-                      style={[
-                        styles.buttonNotFull,
-                        styles.filter1
-                      ]}
-                      onPress={null}
-                    >
-                      <Text style={styles.money2}>Rakuten</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={[
-                        styles.buttonNotFull,
-                        styles.filter1
-                      ]}
-                      onPress={null}
-                    >
-                      <Text style={styles.money2}>Amazon JP</Text>
-                    </TouchableOpacity>
-      </View>
-
-      <View style={styles.flexRowStart}>
-        <TouchableOpacity
-                      style={[
-                        styles.buttonNotFull,
-                        styles.filter1
-                      ]}
-                      onPress={null}
-                    >
-                      <Text style={styles.money2}>Y!Shoppoing</Text>
-                    </TouchableOpacity>
-      </View>
-
-      <View style={[styles.line,{marginTop: 20, marginBottom: 20}]}></View>
-
-                  <Text style={styles.filterTitle}>Khoảng giá</Text>
-                  <Slider
-  style={{width: '100%', height: 1}}
-  minimumValue={0}
-  maximumValue={100}
-  minimumTrackTintColor="#FFFFFF"
-  maximumTrackTintColor="#777E90"
-  thumbStyle={{width: 10, height: 10, backgroundColor: '#777E90'}}
-/>
-
-<View style={[styles.line,{marginTop: 40, marginBottom: 20}]}></View>
-
-                  <Text style={[styles.filterTitle]}>
-                    Đánh giá sản phẩm
-                  </Text>
-
-<View style={styles.flexRowStart}>
-<Rating
-              imageSize={15}
-              readonly
-              startingValue={5}
-              style={styles.rating}
-            />
-            <Rating
-              imageSize={15}
-              readonly
-              startingValue={4}
-              style={[styles.rating, styles.marginLeft10]}
-            />
-</View>
-
-<View style={styles.flexRowStart}>
-<Rating
-              imageSize={15}
-              readonly
-              startingValue={3}
-              style={styles.rating}
-            />
-            <Rating
-              imageSize={15}
-              readonly
-              startingValue={2}
-              style={[styles.rating, styles.marginLeft10]}
-            />
-            <Rating
-              imageSize={15}
-              readonly
-              startingValue={1}
-              style={[styles.rating, styles.marginLeft10]}
-            />
-</View>
-
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      marginTop: 10,
-                    }}
-                  >
-                    {/* Button huy */}
-                    <TouchableOpacity
-                      style={[
-                        styles.buttonNotFull,
-                        {
-                          backgroundColor: "white",
-                          marginTop: 0,
-                          borderColor: "#23262F",
-                          borderWidth: 1,
-                        },
-                      ]}
-                      onPress={null}
-                    >
-                      <Text style={{ color: "#23262F" }}>Huỷ</Text>
-                    </TouchableOpacity>
-                    {/* END */}
-                    {/* Button ap dung */}
-                    <TouchableOpacity
-                      style={[
-                        styles.buttonNotFull,
-                        { backgroundColor: "#3187EA", marginTop: 0 },
-                      ]}
-                      onPress={null}
-                    >
-                      <Text style={{ color: "white" }}>Áp dụng</Text>
-                    </TouchableOpacity>
-                    {/* END */}
-                  </View>
-                </View>
-                {/* END */}
-              </Modal>
-            </Portal>
-            {/* END */}     
 <View style={{marginTop: 30, flex: 1}}>
 <TabView
           navigationState={this.state}
@@ -629,9 +463,8 @@ class ManagerOrder extends Component {
           )}
         />
         </View>
-        </Provider>
 );
   }
 }
 
-export default ManagerOrder;
+export default ManagerOrder1;

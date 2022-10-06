@@ -15,6 +15,7 @@ import ProductDaugiaScreen from "../screen/ProductDaugiaScreen";
 import CartScreen from "../screen/CartScreen";
 import PaymentScreen from "../screen/PaymentScreen";
 import ManagerOrder from "../screen/ManagerOrder";
+import ManagerOrder1 from "../screen/ManagerOrder1";
 import ListAddress from "../screen/ListAddressScreen";
 import AddDressScreen from "../screen/AddDressScreen";
 import WaletScreen from "../screen/WaletScreen";
@@ -108,6 +109,10 @@ class Functions {
 
       ManagerOrder: {
         screen: ManagerOrder,
+      },
+
+      ManagerOrder1: {
+        screen: ManagerOrder1
       },
 
       ListAddress: {
