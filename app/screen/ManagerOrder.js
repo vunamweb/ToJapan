@@ -403,6 +403,10 @@ class ManagerOrder extends Component {
                     borderWidth: 1,
                   },
                 ]}
+
+                onPress={() =>
+                  functions.gotoScreen(this.props.navigation, "DetailOrderScreen")
+                }
               >
                 <Text style={{ color: "#3187EA" }}>Xem chi tiết</Text>
               </TouchableOpacity>
