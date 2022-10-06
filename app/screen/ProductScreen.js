@@ -9,7 +9,7 @@ import {
   LogBox,
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
-import { Text } from "react-native-paper";
+import { Text, Modal, Portal, Provider } from "react-native-paper";
 
 import Background from "../components/Background";
 import TextInput from "../components/TextInput";
@@ -66,6 +66,7 @@ const image2 = require("../../app/assets/shopping_bag.png");
 class ProductScreen extends Component {
     state = {
         order: false,
+        visibleFilter: false
       };
 
   _renderItem = ({ item, index }) => {
@@ -183,9 +184,175 @@ class ProductScreen extends Component {
       order: true,
     });
   };
+
+  hideModal = () => {
+    this.setState({
+      visibleFilter: false,
+    });
+  };
+
+  showModal = () => {
+    this.setState({
+      visibleFilter: true,
+    });
+  };
+
   render() {
     return (
+      <Provider>
+        
       <ScrollView>
+      <Portal>
+        <Modal
+      visible={this.state.visibleFilter}
+      contentContainerStyle={styles.shortModal}
+    >
+      {/* HEADER */}
+      <View style={styles.shortHeaderModal}>
+        <Text style={{ color: "white", fontSize: 20 }}>Thuộc tính</Text>
+        <TouchableOpacity
+          onPress={this.hideModal.bind(this)}
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 0,
+            marginRight: 20,
+          }}
+        >
+          <Text style={{ color: "white" }}>x</Text>
+        </TouchableOpacity>
+      </View>
+      {/* END */}
+      {/* Body */}
+      <View style={{ backgroundColor: "white" }}>
+        <View style={styles.shortOption}>
+          
+         {/* List product */}
+         <View
+                  style={[
+                    styles.marginTop20,
+                    styles.marginBottom20,
+                    { width: "100%", flexDirection: "row" },
+                  ]}
+                >
+                  <Image source={require("../../app/assets/product.png")} style={{ width: 70, height: 70 }} />
+                  <View style={{ marginTop: 0, marginLeft: 20 }}>
+                    <Text style={styles.money3}>
+                      釣り用フックキーパー 釣り用フ...
+                    </Text>
+                    <Text style={styles.money3}>x1</Text>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <View>
+                        <Text style={{ color: "#D63F5C", fontSize: 16 }}>
+                          1.200.000 đ
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+                {/* End list product */}
+
+        </View>
+        <View style={{ height: 1, backgroundColor: "#cccccc" }} />
+        <View>
+          
+          <Text style={styles.shortText}>Thuộc tính</Text>
+            
+          <View style={styles.flexRowStart}>
+<Image source={require("../../app/assets/Frame_568.png")}/>
+<Image source={require("../../app/assets/Frame_568.png")} />
+<Image source={require("../../app/assets/Frame_568.png")}/>
+<Image source={require("../../app/assets/Frame_568.png")}/>
+<Image source={require("../../app/assets/Frame_568.png")}/>
+<Image source={require("../../app/assets/Frame_568.png")}/>
+
+          </View>
+
+        </View>
+        <View style={{ height: 1, backgroundColor: "#cccccc" }} />
+        
+        <View style={[styles.seach, { padding: 20, marginTop: 0 }]}>
+          <Text>Số lượng</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: 100,
+            }}
+          >
+            {/* Minutes */}
+            <View style={[styles.circleSmall, { marginRight: 0 }]}>
+              <TouchableOpacity>
+                <Text style={{ fontSize: 12 }}>-</Text>
+              </TouchableOpacity>
+            </View>
+            {/* END */}
+            <Text>1</Text>
+            {/* Plus */}
+            <View
+              style={[
+                styles.circleSmall,
+                { marginRight: 0, backgroundColor: "black" },
+              ]}
+            >
+              <TouchableOpacity>
+                <Text style={{ fontSize: 12, color: "white" }}>+</Text>
+              </TouchableOpacity>
+            </View>
+            {/* END */}
+          </View>
+        </View>
+        
+        <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      marginTop: 10,
+                      marginBottom: 20,
+                      marginRight: 10,
+                      marginLeft: 10
+
+                    }}
+                  >
+                    {/* Button huy */}
+                    <TouchableOpacity
+                      style={[
+                        styles.buttonNotFull,
+                        {
+                          backgroundColor: "white",
+                          marginTop: 0,
+                          borderColor: "#3187EA",
+                          borderWidth: 1,
+                          paddingVertical: 10,
+                          paddingHorizontal: 20,
+                        },
+                      ]}
+                      onPress={null}
+                    >
+                      <Text style={{ color: "#3187EA" }}>Thêm vào gio hang</Text>
+                    </TouchableOpacity>
+                    {/* END */}
+                    {/* Button ap dung */}
+                    <TouchableOpacity
+                      style={[
+                        styles.buttonNotFull,
+                        { backgroundColor: "#3187EA", marginTop: 0 },
+                      ]}
+                      onPress={null}
+                    >
+                      <Text style={{ color: "white" }}>Mua ngay</Text>
+                    </TouchableOpacity>
+                    {/* END */}
+                  </View>
+      </View>
+      {/* END */}
+    </Modal>
+    </Portal>
         <Background start="1" full="1">
           {/* Toolbar */}
           <View style={styles.fullWith}>
@@ -249,6 +416,27 @@ class ProductScreen extends Component {
               <Text style={{ fontSize: 14, color: "#777E90", marginTop: 5 }}>
                 Trạng thái đơn hàng: Tạm ứng
               </Text>
+              <TouchableOpacity
+        onPress={this.showModal.bind(this)}
+      >
+        <View
+              style={[
+                styles.flexRowStart,
+                styles.marginTop20,
+                styles.borderNormal,
+                {
+                  justifyContent: "space-between",
+                  paddingLeft: 10,
+                  backgroundColor: '#F4F5F6',
+                  paddingVertical: 10
+                },
+              ]}
+            >
+              <Text style={styles.money2}>Thuộc tính (6)</Text>
+              <Image source={require("../../app/assets/arrow-right-3.png")} />
+            </View>
+</TouchableOpacity>
+
               {/* BUTTON 1 */}
               <TouchableOpacity
                 style={[
@@ -511,6 +699,7 @@ class ProductScreen extends Component {
           </View>
         </Background>
       </ScrollView>
+      </Provider>
     );
   }
 }

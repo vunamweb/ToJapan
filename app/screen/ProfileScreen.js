@@ -28,84 +28,85 @@ import functions from "../../app/function/function";
 const data1 = [
   {
     text: "Lịch sử tìm kiếm",
-    img: require("../../app/assets/history_1.png")
+    img: require("../../app/assets/history_1.png"),
+    link: "HistorySearchScreen",
   },
   {
     text: "Đấu giá",
-    img: require("../../app/assets/Auction.png")
+    img: require("../../app/assets/Auction.png"),
   },
   {
     text: "Ưu đãi",
-    img: require("../../app/assets/uu_dai.png")
+    img: require("../../app/assets/uu_dai.png"),
   },
   {
     text: "Yêu thích",
     img: require("../../app/assets/heart.png"),
-    border: "none"
+    border: "none",
   },
 ];
 
 const data2 = [
   {
     text: "Quản lý đơn hàng",
-    img: require("../../app/assets/quanlydonhang.png")
+    img: require("../../app/assets/quanlydonhang.png"),
   },
   {
     text: "Quản lý gói hàng",
-    img: require("../../app/assets/quanlydonhang_1.png")
+    img: require("../../app/assets/quanlydonhang_1.png"),
   },
   {
     text: "Phiếu giảm giá/ Mã quà tặng",
-    img: require("../../app/assets/Gift_Codes.png")
+    img: require("../../app/assets/Gift_Codes.png"),
   },
   {
     text: "Ví ToJapan",
     img: require("../../app/assets/waller.png"),
-    border: "none"
+    border: "none",
   },
 ];
 
 const data3 = [
   {
     text: "Người dùng lần đầu",
-    img: require("../../app/assets/nguoidungdautien.png")
+    img: require("../../app/assets/nguoidungdautien.png"),
   },
   {
     text: "Hướng dẫn sử dụng/Trợ giúp",
-    img: require("../../app/assets/huongdan.png")
+    img: require("../../app/assets/huongdan.png"),
   },
   {
     text: "FAQ/ Liên hệ chúng tôi",
-    img: require("../../app/assets/faq.png")
+    img: require("../../app/assets/faq.png"),
   },
   {
     text: "Liên hệ ToJapan",
     img: require("../../app/assets/Contact.png"),
-    border: "none"
+    border: "none",
   },
 ];
 
 const data4 = [
   {
     text: "Giới thiệu ToJapan",
-    img: require("../../app/assets/gioithieu.png")
+    img: require("../../app/assets/gioithieu.png"),
   },
   {
     text: "Tin tức",
-    img: require("../../app/assets/tintuc.png")
+    img: require("../../app/assets/tintuc.png"),
   },
   {
     text: "Điều khoản dịch vụ",
-    img: require("../../app/assets/dieukhoan.png")
+    img: require("../../app/assets/dieukhoan.png"),
   },
   {
     text: "Chính sách bảo mật",
-    img: require("../../app/assets/chinhsachbaomat.png")
+    img: require("../../app/assets/chinhsachbaomat.png"),
   },
   {
     text: "Quy chế hoạt động sàn TMĐT",
     img: require("../../app/assets/quyche.png"),
-    border: "none"
+    border: "none",
   },
 ];
 
@@ -120,31 +121,41 @@ const image4 = require("../../app/assets/info.png");
 
 class ProfileScreen extends Component {
   _renderItem = ({ item, index }) => {
-
-    let height = (item.border == "none") ? 0 : 1;
+    let height = item.border == "none" ? 0 : 1;
+    let link = item.link != null ? item.link : "HomeScreen";
 
     return (
-      <View style={styles.flexRowStart}>
-        <Image source={item.img}/>
-        <View style={{flex: 1}}>
-          
-<View
-      style={[
-        styles.flexRowStart,
-        {
-          justifyContent: 'space-between',
-          paddingLeft: 10,
-        },
-      ]}>
-<Text style={styles.money1}>{item.text}</Text>
-<Image source={img2}/>
-</View>
+      <TouchableOpacity
+        onPress={() => functions.gotoScreen(this.props.navigation, link)}
+      >
+        <View style={styles.flexRowStart}>
+          <Image source={item.img} />
+          <View style={{ flex: 1 }}>
+            <View
+              style={[
+                styles.flexRowStart,
+                {
+                  justifyContent: "space-between",
+                  paddingLeft: 10,
+                },
+              ]}
+            >
+              <Text style={styles.money1}>{item.text}</Text>
+              <Image source={img2} />
+            </View>
 
-<View style={[{ height: height, backgroundColor: "#cccccc", marginLeft: 10}, styles.marginTop15, styles.marginBottom15]} />
-</View>
-</View>
+            <View
+              style={[
+                { height: height, backgroundColor: "#cccccc", marginLeft: 10 },
+                styles.marginTop15,
+                styles.marginBottom15,
+              ]}
+            />
+          </View>
+        </View>
+      </TouchableOpacity>
     );
-  }
+  };
 
   componentDidMount() {
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
@@ -157,96 +168,102 @@ class ProfileScreen extends Component {
           {/* Toolbar */}
           <CustomToolbar2 component={this} />
           {/* END */}
-          <View style={[styles.homeBody, styles.padding, styles.marginTop10, {borderTopRightRadius: 0, borderTopLeftRadius: 0}]}>
-          {/* MONEY */}
           <View
-                style={[
-                  styles.address,
-                  styles.bgWhite,
-                  styles.padding,
-                  styles.borderNormal,
-                  styles.marginBottom20,
-                  {
-                    borderColor: "#3187EA",
-                    borderWidth: 1,
-                    justifyContent: "flex-start",
-                    alignItems: "flex-start",
-                  },
-                ]}
-              >
-                <View>
-                  <Text style={styles.paymentText2}>Tiền có sẵn</Text>
-                  <Text style={(styles.marginTop5, styles.waletText1)}>
-                    0 ¥
-                  </Text>
-                </View>
-                <View style={{ marginLeft: 50 }}>
-                  <View style={styles.flexRowStart}>
-                    <Text style={styles.paymentText2}>Tiền giữ</Text>
-                    <Tooltip popover={<Text>Info here</Text>}>
-                      <Image
-                        source={image4}
-                        style={{ marginTop: 2, marginLeft: 10 }}
-                      />
-                    </Tooltip>
-                  </View>
-
-                  <Text style={(styles.marginTop5, styles.waletText1)}>
-                    0 ¥
-                  </Text>
-                </View>
+            style={[
+              styles.homeBody,
+              styles.padding,
+              styles.marginTop10,
+              { borderTopRightRadius: 0, borderTopLeftRadius: 0 },
+            ]}
+          >
+            {/* MONEY */}
+            <View
+              style={[
+                styles.address,
+                styles.bgWhite,
+                styles.padding,
+                styles.borderNormal,
+                styles.marginBottom20,
+                {
+                  borderColor: "#3187EA",
+                  borderWidth: 1,
+                  justifyContent: "flex-start",
+                  alignItems: "flex-start",
+                },
+              ]}
+            >
+              <View>
+                <Text style={styles.paymentText2}>Tiền có sẵn</Text>
+                <Text style={(styles.marginTop5, styles.waletText1)}>0 ¥</Text>
               </View>
-          {/* END MONEY */}
-          <Text style={styles.paymentText6}>Số tiền này là một ước tính dựa trên tỷ lệ chuyển đổi tiền tệ gần đây nhất.</Text>
-          <Collapse
-          title="Hoạt động của tôi"
-          data={data1}
-          renderItem={this._renderItem}
-          col={1}
-          />
+              <View style={{ marginLeft: 50 }}>
+                <View style={styles.flexRowStart}>
+                  <Text style={styles.paymentText2}>Tiền giữ</Text>
+                  <Tooltip popover={<Text>Info here</Text>}>
+                    <Image
+                      source={image4}
+                      style={{ marginTop: 2, marginLeft: 10 }}
+                    />
+                  </Tooltip>
+                </View>
 
-          <Collapse
-          title="Quản lý mua bán"
-          data={data2}
-          renderItem={this._renderItem}
-          col={1}
-          />
+                <Text style={(styles.marginTop5, styles.waletText1)}>0 ¥</Text>
+              </View>
+            </View>
+            {/* END MONEY */}
+            <Text style={styles.paymentText6}>
+              Số tiền này là một ước tính dựa trên tỷ lệ chuyển đổi tiền tệ gần
+              đây nhất.
+            </Text>
+            <Collapse
+              title="Hoạt động của tôi"
+              data={data1}
+              renderItem={this._renderItem}
+              col={1}
+            />
 
-<Collapse
-          title="Hỗ trợ khách hàng"
-          data={data3}
-          renderItem={this._renderItem}
-          col={1}
-          />
+            <Collapse
+              title="Quản lý mua bán"
+              data={data2}
+              renderItem={this._renderItem}
+              col={1}
+            />
 
-<Collapse
-          title="Về chúng tôi"
-          data={data4}
-          renderItem={this._renderItem}
-          col={1}
-          />
+            <Collapse
+              title="Hỗ trợ khách hàng"
+              data={data3}
+              renderItem={this._renderItem}
+              col={1}
+            />
 
-<TouchableOpacity
+            <Collapse
+              title="Về chúng tôi"
+              data={data4}
+              renderItem={this._renderItem}
+              col={1}
+            />
+
+            <TouchableOpacity
               onPress={null}
-                style={[
-                  styles.button,
-                  {
-                    backgroundColor: "white",
-                    marginTop: 20,
-                    borderColor: "#D63F5C",
-                    borderWidth: 1,
-                  },
-                ]}
-              >
-                <Text style={{ color: "#D63F5C" }}>Đăng xuất</Text>
-              </TouchableOpacity>
+              style={[
+                styles.button,
+                {
+                  backgroundColor: "white",
+                  marginTop: 20,
+                  borderColor: "#D63F5C",
+                  borderWidth: 1,
+                },
+              ]}
+            >
+              <Text style={{ color: "#D63F5C" }}>Đăng xuất</Text>
+            </TouchableOpacity>
 
-              <View style={styles.bottom}>
+            <View style={styles.bottom}>
               {/* Bottom */}
               <IconBottom component={this} />
               {/* END */}
             </View>
-</View>
+          </View>
         </Background>
       </ScrollView>
     );

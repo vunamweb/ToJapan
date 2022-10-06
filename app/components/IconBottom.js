@@ -19,7 +19,8 @@ import FlatListViewNormal from '../../app/components/library/FlatListViewNormal'
 const data = [
   {
     title: 'Trang chủ',
-    src: require('../../app/assets/home.png')
+    src: require('../../app/assets/home.png'),
+    link: 'HomeScreen'
   },
   {
     title: 'Đấu giá',
