@@ -30,6 +30,7 @@ const data1 = [
   {
     text: "Thông tin cá nhân",
     img: require("../../app/assets/users.png"),
+    link: "PersonalScreen"
   },
   {
     text: "Danh sách địa chỉ",
@@ -78,33 +79,38 @@ class SettingScreen extends Component {
   });
   _renderItem = ({ item, index }) => {
     let height = item.border == "none" ? 0 : 1;
+    let link = item.link != null ? item.link : "HomeScreen";
 
     return (
-      <View style={styles.flexRowStart}>
-        <Image source={item.img} />
-        <View style={{ flex: 1 }}>
-          <View
-            style={[
-              styles.flexRowStart,
-              {
-                justifyContent: "space-between",
-                paddingLeft: 10,
-              },
-            ]}
-          >
-            <Text style={styles.money1}>{item.text}</Text>
-            <Image source={img2} />
-          </View>
+      <TouchableOpacity
+        onPress={() => functions.gotoScreen(this.props.navigation, link)}
+      >
+        <View style={styles.flexRowStart}>
+          <Image source={item.img} />
+          <View style={{ flex: 1 }}>
+            <View
+              style={[
+                styles.flexRowStart,
+                {
+                  justifyContent: "space-between",
+                  paddingLeft: 10,
+                },
+              ]}
+            >
+              <Text style={styles.money1}>{item.text}</Text>
+              <Image source={img2} />
+            </View>
 
-          <View
-            style={[
-              { height: height, backgroundColor: "#cccccc", marginLeft: 10 },
-              styles.marginTop15,
-              styles.marginBottom15,
-            ]}
-          />
+            <View
+              style={[
+                { height: height, backgroundColor: "#cccccc", marginLeft: 10 },
+                styles.marginTop15,
+                styles.marginBottom15,
+              ]}
+            />
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 

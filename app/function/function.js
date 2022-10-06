@@ -29,6 +29,7 @@ import DetailOrderScreen from "../screen/DetailOrderScreen";
 import FavourScreen from "../screen/FavourScreen";
 import HistorySearchScreen from "../screen/HistorySearchScreen";
 import ComplainScreen from "../screen/ComplainScreen";
+import PersonalScreen from "../screen/PersonalScreen";
 
 class Functions {
   initNavigarion = () => {
@@ -173,6 +174,10 @@ class Functions {
       ComplainScreen: {
         screen: ComplainScreen
       },
+
+      PersonalScreen: {
+        screen: PersonalScreen
+      }
 
     });
   };
