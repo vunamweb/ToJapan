@@ -30,6 +30,25 @@ class Network {
             });
     }
 
+    fetchPATCH_HEADER(url, body, token, callback) {
+        return fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: body
+         })
+            .then((response) => response.json())
+            .then((responseData) => {
+                 callback(responseData);
+            })
+            .catch((error) => {
+                //console.log(error);
+            });
+    }
+
     fetchjsonResponsePosition(url,callback,position) {
         return fetch(url)
             .then((response) => response.json())

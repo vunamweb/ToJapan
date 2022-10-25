@@ -5,6 +5,9 @@ module.exports = StyleSheet.create({
   error: {
     color: 'red'
   },
+  success: {
+    color: 'green'
+  },
   circle: {
     width: 56,
     height: 56,

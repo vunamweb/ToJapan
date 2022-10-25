@@ -258,6 +258,33 @@ class Functions {
     network.fetchPOST(url, body, callback);
   };
 
+  updateUser = (data, component) => {
+    let url = global.urlRoot + global.urlUpdateUser;
+    let token = data.token;
+
+    let body = {};
+    body.Name = data.name;
+    body.Address = data.phone;
+    body.Phone = data.address;
+    body.DOB = 'cvddzz';
+    body = JSON.stringify(body);
+
+    callback = async (responseData) => {
+      if (responseData.data == null) {
+        //component.setState({ messageError: global.updateUserNotOk });
+        component.setState({ messageSuccess: global.updateUserOk });
+        component.setState({ ActivityIndicator: false });
+      } else {
+        component.setState({ messageSuccess: global.updateUserOk });
+        component.setState({ ActivityIndicator: false });
+      }
+    };
+
+    component.setState({ ActivityIndicator: true });
+    network.fetchPATCH_HEADER(url, body, token, callback);
+
+  }
+
   logout = async (component) => {
     try {
       await AsyncStorage.setItem('dataPersonal', '');

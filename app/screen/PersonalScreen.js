@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { TouchableOpacity, StyleSheet, View, Image } from "react-native";
+import { TouchableOpacity, StyleSheet, View, Image, AsyncStorage, ActivityIndicator } from "react-native";
 import CheckBox from "../components/Checkbox";
 import { Text } from "react-native-paper";
 
@@ -21,6 +21,18 @@ const countries = ["Egypt", "Canada", "Australia", "Ireland"];
 const image3 = require("../../app/assets/downright-3.png");
 
 class PersonalScreen extends Component {
+  state = {
+    data:{
+      name: '',
+      phone: '',
+      address: '',
+      token: ''
+    },
+    messageError: '',
+    messageSuccess: '',
+    ActivityIndicator: false
+  };
+
   static navigationOptions = ({ navigation }) => ({
     //headerStyle: { backgroundColor: '#00FF57' },
     headerBackground: () => <HeaderBg />,
@@ -31,17 +43,46 @@ class PersonalScreen extends Component {
     title: "Thông tin cá nhân",
   });
 
+  componentDidMount() {
+    //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    this.retrieveDataPersonal();
+  }
+
+  retrieveDataPersonal = async () => {
+    let data = {};
+
+    try {
+      let value = await AsyncStorage.getItem("dataPersonal");
+      value = JSON.parse(value);
+  
+      data.name = value.data.name;
+      data.phone = value.data.phone;
+      data.address = value.data.address;
+      data.token = value.token;
+
+      this.setState({ data: data });
+    } catch (error) {
+      return null;
+    }
+  };
+
   render() {
     return (
       <ScrollView>
         <Background>
+        <View style={{marginTop: 30}}>
+        <Text style={styles.error}>{this.state.messageError}</Text>
+        <Text style={styles.success}>{this.state.messageSuccess}</Text>
+           <ActivityIndicator size="large" animating={this.state.ActivityIndicator}></ActivityIndicator>
+        </View>
           <View style={[styles.titleTextinput, styles.textGeneral, styles.marginHeader]}>
-            <Text>Tên đầy đủ</Text>
+        <Text>Tên đầy đủ</Text>
             <Text style={styles.mandatoryColor}>*</Text>
           </View>
           <TextInput
             label="Nhập họ và tên"
             title="Email *"
+            value={this.state.data.name}
             returnKeyType="next"
             autoCapitalize="none"
             autoCompleteType="email"
@@ -75,6 +116,7 @@ class PersonalScreen extends Component {
           <TextInput
             title="Số điện thoại"
             label="Số điện thoại"
+            value={this.state.data.phone}
             returnKeyType="next"
             autoCapitalize="none"
             autoCompleteType="email"
@@ -233,6 +275,7 @@ class PersonalScreen extends Component {
           <TextInput
             label="Nhập Địa chỉ chi tiết"
             title="Email *"
+            value={this.state.data.address}
             returnKeyType="next"
             autoCapitalize="none"
             autoCompleteType="email"
@@ -254,7 +297,7 @@ class PersonalScreen extends Component {
               { backgroundColor: "#3187EA", marginTop: 0 },
             ]}
             onPress={() =>
-              functions.gotoScreen(this.props.navigation, "HomeScreen")
+              functions.updateUser(this.state.data, this)
             }
           >
             <Text style={{ color: "white" }}>Xác nhận</Text>
