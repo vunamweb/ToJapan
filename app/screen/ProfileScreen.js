@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   LogBox,
+  AsyncStorage
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating, Tooltip } from "react-native-elements";
 import { Text } from "react-native-paper";
@@ -120,7 +121,19 @@ const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
 const image4 = require("../../app/assets/info.png");
 
+let name;
+
 class ProfileScreen extends Component {
+  constructor(props) {
+    super(props);
+
+    this.retrieveDataPersonal.bind(this);
+  }
+
+  state = {
+    name: ''
+  }
+
   _renderItem = ({ item, index }) => {
     let height = item.border == "none" ? 0 : 1;
     let link = item.link != null ? item.link : "HomeScreen";
@@ -159,15 +172,29 @@ class ProfileScreen extends Component {
   };
 
   componentDidMount() {
-    LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    this.retrieveDataPersonal();
   }
+
+  retrieveDataPersonal = async () => {
+    try {
+      let value = await AsyncStorage.getItem("dataPersonal");
+      value = JSON.parse(value);
+  
+      name = value.data.name;
+
+      this.setState({ name: name });
+    } catch (error) {
+      return null;
+    }
+  };
 
   render() {
     return (
       <ScrollView>
         <Background sourse="true" start="1">
           {/* Toolbar */}
-          <CustomToolbar2 component={this} />
+          <CustomToolbar2 name={this.state.name} component={this} />
           {/* END */}
           <View
             style={[
@@ -245,7 +272,9 @@ class ProfileScreen extends Component {
             />
 
             <TouchableOpacity
-              onPress={null}
+              onPress={() =>
+                functions.logout(this)
+              }
               style={[
                 styles.button,
                 {

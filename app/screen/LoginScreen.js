@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { TouchableOpacity, StyleSheet, View, ActivityIndicator } from "react-native";
+import { TouchableOpacity, StyleSheet, View, ActivityIndicator, AsyncStorage } from "react-native";
 import { CheckBox } from "react-native-elements";
 import { Text } from "react-native-paper";
 
@@ -25,6 +25,22 @@ class LoginScreen extends Component {
     colorBorderPassWord: '#E6E8EC',
     errorMessage: '',
     ActivityIndicator: false,
+  };
+
+  componentDidMount() {
+    //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    this.retrieveDataPersonal();
+  }
+
+  retrieveDataPersonal = async () => {
+    try {
+      let value = await AsyncStorage.getItem("dataPersonal");
+
+      if(value != '' && value != null )
+        functions.gotoScreen(this.props.navigation, "HomeScreen");
+    } catch (error) {
+      return null;
+    }
   };
 
   render() {

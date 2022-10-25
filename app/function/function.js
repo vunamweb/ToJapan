@@ -1,4 +1,7 @@
 import { createStackNavigator } from "react-navigation-stack";
+import {
+  AsyncStorage
+} from 'react-native';
 
 import Splash1 from "../../app/screen/Splash1";
 import Splash2 from "../../app/screen/Splash2";
@@ -212,12 +215,19 @@ class Functions {
     body.password = passWord;
     body = JSON.stringify(body);
 
-    var callback = function(responseData) {
+    callback = async (responseData) => {
       if (responseData.data == null) {
         component.setState({ errorMessage: global.loginWrong });
         component.setState({ ActivityIndicator: false });
       } else {
-        functions.saveDataUser(responseData);
+        //await AsyncStorage.setItem('dataPersonal', JSON.stringify(responseData));
+        try {
+          await AsyncStorage.setItem('dataPersonal', JSON.stringify(responseData));
+          //console.log(JSON.stringify(obj));
+        } catch (error) {
+          console.log(error);
+        }
+        //functions.saveDataUser(responseData);
         functions.gotoScreen(component.props.navigation, "HomeScreen");
       }
     };
@@ -247,6 +257,16 @@ class Functions {
     component.setState({ ActivityIndicator: true });
     network.fetchPOST(url, body, callback);
   };
+
+  logout = async (component) => {
+    try {
+      await AsyncStorage.setItem('dataPersonal', '');
+    } catch (error) {
+      console.log(error);
+    }
+
+    functions.gotoScreen(component.props.navigation, "LoginScreen");
+  }
 }
 
 const functions = new Functions();
