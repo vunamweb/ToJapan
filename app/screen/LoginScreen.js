@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { TouchableOpacity, StyleSheet, View } from "react-native";
+import { TouchableOpacity, StyleSheet, View, ActivityIndicator } from "react-native";
 import { CheckBox } from "react-native-elements";
 import { Text } from "react-native-paper";
 
@@ -14,11 +14,26 @@ import styles from "../../app/style/style";
 import functions from "../../app/function/function";
 
 class LoginScreen extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  state = {
+    userName: '',
+    passWord: '',
+    colorBorderUserName: '#E6E8EC',
+    colorBorderPassWord: '#E6E8EC',
+    errorMessage: '',
+    ActivityIndicator: false,
+  };
+
   render() {
     return (
       <Background center="true">
         <Logo type="login" />
         <Header>Đăng nhập</Header>
+        <Text style={styles.error}>{this.state.errorMessage}</Text>
+        <ActivityIndicator size="large" animating={this.state.ActivityIndicator}></ActivityIndicator>
         <View style={[styles.titleTextinput, styles.textGeneral]}>
           <Text>Email</Text>
           <Text style={styles.mandatoryColor}>*</Text>
@@ -26,36 +41,38 @@ class LoginScreen extends Component {
         <TextInput
           label="Nhập địa chỉ email"
           title="Email *"
+          name="username"
+          onChangeText={(value) => this.setState({userName: value})}
+          value={this.state.userName}
           returnKeyType="next"
           autoCapitalize="none"
           autoCompleteType="email"
           textContentType="emailAddress"
           keyboardType="email-address"
           leftIcon="email-outline"
-          styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
+          styleParent={{borderColor: this.state.colorBorderUserName, backgroundColor: 'white'}}
         />
         <View style={[styles.titleTextinput, styles.textGeneral]}>
           <Text>Mật khẩu</Text>
           <Text style={styles.mandatoryColor}>*</Text>
         </View>
         <TextInput
+          secureTextEntry
           title="Mật khẩu *"
           label="Nhập mật khẩu"
+          onChangeText={(value) => this.setState({passWord: value})}
+          value={this.state.passWord}
           returnKeyType="next"
-          autoCapitalize="none"
-          autoCompleteType="email"
-          textContentType="emailAddress"
-          keyboardType="email-address"
           leftIcon="lock-outline"
           rightIcon="eye-outline"
-          styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
+          styleParent={{borderColor: this.state.colorBorderPassWord, backgroundColor: 'white'}}
         />
         <View style={styles.remember}>
           <CheckBox containerStyle={styles.checkbox} title="Nhớ mật khẩu" />
           <View style={styles.forgotPassword}>
             <TouchableOpacity
               onPress={() =>
-                functions.gotoScreen(this.props.navigation, "ForgotPassWordScreen")
+                functions.login(this.state.userName, this.state.passWord, this)
               }
             >
               <Text style={styles.forgot}>Quên mật khẩu?</Text>
@@ -65,7 +82,7 @@ class LoginScreen extends Component {
         <TouchableOpacity
           style={[styles.button, { backgroundColor: "#3187EA", marginTop: 0 }]}
           onPress={() =>
-            functions.gotoScreen(this.props.navigation, "HomeScreen")
+            functions.login(this.state.userName, this.state.passWord, this)
           }
         >
           <Text style={{ color: "white" }}>Đăng nhâp</Text>

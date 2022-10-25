@@ -58,12 +58,12 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: 1,
     marginTop: 3,
-    marginBottom: 20,
+    marginBottom: 30,
   },
   container1: {
     width: '100%',
     marginTop: 3,
-    marginBottom: 20,
+    marginBottom: 30,
   },
   input: {
     borderRadius: 20,
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 13,
     color: theme.colors.secondary,
-    paddingTop: 8,
+    paddingTop: 0,
   },
   error: {
     fontSize: 13,

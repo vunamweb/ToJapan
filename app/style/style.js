@@ -2,6 +2,9 @@ import { StyleSheet } from "react-native";
 
 module.exports = StyleSheet.create({
   // General
+  error: {
+    color: 'red'
+  },
   circle: {
     width: 56,
     height: 56,

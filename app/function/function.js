@@ -32,6 +32,8 @@ import ComplainScreen from "../screen/ComplainScreen";
 import PersonalScreen from "../screen/PersonalScreen";
 import ChangePasswordScreen from "../screen/ChangePasswordScreen";
 
+import network from "../network/network";
+
 class Functions {
   initNavigarion = () => {
     return createStackNavigator({
@@ -118,7 +120,7 @@ class Functions {
       },
 
       ManagerOrder1: {
-        screen: ManagerOrder1
+        screen: ManagerOrder1,
       },
 
       ListAddress: {
@@ -145,51 +147,106 @@ class Functions {
       },
 
       SettingScreen: {
-        screen: SettingScreen
+        screen: SettingScreen,
       },
 
       AuctionScreen: {
-        screen: AuctionScreen
+        screen: AuctionScreen,
       },
 
       LastMinutesScreen: {
-        screen: LastMinutesScreen
+        screen: LastMinutesScreen,
       },
 
       ManagerAuctionScreen: {
-        screen: ManagerAuctionScreen
+        screen: ManagerAuctionScreen,
       },
 
       DetailOrderScreen: {
-        screen: DetailOrderScreen
+        screen: DetailOrderScreen,
       },
 
       FavourScreen: {
-        screen: FavourScreen
+        screen: FavourScreen,
       },
 
       HistorySearchScreen: {
-        screen: HistorySearchScreen
+        screen: HistorySearchScreen,
       },
 
       ComplainScreen: {
-        screen: ComplainScreen
+        screen: ComplainScreen,
       },
 
       PersonalScreen: {
-        screen: PersonalScreen
+        screen: PersonalScreen,
       },
 
       ChangePasswordScreen: {
-        screen: ChangePasswordScreen
-      }
-
+        screen: ChangePasswordScreen,
+      },
     });
   };
 
   gotoScreen = (navigation, screen) => {
     navigation.navigate(screen);
+  };
+
+  validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
+  saveDataUser = async (responseData) => {
+    await AsyncStorage.setItem('dataPersonal', JSON.stringify(responseData));
   }
+
+  login = (userName, passWord, component) => {
+    let url = global.urlRoot + global.urlLogin;
+
+    let body = {};
+    body.login = userName;
+    body.password = passWord;
+    body = JSON.stringify(body);
+
+    var callback = function(responseData) {
+      if (responseData.data == null) {
+        component.setState({ errorMessage: global.loginWrong });
+        component.setState({ ActivityIndicator: false });
+      } else {
+        functions.saveDataUser(responseData);
+        functions.gotoScreen(component.props.navigation, "HomeScreen");
+      }
+    };
+
+    if (userName == "") {
+      component.setState({ colorBorderUserName: "red" });
+      component.setState({ errorMessage: global.emailEmpty });
+      return;
+    } /*else if (!this.validateEmail(userName)) {
+      component.setState({ colorBorderUserName: "red" });
+      component.setState({ errorMessage: global.emailNotCorrect });
+      return;
+    }*/ else if (userName != "") {
+      component.setState({ colorBorderUserName: "#E6E8EC" });
+      component.setState({ errorMessage: "" });
+    }
+
+    if (passWord == "") {
+      component.setState({ colorBorderPassWord: "red" });
+      component.setState({ errorMessage: global.passWordEmpty });
+      return;
+    } else {
+      component.setState({ colorBorderPassWord: "#E6E8EC" });
+      component.setState({ errorMessage: "" });
+    }
+
+    component.setState({ ActivityIndicator: true });
+    network.fetchPOST(url, body, callback);
+  };
 }
 
 const functions = new Functions();
