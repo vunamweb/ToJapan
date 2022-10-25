@@ -228,6 +228,7 @@ class Functions {
           console.log(error);
         }
         //functions.saveDataUser(responseData);
+        component.setState({ ActivityIndicator: false });
         functions.gotoScreen(component.props.navigation, "HomeScreen");
       }
     };
