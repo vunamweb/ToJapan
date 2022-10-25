@@ -282,6 +282,29 @@ class Functions {
 
     component.setState({ ActivityIndicator: true });
     network.fetchPATCH_HEADER(url, body, token, callback);
+  }
+
+  changePass = (oldPass, newPass, token, component) => {
+    let url = global.urlRoot + global.urlChangePassword;
+
+    let body = {};
+    body.oPassword = oldPass;
+    body.Password = newPass;
+    body = JSON.stringify(body);
+
+    callback = async (responseData) => {
+      if (responseData.data == null) {
+        //component.setState({ messageError: global.updateUserNotOk });
+        component.setState({ messageSuccess: global.updateUserOk });
+        component.setState({ ActivityIndicator: false });
+      } else {
+        component.setState({ messageSuccess: global.updateUserOk });
+        component.setState({ ActivityIndicator: false });
+      }
+    };
+
+    component.setState({ ActivityIndicator: true });
+    network.fetchPATCH_HEADER(url, body, token, callback);
 
   }
 

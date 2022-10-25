@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { TouchableOpacity, StyleSheet, View, Image } from "react-native";
+import { TouchableOpacity, StyleSheet, View, Image, ActivityIndicator, AsyncStorage } from "react-native";
 import CheckBox from "../components/Checkbox";
 import { Text } from "react-native-paper";
 
@@ -20,7 +20,16 @@ const countries = ["Egypt", "Canada", "Australia", "Ireland"];
 
 const image3 = require("../../app/assets/downright-3.png");
 
+let token;
+
 class ChangePasswordScreen extends Component {
+  state = {
+    oldPass: '',
+    newPass: '',
+    messageError: '',
+    messageSuccess: '',
+    ActivityIndicator: false
+  };
   static navigationOptions = ({ navigation }) => ({
     //headerStyle: { backgroundColor: '#00FF57' },
     headerBackground: () => <HeaderBg />,
@@ -31,22 +40,43 @@ class ChangePasswordScreen extends Component {
     title: "Đổi mật khẩu",
   });
 
+  componentDidMount() {
+    //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    this.retrieveDataPersonal();
+  }
+
+  retrieveDataPersonal = async () => {
+    let data = {};
+
+    try {
+      let value = await AsyncStorage.getItem("dataPersonal");
+      value = JSON.parse(value);
+  
+      token = value.token;
+} catch (error) {
+      return null;
+    }
+  };
+
   render() {
     return (
       <ScrollView>
         <Background>
+        <View style={{marginTop: 30}}>
+        <Text style={styles.error}>{this.state.messageError}</Text>
+        <Text style={styles.success}>{this.state.messageSuccess}</Text>
+           <ActivityIndicator size="large" animating={this.state.ActivityIndicator}></ActivityIndicator>
+        </View>
         <View style={[styles.titleTextinput, styles.textGeneral, styles.marginHeader]}>
             <Text>Mật khẩu cũ</Text>
             <Text style={styles.mandatoryColor}>*</Text>
           </View>
           <TextInput
+            secureTextEntry
             label="Nhập mật khẩu cũ"
             title="Email *"
-            returnKeyType="next"
-            autoCapitalize="none"
-            autoCompleteType="email"
-            textContentType="emailAddress"
-            keyboardType="email-address"
+            onChangeText={(value) => this.setState({oldPass: value})}
+            value={this.state.oldPass}
             styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
           />
 
@@ -55,13 +85,11 @@ class ChangePasswordScreen extends Component {
             <Text style={styles.mandatoryColor}>*</Text>
           </View>
           <TextInput
+            secureTextEntry
             label="Nhập mật khau"
             title="Email *"
-            returnKeyType="next"
-            autoCapitalize="none"
-            autoCompleteType="email"
-            textContentType="emailAddress"
-            keyboardType="email-address"
+            onChangeText={(value) => this.setState({newPass: value})}
+            value={this.state.newPass}
             styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
           />
 
@@ -70,13 +98,8 @@ class ChangePasswordScreen extends Component {
             <Text style={styles.mandatoryColor}>*</Text>
           </View>
           <TextInput
+            secureTextEntry
             label="Nhập lại mât khẩu"
-            title="Email *"
-            returnKeyType="next"
-            autoCapitalize="none"
-            autoCompleteType="email"
-            textContentType="emailAddress"
-            keyboardType="email-address"
             styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
           />
 <TouchableOpacity
@@ -86,7 +109,7 @@ class ChangePasswordScreen extends Component {
               { backgroundColor: "#3187EA", marginTop: 0 },
             ]}
             onPress={() =>
-              functions.gotoScreen(this.props.navigation, "HomeScreen")
+              functions.changePass(this.state.oldPass, this.state.newPass, token, this)
             }
           >
             <Text style={{ color: "white" }}>Xác nhận</Text>

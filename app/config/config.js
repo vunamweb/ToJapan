@@ -9,3 +9,4 @@ global.updateUserNotOk = "Cập nhật không thành công"
 global.urlRoot = 'https://mobile.tojapan.jp';
 global.urlLogin = '/login';
 global.urlUpdateUser = '/user/update'
+global.urlChangePassword = '/user/password'
