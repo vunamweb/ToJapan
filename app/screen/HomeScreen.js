@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   LogBox,
+  ActivityIndicator,
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
 import { Text } from "react-native-paper";
@@ -109,44 +110,20 @@ const dataCarouselSlider = [
     title: "Tất cả",
   },
   {
-    title: "Y!Auction",
+    title: "Mercari",
+    shop: "mercari",
   },
   {
-    title: "Mercari",
+    title: "Y!Auction",
+    shop: "yahoo",
   },
   {
     title: "Amazon",
-  },
-];
-
-const dataProductSlider = [
-  {
-    text1: "[Crocs] Classic All",
-    text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
-    text4: "5,434",
-    text5: "1,016,158",
+    shop: "amazon",
   },
   {
-    text1: "[Crocs] Classic All",
-    text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
-    text4: "5,434",
-    text5: "1,016,158",
-  },
-  {
-    text1: "[Crocs] Classic All",
-    text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
-    text4: "5,434",
-    text5: "1,016,158",
-  },
-  {
-    text1: "[Crocs] Classic All",
-    text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
-    text4: "5,434",
-    text5: "1,016,158",
+    title: "Rakuten",
+    shop: "rakuten",
   },
 ];
 
@@ -154,11 +131,20 @@ const img1 = require("../../app/assets/question.png");
 const img2 = require("../../app/assets/star_1.png");
 const img3 = require("../../app/assets/heart.png");
 
-const img = require("../../app/assets/image_6.png");
 const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
 
+var component__;
+
+
 class HomeScreen extends Component {
+  state = {
+    dataProductSlider: [],
+    ActivityIndicator: true,
+    shop: '',
+    index: 0
+  };
+
   _renderItem = ({ item, index }) => {
     return (
       <View style={{ alignItems: "center" }}>
@@ -172,7 +158,7 @@ class HomeScreen extends Component {
         </TouchableOpacity>
       </View>
     );
-  }
+  };
 
   _renderItem_1({ item, index }) {
     return (
@@ -192,7 +178,7 @@ class HomeScreen extends Component {
   }
 
   _renderItem_2({ item, index }) {
-    if (index == 0)
+    if (item.shop == component__.state.shop)
       return (
         <View
           style={{
@@ -202,9 +188,15 @@ class HomeScreen extends Component {
             padding: 10,
           }}
         >
+          <TouchableOpacity
+          onPress={() =>
+            functions.getListPopularProduct(component__, item.shop)
+          }
+          >
           <Text style={{ color: "white", fontSize: 16, fontWeight: "500" }}>
             {item.title}
           </Text>
+          </TouchableOpacity>
         </View>
       );
     else
@@ -217,9 +209,15 @@ class HomeScreen extends Component {
             padding: 10,
           }}
         >
+          <TouchableOpacity
+          onPress={() =>
+            functions.getListPopularProduct(component__, item.shop)
+          }
+          >
           <Text style={{ color: "black", fontSize: 16, fontWeight: "500" }}>
             {item.title}
           </Text>
+          </TouchableOpacity>
         </View>
       );
   }
@@ -227,53 +225,64 @@ class HomeScreen extends Component {
   _renderItem_3 = ({ item, index }) => {
     return (
       <TouchableOpacity
-      style={{width: '50%'}}
-      onPress={() =>
-        functions.gotoScreen(this.props.navigation, "ProductScreen")
-      }
+        style={{ width: "50%" }}
+        onPress={() =>
+          functions.gotoScreen(this.props.navigation, "ProductScreen")
+        }
       >
-      <View style={{ padding: 15, width: "100%" }}>
-        <View
-          style={{ borderRadius: 30, backgroundColor: "white", width: "100%" }}
-        >
-          <Image source={img} />
-          <View style={{ position: "absolute", top: 5, right: 5 }}>
-            <Image source={image1} />
-          </View>
-          <View style={{ marginTop: 30 }}>
-            <Text style={{ color: "#23262F", fontSize: 16 }}>{item.text1}</Text>
-            <Text style={{ color: "#23262F", fontSize: 16 }}>{item.text2}</Text>
-            <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
-              {item.text3}
-            </Text>
-            <Rating
-              imageSize={15}
-              readonly
-              startingValue={3}
-              style={styles.rating}
-            />
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <View>
-                <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                  {item.text4} ¥
-                </Text>
-                <Text style={{ fontSize: 12, color: "#777E90" }}>
-                  {item.text5} VND
-                </Text>
+        <View style={{ padding: 15, width: "100%" }}>
+          <View
+            style={{
+              borderRadius: 30,
+              backgroundColor: "white",
+              width: "100%",
+            }}
+          >
+            <Image style={{width: 128,height: 128}} source={{ uri: item.image }} />
+            <View style={{ position: "absolute", top: 5, right: 5 }}>
+              <Image source={image1} />
+            </View>
+            <View style={{ marginTop: 30 }}>
+              <Text style={{ color: "#23262F", fontSize: 16 }}>
+                {item.title}
+              </Text>
+              <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
+                Từ {this.state.shop}
+              </Text>
+              <Rating
+                imageSize={15}
+                readonly
+                startingValue={0}
+                style={styles.rating}
+              />
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <View>
+                  <Text style={{ color: "#D63F5C", fontSize: 16 }}>
+                    {item.price} ¥
+                  </Text>
+                  <Text style={{ fontSize: 12, color: "#777E90" }}>
+                    {item.priceVN} VND
+                  </Text>
+                </View>
+                <Image source={image2} />
               </View>
-              <Image source={image2} />
             </View>
           </View>
         </View>
-      </View>
       </TouchableOpacity>
     );
   };
 
   componentDidMount() {
+    component__ = this;
+    functions.getListPopularProduct(this, 'amazon');
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    
   }
 
   render() {
@@ -297,9 +306,9 @@ class HomeScreen extends Component {
               fontAwesome="true"
               colorIcon="white"
               theme={{
-                colors: { placeholder: 'white'}
+                colors: { placeholder: "white" },
               }}
-             />
+            />
             {/* Banner */}
             <Banner />
             {/* END */}
@@ -371,11 +380,15 @@ class HomeScreen extends Component {
               />
               {/* END */}
               <Header1>Sản phẩm nổi bật</Header1>
+              <ActivityIndicator
+                size="large"
+                animating={this.state.ActivityIndicator}
+              />
               {/* Slider Product */}
               <SliderProduct
                 dataCarouselSlider={dataCarouselSlider}
                 renderCarouselSlider={this._renderItem_2}
-                dataProductSlider={dataProductSlider}
+                dataProductSlider={this.state.dataProductSlider}
                 renderProductSlider={this._renderItem_3}
               />
               {/* END */}

@@ -373,6 +373,25 @@ class Functions {
     network.fetchGET_HEADER(url, body, token, callback);
   };
 
+  getListPopularProduct = async (component, shop) => {
+    let url = global.urlRoot + global.urlPopularProduct;
+    url = url.replace(':shop', shop);
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+
+    callback = async (responseData) => {
+      component.setState({ dataProductSlider: responseData.data.items, shop: shop });
+      component.setState({ ActivityIndicator: false });
+    };
+
+    component.setState({ ActivityIndicator: true });
+    network.fetchGET_HEADER(url, body, token, callback);
+  };
+
   logout = async (component) => {
     try {
       await AsyncStorage.setItem("dataPersonal", "");
