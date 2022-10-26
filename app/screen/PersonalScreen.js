@@ -52,7 +52,8 @@ class PersonalScreen extends Component {
     let data = {};
 
     try {
-      let value = await AsyncStorage.getItem("dataPersonal");
+      let value = await functions.getDataUser();
+
       value = JSON.parse(value);
   
       data.name = value.data.name;

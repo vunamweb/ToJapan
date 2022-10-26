@@ -204,7 +204,29 @@ class Functions {
   };
 
   saveDataUser = async (responseData) => {
-    await AsyncStorage.setItem('dataPersonal', JSON.stringify(responseData));
+    try {
+      await AsyncStorage.setItem('dataPersonal', JSON.stringify(responseData));
+      //console.log(JSON.stringify(obj));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  getDataUser = async () => {
+    var data;
+
+    try {
+      await AsyncStorage.getItem("dataPersonal")
+      .then((response) => {
+          data = response;
+      })
+
+      return data;
+      //console.log(JSON.stringify(obj));
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   }
 
   login = (userName, passWord, component) => {
@@ -215,19 +237,13 @@ class Functions {
     body.password = passWord;
     body = JSON.stringify(body);
 
-    callback = async (responseData) => {
+    callback = (responseData) => {
       if (responseData.data == null) {
         component.setState({ errorMessage: global.loginWrong });
         component.setState({ ActivityIndicator: false });
       } else {
-        //await AsyncStorage.setItem('dataPersonal', JSON.stringify(responseData));
-        try {
-          await AsyncStorage.setItem('dataPersonal', JSON.stringify(responseData));
-          //console.log(JSON.stringify(obj));
-        } catch (error) {
-          console.log(error);
-        }
-        //functions.saveDataUser(responseData);
+        functions.saveDataUser(responseData);
+
         component.setState({ ActivityIndicator: false });
         functions.gotoScreen(component.props.navigation, "HomeScreen");
       }
@@ -263,17 +279,32 @@ class Functions {
     let url = global.urlRoot + global.urlUpdateUser;
     let token = data.token;
 
-    let body = {};
+    let body = {}, body1;
+
     body.Name = data.name;
     body.Address = data.phone;
     body.Phone = data.address;
     body.DOB = 'cvddzz';
-    body = JSON.stringify(body);
+    body = JSON.parse(JSON.stringify(body));
+    //body1 = JSON.stringify(body);
+    //body = JSON.parse(body.replace(/\r?\n|\r/g, ''));
+    //body = body.replace("\/", '');
+    //body1 = body1.replace(/\\n/g, '');
+    //body = body.replace(/\n/g, '');
 
+    /*body1 = {
+      "DOB": "12/3/1993",
+      "Name": "tuan",
+      "Address": "hoc mon",
+      "Phone": "093443434"
+  }
+
+  body1 = JSON.stringify(body1, null, null);*/
+    
     callback = async (responseData) => {
       if (responseData.data == null) {
-        //component.setState({ messageError: global.updateUserNotOk });
-        component.setState({ messageSuccess: global.updateUserOk });
+        component.setState({ messageError: global.updateUserNotOk });
+        //component.setState({ messageSuccess: global.updateUserOk });
         component.setState({ ActivityIndicator: false });
       } else {
         component.setState({ messageSuccess: global.updateUserOk });
@@ -295,8 +326,8 @@ class Functions {
 
     callback = async (responseData) => {
       if (responseData.data == null) {
-        //component.setState({ messageError: global.updateUserNotOk });
-        component.setState({ messageSuccess: global.updateUserOk });
+        component.setState({ messageError: global.updateUserNotOk });
+        //component.setState({ messageSuccess: global.updateUserOk });
         component.setState({ ActivityIndicator: false });
       } else {
         component.setState({ messageSuccess: global.updateUserOk });

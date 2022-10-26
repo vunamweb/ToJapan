@@ -178,7 +178,8 @@ class ProfileScreen extends Component {
 
   retrieveDataPersonal = async () => {
     try {
-      let value = await AsyncStorage.getItem("dataPersonal");
+      let value = await functions.getDataUser();
+
       value = JSON.parse(value);
   
       name = value.data.name;
