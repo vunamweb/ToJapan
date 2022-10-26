@@ -230,16 +230,19 @@ class HomeScreen extends Component {
           functions.gotoScreen(this.props.navigation, "ProductScreen")
         }
       >
-        <View style={{ padding: 15, width: "100%" }}>
+        <View style={{ padding: 10, width: "100%" }}>
           <View
             style={{
               borderRadius: 30,
               backgroundColor: "white",
               width: "100%",
+              paddingLeft: 20,
+              paddingRight: 20,
+              paddingBottom: 20
             }}
           >
-            <Image style={{width: 128,height: 128}} source={{ uri: item.image }} />
-            <View style={{ position: "absolute", top: 5, right: 5 }}>
+            <Image style={{width: '100%',height: 128}} source={{ uri: item.image }} />
+            <View style={{ position: "absolute", top: 5, right: 20 }}>
               <Image source={image1} />
             </View>
             <View style={{ marginTop: 30 }}>
@@ -280,7 +283,7 @@ class HomeScreen extends Component {
 
   componentDidMount() {
     component__ = this;
-    functions.getListPopularProduct(this, 'amazon');
+    functions.getListPopularProduct(this, 'mercari');
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
     
   }
