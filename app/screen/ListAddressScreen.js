@@ -9,6 +9,7 @@ import {
   LogBox,
   SearchBox,
   ImageBackground,
+  ActivityIndicator,
 } from "react-native";
 import { Rating, AirbnbRating, Tooltip } from "react-native-elements";
 import {
@@ -41,6 +42,10 @@ import functions from "../function/function";
 const img = require("../../app/assets/plus2.png");
 
 class ListAddressScreen extends Component {
+  state = {
+    listAddress: [],
+  };
+
   static navigationOptions = ({ navigation }) => ({
     //headerStyle: { backgroundColor: '#00FF57' },
     headerBackground: () => <HeaderBg />,
@@ -52,10 +57,38 @@ class ListAddressScreen extends Component {
   });
 
   componentDidMount() {
-    LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    functions.getListAddress(this);
   }
 
+  getListAddress = () => {
+    var listAddress = this.state.listAddress;
+    var addressArray = [];
+
+    try {
+      for (position = 0; position < listAddress.data.length; position++) {
+        var name = listAddress.data[position].Name;
+        var phone = listAddress.data[position].Phone;
+        var address = listAddress.data[position].Address;
+
+        if (position == 0)
+          addressArray.push(
+            <Address1 text1={name} text2={phone} text3={address} border="1" />
+          );
+        else
+          addressArray.push(
+            <Address1 text1={name} text2={phone} text3={address} />
+          );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    return addressArray;
+  };
+
   render() {
+    var listAddress = this.getListAddress();
     return (
       <Provider>
         <ScrollView>
@@ -63,19 +96,7 @@ class ListAddressScreen extends Component {
             <View
               style={[styles.homeBody, styles.marginHeader, styles.padding]}
             >
-              {/* Address */}
-              <Address1
-                text1="Nguyen Van Nam"
-                text2="+84 0393301497"
-                text3="Số 9 ngõ 25/36 Phú Minh, Phường Minh Khai, Quận Bắc Từ Liêm, Hà Nội, Việt Nam"
-                border="1"
-              />
-              <Address1
-                text1="Nguyen Van Nam"
-                text2="+84 0393301497"
-                text3="Số 9 ngõ 25/36 Phú Minh, Phường Minh Khai, Quận Bắc Từ Liêm, Hà Nội, Việt Nam"
-              />
-              {/* END */}
+              {listAddress}
               <View
                 style={[
                   styles.borderNormal,
@@ -86,11 +107,14 @@ class ListAddressScreen extends Component {
               >
                 <Text>Thêm địa chỉ mới</Text>
                 <TouchableOpacity
-                onPress={() =>
-                  functions.gotoScreen(this.props.navigation, "AddDressScreen")
-                }
+                  onPress={() =>
+                    functions.gotoScreen(
+                      this.props.navigation,
+                      "AddDressScreen"
+                    )
+                  }
                 >
-                <Image source={img} />
+                  <Image source={img} />
                 </TouchableOpacity>
               </View>
             </View>

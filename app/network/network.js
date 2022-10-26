@@ -12,6 +12,24 @@ class Network {
             });
     }
 
+    fetchGET_HEADER(url, body, token, callback) {
+        return fetch(url, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': token
+            },
+         })
+            .then((response) => response.json())
+            .then((responseData) => {
+                 callback(responseData);
+            })
+            .catch((error) => {
+                //console.log(error);
+            });
+    }
+
     fetchPOST(url, body, callback) {
         return fetch(url, {
             method: 'POST',

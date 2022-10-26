@@ -11,3 +11,4 @@ global.urlLogin = '/login';
 global.urlUpdateUser = '/user/update'
 global.urlChangePassword = '/user/password'
 global.urlAddAdress = '/user/address'
+global.urlAddAdress = '/user/address'

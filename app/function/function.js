@@ -1,7 +1,5 @@
 import { createStackNavigator } from "react-navigation-stack";
-import {
-  AsyncStorage
-} from 'react-native';
+import { AsyncStorage } from "react-native";
 
 import Splash1 from "../../app/screen/Splash1";
 import Splash2 from "../../app/screen/Splash2";
@@ -205,21 +203,20 @@ class Functions {
 
   saveDataUser = async (responseData) => {
     try {
-      await AsyncStorage.setItem('dataPersonal', JSON.stringify(responseData));
+      await AsyncStorage.setItem("dataPersonal", JSON.stringify(responseData));
       //console.log(JSON.stringify(obj));
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   getDataUser = async () => {
     var data;
 
     try {
-      await AsyncStorage.getItem("dataPersonal")
-      .then((response) => {
-          data = response;
-      })
+      await AsyncStorage.getItem("dataPersonal").then((response) => {
+        data = response;
+      });
 
       return data;
       //console.log(JSON.stringify(obj));
@@ -227,7 +224,7 @@ class Functions {
       console.log(error);
       return null;
     }
-  }
+  };
 
   login = (userName, passWord, component) => {
     let url = global.urlRoot + global.urlLogin;
@@ -257,7 +254,9 @@ class Functions {
       component.setState({ colorBorderUserName: "red" });
       component.setState({ errorMessage: global.emailNotCorrect });
       return;
-    }*/ else if (userName != "") {
+    }*/ else if (
+      userName != ""
+    ) {
       component.setState({ colorBorderUserName: "#E6E8EC" });
       component.setState({ errorMessage: "" });
     }
@@ -279,15 +278,15 @@ class Functions {
     let url = global.urlRoot + global.urlUpdateUser;
     let token = data.token;
 
-    let body = {}, body1;
+    let body = {},
+      body1;
 
     body.Name = data.name;
     body.Address = data.phone;
     body.Phone = data.address;
-    body.DOB = 'cvddzz';
+    body.DOB = "cvddzz";
     body = JSON.parse(JSON.stringify(body));
-    
-    
+
     callback = async (responseData) => {
       if (responseData.data == null) {
         component.setState({ messageError: global.updateUserNotOk });
@@ -301,7 +300,7 @@ class Functions {
 
     component.setState({ ActivityIndicator: true });
     network.fetchPATCH_HEADER(url, body, token, callback);
-  }
+  };
 
   changePass = (oldPass, newPass, token, component) => {
     let url = global.urlRoot + global.urlChangePassword;
@@ -324,8 +323,7 @@ class Functions {
 
     component.setState({ ActivityIndicator: true });
     network.fetchPATCH_HEADER(url, body, token, callback);
-
-  }
+  };
 
   addAddess = async (name, phone, address, component) => {
     let url = global.urlRoot + global.urlAddAdress;
@@ -341,7 +339,7 @@ class Functions {
     body.Address = phone;
     body.Phone = address;
     data = JSON.stringify(body);
-    
+
     callback = async (responseData) => {
       if (responseData.data == null) {
         component.setState({ messageError: global.updateUserNotOk });
@@ -355,18 +353,35 @@ class Functions {
 
     component.setState({ ActivityIndicator: true });
     network.fetchPUT_HEADER(url, data, token, callback);
+  };
 
-  }
+  getListAddress = async (component) => {
+    let url = global.urlRoot + global.urlAddAdress;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+
+    callback = async (responseData) => {
+      component.setState({ listAddress: responseData });
+      component.setState({ ActivityIndicator: false });
+    };
+
+    //component.setState({ ActivityIndicator: true });
+    network.fetchGET_HEADER(url, body, token, callback);
+  };
 
   logout = async (component) => {
     try {
-      await AsyncStorage.setItem('dataPersonal', '');
+      await AsyncStorage.setItem("dataPersonal", "");
     } catch (error) {
       console.log(error);
     }
 
     functions.gotoScreen(component.props.navigation, "LoginScreen");
-  }
+  };
 }
 
 const functions = new Functions();

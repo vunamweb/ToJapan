@@ -45,7 +45,7 @@ export default function Address({ mode, style, ...props }) {
       <View style={styles.addressContent}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={styles.addressText1}>{props.text1}</Text>
-          <View style={[styles.flexRowStart]}>
+          <View style={[styles.flexRowStart, {marginLeft: 80}]}>
             <Dedault props={props} />
             <Image source={img1} style={styles.marginLeft5} />
           </View>
