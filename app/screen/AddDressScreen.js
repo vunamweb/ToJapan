@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 
-import { TouchableOpacity, StyleSheet, View, Image } from "react-native";
+import {
+  TouchableOpacity,
+  StyleSheet,
+  View,
+  Image,
+  ActivityIndicator,
+} from "react-native";
 import CheckBox from "../components/Checkbox";
 import { Text } from "react-native-paper";
 
@@ -21,6 +27,16 @@ const countries = ["Egypt", "Canada", "Australia", "Ireland"];
 const image3 = require("../../app/assets/downright-3.png");
 
 class AddDressScreen extends Component {
+  state = {
+    name: "",
+    phone: "",
+    address: "",
+
+    messageError: "",
+    messageSuccess: "",
+    ActivityIndicator: false,
+  };
+
   static navigationOptions = ({ navigation }) => ({
     //headerStyle: { backgroundColor: '#00FF57' },
     headerBackground: () => <HeaderBg />,
@@ -32,57 +48,86 @@ class AddDressScreen extends Component {
   });
 
   render() {
+    var View1 = <View />;
+    var View2 = (
+      <View style={{ marginTop: 30 }}>
+        <Text style={styles.error}>{this.state.messageError}</Text>
+        <Text style={styles.success}>{this.state.messageSuccess}</Text>
+        <ActivityIndicator
+          size="large"
+          animating={this.state.ActivityIndicator}
+        />
+      </View>
+    );
+
     return (
       <ScrollView>
         <Background>
-          <View style={[styles.titleTextinput, styles.textGeneral, styles.marginHeader]}>
+          {this.state.messageError == "" && this.state.messageSuccess == "" ? View1 : View2}
+          <View
+            style={[
+              styles.titleTextinput,
+              styles.textGeneral,
+              styles.marginHeader,
+            ]}
+          >
             <Text>Tên đầy đủ</Text>
             <Text style={styles.mandatoryColor}>*</Text>
           </View>
           <TextInput
             label="Nhập họ và tên"
             title="Email *"
+            onChangeText={(value) => this.setState({ name: value })}
+            value={this.state.name}
             returnKeyType="next"
             autoCapitalize="none"
             autoCompleteType="email"
             textContentType="emailAddress"
             keyboardType="email-address"
-            styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
+            styleParent={{ borderColor: "#E6E8EC", backgroundColor: "white" }}
           />
 
           <View style={[styles.titleTextinput, styles.textGeneral]}>
             <Text>Xác minh số điện thoại</Text>
             <Text style={styles.mandatoryColor}>*</Text>
           </View>
-          
-          <View style={[styles.flexRowStart, {alignItems: 'center'}]}>
-          <Dropdown
-            data={countries}
-            buttonStyle={{ borderRadius: 20, width: 80, backgroundColor: 'transparent', borderColor: '#ccc', borderWidth: 1 }}
-            renderCustomizedButtonChild={(selectedItem, index) => {
-              return (
-                <View style={[styles.flexRowStart]}>
-                  <Text style={[styles.marginLeft10]}>
-                    {selectedItem ? selectedItem : "+84"}
-                  </Text>
-                  <View style={[styles.flexRowEnd]}>
-                    <Image source={image3} />
+
+          <View style={[styles.flexRowStart, { alignItems: "center" }]}>
+            <Dropdown
+              data={countries}
+              buttonStyle={{
+                borderRadius: 20,
+                width: 80,
+                backgroundColor: "transparent",
+                borderColor: "#ccc",
+                borderWidth: 1,
+              }}
+              renderCustomizedButtonChild={(selectedItem, index) => {
+                return (
+                  <View style={[styles.flexRowStart]}>
+                    <Text style={[styles.marginLeft10]}>
+                      {selectedItem ? selectedItem : "+84"}
+                    </Text>
+                    <View style={[styles.flexRowEnd]}>
+                      <Image source={image3} />
+                    </View>
                   </View>
-                </View>
-              );
-            }}
-          />
-          <TextInput
-            title="Số điện thoại"
-            label="Số điện thoại"
-            returnKeyType="next"
-            autoCapitalize="none"
-            autoCompleteType="email"
-            textContentType="emailAddress"
-            keyboardType="email-address"
-            notflex="1"
-            styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
-          />
+                );
+              }}
+            />
+            <TextInput
+              title="Số điện thoại"
+              label="Số điện thoại"
+              onChangeText={(value) => this.setState({ phone: value })}
+              value={this.state.phone}
+              returnKeyType="next"
+              autoCapitalize="none"
+              autoCompleteType="email"
+              textContentType="emailAddress"
+              keyboardType="email-address"
+              notflex="1"
+              styleParent={{ borderColor: "#E6E8EC", backgroundColor: "white" }}
+            />
           </View>
 
           <View
@@ -218,27 +263,24 @@ class AddDressScreen extends Component {
             autoCompleteType="email"
             textContentType="emailAddress"
             keyboardType="email-address"
-            styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
+            styleParent={{ borderColor: "#E6E8EC", backgroundColor: "white" }}
           />
 
-          <View
-            style={[
-              styles.titleTextinput,
-              styles.textGeneral,
-            ]}
-          >
+          <View style={[styles.titleTextinput, styles.textGeneral]}>
             <Text>Địa chỉ chi tiết</Text>
             <Text style={styles.mandatoryColor}>*</Text>
           </View>
           <TextInput
             label="Nhập Địa chỉ chi tiết"
             title="Email *"
+            onChangeText={(value) => this.setState({ address: value })}
+            value={this.state.address}
             returnKeyType="next"
             autoCapitalize="none"
             autoCompleteType="email"
             textContentType="emailAddress"
             keyboardType="email-address"
-            styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
+            styleParent={{ borderColor: "#E6E8EC", backgroundColor: "white" }}
           />
 
           <CheckBox
@@ -254,7 +296,12 @@ class AddDressScreen extends Component {
               { backgroundColor: "#3187EA", marginTop: 0 },
             ]}
             onPress={() =>
-              functions.gotoScreen(this.props.navigation, "HomeScreen")
+              functions.addAddess(
+                this.state.name,
+                this.state.phone,
+                this.state.address,
+                this
+              )
             }
           >
             <Text style={{ color: "white" }}>Xác nhận</Text>

@@ -286,20 +286,7 @@ class Functions {
     body.Phone = data.address;
     body.DOB = 'cvddzz';
     body = JSON.parse(JSON.stringify(body));
-    //body1 = JSON.stringify(body);
-    //body = JSON.parse(body.replace(/\r?\n|\r/g, ''));
-    //body = body.replace("\/", '');
-    //body1 = body1.replace(/\\n/g, '');
-    //body = body.replace(/\n/g, '');
-
-    /*body1 = {
-      "DOB": "12/3/1993",
-      "Name": "tuan",
-      "Address": "hoc mon",
-      "Phone": "093443434"
-  }
-
-  body1 = JSON.stringify(body1, null, null);*/
+    
     
     callback = async (responseData) => {
       if (responseData.data == null) {
@@ -337,6 +324,37 @@ class Functions {
 
     component.setState({ ActivityIndicator: true });
     network.fetchPATCH_HEADER(url, body, token, callback);
+
+  }
+
+  addAddess = async (name, phone, address, component) => {
+    let url = global.urlRoot + global.urlAddAdress;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+    let data;
+
+    body.Name = name;
+    body.Address = phone;
+    body.Phone = address;
+    data = JSON.stringify(body);
+    
+    callback = async (responseData) => {
+      if (responseData.data == null) {
+        component.setState({ messageError: global.updateUserNotOk });
+        //component.setState({ messageSuccess: global.updateUserOk });
+        component.setState({ ActivityIndicator: false });
+      } else {
+        component.setState({ messageSuccess: global.updateUserOk });
+        component.setState({ ActivityIndicator: false });
+      }
+    };
+
+    component.setState({ ActivityIndicator: true });
+    network.fetchPUT_HEADER(url, data, token, callback);
 
   }
 

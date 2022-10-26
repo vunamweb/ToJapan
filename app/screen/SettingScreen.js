@@ -35,6 +35,7 @@ const data1 = [
   {
     text: "Danh sách địa chỉ",
     img: require("../../app/assets/location_1.png"),
+    link: "ListAddress"
   },
   {
     text: "Đổi mật khẩu",

@@ -10,3 +10,4 @@ global.urlRoot = 'https://mobile.tojapan.jp';
 global.urlLogin = '/login';
 global.urlUpdateUser = '/user/update'
 global.urlChangePassword = '/user/password'
+global.urlAddAdress = '/user/address'

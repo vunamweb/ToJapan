@@ -68,14 +68,22 @@ class PersonalScreen extends Component {
   };
 
   render() {
+    var View1 = <View />;
+    var View2 = (
+      <View style={{ marginTop: 30 }}>
+        <Text style={styles.error}>{this.state.messageError}</Text>
+        <Text style={styles.success}>{this.state.messageSuccess}</Text>
+        <ActivityIndicator
+          size="large"
+          animating={this.state.ActivityIndicator}
+        />
+      </View>
+    );
+
     return (
       <ScrollView>
         <Background>
-        <View style={{marginTop: 30}}>
-        <Text style={styles.error}>{this.state.messageError}</Text>
-        <Text style={styles.success}>{this.state.messageSuccess}</Text>
-           <ActivityIndicator size="large" animating={this.state.ActivityIndicator}></ActivityIndicator>
-        </View>
+        {this.state.messageError == "" && this.state.messageSuccess == "" ? View1 : View2}
           <View style={[styles.titleTextinput, styles.textGeneral, styles.marginHeader]}>
         <Text>Tên đầy đủ</Text>
             <Text style={styles.mandatoryColor}>*</Text>

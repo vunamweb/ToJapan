@@ -36,7 +36,27 @@ class Network {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
+                'Authorization': token
+            },
+            body: body
+         })
+            .then((response) => response.json())
+            .then((responseData) => {
+                 callback(responseData);
+            })
+            .catch((error) => {
+                //console.log(error);
+            });
+    }
+
+    fetchPUT_HEADER(url, body, token, callback) {
+        return fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Accept': '*/*',
+                'Authorization': token
             },
             body: body
          })
