@@ -24,6 +24,7 @@ export default class App extends React.Component {
         renderItem={this.props.renderCarouselSlider}
         sliderWidth={350}
         top={0}
+        activeSlideAlignment="start"
         itemWidth={140}
       />
       {/* END */}
@@ -45,6 +46,7 @@ export default class App extends React.Component {
       renderItem={this.props.renderCarouselSlider}
       sliderWidth={350}
       top={0}
+      activeSlideAlignment="start"
       itemWidth={140}
     />
     {/* END */}

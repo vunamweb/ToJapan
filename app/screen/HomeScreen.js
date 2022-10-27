@@ -8,6 +8,7 @@ import {
   ScrollView,
   LogBox,
   ActivityIndicator,
+  Dimensions
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
 import { Text } from "react-native-paper";
@@ -329,8 +330,9 @@ class HomeScreen extends Component {
               <Carousel
                 data={carouselItems}
                 renderItem={this._renderItem}
-                sliderWidth={350}
+                sliderWidth={Dimensions.get('window').width}
                 top={0}
+                activeSlideAlignment="start"
                 itemWidth={100}
               />
               {/* END */}
@@ -339,8 +341,9 @@ class HomeScreen extends Component {
               <Carousel
                 data={carouselItems1}
                 renderItem={this._renderItem}
-                sliderWidth={350}
+                sliderWidth={Dimensions.get('window').width}
                 top={0}
+                activeSlideAlignment="start"
                 itemWidth={100}
               />
               {/* END */}
@@ -348,8 +351,9 @@ class HomeScreen extends Component {
               <Carousel
                 data={carouselItems2}
                 renderItem={this._renderItem}
-                sliderWidth={350}
+                sliderWidth={Dimensions.get('window').width}
                 top={20}
+                activeSlideAlignment="start"
                 itemWidth={100}
               />
               {/* END */}
@@ -366,8 +370,9 @@ class HomeScreen extends Component {
               <Carousel
                 data={carouselItems3}
                 renderItem={this._renderItem_1}
-                sliderWidth={350}
+                sliderWidth={Dimensions.get('window').width}
                 top={20}
+                activeSlideAlignment="start"
                 itemWidth={200}
               />
               {/* END */}
@@ -375,8 +380,9 @@ class HomeScreen extends Component {
               <Carousel
                 data={carouselItems3}
                 renderItem={this._renderItem_1}
-                sliderWidth={350}
+                sliderWidth={Dimensions.get('window').width}
                 top={20}
+                activeSlideAlignment="start"
                 itemWidth={200}
               />
               {/* END */}
