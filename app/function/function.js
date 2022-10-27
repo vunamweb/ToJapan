@@ -193,6 +193,12 @@ class Functions {
     navigation.navigate(screen);
   };
 
+  gotoScreenWithParam = (itemId, navigation, screen) => {
+    navigation.navigate(screen, {
+        itemId: itemId
+    });
+  };
+
   validateEmail = (email) => {
     return String(email)
       .toLowerCase()
@@ -385,6 +391,54 @@ class Functions {
 
     callback = async (responseData) => {
       component.setState({ dataProductSlider: responseData.data.items, shop: shop });
+      component.setState({ ActivityIndicator: false });
+    };
+
+    component.setState({ ActivityIndicator: true });
+    network.fetchGET_HEADER(url, body, token, callback);
+  };
+
+  getListService = async (component, service) => {
+    let url = global.urlRoot + global.urlService;
+    url = url.replace('{cat}', service);
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+
+    callback = async (responseData) => {
+      var data = responseData.data;
+      var cat_id = data[0].catid;
+      var cat_name = data[0].ten;
+
+      functions.getListProductByTag(component, service, cat_id, cat_name, responseData.data);
+      //await component.setState({ listService: responseData.data });
+      //component.setState({ ActivityIndicator: false });
+    };
+
+    //component.setState({ ActivityIndicator: true });
+    network.fetchGET_HEADER(url, body, token, callback);
+  };
+
+
+  getListProductByTag = async (component, cat, cat_id, cat_name, listService) => {
+    if(cat == 'yahoo_auction')
+      cat = 'yahoo';
+    
+    let url = global.urlRoot + global.urlProductByTag;
+    url = url.replace('{cat}', cat);
+    url = url.replace('{cat_id}', cat_id);
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+
+    callback = async (responseData) => {
+      component.setState({ listProductByTag: responseData.data, service: cat_name, listService: listService });
       component.setState({ ActivityIndicator: false });
     };
 

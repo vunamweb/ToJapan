@@ -27,24 +27,24 @@ import functions from "../../app/function/function";
 
 const carouselItems = [
   {
-    title: "Y!Auction",
-    img: require("../../app/assets/Y!Auction.png"),
-  },
-  {
     title: "Mercari",
+    shop: 'mercari',
     img: require("../../app/assets/mercari_1.png"),
   },
   {
+    title: "Y!Auction",
+    shop: 'yahoo_auction',
+    img: require("../../app/assets/Y!Auction.png"),
+  },
+  {
     title: "Amazon JP",
+    shop: 'amazon',
     img: require("../../app/assets/Amazon_JS.png"),
   },
   {
     title: "Rakuten",
+    shop: 'rakuten',
     img: require("../../app/assets/Rakuten_1.png"),
-  },
-  {
-    title: "Y!Shop",
-    img: require("../../app/assets/yshopping_1.png"),
   },
 ];
 
@@ -150,7 +150,7 @@ class HomeScreen extends Component {
       <View style={{ alignItems: "center" }}>
         <TouchableOpacity
           onPress={() =>
-            functions.gotoScreen(this.props.navigation, "CategoryScreen")
+            functions.gotoScreenWithParam(item.shop, this.props.navigation, "CategoryScreen")
           }
         >
           <Image source={item.img} />
@@ -236,8 +236,6 @@ class HomeScreen extends Component {
               borderRadius: 30,
               backgroundColor: "white",
               width: "100%",
-              paddingLeft: 20,
-              paddingRight: 20,
               paddingBottom: 20
             }}
           >
@@ -245,7 +243,7 @@ class HomeScreen extends Component {
             <View style={{ position: "absolute", top: 5, right: 20 }}>
               <Image source={image1} />
             </View>
-            <View style={{ marginTop: 30 }}>
+            <View style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}>
               <Text style={{ color: "#23262F", fontSize: 16 }}>
                 {item.title}
               </Text>

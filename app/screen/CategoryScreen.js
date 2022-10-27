@@ -8,7 +8,8 @@ import {
   ScrollView,
   LogBox,
   SearchBox,
-  ImageBackground
+  ImageBackground,
+  ActivityIndicator
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
 import { Text } from "react-native-paper";
@@ -230,7 +231,15 @@ const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
 const image3 = require("../../app/assets/search-normal.png");
 
+var component;
+
 class CategoryScreen extends Component {
+  state = {
+    listService: [],
+    listProductByTag: [],
+    service: '',
+    ActivityIndicator: true
+  }
   _renderItem({ item, index }) {
     return (
       <View style={{ alignItems: "center" }}>
@@ -258,16 +267,29 @@ class CategoryScreen extends Component {
   }
 
   _renderItem_2({ item, index }) {
-    if(index == 0)
+    if(item.ten == component.state.service)
     return (
       <View style={{ alignItems: "center", backgroundColor: '#3187EA', borderRadius: 16, padding: 10 }}>
-        <Text style={{color: 'white', fontSize: 16, fontWeight: '500'}}>{item.title}</Text>
+        <TouchableOpacity
+        onPress={() =>
+          functions.getListProductByTag(component, component.props.navigation.state.params.itemId, item.catid, item.ten, component.state.listService)
+        }
+        >
+<Text style={{color: 'white', fontSize: 16, fontWeight: '500'}}>{item.ten}</Text>
+        </TouchableOpacity>
+        
       </View>
     );
     else 
     return (
         <View style={{alignItems: "center", borderRadius: 16, backgroundColor: '#E6E8EC', padding: 10 }}>
-           <Text style={{color: 'black', fontSize: 16, fontWeight: '500'}}>{item.title}</Text>
+          <TouchableOpacity
+          onPress={() =>
+            functions.getListProductByTag(component, component.props.navigation.state.params.itemId, item.catid, item.ten, component.state.listService)
+          }
+          >
+           <Text style={{color: 'black', fontSize: 16, fontWeight: '500'}}>{item.ten}</Text>
+           </TouchableOpacity>
         </View>
       );
   }
@@ -288,33 +310,30 @@ class CategoryScreen extends Component {
         functions.gotoScreen(this.props.navigation, "ProductScreen")
       }
       >
-      <View style={{ padding: 15, width: '100%' }}>
-      <View style={{borderRadius: 30, backgroundColor: 'white', width: '100%'}}>
-        <Image source={img} />
+      <View style={{ padding: 10, width: '100%' }}>
+      <View style={{borderRadius: 30, paddingBottom: 20, backgroundColor: 'white', width: '100%'}}>
+      <Image style={{width: '100%',height: 128}} source={{ uri: item.image }} />
         <View style={{ position: "absolute", top: 5, right: 5 }}>
           <Image source={image1} />
         </View>
-        <View style={{ marginTop: 30 }}>
+        <View style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}>
           <Text style={{ color: "#23262F", fontSize: 16 }}>
-            {item.text1}
-          </Text>
-          <Text style={{ color: "#23262F", fontSize: 16 }}>
-          {item.text2}
+            {item.title}
           </Text>
           <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
-          {item.text3}
+          Từ {component.state.service}
           </Text>
           <Rating
   imageSize={15}
   readonly
-  startingValue={3}
+  startingValue={0}
   style={styles.rating}
 />
           <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
             <View>
-              <Text style={{ color: "#D63F5C", fontSize: 16 }}>{item.text4} ¥</Text>
+              <Text style={{ color: "#D63F5C", fontSize: 16 }}>{item.price} ¥</Text>
               <Text style={{ fontSize: 12, color: "#777E90" }}>
-              {item.text5} VND
+              {item.priceVN} VND
               </Text>
             </View>
             <Image source={image2} />
@@ -349,8 +368,22 @@ class CategoryScreen extends Component {
 })
 
   componentDidMount() {
-    LogBox.ignoreAllLogs(['VirtualizedLists should never be nested']);
-}
+    //LogBox.ignoreAllLogs(['VirtualizedLists should never be nested']);
+    component = this;
+
+    //this.getData();
+
+    var itemId = this.props.navigation.state.params.itemId;
+    functions.getListService(this, itemId)
+  }
+
+  getData = async () => {
+    var itemId = this.props.navigation.state.params.itemId;
+
+    await functions.getListService(this, itemId);
+    functions.getListProductByTag(this, itemId);
+
+  }
 
   render() {
     return (
@@ -437,11 +470,15 @@ class CategoryScreen extends Component {
               />
               {/* END */}
               <Header1>Hot! categories</Header1>
+              <ActivityIndicator
+                size="large"
+                animating={this.state.ActivityIndicator}
+              />
               {/* Slider Product */}
               <SliderProduct 
-                  dataCarouselSlider={dataCarouselSlider1}
+                  dataCarouselSlider={this.state.listService}
                   renderCarouselSlider={this._renderItem_2}
-                  dataProductSlider={dataProductSlider}
+                  dataProductSlider={this.state.listProductByTag}
                   renderProductSlider={this._renderItem_3}
               />
               {/* END */}
