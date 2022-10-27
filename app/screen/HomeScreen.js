@@ -227,7 +227,7 @@ class HomeScreen extends Component {
       <TouchableOpacity
         style={{ width: "50%" }}
         onPress={() =>
-          functions.gotoScreen(this.props.navigation, "ProductScreen")
+          functions.gotoScreenProduct(component__.state.shop, item.code, component__.props.navigation, "ProductScreen")
         }
       >
         <View style={{ padding: 10, width: "100%" }}>
