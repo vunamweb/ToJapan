@@ -199,6 +199,13 @@ class Functions {
     });
   };
 
+  gotoScreenProduct = (cat, id, navigation, screen) => {
+    navigation.navigate(screen, {
+        cat: cat,
+        id: id
+    });
+  };
+
   validateEmail = (email) => {
     return String(email)
       .toLowerCase()
@@ -439,6 +446,26 @@ class Functions {
 
     callback = async (responseData) => {
       component.setState({ listProductByTag: responseData.data, service: cat_name, listService: listService });
+      component.setState({ ActivityIndicator: false });
+    };
+
+    component.setState({ ActivityIndicator: true });
+    network.fetchGET_HEADER(url, body, token, callback);
+  };
+
+  getProduct = async (component, cat, id) => {
+    let url = global.urlRoot + global.urlProduct;
+    url = url.replace('{cat}', cat);
+    url = url.replace('{id}', id);
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+
+    callback = async (responseData) => {
+      component.setState({ product: responseData.data });
       component.setState({ ActivityIndicator: false });
     };
 

@@ -307,7 +307,7 @@ class CategoryScreen extends Component {
       <TouchableOpacity
       style={{width: '50%'}}
       onPress={() =>
-        functions.gotoScreen(this.props.navigation, "ProductScreen")
+        functions.gotoScreenProduct(component.props.navigation.state.params.itemId, item.code, this.props.navigation, "ProductScreen")
       }
       >
       <View style={{ padding: 10, width: '100%' }}>

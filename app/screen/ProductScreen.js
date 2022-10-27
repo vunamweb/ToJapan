@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   LogBox,
+  ActivityIndicator
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
 import { Text, Modal, Portal, Provider } from "react-native-paper";
@@ -63,10 +64,13 @@ const img = require("../../app/assets/image_6.png");
 const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
 
+var component;
+
 class ProductScreen extends Component {
     state = {
         order: false,
-        visibleFilter: false
+        visibleFilter: false,
+        product: {}
       };
 
   _renderItem = ({ item, index }) => {
@@ -177,6 +181,13 @@ class ProductScreen extends Component {
 
   componentDidMount() {
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+
+    //component = this;
+
+    var cat = this.props.navigation.state.params.cat;
+    var id = this.props.navigation.state.params.id;
+
+    functions.getProduct(this, cat, id)
   }
 
   addProduct = () => {
@@ -356,14 +367,18 @@ class ProductScreen extends Component {
         <Background start="1" full="1">
           {/* Toolbar */}
           <View style={styles.fullWith}>
-            <Image style={styles.fullWith} source={img1} />
+            <Image style={[styles.fullWith, {width: '100%', height: 300}]} source={{ uri: this.state.product.image }} />
             <CustomToolbar1 component={this} />
           </View>
           {/* END */}
           <View style={[styles.homeBody, { marginTop: -40 }]}>
+          <ActivityIndicator
+                size="large"
+                animating={this.state.ActivityIndicator}
+              />
             <View style={styles.homeContent}>
               <Text style={{ fontSize: 18, fontWeight: "700" }}>
-                CASIO g-shock mini Gショックミニ g-baller カスタム
+                {this.state.product.title}
               </Text>
               {/* 1 */}
               <View style={{ marginTop: 20 }}>
@@ -374,7 +389,7 @@ class ProductScreen extends Component {
                 </Text>
                 <View style={{ flexDirection: "row" }}>
                   <Text style={{ color: "#D63F5C", fontSize: 22 }}>
-                    20.400 ¥
+                  {this.state.product.price} ¥
                   </Text>
                   <Text
                     style={{
@@ -384,7 +399,7 @@ class ProductScreen extends Component {
                       marginTop: 5,
                     }}
                   >
-                    3.753.600 đ
+                    {this.state.product.priceVN} đ
                   </Text>
                 </View>
               </View>
@@ -669,19 +684,7 @@ class ProductScreen extends Component {
               </Text>
               <View style={{ marginTop: 20 }}>
                 <Text style={{ fontSize: 16, color: "#23262F" }}>
-                  Ends July 10, 2022 Seiko CHRONOGRAPH Chronograph Ref.6138-8000
-                  Panda Day-Date Men's Mechanical Self-winding Watch Gentleman
-                  Antique
-                  {"\n"}
-                  Country of origin ... Made in Switzerland
-                  {"\n"}{"\n"}
-                  Specifications ... Mechanical manual winding
-                  {"\n"}{"\n"}
-                  Case size: about 39 mm
-                  {"\n"}{"\n"}
-                  Consumption tax, shipping fee, and because we are opening an
-                  individual store, we do not charge consumption tax. The
-                  shipping fee is freight collect.
+                  {this.state.product.content}
                 </Text>
               </View>
               {/* END mô tả san pham */}
