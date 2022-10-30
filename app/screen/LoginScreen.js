@@ -55,16 +55,10 @@ class LoginScreen extends Component {
           <Text style={styles.mandatoryColor}>*</Text>
         </View>
         <TextInput
-          label="Nhập địa chỉ email"
-          title="Email *"
-          name="username"
+          label="Nhập ID hoặc địa chỉ email"
           onChangeText={(value) => this.setState({userName: value})}
           value={this.state.userName}
-          returnKeyType="next"
           autoCapitalize="none"
-          autoCompleteType="email"
-          textContentType="emailAddress"
-          keyboardType="email-address"
           leftIcon="email-outline"
           styleParent={{borderColor: this.state.colorBorderUserName, backgroundColor: 'white'}}
         />

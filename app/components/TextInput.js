@@ -27,14 +27,16 @@ export default function TextInputzzzz({ errorText, description, ...props }) {
   let right = <TextInput.Icon color={props.colorIcon} name={props.rightIcon} />;
 
   return (
-    <View style={[style1, styleRoot.borderNormal, {borderWidth: 1, borderColor: 'white'}, props.styleParent]}>
+    <View style={[style1, styleRoot.borderNormal, {borderWidth: 1, borderColor: 'white', overflow: 'hidden', height: 65}, props.styleParent]}>
       <TextInput
         style={{
           backgroundColor: 'none',
+          overflow: 'hidden',
+          height: 67
         }}
         theme={{
                 colors: {
-                           placeholder: '#777E90', text: '#3187EA', primary: 'transparent',
+                           placeholder: '#777E90', text: '#3187EA', primary: '#777E90',
                            underlineColor: 'transparent', background: '#003489'
                    }
              }}
