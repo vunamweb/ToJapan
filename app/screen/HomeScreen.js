@@ -13,7 +13,7 @@ import {
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
 import { Text } from "react-native-paper";
 
-import Background from "../components/Background";
+import BackgroundHome from "../components/BackgroundHome";
 import TextInput from "../components/TextInput";
 import CustomToolbar from "../components/CustomToolbar";
 import Banner from "../components/Banner";
@@ -290,7 +290,7 @@ class HomeScreen extends Component {
   render() {
     return (
       <ScrollView>
-        <Background sourse="true" start="1">
+        <BackgroundHome sourse="true" start="1">
           {/* Toolbar */}
           <CustomToolbar />
           {/* END */}
@@ -406,7 +406,7 @@ class HomeScreen extends Component {
               {/* END */}
             </View>
           </View>
-        </Background>
+        </BackgroundHome>
       </ScrollView>
     );
   }
