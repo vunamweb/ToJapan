@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useRef } from "react";
 
 import {
   TouchableOpacity,
@@ -190,10 +190,21 @@ class ProductScreen extends Component {
     functions.getProduct(this, cat, id)
   }
 
+  gotoTop = () => {
+    this.refs._scrollView.scrollTo({
+      y: 0,
+      animated: true,
+    });
+}
+
   addProduct = () => {
+    functions.addCart(this.state.product);
+    
     this.setState({
       order: true,
     });
+
+    this.gotoTop();
   };
 
   hideModal = () => {
@@ -212,7 +223,7 @@ class ProductScreen extends Component {
     return (
       <Provider>
         
-      <ScrollView>
+      <ScrollView ref='_scrollView'>
       <Portal>
         <Modal
       visible={this.state.visibleFilter}

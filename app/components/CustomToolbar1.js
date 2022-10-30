@@ -16,7 +16,9 @@ export default function CustomToolbar1({ mode, style, ...props }) {
         <View style={[styles.navBar]}>
           {/* left icon */}
           <View style={styles.leftContainer}>
-            <Image source={require("../assets/arrow-left.png")} />
+            <TouchableOpacity onPress={() => props.component.props.navigation.goBack()}>
+              <Image source={require("../assets/arrow-left.png")} />
+            </TouchableOpacity>
           </View>
           {/* END */}
           {/* right icon */}
@@ -50,16 +52,24 @@ export default function CustomToolbar1({ mode, style, ...props }) {
     );
   else
     return (
-      <View style={[styles.fullWith, { position: "absolute", backgroundColor: '#13AB2C', padding: 20 }]}>
+      <View
+        style={[
+          styles.fullWith,
+          { position: "absolute", backgroundColor: "#13AB2C", padding: 20 },
+        ]}
+      >
         <View style={[styles.leftContainer, { flexDirection: "row" }]}>
           <TouchableOpacity
-          onPress={() =>
-            functions.gotoScreen(props.component.props.navigation, "CartScreen")
-          }
+            onPress={() =>
+              functions.gotoScreen(
+                props.component.props.navigation,
+                "CartScreen"
+              )
+            }
           >
             <Image source={require("../assets/shopping-bag.png")} />
           </TouchableOpacity>
-          <View style={{marginLeft: 20}}>
+          <View style={{ marginLeft: 20 }}>
             <Text style={{ fontSize: 18, fontWeight: "700", color: "white" }}>
               Thành công
             </Text>
@@ -68,6 +78,13 @@ export default function CustomToolbar1({ mode, style, ...props }) {
             </Text>
           </View>
         </View>
+        {/* left icon */}
+        <View style={styles.leftContainer}>
+          <TouchableOpacity onPress={() => props.component.props.navigation.goBack()}>
+            <Image source={require("../assets/arrow-left.png")} />
+          </TouchableOpacity>
+        </View>
+        {/* END */}
       </View>
     );
 }
