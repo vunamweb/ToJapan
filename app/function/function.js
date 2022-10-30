@@ -38,13 +38,6 @@ import network from "../network/network";
 class Functions {
   initNavigarion = () => {
     return createStackNavigator({
-      ProductScreen: {
-        screen: ProductScreen,
-        navigationOptions: {
-          header: null,
-        },
-      },
-
       Splash1: {
         screen: Splash1,
         navigationOptions: {
