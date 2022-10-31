@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, View, SafeAreaView } from "react-native";
+import { Text, View, SafeAreaView, Dimensions } from "react-native";
 
 import Carousel from "react-native-snap-carousel";
 
@@ -15,6 +15,8 @@ export default class App extends React.Component {
     return (
       <Carousel
         ref={(ref) => (this.carousel = ref)}
+        activeSlideAlignment="start"
+        sliderWidth={Dimensions.get('window').width}
         {...this.props}
         onSnapToItem={(index) => this.setState({ activeIndex: index })}
       />

@@ -303,15 +303,17 @@ class CategoryScreen extends Component {
   }
 
   _renderItem_3 = ({ item, index }) => {
+    if(index %2 == 0)
     return (
       <TouchableOpacity
-      style={{width: '50%'}}
+      style={{width: '50%', marginTop: 20}}
       onPress={() =>
         functions.gotoScreenProduct(component.props.navigation.state.params.itemId, item.code, this.props.navigation, "ProductScreen")
       }
       >
-      <View style={{ padding: 10, width: '100%' }}>
-      <View style={{borderRadius: 30, paddingBottom: 20, backgroundColor: 'white', width: '100%'}}>
+      <View style={{ paddingRight: 5, width: '100%' }}>
+      <View style={{borderRadius: 30, padding: 20, backgroundColor: 'white', width: '100%'}}>
+        <View>
       <Image style={{width: '100%',height: 128}} source={{ uri: item.image }} />
         <View style={{ position: "absolute", top: 5, right: 5 }}>
           <Image source={image1} />
@@ -339,10 +341,54 @@ class CategoryScreen extends Component {
             <Image source={image2} />
           </View>
         </View>
+        </View>
       </View>
       </View>
       </TouchableOpacity>
     );
+    else 
+    return (
+      <TouchableOpacity
+      style={{width: '50%', marginTop: 20}}
+      onPress={() =>
+        functions.gotoScreenProduct(component.props.navigation.state.params.itemId, item.code, this.props.navigation, "ProductScreen")
+      }
+      >
+      <View style={{ paddingLeft: 5, width: '100%' }}>
+      <View style={{borderRadius: 30, padding: 20, backgroundColor: 'white', width: '100%'}}>
+        <View>
+      <Image style={{width: '100%',height: 128}} source={{ uri: item.image }} />
+        <View style={{ position: "absolute", top: 5, right: 5 }}>
+          <Image source={image1} />
+        </View>
+        <View style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}>
+          <Text style={{ color: "#23262F", fontSize: 16 }}>
+            {item.title}
+          </Text>
+          <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
+          Từ {component.state.service}
+          </Text>
+          <Rating
+  imageSize={15}
+  readonly
+  startingValue={0}
+  style={styles.rating}
+/>
+          <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
+            <View>
+              <Text style={{ color: "#D63F5C", fontSize: 16 }}>{item.price} ¥</Text>
+              <Text style={{ fontSize: 12, color: "#777E90" }}>
+              {item.priceVN} VND
+              </Text>
+            </View>
+            <Image source={image2} />
+          </View>
+        </View>
+        </View>
+      </View>
+      </View>
+      </TouchableOpacity>
+    )
   };
 
   static navigationOptions = ({ navigation }) => ({
@@ -427,6 +473,7 @@ class CategoryScreen extends Component {
                 renderItem={this._renderItem_2_}
                 sliderWidth={350}
                 top={20}
+                bottom={20}
                 itemWidth={140}
               />
               {/* END */}
@@ -437,7 +484,7 @@ class CategoryScreen extends Component {
                 data={carouselItems1}
                 renderItem={this._renderItem}
                 sliderWidth={350}
-                top={0}
+                top={20}
                 itemWidth={100}
               />
               {/* END */}
@@ -446,11 +493,11 @@ class CategoryScreen extends Component {
                 data={carouselItems2}
                 renderItem={this._renderItem}
                 sliderWidth={350}
-                top={20}
+                top={30}
                 itemWidth={100}
               />
               {/* END */}
-              <Header1>Shop danh cho bạn</Header1>
+              <View style={{ marginTop: 40 }}><Header1>Shop danh cho bạn</Header1></View>
               {/* Slider 4 */}
               <Carousel
                 data={carouselItems3}

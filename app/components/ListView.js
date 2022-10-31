@@ -49,7 +49,7 @@ export default function ListView({ mode, style, ...props }) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <FlatList
-        style={{ padding: 10}}
+        style={{ padding: 0}}
         numColumns={props.col}
         {...props}
       />

@@ -224,22 +224,25 @@ class HomeScreen extends Component {
   }
 
   _renderItem_3 = ({ item, index }) => {
+    if(index % 2 == 0)
     return (
       <TouchableOpacity
-        style={{ width: "50%" }}
+        style={{ width: "50%", marginTop: 20 }}
         onPress={() =>
           functions.gotoScreenProduct(component__.state.shop, item.code, component__.props.navigation, "ProductScreen")
         }
       >
-        <View style={{ padding: 10, width: "100%" }}>
+        <View style={{ paddingRight: 5, width: "100%" }}>
           <View
             style={{
               borderRadius: 30,
               backgroundColor: "white",
               width: "100%",
-              paddingBottom: 20
+              padding: 20,
+             
             }}
           >
+            <View style={{ padding: 0 }}>
             <Image style={{width: '100%',height: 128}} source={{ uri: item.image }} />
             <View style={{ position: "absolute", top: 5, right: 20 }}>
               <Image source={image1} />
@@ -274,10 +277,71 @@ class HomeScreen extends Component {
                 <Image source={image2} />
               </View>
             </View>
+            </View>
           </View>
         </View>
       </TouchableOpacity>
     );
+    else 
+    return (
+      (
+        <TouchableOpacity
+          style={{ width: "50%", marginTop: 20 }}
+          onPress={() =>
+            functions.gotoScreenProduct(component__.state.shop, item.code, component__.props.navigation, "ProductScreen")
+          }
+        >
+          <View style={{ paddingLeft: 5, width: "100%" }}>
+            <View
+              style={{
+                borderRadius: 30,
+                backgroundColor: "white",
+                width: "100%",
+                padding: 20,
+               
+              }}
+            >
+              <View style={{ padding: 0 }}>
+              <Image style={{width: '100%',height: 128}} source={{ uri: item.image }} />
+              <View style={{ position: "absolute", top: 5, right: 20 }}>
+                <Image source={image1} />
+              </View>
+              <View style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}>
+                <Text style={{ color: "#23262F", fontSize: 16 }}>
+                  {item.title}
+                </Text>
+                <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
+                  Từ {this.state.shop}
+                </Text>
+                <Rating
+                  imageSize={15}
+                  readonly
+                  startingValue={0}
+                  style={styles.rating}
+                />
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <View>
+                    <Text style={{ color: "#D63F5C", fontSize: 16 }}>
+                      {item.price} ¥
+                    </Text>
+                    <Text style={{ fontSize: 12, color: "#777E90" }}>
+                      {item.priceVN} VND
+                    </Text>
+                  </View>
+                  <Image source={image2} />
+                </View>
+              </View>
+              </View>
+            </View>
+          </View>
+        </TouchableOpacity>
+      )
+    )
   };
 
   componentDidMount() {
@@ -330,9 +394,7 @@ class HomeScreen extends Component {
               <Carousel
                 data={carouselItems}
                 renderItem={this._renderItem}
-                sliderWidth={Dimensions.get('window').width}
                 top={0}
-                activeSlideAlignment="start"
                 itemWidth={100}
               />
               {/* END */}
@@ -341,9 +403,7 @@ class HomeScreen extends Component {
               <Carousel
                 data={carouselItems1}
                 renderItem={this._renderItem}
-                sliderWidth={Dimensions.get('window').width}
                 top={0}
-                activeSlideAlignment="start"
                 itemWidth={100}
               />
               {/* END */}
@@ -351,9 +411,7 @@ class HomeScreen extends Component {
               <Carousel
                 data={carouselItems2}
                 renderItem={this._renderItem}
-                sliderWidth={Dimensions.get('window').width}
                 top={20}
-                activeSlideAlignment="start"
                 itemWidth={100}
               />
               {/* END */}
@@ -370,9 +428,7 @@ class HomeScreen extends Component {
               <Carousel
                 data={carouselItems3}
                 renderItem={this._renderItem_1}
-                sliderWidth={Dimensions.get('window').width}
                 top={20}
-                activeSlideAlignment="start"
                 itemWidth={200}
               />
               {/* END */}
@@ -380,9 +436,7 @@ class HomeScreen extends Component {
               <Carousel
                 data={carouselItems3}
                 renderItem={this._renderItem_1}
-                sliderWidth={Dimensions.get('window').width}
                 top={20}
-                activeSlideAlignment="start"
                 itemWidth={200}
               />
               {/* END */}
