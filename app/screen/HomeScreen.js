@@ -352,6 +352,14 @@ class HomeScreen extends Component {
   }
 
   render() {
+    var View1 = <View />;
+    var View2 = (
+      <ActivityIndicator
+                size="large"
+                animating={this.state.ActivityIndicator}
+              />
+    );
+
     return (
       <ScrollView>
         <BackgroundHome sourse="true" start="1">
@@ -424,10 +432,7 @@ class HomeScreen extends Component {
               />
               {/* END */}
               <Header1>Sản phẩm nổi bật</Header1>
-              <ActivityIndicator
-                size="large"
-                animating={this.state.ActivityIndicator}
-              />
+              {this.state.ActivityIndicator == "" ? View1 : View2}
               {/* Slider Product */}
               <SliderProduct
                 dataCarouselSlider={dataCarouselSlider}
