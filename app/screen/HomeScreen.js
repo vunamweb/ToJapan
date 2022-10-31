@@ -423,23 +423,6 @@ class HomeScreen extends Component {
                 text2="Xem chi tiết quy trình dịch vụ Janbox"
               />
               {/* END */}
-              <Header1>Shop danh cho bạn</Header1>
-              {/* Slider 4 */}
-              <Carousel
-                data={carouselItems3}
-                renderItem={this._renderItem_1}
-                top={20}
-                itemWidth={200}
-              />
-              {/* END */}
-              {/* Slider 5 */}
-              <Carousel
-                data={carouselItems3}
-                renderItem={this._renderItem_1}
-                top={20}
-                itemWidth={200}
-              />
-              {/* END */}
               <Header1>Sản phẩm nổi bật</Header1>
               <ActivityIndicator
                 size="large"

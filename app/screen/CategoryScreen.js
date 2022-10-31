@@ -432,6 +432,14 @@ class CategoryScreen extends Component {
   }
 
   render() {
+    var View1 = <View />;
+    var View2 = (
+      <ActivityIndicator
+                size="large"
+                animating={this.state.ActivityIndicator}
+              />
+    );
+
     return (
       <ScrollView>
         <Background full="1">
@@ -497,30 +505,8 @@ class CategoryScreen extends Component {
                 itemWidth={100}
               />
               {/* END */}
-              <View style={{ marginTop: 40 }}><Header1>Shop danh cho bạn</Header1></View>
-              {/* Slider 4 */}
-              <Carousel
-                data={carouselItems3}
-                renderItem={this._renderItem_1}
-                sliderWidth={350}
-                top={20}
-                itemWidth={200}
-              />
-              {/* END */}
-              {/* Slider 5 */}
-              <Carousel
-                data={carouselItems3}
-                renderItem={this._renderItem_1}
-                sliderWidth={350}
-                top={20}
-                itemWidth={200}
-              />
-              {/* END */}
-              <Header1>Hot! categories</Header1>
-              <ActivityIndicator
-                size="large"
-                animating={this.state.ActivityIndicator}
-              />
+              <View style={{ marginTop: 40 }}><Header1>Hot! categories</Header1></View>
+              {this.state.ActivityIndicator == "" ? View1 : View2}
               {/* Slider Product */}
               <SliderProduct 
                   dataCarouselSlider={this.state.listService}
