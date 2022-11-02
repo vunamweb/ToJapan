@@ -74,7 +74,7 @@ export default function CustomToolbar1({ mode, style, ...props }) {
               Thành công
             </Text>
             <Text style={{ fontSize: 14, color: "white" }}>
-              Đã thêm sản phầm vào giỏ hàng
+              Đã thêm sản phầm vào giỏ hàng({props.component.state.countCart})
             </Text>
           </View>
         </View>

@@ -213,6 +213,7 @@ class Functions {
   saveDataUser = async (responseData) => {
     try {
       await AsyncStorage.setItem("dataPersonal", JSON.stringify(responseData));
+      this.setCart();
       //console.log(JSON.stringify(obj));
     } catch (error) {
       console.log(error);
@@ -235,20 +236,59 @@ class Functions {
     }
   };
 
-  addCart = async (product) => {
+  getCart = async () => {
     var data;
+
+    try {
+      await AsyncStorage.getItem("cart").then((response) => {
+        data = response;
+      });
+
+      return data;
+      //console.log(JSON.stringify(obj));
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
+  setCart = async () => {
+    let url = global.urlRoot + global.urlCart;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+
+    callback = (responseData) => {
+      try {
+        AsyncStorage.setItem("cart", JSON.stringify(responseData.data));
+      }
+      catch(error) {
+        console.log(error);
+      } 
+    };
+
+    //component.setState({ ActivityIndicator: true });
+    network.fetchGET_HEADER(url, body, token, callback);
+  };
+
+  addCart = async (product, cat, component) => {
+    var data = [];
 
     try {
       await AsyncStorage.getItem("cart").then(async (response) => {
         if (response == null) {
-          response = [];
-          response.push(product);
+          data.push(product);
         } else {
-          response.push(product);
+          data = JSON.parse(response);
+          data.push(product);
         }
 
         try {
-          await AsyncStorage.setItem("cart", response);
+          await AsyncStorage.setItem("cart", JSON.stringify(data));
+          this.addProductTocart(product.code, cat, 1, component, data.length)
         }
         catch(error) {
           console.log(error);
@@ -258,6 +298,47 @@ class Functions {
       console.log(error);
     }
   };
+
+  addProductTocart = async (productId, Shop, quantity, component, countCart) => {
+    let url = global.urlRoot + global.urlAddProductToCart;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+    let data;
+
+    body.Shop = this.convertShopToID(Shop);
+    body.Code = productId;
+    body.Quantity = quantity;
+    data = JSON.stringify(body);
+
+    callback = async (responseData) => {
+      component.setState({ order: true, countCart: countCart});
+    };
+
+    network.fetchPUT_HEADER(url, data, token, callback);
+  }
+
+  convertShopToID = (shop) => {
+    switch(shop) {
+       case 'amazon':
+        return 'amz';
+        break;
+
+        case 'rakuten':
+          return 'rkt';
+          break;
+
+        case 'mercari':
+          return 'mcr';
+          break;
+          
+        default:
+          return 'ys'  
+    }
+  }
 
   login = (userName, passWord, component) => {
     let url = global.urlRoot + global.urlLogin;

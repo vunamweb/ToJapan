@@ -70,7 +70,8 @@ class ProductScreen extends Component {
     state = {
         order: false,
         visibleFilter: false,
-        product: {}
+        product: {},
+        countCart: 0
       };
 
   _renderItem = ({ item, index }) => {
@@ -197,12 +198,12 @@ class ProductScreen extends Component {
     });
 }
 
-  addProduct = () => {
-    functions.addCart(this.state.product);
+  addProduct = async () => {
+    await functions.addCart(this.state.product, this.props.navigation.state.params.cat, this);
     
-    this.setState({
+    /*this.setState({
       order: true,
-    });
+    });*/
 
     this.gotoTop();
   };
