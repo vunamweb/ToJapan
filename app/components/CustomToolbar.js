@@ -1,8 +1,9 @@
 import React from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import styles from "../../app/style/style";
+import functions from "../../app/function/function";
 
 export default function CustomToolbar({ mode, style, ...props }) {
   return (
@@ -15,7 +16,13 @@ export default function CustomToolbar({ mode, style, ...props }) {
           <Image source={require("../assets/notification-bing.png")} />
         </View>
         <View style={styles.rightIcon}>
+          <TouchableOpacity
+          onPress={() =>
+            functions.gotoCart(props.component)
+          }
+          >
           <Image source={require("../assets/shopping-bag.png")} />
+          </TouchableOpacity>
         </View>
       </View>
     </View>

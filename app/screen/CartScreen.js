@@ -94,6 +94,10 @@ const image2 = require("../../app/assets/shopping_bag.png");
 const image4 = require("../../app/assets/Filler.png");
 
 class CartScreen extends Component {
+  state = {
+    dataProductSlider: []
+  }
+
   _renderItem({ item, index }) {
     return (
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -132,22 +136,21 @@ class CartScreen extends Component {
         }}
       >
         <View style={{ width: "100%", flexDirection: "row" }}>
-          <Image source={img} />
+        <Image style={{width: 128, height: 128}} source={{ uri: item.Image }} />
           <View style={{ marginTop: 0, marginLeft: 20 }}>
-            <Text style={styles.money3}>{item.text1}</Text>
-            <Text style={styles.money3}>{item.text2}</Text>
+            <Text style={styles.money3}>{item.Name }</Text>
             <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
-              {item.text3}
+              Từ {item.Shop}
             </Text>
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
               <View>
                 <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                  {item.text4} ¥
+                  {item.Price} ¥
                 </Text>
                 <Text style={{ fontSize: 12, color: "#777E90" }}>
-                  {item.text5} VND
+                  {item.PriceVN} VND
                 </Text>
               </View>
             </View>
@@ -209,11 +212,18 @@ class CartScreen extends Component {
     headerTitleStyle: {
       color: "white",
     },
-    title: "Giỏ hàng(2)",
+    title: "Giỏ hàng("+navigation.state.params.itemId+")"
   });
 
   componentDidMount() {
-    LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    this.setCart();
+    //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+  }
+
+  setCart = async () => {
+     var cart = await functions.getCart();
+
+     this.setState({ dataProductSlider: JSON.parse(cart) }); 
   }
 
   render() {
@@ -233,7 +243,7 @@ class CartScreen extends Component {
             <SliderProduct
               dataCarouselSlider={null}
               renderCarouselSlider={this._renderItem_2_}
-              dataProductSlider={dataProductSlider}
+              dataProductSlider={this.state.dataProductSlider}
               renderProductSlider={this._renderItem_3}
               col={1}
             />

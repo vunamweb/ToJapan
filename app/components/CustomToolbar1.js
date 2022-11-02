@@ -61,10 +61,7 @@ export default function CustomToolbar1({ mode, style, ...props }) {
         <View style={[styles.leftContainer, { flexDirection: "row" }]}>
           <TouchableOpacity
             onPress={() =>
-              functions.gotoScreen(
-                props.component.props.navigation,
-                "CartScreen"
-              )
+              functions.gotoCart(props.component)
             }
           >
             <Image source={require("../assets/shopping-bag.png")} />

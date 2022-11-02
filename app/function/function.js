@@ -275,31 +275,10 @@ class Functions {
   };
 
   addCart = async (product, cat, component) => {
-    var data = [];
-
-    try {
-      await AsyncStorage.getItem("cart").then(async (response) => {
-        if (response == null) {
-          data.push(product);
-        } else {
-          data = JSON.parse(response);
-          data.push(product);
-        }
-
-        try {
-          await AsyncStorage.setItem("cart", JSON.stringify(data));
-          this.addProductTocart(product.code, cat, 1, component, data.length)
-        }
-        catch(error) {
-          console.log(error);
-        } 
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    this.addProductTocart(product.code, cat, 1, component)
   };
 
-  addProductTocart = async (productId, Shop, quantity, component, countCart) => {
+  addProductTocart = async (productId, Shop, quantity, component) => {
     let url = global.urlRoot + global.urlAddProductToCart;
 
     var datauser = await this.getDataUser();
@@ -315,7 +294,9 @@ class Functions {
     data = JSON.stringify(body);
 
     callback = async (responseData) => {
-      component.setState({ order: true, countCart: countCart});
+      await AsyncStorage.setItem("cart", JSON.stringify(responseData.data));
+
+      component.setState({ order: true, countCart: responseData.data.length});
     };
 
     network.fetchPUT_HEADER(url, data, token, callback);
@@ -590,6 +571,15 @@ class Functions {
     component.setState({ ActivityIndicator: true });
     network.fetchGET_HEADER(url, body, token, callback);
   };
+
+  gotoCart = async (component) => {
+     var cart = await this.getCart();
+     cart = JSON.parse(cart);
+
+     var countCart = cart.length;
+
+     this.gotoScreenWithParam(countCart, component.props.navigation, 'CartScreen');
+  }
 
   logout = async (component) => {
     try {

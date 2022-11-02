@@ -364,7 +364,7 @@ class HomeScreen extends Component {
       <ScrollView>
         <BackgroundHome sourse="true" start="1">
           {/* Toolbar */}
-          <CustomToolbar />
+          <CustomToolbar component={this} />
           {/* END */}
           <View style={[styles.fullWith, { padding: 20 }]}>
             <TextInput
