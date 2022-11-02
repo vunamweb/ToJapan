@@ -13,6 +13,8 @@ import {
 import { Rating, AirbnbRating } from "react-native-elements";
 import { Text, Searchbar } from "react-native-paper";
 
+import IconFontAwesome from "react-native-vector-icons/FontAwesome";
+
 import Background from "../components/Background";
 import TextInput from "../components/TextInput";
 import CustomToolbar from "../components/CustomToolbar";
@@ -93,10 +95,14 @@ const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
 const image4 = require("../../app/assets/Filler.png");
 
+var component;
+
 class CartScreen extends Component {
   state = {
-    dataProductSlider: []
-  }
+    dataProductSlider: [],
+    code: 0,
+    selectAll: "checked",
+  };
 
   _renderItem({ item, index }) {
     return (
@@ -131,14 +137,16 @@ class CartScreen extends Component {
           padding: 10,
           width: "100%",
           backgroundColor: "white",
-          borderBottomColor: "#ccc",
-          borderBottomWidth: 3,
+          marginBottom: 10,
         }}
       >
         <View style={{ width: "100%", flexDirection: "row" }}>
-        <Image style={{width: 128, height: 128}} source={{ uri: item.Image }} />
+          <Image
+            style={{ width: 128, height: 128 }}
+            source={{ uri: item.Image }}
+          />
           <View style={{ marginTop: 0, marginLeft: 20 }}>
-            <Text style={styles.money3}>{item.Name }</Text>
+            <Text style={styles.money3}>{item.Name}</Text>
             <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
               Từ {item.Shop}
             </Text>
@@ -158,7 +166,13 @@ class CartScreen extends Component {
         </View>
         {/* Footer */}
         <View style={[styles.seach, { marginTop: 0 }]}>
-          <CheckBox label="" status="checked" onPress={null} />
+          <CheckBox
+            label=""
+            status={
+              item.check == undefined || item.check == true ? "checked" : ""
+            }
+            onPress={() => component.setState({ code: item.Code })}
+          />
           <View
             style={{
               flexDirection: "row",
@@ -167,22 +181,26 @@ class CartScreen extends Component {
             }}
           >
             {/* Minutes */}
-            <View style={[styles.circleSmall, { marginRight: 0 }]}>
-              <TouchableOpacity>
-                <Text style={{ fontSize: 12 }}>-</Text>
+            <View
+              style={[styles.circleSmall, { marginRight: 0, paddingTop: 5 }]}
+            >
+              <TouchableOpacity
+                onPress={() => component.minutesCart(item.Code)}
+              >
+                <IconFontAwesome name="minus" size={10} color="black" />
               </TouchableOpacity>
             </View>
             {/* END */}
-            <Text>1</Text>
+            <Text>{item.Quantity}</Text>
             {/* Plus */}
             <View
               style={[
                 styles.circleSmall,
-                { marginRight: 0, backgroundColor: "black" },
+                { marginRight: 0, paddingTop: 5, backgroundColor: "black" },
               ]}
             >
-              <TouchableOpacity>
-                <Text style={{ fontSize: 12, color: "white" }}>+</Text>
+              <TouchableOpacity onPress={() => component.plusCart(item.Code)}>
+                <IconFontAwesome name="plus" size={10} color="white" />
               </TouchableOpacity>
             </View>
             {/* END */}
@@ -212,30 +230,128 @@ class CartScreen extends Component {
     headerTitleStyle: {
       color: "white",
     },
-    title: "Giỏ hàng("+navigation.state.params.itemId+")"
+    title: "Giỏ hàng(" + navigation.state.params.itemId + ")",
   });
 
   componentDidMount() {
+    component = this;
+    //this.minutesCart.bind(this);
     this.setCart();
     //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
   }
 
-  setCart = async () => {
-     var cart = await functions.getCart();
+  handleCheckbox = () => {
+    var count;
 
-     this.setState({ dataProductSlider: JSON.parse(cart) }); 
-  }
+    if (this.state.code != 0) {
+      for (count = 0; count < this.state.dataProductSlider.length; count++) {
+        if (this.state.code == this.state.dataProductSlider[count].Code) {
+          if (this.state.dataProductSlider[count].check == undefined)
+            this.state.dataProductSlider[count].check = false;
+          else {
+            if (this.state.dataProductSlider[count].check == false)
+              this.state.dataProductSlider[count].check = true;
+            else this.state.dataProductSlider[count].check = false;
+          }
+        }
+      }
+    }
+    //this.setState({ dataProductSlider: JSON.parse(cart) });
+  };
+
+  minutesCart = (code) => {
+    var count;
+    var cart = this.state.dataProductSlider;
+
+    for (count = 0; count < cart.length; count++) {
+      if (cart[count].Code == code && cart[count].Quantity > 1) {
+        cart[count].Quantity = cart[count].Quantity - 1;
+      }
+    }
+
+    this.setState({ dataProductSlider: cart, code: 0 });
+  };
+
+  plusCart = (code) => {
+    var count;
+    var cart = this.state.dataProductSlider;
+
+    for (count = 0; count < cart.length; count++) {
+      if (cart[count].Code == code) {
+        cart[count].Quantity = cart[count].Quantity + 1;
+      }
+    }
+
+    this.setState({ dataProductSlider: cart, code: 0 });
+  };
+
+  selectAll = () => {
+    var check, count = 0;
+
+    if (this.state.selectAll == "checked") check = false;
+    else check = true;
+
+    var cart = this.state.dataProductSlider;
+
+    for (count = 0; count < cart.length; count++) {
+      cart[count].check = check;
+    }
+
+    if (!check) this.setState({ dataProductSlider: cart, selectAll: null });
+    else this.setState({ dataProductSlider: cart, selectAll: "checked" });
+  };
+
+  setCart = async () => {
+    var cart = await functions.getCart();
+
+    this.setState({ dataProductSlider: JSON.parse(cart) });
+  };
+
+  getTotal = () => {
+    var count;
+    var totalJYP = 0,
+      totalVN = 0;
+    var response = {};
+
+    var cart = this.state.dataProductSlider;
+
+    for (count = 0; count < cart.length; count++) {
+      if (cart[count].check == undefined || cart[count].check == true) {
+        totalJYP = totalJYP + cart[count].Price * cart[count].Quantity;
+        totalVN = totalVN + cart[count].PriceVN * cart[count].Quantity;
+      }
+    }
+
+    response.totalJYP = totalJYP;
+    response.totalVN = totalVN;
+
+    return response;
+  };
 
   render() {
+    this.handleCheckbox();
+
+    var total = this.getTotal();
+
+    var subTotalJYP = total.totalJYP;
+    var subTotalVN = total.totalVN;
+
+    var totalJYP = subTotalJYP + global.ship + global.giam_gia;
+    var totalVN = subTotalVN + global.ship + global.giam_gia;
+
     return (
       <ScrollView>
         <Background full="1" start="1">
           <View style={styles.homeBody}>
             {/* Header */}
             <View style={[styles.seach, { paddingRight: 20, paddingLeft: 20 }]}>
-              <CheckBox label="Chọn tất cả" status="checked" onPress={null} />
+              <CheckBox
+                label="Chọn tất cả"
+                status={this.state.selectAll}
+                onPress={() => this.selectAll()}
+              />
               <TouchableOpacity onPress={null}>
-                <Text>Bỏ chọn</Text>
+                <Text></Text>
               </TouchableOpacity>
             </View>
             {/* END */}
@@ -256,7 +372,7 @@ class CartScreen extends Component {
               ]}
             >
               <Text style={styles.money1}>Tổng phụ</Text>
-              <Text style={styles.money2}>10,868 ¥</Text>
+              <Text style={styles.money2}>{subTotalJYP} ¥</Text>
             </View>
             {/* END */}
             {/* Money2 */}
@@ -267,7 +383,7 @@ class CartScreen extends Component {
               ]}
             >
               <Text style={styles.money1}>Phí ship</Text>
-              <Text style={styles.money2}>10,868 ¥</Text>
+              <Text style={styles.money2}>{global.ship} ¥</Text>
             </View>
             {/* END */}
             {/* Money3 */}
@@ -278,7 +394,7 @@ class CartScreen extends Component {
               ]}
             >
               <Text style={styles.money1}>Phiếu giảm giá</Text>
-              <Text style={styles.money2}>0,2 ¥</Text>
+              <Text style={styles.money2}>{global.giam_gia} ¥</Text>
             </View>
             {/* END */}
             {/* Total */}
@@ -289,8 +405,6 @@ class CartScreen extends Component {
                   padding: 20,
                   marginTop: 20,
                   alignItems: "center",
-                  borderTopColor: "#ccc",
-                  borderTopWidth: 3,
                 },
               ]}
             >
@@ -304,10 +418,10 @@ class CartScreen extends Component {
                 <Text
                   style={{ fontSize: 22, color: "#D63F5C", fontWeight: "700" }}
                 >
-                  22222 ¥
+                  {totalJYP} ¥
                 </Text>
                 <Text style={{ fontSize: 14, color: "#23262F" }}>
-                  3.753.600 đ
+                  {totalVN} đ
                 </Text>
               </View>
               {/* end */}
@@ -324,7 +438,7 @@ class CartScreen extends Component {
                   },
                 ]}
                 onPress={() =>
-                  functions.gotoScreen(this.props.navigation, "PaymentScreen")
+                  functions.updateCart(this)
                 }
               >
                 <Text

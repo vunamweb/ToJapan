@@ -264,10 +264,9 @@ class Functions {
     callback = (responseData) => {
       try {
         AsyncStorage.setItem("cart", JSON.stringify(responseData.data));
-      }
-      catch(error) {
+      } catch (error) {
         console.log(error);
-      } 
+      }
     };
 
     //component.setState({ ActivityIndicator: true });
@@ -275,7 +274,7 @@ class Functions {
   };
 
   addCart = async (product, cat, component) => {
-    this.addProductTocart(product.code, cat, 1, component)
+    this.addProductTocart(product.code, cat, 1, component);
   };
 
   addProductTocart = async (productId, Shop, quantity, component) => {
@@ -296,30 +295,30 @@ class Functions {
     callback = async (responseData) => {
       await AsyncStorage.setItem("cart", JSON.stringify(responseData.data));
 
-      component.setState({ order: true, countCart: responseData.data.length});
+      component.setState({ order: true, countCart: responseData.data.length });
     };
 
     network.fetchPUT_HEADER(url, data, token, callback);
-  }
+  };
 
   convertShopToID = (shop) => {
-    switch(shop) {
-       case 'amazon':
-        return 'amz';
+    switch (shop) {
+      case "amazon":
+        return "amz";
         break;
 
-        case 'rakuten':
-          return 'rkt';
-          break;
+      case "rakuten":
+        return "rkt";
+        break;
 
-        case 'mercari':
-          return 'mcr';
-          break;
-          
-        default:
-          return 'ys'  
+      case "mercari":
+        return "mcr";
+        break;
+
+      default:
+        return "ys";
     }
-  }
+  };
 
   login = (userName, passWord, component) => {
     let url = global.urlRoot + global.urlLogin;
@@ -573,13 +572,67 @@ class Functions {
   };
 
   gotoCart = async (component) => {
-     var cart = await this.getCart();
-     cart = JSON.parse(cart);
+    var cart = await this.getCart();
+    cart = JSON.parse(cart);
 
-     var countCart = cart.length;
+    var countCart = cart.length;
 
-     this.gotoScreenWithParam(countCart, component.props.navigation, 'CartScreen');
-  }
+    this.gotoScreenWithParam(
+      countCart,
+      component.props.navigation,
+      "CartScreen"
+    );
+  };
+
+  updateCart = async (component) => {
+    var dataProductCart = component.state.dataProductSlider;
+    var removeList = [];
+    var updateList = [];
+    var count;
+
+    for (count = 0; count < dataProductCart.length; count++) {
+      if (dataProductCart[count].check == false)
+        removeList.push(dataProductCart[count]);
+      else updateList.push(dataProductCart[count]);
+    }
+
+    let url = global.urlRoot + global.urlRemoveCart;
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = removeList;
+    body = JSON.stringify(body);
+
+    callback = async (responseData) => {
+      for (count = 0; count < updateList.length; count++)
+        functions.updateQuantityCart(updateList[count]);
+
+      functions.gotoScreenWithParam(JSON.stringify(dataProductCart), component.props.navigation, "PaymentScreen");
+    };
+
+    network.fetchPATCH_HEADER(url, body, token, callback);
+  };
+
+  updateQuantityCart = async (product) => {
+    let url = global.urlRoot + global.urlUpdateCart;
+    url = url.replace(":id", product._id);
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    callback = async (responseData) => {
+      return;
+    };
+
+    let body = {};
+    body.Quantity = product.Quantity;
+
+    var data = JSON.stringify(body);
+
+    network.fetchPATCH_HEADER(url, data, token, callback);
+  };
 
   logout = async (component) => {
     try {

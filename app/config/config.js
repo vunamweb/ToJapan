@@ -18,3 +18,8 @@ global.urlProductByTag = '/shopping/{cat}/products/?cat_id={cat_id}'
 global.urlProduct = '/shopping/{cat}/product/{id}'
 global.urlCart = '/cart'
 global.urlAddProductToCart = '/cart/add'
+global.urlRemoveCart = '/cart/remove'
+global.urlUpdateCart = '/cart/qty/:id'
+// cost ship, vat
+global.ship = 0
+global.giam_gia = 0
