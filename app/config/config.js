@@ -23,3 +23,7 @@ global.urlUpdateCart = '/cart/qty/:id'
 // cost ship, vat
 global.ship = 0
 global.giam_gia = 0
+global.vat = 0
+global.tojapan = 0
+global.thanhtoan = 0
+global.GTGT = 0

@@ -9,6 +9,7 @@ import {
   LogBox,
   SearchBox,
   ImageBackground,
+  ActivityIndicator
 } from "react-native";
 import { Rating, AirbnbRating, Tooltip } from "react-native-elements";
 import {
@@ -61,6 +62,16 @@ class AddressScreen extends Component {
   state = {
     visible: false,
     visibleGTGT: false,
+    listAddress: {
+      data: [
+        {
+          "Name": '',
+          "Phone": '',
+          "Address": '',
+        }
+      ],
+    }, 
+    ActivityIndicator: true
   };
 
   _renderItem({ item, index }) {
@@ -174,11 +185,113 @@ class AddressScreen extends Component {
   });
 
   componentDidMount() {
-    LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    functions.getListAddress(this);
   }
 
+  cart = () => {
+    var cart = this.props.navigation.state.params.itemId;
+    cart = JSON.parse(cart);
+
+    var response = [];
+    var position;
+
+    try {
+      for (position = 0; position < cart.length; position++) {
+        var name = cart[position].Name;
+        var quantity = cart[position].Quantity;
+        var price = cart[position].PriceVN;
+        var image = cart[position].Image;
+
+        if(cart[position].check || cart[position].check == undefined)
+           response.push(
+            <View
+            style={[
+              styles.marginTop20,
+              styles.marginBottom20,
+              { width: "100%", flexDirection: "row" },
+            ]}
+          >
+            <Image source={{ uri: image }} style={{ width: 70, height: 70 }} />
+            <View style={{ marginTop: 0, marginLeft: 20, marginRight: 20 }}>
+              <Text style={styles.money3}>
+                {name}
+              </Text>
+              <Text style={styles.money3}>x{quantity}</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <View>
+                  <Text style={{ color: "#D63F5C", fontSize: 16 }}>
+                    {price} đ
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          )
+}
+    } catch (error) {
+      console.log(error);
+    }
+
+    return response;
+  };
+
+  getTotal = () => {
+    var count;
+    var totalJYP = 0,
+      totalVN = 0;
+    var response = {};
+
+    var cart = this.props.navigation.state.params.itemId;
+    cart = JSON.parse(cart);
+
+    for (count = 0; count < cart.length; count++) {
+      if (cart[count].check == undefined || cart[count].check == true) {
+        totalJYP = totalJYP + cart[count].Price * cart[count].Quantity;
+        totalVN = totalVN + cart[count].PriceVN * cart[count].Quantity;
+      }
+    }
+
+    response.totalJYP = totalJYP;
+    response.totalVN = totalVN;
+
+    return response;
+  };
+
   render() {
-    return (
+    var cart = this.cart();
+
+    var total = this.getTotal();
+
+    var subTotalJYP = total.totalJYP;
+    var subTotalVN = total.totalVN;
+
+    var totalJYP = subTotalJYP + global.ship + global.giam_gia + global.vat + global.tojapan + global.thanhtoan ;
+    var totalVN = subTotalVN + global.ship + global.giam_gia;
+
+    var totalFinalJYP = totalJYP + global.GTGT;
+    var totalFinalVN = totalVN + global.GTGT;
+
+    var name = this.state.listAddress.data[0].Name;
+    var phone = this.state.listAddress.data[0].Phone;
+    var namePhone = name + ' |' + '  ' + phone;
+
+    var address = this.state.listAddress.data[0].Address;
+
+    var View1 = <View />;
+    var View2 = (
+      <ActivityIndicator
+                size="large"
+                animating={this.state.ActivityIndicator}
+              />
+    );
+    
+return (
       <Provider>
         <ScrollView>
           <Portal>
@@ -468,10 +581,11 @@ class AddressScreen extends Component {
           </Portal>
           <Background full="1" start="1">
             <View style={[styles.homeBody, styles.marginHeader]}>
+            {this.state.ActivityIndicator == "" ? View1 : View2}
               {/* Address */}
               <Address
-                text1="Nguyen Van Nam | +84 0393301497"
-                text2="Số 9 ngõ 25/36 Phú Minh, Phường Minh Khai, Quận Bắc Từ Liêm, Hà Nội, Việt Nam"
+                text1={namePhone}
+                text2={address}
                 component={this}
               />
               {/* END */}
@@ -598,42 +712,8 @@ class AddressScreen extends Component {
                 />
                 {/* END Dropdown 2 */}
                 {/* List product */}
-                <View
-                  style={[
-                    styles.marginTop20,
-                    styles.marginBottom20,
-                    { width: "100%", flexDirection: "row" },
-                  ]}
-                >
-                  <Image source={image6} style={{ width: 70, height: 70 }} />
-                  <View style={{ marginTop: 0, marginLeft: 20 }}>
-                    <Text style={styles.money3}>
-                      釣り用フックキーパー 釣り用フ...
-                    </Text>
-                    <Text style={styles.money3}>x1</Text>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <View>
-                        <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                          1.200.000 đ
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-                </View>
+                {cart}
                 {/* End list product */}
-                {/* Container header */}
-                <ContainerHeader
-                  top="0"
-                  img={image7}
-                  text1="Chọn mã giảm giá"
-                  text2=""
-                />
-                {/* END Container header */}
                 {/* END */}
               </View>
               {/* END CONTAINER 1*/}
@@ -708,19 +788,19 @@ class AddressScreen extends Component {
               >
                 <View style={[styles.seach, { marginTop: 0 }]}>
                   <Text style={styles.money1}>Tổng tiền sản phẩm</Text>
-                  <Text style={styles.money2}>10,868 ¥</Text>
+                  <Text style={styles.money2}>{subTotalJYP} ¥</Text>
                 </View>
                 <View style={[styles.seach, styles.marginTop10]}>
                   <Text style={styles.money1}>Tiền thuế</Text>
-                  <Text style={styles.money2}>10,868 ¥</Text>
+                  <Text style={styles.money2}>{global.vat} ¥</Text>
                 </View>
                 <View style={[styles.seach, styles.marginTop10]}>
                   <Text style={styles.money1}>Phí dịch vụ ToJapan</Text>
-                  <Text style={styles.money2}>10,868 ¥</Text>
+                  <Text style={styles.money2}>{global.tojapan } ¥</Text>
                 </View>
                 <View style={[styles.seach, styles.marginTop10]}>
                   <Text style={styles.money1}>Phí thanh toán</Text>
-                  <Text style={styles.money2}>10,868 ¥</Text>
+                  <Text style={styles.money2}>{global.thanhtoan} ¥</Text>
                 </View>
                 <View
                   style={[
@@ -732,7 +812,7 @@ class AddressScreen extends Component {
                 >
                   <Text style={styles.money1}>Phiếu giảm giá</Text>
                   <Text style={[styles.money2, { color: "#13AB2C" }]}>
-                    10,868 ¥
+                    {global.giam_gia} ¥
                   </Text>
                 </View>
                 {/* TỒNG ĐƠN HÀNG */}
@@ -748,7 +828,7 @@ class AddressScreen extends Component {
                         { color: "#D63F5C" },
                       ]}
                     >
-                      10,868 ¥
+                      {totalJYP} ¥
                     </Text>
                   </View>
                   <Text style={(styles.paymentText6, styles.marginTop20)}>
@@ -774,7 +854,7 @@ class AddressScreen extends Component {
                   </View>
                   <View style={[styles.seach, styles.marginTop10]}>
                     <Text style={styles.money1}>Phí dịch vụ GTGT</Text>
-                    <Text style={styles.money2}>500 ¥</Text>
+                    <Text style={styles.money2}>{global.GTGT} ¥</Text>
                   </View>
                 </View>
                 {/* END TỒNG ĐƠN HÀNG */}
@@ -810,10 +890,10 @@ class AddressScreen extends Component {
                       fontWeight: "700",
                     }}
                   >
-                    22222 ¥
+                    {totalFinalJYP} ¥
                   </Text>
                   <Text style={{ fontSize: 14, color: "#23262F" }}>
-                    3.753.600 đ
+                    {totalFinalVN} đ
                   </Text>
                 </View>
                 {/* end */}

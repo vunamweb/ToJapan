@@ -9,6 +9,7 @@ import {
   LogBox,
   SearchBox,
   ImageBackground,
+  ActivityIndicator
 } from "react-native";
 import { Rating, AirbnbRating } from "react-native-elements";
 import { Text, Searchbar } from "react-native-paper";
@@ -102,6 +103,7 @@ class CartScreen extends Component {
     dataProductSlider: [],
     code: 0,
     selectAll: "checked",
+    ActivityIndicator: true
   };
 
   _renderItem({ item, index }) {
@@ -304,7 +306,7 @@ class CartScreen extends Component {
   setCart = async () => {
     var cart = await functions.getCart();
 
-    this.setState({ dataProductSlider: JSON.parse(cart) });
+    this.setState({ dataProductSlider: JSON.parse(cart), ActivityIndicator: false });
   };
 
   getTotal = () => {
@@ -339,10 +341,19 @@ class CartScreen extends Component {
     var totalJYP = subTotalJYP + global.ship + global.giam_gia;
     var totalVN = subTotalVN + global.ship + global.giam_gia;
 
+    var View1 = <View />;
+    var View2 = (
+      <ActivityIndicator
+                size="large"
+                animating={this.state.ActivityIndicator}
+              />
+    );
+
     return (
       <ScrollView>
         <Background full="1" start="1">
           <View style={styles.homeBody}>
+          {this.state.ActivityIndicator == "" ? View1 : View2}
             {/* Header */}
             <View style={[styles.seach, { paddingRight: 20, paddingLeft: 20 }]}>
               <CheckBox

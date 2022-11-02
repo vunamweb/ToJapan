@@ -601,7 +601,14 @@ class Functions {
     datauser = JSON.parse(datauser);
     var token = datauser.token;
 
-    let body = removeList;
+    let body = {
+      Items: []
+    };
+
+    for (count = 0; count < removeList.length; count++) {
+      body.Items.push(removeList[count]._id)
+    }
+
     body = JSON.stringify(body);
 
     callback = async (responseData) => {
