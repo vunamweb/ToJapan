@@ -65,13 +65,15 @@ class AddressScreen extends Component {
     listAddress: {
       data: [
         {
-          "Name": '',
-          "Phone": '',
-          "Address": '',
+          "Name": global.noName,
+          "Phone": global.noPhone,
+          "Address": global.noAddress,
         }
       ],
     }, 
-    ActivityIndicator: true
+    ActivityIndicator: true,
+    saveShip: true,
+    transfer: true
   };
 
   _renderItem({ item, index }) {
@@ -662,9 +664,14 @@ return (
                   Phương thức vận chuyển
                 </Text>
                 <View style={[styles.shortOption, { padding: 0 }]}>
-                  <RadioButton />
+                  <RadioButton 
+                  status={this.state.saveShip ? "checked" : "unchecked"}
+                  onPress={ 
+                    () => this.setState({ saveShip: true})
+                  }  
+                  />
                   <Text style={styles.shortText}>
-                    Gom và giao hàng tiết kiện
+                    Gom và giao hàng tiết kiệm
                   </Text>
                   <Tooltip popover={<Text>Info here</Text>}>
                     <Image
@@ -680,7 +687,12 @@ return (
                     styles.marginBottom20,
                   ]}
                 >
-                  <RadioButton />
+                  <RadioButton 
+                  status={!this.state.saveShip ? "checked" : "unchecked"}
+                  onPress={ 
+                    () => this.setState({ saveShip: false})
+                  }   
+                  />
                   <Text style={styles.shortText}>
                     Giao hàng ngay khi nhận được tại kho
                   </Text>
@@ -738,28 +750,14 @@ return (
                       { borderWidth: 1, borderColor: "#3187EA" },
                     ]}
                   >
-                    <RadioButton />
+                    <RadioButton 
+                  status={this.state.transfer ? "checked" : "unchecked"}
+                  onPress={ 
+                    () => this.setState({ transfer: true})
+                  }  
+                  />
                     <View style={{ flex: 1 }}>
-                      <Text style={styles.paymentText4}>Ví ToJapan</Text>
-                      <Text style={[styles.marginTop10, styles.paymentText5]}>
-                        Số dư khả dụng:{" "}
-                        <Text style={styles.fontBold}>2,000,000đ</Text>
-                      </Text>
-                      <Text style={[styles.marginTop10, styles.paymentText2]}>
-                        Thanh toán cho các đơn đặt hàng của bạn nhanh hơn và dễ
-                        dàng hơn với ví ToJapan
-                      </Text>
-                    </View>
-                  </View>
-                  <View style={[styles.shortOption, styles.marginTop20]}>
-                    <RadioButton />
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.paymentText4}>
-                        Thẻ tín dụng hoặc thẻ ghi nợ
-                      </Text>
-                      <Text style={[styles.marginTop10, styles.paymentText2]}>
-                        Bảo mật tài khoản thanh toán được mã hóa SSL 256-bit
-                      </Text>
+                      <Text style={styles.paymentText4}>Chuyển khoản</Text>
                     </View>
                   </View>
                   <TouchableOpacity
@@ -768,7 +766,12 @@ return (
                   }
                   >
                   <View style={[styles.shortOption, styles.marginTop20]}>
-                    <RadioButton />
+                  <RadioButton 
+                  status={!this.state.transfer ? "checked" : "unchecked"}
+                  onPress={ 
+                    () => this.setState({ transfer: false})
+                  }  
+                  />
                     <View style={{ flex: 1 }}>
                       <Text style={styles.paymentText4}>Ví VND</Text>
                       <Text style={[styles.marginTop10, styles.paymentText2]}>
@@ -910,9 +913,7 @@ return (
                     },
                   ]}
                   onPress={() =>
-                    this.setState({
-                      visible: true,
-                    })
+                    functions.prepareAddOrder(this.props.navigation.state.params.itemId, this)
                   }
                 >
                   <Text

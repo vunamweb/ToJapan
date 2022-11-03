@@ -320,6 +320,25 @@ class Functions {
     }
   };
 
+  convertIDToShop = (id) => {
+    switch (id) {
+      case "amz":
+        return "amazon";
+        break;
+
+      case "rkt":
+        return "rakuten";
+        break;
+
+      case "mcr":
+        return "mcr";
+        break;
+
+      default:
+        return "yahoo";
+    }
+  };
+
   login = (userName, passWord, component) => {
     let url = global.urlRoot + global.urlLogin;
 
@@ -602,11 +621,11 @@ class Functions {
     var token = datauser.token;
 
     let body = {
-      Items: []
+      Items: [],
     };
 
     for (count = 0; count < removeList.length; count++) {
-      body.Items.push(removeList[count]._id)
+      body.Items.push(removeList[count]._id);
     }
 
     body = JSON.stringify(body);
@@ -615,7 +634,11 @@ class Functions {
       for (count = 0; count < updateList.length; count++)
         functions.updateQuantityCart(updateList[count]);
 
-      functions.gotoScreenWithParam(JSON.stringify(dataProductCart), component.props.navigation, "PaymentScreen");
+      functions.gotoScreenWithParam(
+        JSON.stringify(dataProductCart),
+        component.props.navigation,
+        "PaymentScreen"
+      );
     };
 
     network.fetchPATCH_HEADER(url, body, token, callback);
@@ -639,6 +662,56 @@ class Functions {
     var data = JSON.stringify(body);
 
     network.fetchPATCH_HEADER(url, data, token, callback);
+  };
+
+  prepareAddOrder = async (cart, component) => {
+    var count;
+
+    cart = JSON.parse(cart);
+
+    component.setState({ ActivityIndicator: true });
+
+    for (count = 0; count < cart.length; count++) {
+      if (cart[count].check == undefined || cart[count].check)
+        await this.addOrder(cart[count], component);
+    }
+
+    component.setState({ ActivityIndicator: false, visible: true });
+  };
+
+  addOrder = async (product, component) => {
+    var shop = this.convertIDToShop(product.Shop);
+
+    let url = global.urlRoot + global.urlAddOrder;
+    url = url.replace("{shop}", shop);
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+    let data;
+
+    body.Product = product.Code;
+
+    body.Address = {};
+    body.Address.Name = component.state.listAddress.data[0].Name;
+    body.Address.Address = component.state.listAddress.data[0].Address;
+    body.Address.Phone = component.state.listAddress.data[0].Phone;
+
+    body.Shipment = component.state.saveShip ? "air" : "sea";
+    body.Description = product.Name;
+    body.Payment = component.state.transfer ? "BankTransfer" : "Prepaid";
+    body.Qty = product.Quantity;
+
+    data = JSON.stringify(body);
+
+    callback = async (responseData) => {
+      console.log("OK");
+    };
+
+    //network.fetchPUT_HEADER(url, data, token, callback);
+    network.fetchPOST_HEADER(url, data, token, callback)
   };
 
   logout = async (component) => {

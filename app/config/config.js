@@ -5,6 +5,9 @@ global.passWordEmpty = "Vui lòng nhập password";
 global.loginWrong = "Login không đúng với ID và Password"
 global.updateUserOk = "Cập nhật thành công"
 global.updateUserNotOk = "Cập nhật không thành công"
+global.noName = "Chưa có tên"
+global.noPhone = "Chưa có số điện thoại"
+global.noAddress = "Chưa có địa chỉ"
 // URL
 global.urlRoot = 'https://mobile.tojapan.jp';
 global.urlLogin = '/login';
@@ -20,6 +23,7 @@ global.urlCart = '/cart'
 global.urlAddProductToCart = '/cart/add'
 global.urlRemoveCart = '/cart/remove'
 global.urlUpdateCart = '/cart/qty/:id'
+global.urlAddOrder = '/shopping/{shop}/buy'
 // cost ship, vat
 global.ship = 0
 global.giam_gia = 0

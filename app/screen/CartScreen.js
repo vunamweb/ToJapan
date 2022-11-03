@@ -142,13 +142,13 @@ class CartScreen extends Component {
           marginBottom: 10,
         }}
       >
-        <View style={{ width: "100%", flexDirection: "row" }}>
+        <View style={{ width: '100%', flexDirection: "row", flex: 1, flexGrow: 1 }}>
           <Image
             style={{ width: 128, height: 128 }}
             source={{ uri: item.Image }}
           />
           <View style={{ marginTop: 0, marginLeft: 20 }}>
-            <Text style={styles.money3}>{item.Name}</Text>
+            <Text style={[styles.money3, {flexWrap: 'wrap', flex: 1, flexShrink: 1}]}>{item.Name}</Text>
             <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
               Từ {item.Shop}
             </Text>
@@ -343,10 +343,13 @@ class CartScreen extends Component {
 
     var View1 = <View />;
     var View2 = (
-      <ActivityIndicator
+      <View style={{ marginTop: 40 }}>
+        <ActivityIndicator
                 size="large"
                 animating={this.state.ActivityIndicator}
               />
+      </View>
+      
     );
 
     return (
