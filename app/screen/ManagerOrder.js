@@ -10,8 +10,9 @@ import {
   SearchBox,
   ImageBackground,
   Text,
+  ActivityIndicator,
   useWindowDimensions,
-  ActivityIndicator
+  Dimensions
 } from "react-native";
 import { Rating, AirbnbRating, Slider } from "react-native-elements";
 import { Modal, Portal, Provider, RadioButton } from "react-native-paper";
@@ -307,7 +308,17 @@ class ManagerOrder extends Component {
   }
 
   showOrder = (status) => {
-     return [];
+     var listOrder = this.state.orderList;
+     var response = [];
+     var count;
+
+     for(count = 0; count < listOrder.length; count++)
+       if(status == '')
+       response.push(listOrder[count]);
+       else if(listOrder[count].OrderStatus == status)
+         response.push(listOrder[count]);
+
+     return response;    
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -360,9 +371,8 @@ class ManagerOrder extends Component {
      <SliderProduct
               dataCarouselSlider={null}
               renderCarouselSlider={this._renderItem_2_}
-              dataProductSlider={ 
-                () => this.showOrder(status)
-              }
+              dataProductSlider={this.showOrder(status)}
+              //dataProductSlider={dataProductSlider}
               renderProductSlider={this._renderItem_3}
               col={1}
               style="1"
@@ -381,14 +391,14 @@ class ManagerOrder extends Component {
 </View>;
 
   _renderScene = SceneMap({
-    "1": this.Route(''),
-    "2": this.Route(global.orderCancel),
-    "3": this.Route(global.orderBuy),
-    "4": this.Route(global.orderWaiting),
-    "5": this.Route(global.orderVN ),
-    "6": this.Route(global.orderJYP),
-    "7": this.Route('check'),
-    "8": this.Route('check')
+    "1": () => this.Route(''),
+    "2": () => this.Route(global.orderCancel),
+    "3": () => this.Route(global.orderBuy),
+    "4": () => this.Route(global.orderWaiting),
+    "5": () => this.Route(global.orderVN ),
+    "6": () => this.Route(global.orderJYP),
+    "7": () => this.Route('check'),
+    "8": () => this.Route('check')
   });
 
   //layout = useWindowDimensions();
@@ -439,7 +449,7 @@ class ManagerOrder extends Component {
           <View style={{ marginTop: 0, marginLeft: 20 }}>
             <Text style={styles.money3}>{item.Description}</Text>
             <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
-              {item.Amount}
+              x{item.Amount}
             </Text>
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
@@ -456,7 +466,7 @@ class ManagerOrder extends Component {
         <View style={[styles.seach, styles.marginBottom20]}>
           <Text style={[styles.fontBold, styles.paymentText6]}>Tổng thanh toán</Text>
           <View style={styles.flexRowStart}>
-          <Text style={styles.mangerOderText3}>1.250.000đ</Text>
+          <Text style={styles.mangerOderText3}>{item.Total}đ</Text>
           <Image source={image1} style={[styles.marginLeft5, {marginTop: 2}]} />
           </View>
         </View>
@@ -476,7 +486,7 @@ class ManagerOrder extends Component {
                 ]}
 
                 onPress={() =>
-                  functions.gotoScreen(this.props.navigation, "DetailOrderScreen")
+                  functions.gotoScreenWithParam(JSON.stringify(item), this.props.navigation, "DetailOrderScreen")
                 }
               >
                 <Text style={{ color: "#3187EA" }}>Xem chi tiết</Text>
@@ -681,10 +691,12 @@ class ManagerOrder extends Component {
           navigationState={this.state}
           renderScene={this._renderScene}
           onIndexChange={this._handleIndexChange}
-          tabStyle={{ color: "red" }}
-          //initialLayout={{ width: layout.width }}
+          //tabStyle={{ color: "red", width: 500 }}
+          labelStyle={{ fontSize:5 }}
+          //initialLayout={{ width: Dimensions.get('window').width }}
           renderTabBar={(props) => (
             <TabBar
+              scrollEnabled
               {...props}
               style={{ backgroundColor: "white" }}
               renderLabel={({ route, color }) => (

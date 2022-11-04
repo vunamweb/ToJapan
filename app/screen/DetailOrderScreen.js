@@ -37,6 +37,7 @@ import Dropdown from "../components/Select";
 
 import styles from "../style/style";
 import functions from "../../app/function/function";
+import { or } from "react-native-reanimated";
 
 const countries = [
   "Gói cơ bản 700",
@@ -178,6 +179,17 @@ class DetailOrderScreen extends Component {
   }
 
   render() {
+    var order = this.props.navigation.state.params.itemId;
+    order = JSON.parse(order);
+
+    var name = order.Address.Name;
+    var phone = order.Address.Phone;
+    var namePhone = name + " |" + "  " + phone;
+
+    var address = order.Address.Address;
+
+    var MDH = order.Shopping + order.id;
+
     return (
       <Provider>
         <ScrollView>
@@ -469,31 +481,73 @@ class DetailOrderScreen extends Component {
           <Background full="1" start="1">
             <View style={[styles.homeBody, styles.marginHeader]}>
               {/* Address */}
-              <Address
-                text1="Nguyen Van Nam | +84 0393301497"
-                text2="Số 9 ngõ 25/36 Phú Minh, Phường Minh Khai, Quận Bắc Từ Liêm, Hà Nội, Việt Nam"
-                component={this}
-              />
+              <Address text1={namePhone} text2={address} component={this} />
               {/* END */}
               {/* Container 1 */}
-              <View style={[styles.padding, styles.bgWhite, styles.marginTop10]}>
-<Text style={[styles.paymentText6, styles.marginBottom10, styles.marginTop10]}>Mã đơn hàng</Text>
-{/* Text HEADER */}
-<View style={[styles.seach, styles.marginBottom20, {marginTop: 0}]}>
-          <Text style={[styles.fontBold, styles.paymentText4]}>MER220718103</Text>
-          <Text style={styles.mangerOderText1}>Chờ hàng lấy hàng</Text>
-        </View>
-        {/* END TEXT HEADER */}
-<Text style={[styles.paymentText6, styles.marginBottom10, styles.marginTop10]}>Ngày tạo đơn</Text>
-        <Text style={styles.paymentText1}>19/07/2022 - 08:53 (GMT+9)</Text>
-<Text style={[styles.paymentText6, styles.marginBottom10, styles.marginTop10]}>MERCARI</Text>
-        <Text style={styles.paymentText1}>6565445</Text>
-<Text style={[styles.paymentText6, styles.marginBottom10, styles.marginTop10]}>Phương thức vận chuyển</Text>
-        <Text style={styles.paymentText1}>Dịch vụ GTGT</Text>
-</View>
-<View style={[styles.padding, styles.bgWhite, styles.marginTop10]}>
-<Text style={styles.paymentText1}>Thông tin thanh toán</Text>
-{/* List product */}
+              <View
+                style={[styles.padding, styles.bgWhite, styles.marginTop10]}
+              >
+                <Text
+                  style={[
+                    styles.paymentText6,
+                    styles.marginBottom10,
+                    styles.marginTop10,
+                  ]}
+                >
+                  Mã đơn hàng
+                </Text>
+                {/* Text HEADER */}
+                <View
+                  style={[
+                    styles.seach,
+                    styles.marginBottom20,
+                    { marginTop: 0 },
+                  ]}
+                >
+                  <Text style={[styles.fontBold, styles.paymentText4]}>
+                    {MDH}
+                  </Text>
+                  <Text style={styles.mangerOderText1}>
+                    {order.ProductStatus}
+                  </Text>
+                </View>
+                {/* END TEXT HEADER */}
+                <Text
+                  style={[
+                    styles.paymentText6,
+                    styles.marginBottom10,
+                    styles.marginTop10,
+                  ]}
+                >
+                  Ngày tạo đơn
+                </Text>
+                <Text style={styles.paymentText1}>{order.created_at}</Text>
+                <Text
+                  style={[
+                    styles.paymentText6,
+                    styles.marginBottom10,
+                    styles.marginTop10,
+                  ]}
+                >
+                  {order.Shopping}
+                </Text>
+                <Text style={styles.paymentText1}>{order.Product}</Text>
+                <Text
+                  style={[
+                    styles.paymentText6,
+                    styles.marginBottom10,
+                    styles.marginTop10,
+                  ]}
+                >
+                  Phương thức vận chuyển
+                </Text>
+                <Text style={styles.paymentText1}>{order.Shipping}</Text>
+              </View>
+              <View
+                style={[styles.padding, styles.bgWhite, styles.marginTop10]}
+              >
+                <Text style={styles.paymentText1}>Thông tin thanh toán</Text>
+                {/* List product */}
                 <View
                   style={[
                     styles.marginTop20,
@@ -501,12 +555,10 @@ class DetailOrderScreen extends Component {
                     { width: "100%", flexDirection: "row" },
                   ]}
                 >
-                  <Image source={image6} style={{ width: 70, height: 70 }} />
+                  <Image source={{ uri: order.ProductData.productImages[0].uri }} style={{ width: 70, height: 70 }} />
                   <View style={{ marginTop: 0, marginLeft: 20 }}>
-                    <Text style={styles.money3}>
-                      釣り用フックキーパー 釣り用フ...
-                    </Text>
-                    <Text style={styles.money3}>x1</Text>
+                    <Text style={styles.money3}>{order.Description}</Text>
+                    <Text style={styles.money3}>x{order.Amount}</Text>
                     <View
                       style={{
                         flexDirection: "row",
@@ -515,33 +567,33 @@ class DetailOrderScreen extends Component {
                     >
                       <View>
                         <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                          1.200.000 đ
+                          đ
                         </Text>
                       </View>
                     </View>
                   </View>
                 </View>
                 {/* End list product */}
-</View>
-{/* CONTAINER 3 */}
+              </View>
+              {/* CONTAINER 3 */}
               <View
                 style={[styles.padding, styles.bgWhite, styles.marginTop10]}
               >
                 <View style={[styles.seach, { marginTop: 0 }]}>
                   <Text style={styles.money1}>Tổng tiền sản phẩm</Text>
-                  <Text style={styles.money2}>10,868 ¥</Text>
+                  <Text style={styles.money2}>{order.Total} ¥</Text>
                 </View>
                 <View style={[styles.seach, styles.marginTop10]}>
                   <Text style={styles.money1}>Tiền thuế</Text>
-                  <Text style={styles.money2}>10,868 ¥</Text>
+                  <Text style={styles.money2}>0¥</Text>
                 </View>
                 <View style={[styles.seach, styles.marginTop10]}>
                   <Text style={styles.money1}>Phí dịch vụ ToJapan</Text>
-                  <Text style={styles.money2}>10,868 ¥</Text>
+                  <Text style={styles.money2}>0¥</Text>
                 </View>
                 <View style={[styles.seach, styles.marginTop10]}>
                   <Text style={styles.money1}>Phí thanh toán</Text>
-                  <Text style={styles.money2}>10,868 ¥</Text>
+                  <Text style={styles.money2}>0¥</Text>
                 </View>
                 <View
                   style={[
@@ -552,9 +604,7 @@ class DetailOrderScreen extends Component {
                   ]}
                 >
                   <Text style={styles.money1}>Phiếu giảm giá</Text>
-                  <Text style={[styles.money2, { color: "#13AB2C" }]}>
-                    10,868 ¥
-                  </Text>
+                  <Text style={[styles.money2, { color: "#13AB2C" }]}>0¥</Text>
                 </View>
                 {/* TỒNG ĐƠN HÀNG */}
                 <View>
@@ -562,19 +612,24 @@ class DetailOrderScreen extends Component {
                     <Text style={[styles.money1, styles.fontBold]}>
                       Tổng thanh toán
                     </Text>
-<View>
-                    <Text
-                      style={[
-                        styles.money2,
-                        styles.fontBold,
-                        { color: "#D63F5C" },
-                      ]}
-                    >
-                      10,868 ¥
-                    </Text>
-                    <Text style={[styles.containerHeaderText1, styles.marginTop10]}>
-                    3.753.600 đ
-                    </Text>
+                    <View>
+                      <Text
+                        style={[
+                          styles.money2,
+                          styles.fontBold,
+                          { color: "#D63F5C" },
+                        ]}
+                      >
+                        {order.Total}¥
+                      </Text>
+                      <Text
+                        style={[
+                          styles.containerHeaderText1,
+                          styles.marginTop10,
+                        ]}
+                      >
+                        {order.Total * 13} đ
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -589,26 +644,20 @@ class DetailOrderScreen extends Component {
                     padding: 20,
                     marginTop: 40,
                     alignItems: "center",
-                    
                   },
                 ]}
               >
                 <TouchableOpacity
-          style={[styles.button, styles.marginBottom20, { backgroundColor: "white", marginTop: 0, borderColor: '#3187EA', borderWidth: 1 }]}
-          onPress={() =>
-            functions.gotoScreen(this.props.navigation, "HomeScreen")
-          }
-        >
-          <Text style={{ color: "#3187EA" }}>Huỷ đơn</Text>
-        </TouchableOpacity>
-                <TouchableOpacity
-          style={[styles.button, { backgroundColor: "#3187EA", marginTop: 0 }]}
-          onPress={() =>
-            functions.gotoScreen(this.props.navigation, "HomeScreen")
-          }
-        >
-          <Text style={{ color: "white" }}>Thanh toán</Text>
-        </TouchableOpacity>
+                  style={[
+                    styles.button,
+                    { backgroundColor: "#3187EA", marginTop: 0 },
+                  ]}
+                  onPress={() =>
+                    functions.gotoScreen(this.props.navigation, "HomeScreen")
+                  }
+                >
+                  <Text style={{ color: "white" }}>Thanh toán</Text>
+                </TouchableOpacity>
               </View>
               {/* END */}
             </View>
