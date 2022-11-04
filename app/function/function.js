@@ -714,6 +714,24 @@ class Functions {
     network.fetchPOST_HEADER(url, data, token, callback)
   };
 
+  getOrders = async (component) => {
+    let url = global.urlRoot + global.urlgetOrder;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+
+    callback = async (responseData) => {
+      component.setState({ orderList: responseData.data.items });
+      component.setState({ ActivityIndicator: false });
+    };
+
+    component.setState({ ActivityIndicator: true });
+    network.fetchGET_HEADER(url, body, token, callback);
+  }
+
   logout = async (component) => {
     try {
       await AsyncStorage.setItem("dataPersonal", "");

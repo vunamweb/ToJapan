@@ -24,6 +24,7 @@ global.urlAddProductToCart = '/cart/add'
 global.urlRemoveCart = '/cart/remove'
 global.urlUpdateCart = '/cart/qty/:id'
 global.urlAddOrder = '/shopping/{shop}/buy'
+global.urlgetOrder = '/orders?page=1&itemsPerPage=20&Shipping=all'
 // cost ship, vat
 global.ship = 0
 global.giam_gia = 0
@@ -31,3 +32,11 @@ global.vat = 0
 global.tojapan = 0
 global.thanhtoan = 0
 global.GTGT = 0
+// status order
+global.orderCancel = 'da_huy'
+global.orderBuy = 'da_mua_hang'
+global.orderWaiting = 'dang_cho'
+global.orderVN = 'vc_vn'
+global.orderJYP = 'vc_jp'
+
+

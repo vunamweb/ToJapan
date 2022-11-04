@@ -11,6 +11,7 @@ import {
   ImageBackground,
   Text,
   useWindowDimensions,
+  ActivityIndicator
 } from "react-native";
 import { Rating, AirbnbRating, Slider } from "react-native-elements";
 import { Modal, Portal, Provider, RadioButton } from "react-native-paper";
@@ -239,16 +240,75 @@ const image3 = require("../../app/assets/search-normal.png");
 const image3_1 = require("../../app/assets/downright-3.png");
 const image4 = require("../../app/assets/Filler.png");
 
+//var component;
+
 class ManagerOrder extends Component {
   state = {
     index: 0,
     routes: [
-      { key: "1", title: "Tất cả", icon: "ios-paper" },
-      { icon: "ios-paper", key: "2", title: "Đang vận chuyển" },
-      { icon: "ios-paper", key: "3", title: "Đã giao" },
+      { key: "1", title: "Tất cả" },
+      { icon: "ios-paper", key: "2", title: "Đơn hàng đã hủy"},
+      { icon: "ios-paper", key: "3", title: "Đã mua hàng" },
+      { icon: "ios-paper", key: "4", title: "Đang chở xử lý" },
+      { icon: "ios-paper", key: "5", title: "Đang vận chuyển VN" },
+      { icon: "ios-paper", key: "6", title: "Đang vận chuyển JP" },
+      { icon: "ios-paper", key: "7", title: "Tracking" },
+      { icon: "ios-paper", key: "8", title: "Đã hoàn thành" }
     ],
     visibleFilter: false,
+    orderList: [],
+    ActivityIndicator: false
   };
+
+  getCountTab = (key) => {
+    var status;
+    var listOrder = this.state.orderList;
+    var count = 0, key;
+
+    switch(key) {
+      case '1':
+        status = '';
+        break;
+
+      case '2':
+        status = global.orderCancel;
+        break;
+        
+      case '3':
+        status = global.orderBuy;
+        break;
+
+      case '4':
+        status = global.orderWaiting;
+        break;
+
+      case '5':
+        status = global.orderVN;
+        break;
+        
+      case '6':
+        status = global.orderJYP;
+        break;
+        
+      default:
+        status = 'check';  
+    }
+
+    for(key = 0; key < listOrder.length; key++) {
+      var statusOrder = listOrder[key].OrderStatus;
+
+      if(status == '')
+        count++
+       else if(statusOrder == status)
+        count++
+    }
+
+    return count.toString();
+  }
+
+  showOrder = (status) => {
+     return [];
+  }
 
   static navigationOptions = ({ navigation }) => ({
     //headerStyle: { backgroundColor: '#00FF57' },
@@ -283,23 +343,26 @@ class ManagerOrder extends Component {
   });
 
   componentDidMount() {
-    LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
-
+    //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
     this.props.navigation.setParams({
       my: this,
     });
+
+    functions.getOrders(this);
   }
 
   _handleIndexChange = (index) => {
     this.setState({ index });
   };
 
-  FirstRoute = () => 
+  Route = (status) => 
   <View style={[{ flex: 1, backgroundColor: '#FAFAFA'}, styles.borderNormal, styles.margin]}>
      <SliderProduct
               dataCarouselSlider={null}
               renderCarouselSlider={this._renderItem_2_}
-              dataProductSlider={dataProductSlider}
+              dataProductSlider={ 
+                () => this.showOrder(status)
+              }
               renderProductSlider={this._renderItem_3}
               col={1}
               style="1"
@@ -310,7 +373,7 @@ class ManagerOrder extends Component {
   <SliderProduct
            dataCarouselSlider={null}
            renderCarouselSlider={this._renderItem_2_}
-           dataProductSlider={dataProductSlider}
+           dataProductSlider={this.state.orderList}
            renderProductSlider={this._renderItem_3}
            col={1}
            style="1"
@@ -318,9 +381,14 @@ class ManagerOrder extends Component {
 </View>;
 
   _renderScene = SceneMap({
-    "1": this.FirstRoute,
-    "2": this.SecondRoute,
-    "3": this.SecondRoute,
+    "1": this.Route(''),
+    "2": this.Route(global.orderCancel),
+    "3": this.Route(global.orderBuy),
+    "4": this.Route(global.orderWaiting),
+    "5": this.Route(global.orderVN ),
+    "6": this.Route(global.orderJYP),
+    "7": this.Route('check'),
+    "8": this.Route('check')
   });
 
   //layout = useWindowDimensions();
@@ -358,17 +426,20 @@ class ManagerOrder extends Component {
       >
         {/* Text HEADER */}
         <View style={[styles.seach, styles.marginBottom20, {marginTop: 0}]}>
-          <Text style={[styles.fontBold, styles.paymentText4]}>MER220718103</Text>
-          <Text style={styles.mangerOderText1}>Chờ hàng lấy hàng</Text>
+          <Text style={[styles.fontBold, styles.paymentText4]}>{item.id}</Text>
+          <Text style={styles.mangerOderText1}>{item.Status}</Text>
         </View>
-        <Text style={styles.mangerOderText2, styles.marginBottom20}>Ngày tạo đơn: 19/07/2022 - 08:53 (GMT+9)</Text>
+        <Text style={[styles.mangerOderText2, styles.marginBottom20]}>Ngày tạo đơn: {item.created_at}</Text>
         {/* END TEXT HEADER */}
         <View style={{ width: "100%", flexDirection: "row" }}>
-          <Image source={img} />
+        <Image
+            style={{ width: 128, height: 128 }}
+            source={{ uri: item.ProductData.productImages[0].uri }}
+          />
           <View style={{ marginTop: 0, marginLeft: 20 }}>
-            <Text style={styles.money3}>{item.text1}</Text>
+            <Text style={styles.money3}>{item.Description}</Text>
             <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
-              {item.text3}
+              {item.Amount}
             </Text>
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
@@ -422,6 +493,18 @@ class ManagerOrder extends Component {
   };
 
   render() {
+    var View1 = <View />;
+    var View2 = (
+      <View style={{ marginTop: 40 }}>
+        <ActivityIndicator
+                size="large"
+                animating={this.state.ActivityIndicator}
+              />
+      </View>
+    );
+
+    var component = this;
+
     return (
       <Provider>
  {/* Modal filter */}
@@ -593,6 +676,7 @@ class ManagerOrder extends Component {
             </Portal>
             {/* END */}     
 <View style={{marginTop: 30, flex: 1}}>
+{this.state.ActivityIndicator == "" ? View1 : View2}
 <TabView
           navigationState={this.state}
           renderScene={this._renderScene}
@@ -614,7 +698,7 @@ class ManagerOrder extends Component {
                         { backgroundColor: "#3187EA" },
                       ]}
                     >
-                      <Text>2</Text>
+                      <Text>{component.getCountTab(route.key)}</Text>
                     </View>
                   ) : (
                     <View
@@ -624,7 +708,7 @@ class ManagerOrder extends Component {
                         { backgroundColor: "#ccc" },
                       ]}
                     >
-                      <Text>2</Text>
+                      <Text>{component.getCountTab(route.key)}</Text>
                     </View>
                   )}
                 </View>
