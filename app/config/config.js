@@ -25,6 +25,8 @@ global.urlRemoveCart = '/cart/remove'
 global.urlUpdateCart = '/cart/qty/:id'
 global.urlAddOrder = '/shopping/{shop}/buy'
 global.urlgetOrder = '/orders?page=1&itemsPerPage=20&Shipping=all'
+global.urlPopularItem = '/shopping/category/top'
+global.urlPopularName = '/shopping/tags?mode=top'
 // cost ship, vat
 global.ship = 0
 global.giam_gia = 0

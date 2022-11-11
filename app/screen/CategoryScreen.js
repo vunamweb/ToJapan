@@ -114,68 +114,6 @@ const carouselItems2 = [
   },
 ];
 
-const carouselItems3 = [
-  {
-    title: "Ssol",
-    text: "9826 Đơn Hàng"
-  },
-  {
-    title: "Ssol",
-    text: "9826 Đơn Hàng"
-  },
-  {
-    title: "Ssol",
-    text: "9826 Đơn Hàng"
-  },
-  {
-    title: "Ssol",
-    text: "9826 Đơn Hàng"
-  },
-];
-
-const dataCarouselSlider = [
-  {
-    title: "Tất cả",
-  },
-  {
-    title: "Y!Auction",
-  },
-  {
-    title: "Mercari",
-  },
-  {
-    title: "Amazon",
-  },
-];
-
-const dataCarouselSlider1 = [
-  {
-    title: "Tất cả",
-  },
-  {
-    title: "Thời trang nam",
-  },
-  {
-    title: "Thời trang nữ",
-  },
-  
-];
-
-const dataTKPB1 = [
-  {
-    title: "Đồ Câu cá",
-  },
-  {
-    title: "Nintendo Switch",
-  },
-  {
-    title: "Nike",
-  },
-  {
-    title: "Đồ Câu cá",
-  },
-];
-
 const dataTKPB2 = [
   {
     title: "Túi xách",
@@ -191,45 +129,13 @@ const dataTKPB2 = [
   },
 ];
 
-const dataProductSlider = [
-  {
-    text1: "[Crocs] Classic All",
-    text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
-    text4: "5,434",
-    text5: "1,016,158",
-  },
-  {
-    text1: "[Crocs] Classic All",
-    text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
-    text4: "5,434",
-    text5: "1,016,158",
-  },
-  {
-    text1: "[Crocs] Classic All",
-    text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
-    text4: "5,434",
-    text5: "1,016,158",
-  },
-  {
-    text1: "[Crocs] Classic All",
-    text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
-    text4: "5,434",
-    text5: "1,016,158",
-  },
-];
 
-const img1 = require("../../app/assets/question.png");
-const img2 = require("../../app/assets/star_1.png");
+
 const img3 = require("../../app/assets/heart.png");
-
-const img = require("../../app/assets/image_6.png");
 const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
 const image3 = require("../../app/assets/search-normal.png");
+const img = require("../../app/assets/circle_bg.png");
 
 var component;
 
@@ -237,16 +143,36 @@ class CategoryScreen extends Component {
   state = {
     listService: [],
     listProductByTag: [],
+    listPopularItem: [],
+    listPopularName: [],
     service: '',
     ActivityIndicator: true
   }
   _renderItem({ item, index }) {
     return (
-      <View style={{ alignItems: "center" }}>
-        <Image source={item.img} />
-        <Text>{item.title}</Text>
+      <TouchableOpacity
+      onPress={() =>
+        component.getListProductByTagClick(item.catid, item.ten)
+      }
+      >
+<View style={{ alignItems: "center" }}>
+        <Image source={img} />
+        <Text>{item.ten}</Text>
       </View>
+      </TouchableOpacity>
     );
+  }
+
+  gotoProduct = () => {
+    component.refs._scrollView.scrollTo({
+      y: 300,
+      animated: true,
+    });
+}
+
+  getListProductByTagClick = (catid, ten) => {
+    functions.getListProductByTagClick(component, component.props.navigation.state.params.itemId, catid, ten, component.state.listService)
+    //this.gotoProduct();
   }
 
   _renderItem_1({ item, index }) {
@@ -272,7 +198,7 @@ class CategoryScreen extends Component {
       <View style={{ alignItems: "center", backgroundColor: '#3187EA', borderRadius: 16, padding: 10 }}>
         <TouchableOpacity
         onPress={() =>
-          functions.getListProductByTag(component, component.props.navigation.state.params.itemId, item.catid, item.ten, component.state.listService)
+          functions.getListProductByTagClick(component, component.props.navigation.state.params.itemId, item.catid, item.ten, component.state.listService)
         }
         >
 <Text style={{color: 'white', fontSize: 16, fontWeight: '500'}}>{item.ten}</Text>
@@ -285,7 +211,7 @@ class CategoryScreen extends Component {
         <View style={{alignItems: "center", borderRadius: 16, backgroundColor: '#E6E8EC', padding: 10 }}>
           <TouchableOpacity
           onPress={() =>
-            functions.getListProductByTag(component, component.props.navigation.state.params.itemId, item.catid, item.ten, component.state.listService)
+            functions.getListProductByTagClick(component, component.props.navigation.state.params.itemId, item.catid, item.ten, component.state.listService)
           }
           >
            <Text style={{color: 'black', fontSize: 16, fontWeight: '500'}}>{item.ten}</Text>
@@ -297,7 +223,7 @@ class CategoryScreen extends Component {
   _renderItem_2_({ item, index }) {
     return (
         <View style={{alignItems: "center", borderRadius: 16, backgroundColor: '#E6E8EC', padding: 10 }}>
-           <Text style={{color: 'black', fontSize: 16, fontWeight: '500'}}>{item.title}</Text>
+           <Text style={{color: 'black', fontSize: 16, fontWeight: '500'}}>{item.vi}</Text>
         </View>
       );
   }
@@ -453,14 +379,7 @@ class CategoryScreen extends Component {
               <Header1>Danh mục phổ biến</Header1>
               {/* Slider 1 */}
               <Carousel
-                data={carouselItems}
-                renderItem={this._renderItem}
-                sliderWidth={350}
-                top={0}
-                itemWidth={100}
-              />
-              <Carousel
-                data={carouselItems_}
+                data={this.state.listPopularItem}
                 renderItem={this._renderItem}
                 sliderWidth={350}
                 top={0}
@@ -470,18 +389,10 @@ class CategoryScreen extends Component {
               {/* Từ khoá phổ biến */}
               <Header1>Từ khoá phổ biến</Header1>
               <Carousel
-                data={dataTKPB1}
+                data={this.state.listPopularName}
                 renderItem={this._renderItem_2_}
                 sliderWidth={350}
                 top={0}
-                itemWidth={140}
-              />
-              <Carousel
-                data={dataTKPB2}
-                renderItem={this._renderItem_2_}
-                sliderWidth={350}
-                top={20}
-                bottom={20}
                 itemWidth={140}
               />
               {/* END */}

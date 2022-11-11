@@ -339,6 +339,25 @@ class Functions {
     }
   };
 
+  convertShopToPopularItem = (shop) => {
+    switch (shop) {
+      case "amazon":
+        return "AMZ";
+        break;
+
+      case "rakuten":
+        return "RKT";
+        break;
+
+      case "mercari":
+        return "MCR";
+        break;
+
+      default:
+        return "YS";
+    }
+  };
+
   login = (userName, passWord, component) => {
     let url = global.urlRoot + global.urlLogin;
 
@@ -530,15 +549,13 @@ class Functions {
         cat_name,
         responseData.data
       );
-      //await component.setState({ listService: responseData.data });
-      //component.setState({ ActivityIndicator: false });
     };
 
-    //component.setState({ ActivityIndicator: true });
+    component.setState({ ActivityIndicator: true });
     network.fetchGET_HEADER(url, body, token, callback);
   };
 
-  getListProductByTag = async (
+  getListProductByTagClick = async (
     component,
     cat,
     cat_id,
@@ -567,6 +584,119 @@ class Functions {
     };
 
     component.setState({ ActivityIndicator: true });
+    network.fetchGET_HEADER(url, body, token, callback);
+  };
+
+  getListProductByTag = async (
+    component,
+    cat,
+    cat_id,
+    cat_name,
+    listService
+  ) => {
+    if (cat == "yahoo_auction") cat = "yahoo";
+
+    let url = global.urlRoot + global.urlProductByTag;
+    url = url.replace("{cat}", cat);
+    url = url.replace("{cat_id}", cat_id);
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+
+    callback = async (responseData) => {
+      functions.getPopularItem(
+        component,
+        responseData,
+        cat_name,
+        listService,
+        cat
+      );
+    };
+
+    network.fetchGET_HEADER(url, body, token, callback);
+  };
+
+  getPopularItem = async (
+    component,
+    responseDataBefore,
+    cat_name,
+    listService,
+    shop
+  ) => {
+    let url = global.urlRoot + global.urlPopularItem;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+
+    callback = async (responseData) => {
+      var data = responseData.data;
+      var listPopularItem = [];
+      var count;
+      var service = functions.convertShopToPopularItem(shop);
+
+      for (count = 0; count < data.length; count++) {
+        switch (service) {
+          case "AMZ":
+            listPopularItem.push(data[count].AMZ);
+            break;
+
+          case "RKT":
+            listPopularItem.push(data[count].RKT);
+            break;
+
+          case "MCR":
+            listPopularItem.push(data[count].MCR);
+            break;
+
+          default:
+            listPopularItem.push(data[count].YA);
+        }
+      }
+
+      functions.getPopularName(
+        component,
+        responseDataBefore,
+        cat_name,
+        listService,
+        listPopularItem
+      );
+    };
+
+    network.fetchGET_HEADER(url, body, token, callback);
+  };
+
+  getPopularName = async (
+    component,
+    responseDataBefore,
+    cat_name,
+    listService,
+    listPopularItem
+  ) => {
+    let url = global.urlRoot + global.urlPopularName;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+
+    callback = async (responseData) => {
+      component.setState({
+        listProductByTag: responseDataBefore.data,
+        service: cat_name,
+        listService: listService,
+        listPopularItem: listPopularItem,
+        listPopularName: responseData.data,
+      });
+      component.setState({ ActivityIndicator: false });
+    };
+
     network.fetchGET_HEADER(url, body, token, callback);
   };
 
@@ -711,7 +841,7 @@ class Functions {
     };
 
     //network.fetchPUT_HEADER(url, data, token, callback);
-    network.fetchPOST_HEADER(url, data, token, callback)
+    network.fetchPOST_HEADER(url, data, token, callback);
   };
 
   getOrders = async (component) => {
@@ -730,7 +860,7 @@ class Functions {
 
     component.setState({ ActivityIndicator: true });
     network.fetchGET_HEADER(url, body, token, callback);
-  }
+  };
 
   logout = async (component) => {
     try {
