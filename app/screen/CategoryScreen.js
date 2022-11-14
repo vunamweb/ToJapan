@@ -114,23 +114,6 @@ const carouselItems2 = [
   },
 ];
 
-const dataTKPB2 = [
-  {
-    title: "Túi xách",
-  },
-  {
-    title: "Giày dép",
-  },
-  {
-    title: "Áo nữ",
-  },
-  {
-    title: "Máy chơi game",
-  },
-];
-
-
-
 const img3 = require("../../app/assets/heart.png");
 const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
@@ -145,8 +128,14 @@ class CategoryScreen extends Component {
     listProductByTag: [],
     listPopularItem: [],
     listPopularName: [],
+    dataPopularBranch: [],
+    dataBanner: [],
     service: '',
-    ActivityIndicator: true
+    ActivityIndicator1: true,
+    ActivityIndicator2: true,
+    ActivityIndicator3: false,
+    ActivityIndicator4: true,
+    ActivityIndicator5: true,
   }
   _renderItem({ item, index }) {
     return (
@@ -163,8 +152,17 @@ class CategoryScreen extends Component {
     );
   }
 
+  _renderItem_PopularBranch = ({ item, index }) => {
+    return (
+      <View style={{ alignItems: "center" }}>
+        <Image source={require("../../app/assets/Maskgroup_1.png")} />
+          <Text>{item.Brand}</Text>
+      </View>
+    );
+  };
+
   gotoProduct = () => {
-    component.refs._scrollView.scrollTo({
+    this.refs._scrollView.scrollTo({
       y: 300,
       animated: true,
     });
@@ -172,7 +170,7 @@ class CategoryScreen extends Component {
 
   getListProductByTagClick = (catid, ten) => {
     functions.getListProductByTagClick(component, component.props.navigation.state.params.itemId, catid, ten, component.state.listService)
-    //this.gotoProduct();
+    this.gotoProduct();
   }
 
   _renderItem_1({ item, index }) {
@@ -189,6 +187,12 @@ class CategoryScreen extends Component {
            <Image source={img3}/>
          </View>
       </View>
+    );
+  }
+
+  _renderItem_Banner({ item, index }) {
+    return (
+      <Image style={{ width: '90%', height: 200, marginLeft: '5%', marginRight: '5%' }} source={{ uri: item.img }} />
     );
   }
 
@@ -346,7 +350,12 @@ class CategoryScreen extends Component {
     //this.getData();
 
     var itemId = this.props.navigation.state.params.itemId;
-    functions.getListService(this, itemId)
+
+    functions.getBanners(this);
+    functions.getPopularItem(this, itemId);
+    functions.getPopularName(this);
+    functions.getPoplularBranch(this);
+    functions.getListService(this, itemId);
   }
 
   getData = async () => {
@@ -367,63 +376,62 @@ class CategoryScreen extends Component {
     );
 
     return (
-      <ScrollView>
+      <ScrollView ref='_scrollView'>
         <Background full="1">
-          <View style={[styles.fullWith, { padding: 20, marginTop: 20 }]}>
+          <View style={[styles.fullWith, { padding: 20, paddingTop: 0, marginTop: 0 }]}>
             {/* Banner */}
-            <Banner />
+            {this.state.ActivityIndicator5 == "" ? View1 : View2}
+            <Banner 
+            renderItem={this._renderItem_Banner}
+            carouselItems={this.state.dataBanner}
+            />
             {/* END */}
           </View>
           <View style={styles.homeBody}>
             <View>
               <Header1>Danh mục phổ biến</Header1>
+              {this.state.ActivityIndicator1 == "" ? View1 : View2}
               {/* Slider 1 */}
               <Carousel
                 data={this.state.listPopularItem}
                 renderItem={this._renderItem}
-                sliderWidth={350}
                 top={0}
                 itemWidth={100}
+                loop={true}
               />
               {/* END */}
               {/* Từ khoá phổ biến */}
               <Header1>Từ khoá phổ biến</Header1>
+              {this.state.ActivityIndicator2 == "" ? View1 : View2}
               <Carousel
                 data={this.state.listPopularName}
                 renderItem={this._renderItem_2_}
-                sliderWidth={350}
                 top={0}
                 itemWidth={140}
+                loop={true}
               />
               {/* END */}
               <View style={{marginTop: 30}}></View>
               <Header1>Thương hiệu phổ biến</Header1>
+              {this.state.ActivityIndicator3 == "" ? View1 : View2}
               {/* Slider 2 */}
               <Carousel
-                data={carouselItems1}
-                renderItem={this._renderItem}
-                sliderWidth={350}
+                data={this.state.dataPopularBranch}
+                renderItem={this._renderItem_PopularBranch}
                 top={20}
                 itemWidth={100}
-              />
-              {/* END */}
-              {/* Slider 3 */}
-              <Carousel
-                data={carouselItems2}
-                renderItem={this._renderItem}
-                sliderWidth={350}
-                top={30}
-                itemWidth={100}
+                loop={true}
               />
               {/* END */}
               <View style={{ marginTop: 40 }}><Header1>Hot! categories</Header1></View>
-              {this.state.ActivityIndicator == "" ? View1 : View2}
+              {this.state.ActivityIndicator4 == "" ? View1 : View2}
               {/* Slider Product */}
               <SliderProduct 
                   dataCarouselSlider={this.state.listService}
                   renderCarouselSlider={this._renderItem_2}
                   dataProductSlider={this.state.listProductByTag}
                   renderProductSlider={this._renderItem_3}
+                  loop={true}
               />
               {/* END */}
             </View>

@@ -520,7 +520,7 @@ class Functions {
         dataProductSlider: responseData.data.items,
         shop: shop,
       });
-      component.setState({ ActivityIndicator: false });
+      component.setState({ ActivityIndicator3: false });
     };
 
     component.setState({ ActivityIndicator: true });
@@ -551,7 +551,7 @@ class Functions {
       );
     };
 
-    component.setState({ ActivityIndicator: true });
+    //component.setState({ ActivityIndicator: true });
     network.fetchGET_HEADER(url, body, token, callback);
   };
 
@@ -580,10 +580,10 @@ class Functions {
         service: cat_name,
         listService: listService,
       });
-      component.setState({ ActivityIndicator: false });
+      component.setState({ ActivityIndicator4: false });
     };
 
-    component.setState({ ActivityIndicator: true });
+    component.setState({ ActivityIndicator4: true });
     network.fetchGET_HEADER(url, body, token, callback);
   };
 
@@ -607,25 +607,26 @@ class Functions {
     let body = {};
 
     callback = async (responseData) => {
-      functions.getPopularItem(
+      /*functions.getPopularItem(
         component,
         responseData,
         cat_name,
         listService,
         cat
-      );
+      );*/
+      component.setState({
+        listProductByTag: responseData.data,
+        listService: listService,
+        service: cat_name,
+        //ActivityIndicator3: false,
+        ActivityIndicator4: false,
+      });
     };
 
     network.fetchGET_HEADER(url, body, token, callback);
   };
 
-  getPopularItem = async (
-    component,
-    responseDataBefore,
-    cat_name,
-    listService,
-    shop
-  ) => {
+  getPopularItem = async (component, shop) => {
     let url = global.urlRoot + global.urlPopularItem;
 
     var datauser = await this.getDataUser();
@@ -659,25 +660,23 @@ class Functions {
         }
       }
 
-      functions.getPopularName(
+      /*functions.getPopularName(
         component,
         responseDataBefore,
         cat_name,
         listService,
         listPopularItem
-      );
+      );*/
+      component.setState({
+        listPopularItem: listPopularItem,
+        ActivityIndicator1: false,
+      });
     };
 
     network.fetchGET_HEADER(url, body, token, callback);
   };
 
-  getPopularName = async (
-    component,
-    responseDataBefore,
-    cat_name,
-    listService,
-    listPopularItem
-  ) => {
+  getPopularName = async (component) => {
     let url = global.urlRoot + global.urlPopularName;
 
     var datauser = await this.getDataUser();
@@ -688,13 +687,9 @@ class Functions {
 
     callback = async (responseData) => {
       component.setState({
-        listProductByTag: responseDataBefore.data,
-        service: cat_name,
-        listService: listService,
-        listPopularItem: listPopularItem,
         listPopularName: responseData.data,
+        ActivityIndicator2: false,
       });
-      component.setState({ ActivityIndicator: false });
     };
 
     network.fetchGET_HEADER(url, body, token, callback);
@@ -859,6 +854,73 @@ class Functions {
     };
 
     component.setState({ ActivityIndicator: true });
+    network.fetchGET_HEADER(url, body, token, callback);
+  };
+
+  getBanners = async (component) => {
+    let url = global.urlRoot + global.urlBanners;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+
+    callback = async (responseData) => {
+      var listBanner = [];
+      var count;
+
+      for (count = 0; count < responseData.data.length; count++) {
+        var banner = {};
+
+        banner.img = "https://neilpatel.com/wp-content/uploads/2021/02/ExamplesofSuccessfulBannerAdvertising-700x420.jpg";
+        listBanner.push(banner);
+      }
+
+      component.setState({ ActivityIndicator1: false, ActivityIndicator5: false, dataBanner: listBanner });
+    };
+
+    network.fetchGET_HEADER(url, body, token, callback);
+  };
+
+  getPoplularBranch = async (component) => {
+    let url = global.urlRoot + global.urlPopularBranch;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+
+    callback = async (responseData) => {
+      var listPopularBranch = [];
+      var count;
+
+      for (count = 0; count < responseData.data.length; count++) {
+        listPopularBranch.push(responseData.data[count]);
+      }
+
+      component.setState({ ActivityIndicator2: false, dataPopularBranch: listPopularBranch });
+    };
+
+    network.fetchGET_HEADER(url, body, token, callback);
+  };
+
+  getUserDetail = async (component) => {
+    let url = global.urlRoot + global.urlUserDetail;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+
+    callback = async (responseData) => {
+      var count;
+
+      component.setState({ userDetail: responseData.data });
+    };
+
     network.fetchGET_HEADER(url, body, token, callback);
   };
 

@@ -38,6 +38,11 @@ const carouselItems = [
     img: require("../../app/assets/Y!Auction.png"),
   },
   {
+    title: "Y!Shopping",
+    shop: 'yahoo_shopping',
+    img: require("../../app/assets/yahoo-shopping.png"),
+  },
+  {
     title: "Amazon JP",
     shop: 'amazon',
     img: require("../../app/assets/Amazon_JS.png"),
@@ -84,6 +89,21 @@ const carouselItems2 = [
   {
     title: "Adidas",
     img: require("../../app/assets/Maskgroup_8.png"),
+  },
+];
+
+const dataBanner = [
+  {
+    img: "https://neilpatel.com/wp-content/uploads/2021/02/ExamplesofSuccessfulBannerAdvertising-700x420.jpg",
+  },
+  {
+    img: "https://neilpatel.com/wp-content/uploads/2021/02/ExamplesofSuccessfulBannerAdvertising-700x420.jpg",
+  },
+  {
+    img: "https://neilpatel.com/wp-content/uploads/2021/02/ExamplesofSuccessfulBannerAdvertising-700x420.jpg",
+  },
+  {
+    img: "https://neilpatel.com/wp-content/uploads/2021/02/ExamplesofSuccessfulBannerAdvertising-700x420.jpg",
   },
 ];
 
@@ -141,7 +161,11 @@ var component__;
 class HomeScreen extends Component {
   state = {
     dataProductSlider: [],
-    ActivityIndicator: true,
+    dataBanner: [],
+    dataPopularBranch: [],
+    ActivityIndicator1: true,
+    ActivityIndicator2: true,
+    ActivityIndicator3: true,
     shop: '',
     index: 0
   };
@@ -161,6 +185,15 @@ class HomeScreen extends Component {
     );
   };
 
+  _renderItem_PopularBranch = ({ item, index }) => {
+    return (
+      <View style={{ alignItems: "center" }}>
+        <Image source={require("../../app/assets/Maskgroup_1.png")} />
+          <Text>{item.Brand}</Text>
+      </View>
+    );
+  };
+
   _renderItem_1({ item, index }) {
     return (
       <View style={styles.shop}>
@@ -175,6 +208,12 @@ class HomeScreen extends Component {
           <Image source={img3} />
         </View>
       </View>
+    );
+  }
+
+  _renderItem_Banner({ item, index }) {
+    return (
+      <Image style={{ width: '90%', height: 200, marginLeft: '5%', marginRight: '5%' }} source={{ uri: item.img }} />
     );
   }
 
@@ -346,9 +385,11 @@ class HomeScreen extends Component {
 
   componentDidMount() {
     component__ = this;
+
+    functions.getBanners(this);
+    functions.getPoplularBranch(this);
     functions.getListPopularProduct(this, 'mercari');
-    LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
-    
+    //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
   }
 
   render() {
@@ -384,7 +425,11 @@ class HomeScreen extends Component {
               }}
             />
             {/* Banner */}
-            <Banner />
+            {this.state.ActivityIndicator1 == "" ? View1 : View2}
+            <Banner 
+            renderItem={this._renderItem_Banner}
+            carouselItems={this.state.dataBanner}
+            />
             {/* END */}
           </View>
           <View style={styles.homeBody}>
@@ -404,23 +449,18 @@ class HomeScreen extends Component {
                 renderItem={this._renderItem}
                 top={0}
                 itemWidth={100}
+                loop={true}
               />
               {/* END */}
               <Header1>Thương hiệu phổ biến</Header1>
+              {this.state.ActivityIndicator2 == "" ? View1 : View2}
               {/* Slider 2 */}
               <Carousel
-                data={carouselItems1}
-                renderItem={this._renderItem}
+                data={this.state.dataPopularBranch}
+                renderItem={this._renderItem_PopularBranch}
                 top={0}
                 itemWidth={100}
-              />
-              {/* END */}
-              {/* Slider 3 */}
-              <Carousel
-                data={carouselItems2}
-                renderItem={this._renderItem}
-                top={20}
-                itemWidth={100}
+                loop={true}
               />
               {/* END */}
               {/* Container Header */}
@@ -432,7 +472,7 @@ class HomeScreen extends Component {
               />
               {/* END */}
               <Header1>Sản phẩm nổi bật</Header1>
-              {this.state.ActivityIndicator == "" ? View1 : View2}
+              {this.state.ActivityIndicator3 == "" ? View1 : View2}
               {/* Slider Product */}
               <SliderProduct
                 dataCarouselSlider={dataCarouselSlider}

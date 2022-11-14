@@ -70,6 +70,11 @@ class AddressScreen extends Component {
           "Address": global.noAddress,
         }
       ],
+    },
+    userDetail: {
+      "Balance": 0,
+      "Hold": 0,
+      "JPY": 0
     }, 
     ActivityIndicator: true,
     saveShip: true,
@@ -189,6 +194,7 @@ class AddressScreen extends Component {
   componentDidMount() {
     //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
     functions.getListAddress(this);
+    functions.getUserDetail(this);
   }
 
   cart = () => {
@@ -762,7 +768,7 @@ return (
                   </View>
                   <TouchableOpacity
                   onPress={() =>
-                    functions.gotoScreen(this.props.navigation, "WaletScreen")
+                    functions.gotoScreenWithParam(JSON.stringify(this.state.userDetail), this.props.navigation, "WaletScreen")
                   }
                   >
                   <View style={[styles.shortOption, styles.marginTop20]}>
@@ -775,7 +781,7 @@ return (
                     <View style={{ flex: 1 }}>
                       <Text style={styles.paymentText4}>Ví VND</Text>
                       <Text style={[styles.marginTop10, styles.paymentText2]}>
-                        Số dư khả dụng: 0đ
+                        Số dư khả dụng: {this.state.userDetail.Balance}đ
                       </Text>
                     </View>
                   </View>

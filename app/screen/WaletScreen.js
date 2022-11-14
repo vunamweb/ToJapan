@@ -44,7 +44,13 @@ const img2 = require("../../app/assets/check.png");
 const img3 = require("../../app/assets/JP.png");
 const img5 = require("../../app/assets/history.png");
 
+var moneyJYP, moneyJYPHOLD, moneyVN, moneyVNHOLD, QD;
+
 class WaletScreen extends Component {
+  state= {
+     change: false
+  }
+
   static navigationOptions = ({ navigation }) => ({
     //headerStyle: { backgroundColor: '#00FF57' },
     headerBackground: () => <HeaderBg />,
@@ -64,10 +70,23 @@ class WaletScreen extends Component {
   });
 
   componentDidMount() {
-    LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    var userDetail = this.props.navigation.state.params.itemId;
+    userDetail = JSON.parse(userDetail);
+
+    moneyVN = userDetail.Balance;
+    moneyVNHOLD = userDetail.Hold;
+
+    moneyJYP = userDetail.Balance * userDetail.JPY;
+    moneyJYPHOLD = userDetail.Hold * userDetail.JPY;
+
+    QD = userDetail.JPY;
+
+    this.setState({ change: true });
+    //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
   }
 
   render() {
+    
     return (
       <Provider>
         <ScrollView>
@@ -92,7 +111,7 @@ class WaletScreen extends Component {
                 <View>
                   <Text style={styles.paymentText2}>Tiền có sẵn</Text>
                   <Text style={(styles.marginTop5, styles.waletText1)}>
-                    0 ¥
+                    {moneyJYP} ¥
                   </Text>
                 </View>
                 <View style={{ marginLeft: 50 }}>
@@ -107,7 +126,7 @@ class WaletScreen extends Component {
                   </View>
 
                   <Text style={(styles.marginTop5, styles.waletText1)}>
-                    0 ¥
+                    {moneyJYPHOLD} ¥
                   </Text>
                 </View>
               </View>
@@ -169,12 +188,12 @@ class WaletScreen extends Component {
                   <View>
                     <Text style={styles.paymentText2}>Tiền có sẵn</Text>
                     <Text style={(styles.marginTop5, styles.waletText1)}>
-                      0 ¥
+                      {moneyJYP} ¥
                     </Text>
                     <Text style={styles.paymentText2}>
                       Quy đổi
                       <Text style={[styles.fontBold, styles.marginLeft5]}>
-                        0 ¥
+                        {QD} ¥
                       </Text>
                     </Text>
                   </View>
@@ -190,12 +209,12 @@ class WaletScreen extends Component {
                     </View>
 
                     <Text style={(styles.marginTop5, styles.waletText1)}>
-                      0 ¥
+                      {moneyJYPHOLD} ¥
                     </Text>
                     <Text style={styles.paymentText2}>
                       Quy đổi
                       <Text style={[styles.fontBold, styles.marginLeft5]}>
-                        0 ¥
+                        {QD} ¥
                       </Text>
                     </Text>
                   </View>
@@ -274,20 +293,6 @@ class WaletScreen extends Component {
                     </Text>
                   </View>
                   <View style={[styles.flexRowStart]}>
-                    <View
-                      style={[
-                        {
-                          backgroundColor: "#3187EA",
-                          paddingVertical: 3,
-                          paddingHorizontal: 15,
-                          borderRadius: 10,
-                        },
-                        styles.flexRowStart,
-                      ]}
-                    >
-                      <Image source={img2} />
-                      <Text style={{ color: "white" }}>Mặc định</Text>
-                    </View>
                   </View>
                 </View>
 
@@ -303,12 +308,12 @@ class WaletScreen extends Component {
                   <View>
                     <Text style={styles.paymentText2}>Tiền có sẵn</Text>
                     <Text style={(styles.marginTop5, styles.waletText1)}>
-                      0 ¥
+                      {moneyVN} ¥
                     </Text>
                     <Text style={styles.paymentText2}>
                       Quy đổi
                       <Text style={[styles.fontBold, styles.marginLeft5]}>
-                        0 ¥
+                        {QD} ¥
                       </Text>
                     </Text>
                   </View>
@@ -324,12 +329,12 @@ class WaletScreen extends Component {
                     </View>
 
                     <Text style={(styles.marginTop5, styles.waletText1)}>
-                      0 ¥
+                      {moneyVNHOLD} ¥
                     </Text>
                     <Text style={styles.paymentText2}>
                       Quy đổi
                       <Text style={[styles.fontBold, styles.marginLeft5]}>
-                        0 ¥
+                        {QD} ¥
                       </Text>
                     </Text>
                   </View>

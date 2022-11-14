@@ -26,6 +26,7 @@ export default class App extends React.Component {
         top={0}
         activeSlideAlignment="start"
         itemWidth={140}
+        loop={this.props.loop}
       />
       {/* END */}
       {/* List Product */}

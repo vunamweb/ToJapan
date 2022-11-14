@@ -27,6 +27,9 @@ global.urlAddOrder = '/shopping/{shop}/buy'
 global.urlgetOrder = '/orders?page=1&itemsPerPage=20&Shipping=all'
 global.urlPopularItem = '/shopping/category/top'
 global.urlPopularName = '/shopping/tags?mode=top'
+global.urlBanners = '/banners'
+global.urlPopularBranch = '/shopping/brands'
+global.urlUserDetail = '/user/details'
 // cost ship, vat
 global.ship = 0
 global.giam_gia = 0

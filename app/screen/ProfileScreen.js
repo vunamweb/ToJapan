@@ -131,7 +131,12 @@ class ProfileScreen extends Component {
   }
 
   state = {
-    name: ''
+    name: '',
+    userDetail: {
+      "Balance": 0,
+      "Hold": 0,
+      "JPY": 0
+    }
   }
 
   _renderItem = ({ item, index }) => {
@@ -174,6 +179,7 @@ class ProfileScreen extends Component {
   componentDidMount() {
     //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
     this.retrieveDataPersonal();
+    functions.getUserDetail(this);
   }
 
   retrieveDataPersonal = async () => {
@@ -223,7 +229,7 @@ class ProfileScreen extends Component {
             >
               <View>
                 <Text style={styles.paymentText2}>Tiền có sẵn</Text>
-                <Text style={(styles.marginTop5, styles.waletText1)}>0 ¥</Text>
+                <Text style={(styles.marginTop5, styles.waletText1)}>{this.state.userDetail.Balance} ¥</Text>
               </View>
               <View style={{ marginLeft: 50 }}>
                 <View style={styles.flexRowStart}>
@@ -236,7 +242,7 @@ class ProfileScreen extends Component {
                   </Tooltip>
                 </View>
 
-                <Text style={(styles.marginTop5, styles.waletText1)}>0 ¥</Text>
+                <Text style={(styles.marginTop5, styles.waletText1)}>{this.state.userDetail.Hold} ¥</Text>
               </View>
             </View>
             {/* END MONEY */}
