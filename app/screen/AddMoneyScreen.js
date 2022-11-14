@@ -11,6 +11,7 @@ import {
   ImageBackground,
   Text,
   useWindowDimensions,
+  ActivityIndicator
 } from "react-native";
 import { Rating, AirbnbRating, Slider } from "react-native-elements";
 import { Modal, Portal, Provider, RadioButton } from "react-native-paper";
@@ -238,10 +239,21 @@ const image2 = require("../../app/assets/shopping_bag.png");
 const image3 = require("../../app/assets/search-normal.png");
 const image4 = require("../../app/assets/Filler.png");
 
+var listBank, loading, component;
+
 class AddMoneyScreen extends Component {
   state = {
     index: 0,
     visible: false,
+    ActivityIndicator: true,
+    money: 0,
+    listBank: {
+      data: {
+        "STK": null,
+        "TenTK": null,
+        "Bank": null
+      }
+    },
     routes: [
       { key: "1", title: "JYP", icon: "ios-paper" },
       { icon: "ios-paper", key: "2", title: "VND" },
@@ -259,11 +271,14 @@ class AddMoneyScreen extends Component {
   });
 
   componentDidMount() {
-    LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    component = this;
 
     this.props.navigation.setParams({
       my: this,
     });
+
+    functions.getListBank(this);
   }
 
   _handleIndexChange = (index) => {
@@ -293,12 +308,9 @@ class AddMoneyScreen extends Component {
           <TextInput
             label="Nhập số tiền nạp"
             title="Nhập số tiền nạp"
-            returnKeyType="next"
-            autoCapitalize="none"
-            autoCompleteType="email"
-            textContentType="emailAddress"
-            keyboardType="email-address"
-            notflex="2"
+            keyboardType='numeric'
+            onChangeText={(value) => this.setState({money: value.replace(/[- #*;,.<>\{\}\[\]\\\/]/gi, '')})}
+            value={this.state.money}
             styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
           />
 
@@ -310,47 +322,9 @@ class AddMoneyScreen extends Component {
           <View style={(styles.borderNormal, styles.bgWhite)}>
             <View>
               <Text style={styles.shortText}>Chuyển khoản ngân hàng</Text>
-
-              <View style={[styles.shortOption, { padding: 0 }]}>
-                <RadioButton status="checked" />
-                <View
-                  style={[
-                    {
-                      backgroundColor: "##E3F2FC",
-                      paddingVertical: 8,
-                      paddingHorizontal: 15,
-                      borderRadius: 10,
-                    },
-                  ]}
-                >
-                  <Text style={[styles.shortText, { marginTop: 0 }]}>VCB</Text>
-                  <Text style={(styles.shopText2, styles.marginTop10)}>
-                    Ngân hàng thương mại cổ phần Ngoại thương Việt Nam
-                  </Text>
-                </View>
+              {loading}
+              {listBank}
               </View>
-              <View style={styles.line} />
-
-              <View style={[styles.shortOption, { padding: 0 }]}>
-                <RadioButton />
-                <View
-                  style={[
-                    {
-                      backgroundColor: "##E3F2FC",
-                      paddingVertical: 8,
-                      paddingHorizontal: 15,
-                      borderRadius: 10,
-                    },
-                  ]}
-                >
-                  <Text style={[styles.shortText, { marginTop: 0 }]}>STB</Text>
-                  <Text style={(styles.shopText2, styles.marginTop10)}>
-                    Ngân hàng TMCP Sài Gòn Thương Tín
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.line} />
-            </View>
           </View>
         </View>
         {/* Total */}
@@ -383,7 +357,7 @@ class AddMoneyScreen extends Component {
                 fontWeight: "700",
               }}
             >
-              22222 ¥
+              {this.state.money} ¥
             </Text>
           </View>
           {/* end */}
@@ -400,9 +374,7 @@ class AddMoneyScreen extends Component {
               },
             ]}
             onPress={() =>
-              this.setState({
-                visible: true,
-              })
+              functions.depositBank(component)
             }
           >
             <Text style={{ color: "white", fontSize: 18, fontWeight: "700" }}>
@@ -421,7 +393,55 @@ class AddMoneyScreen extends Component {
     //"3": this.SecondRoute,
   });
 
+  getListBank = () => {
+    var listBank = this.state.listBank;
+    var bankArray = [];
+    var position;
+
+    try {
+       bankArray.push(
+          <View>
+            <View style={[styles.shortOption, { padding: 0 }]}>
+                <RadioButton status="checked" />
+                <View
+                  style={[
+                    {
+                      backgroundColor: "##E3F2FC",
+                      paddingVertical: 8,
+                      paddingHorizontal: 15,
+                      borderRadius: 10,
+                    },
+                  ]}
+                >
+                  <Text style={(styles.shopText2, styles.marginTop10)}>
+                    {listBank.data.Bank}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.line} />
+          </View>
+        )
+      
+    } catch (error) {
+      console.log(error);
+    }
+
+    return bankArray;
+  };
+
   render() {
+    listBank = this.getListBank();
+
+    var View1 = <View />;
+    var View2 = (
+      <ActivityIndicator
+                size="large"
+                animating={this.state.ActivityIndicator}
+              />
+    );
+
+    loading = this.state.ActivityIndicator == "" ? View1 : View2;
+
     return (
       <Provider>
       <Portal>
@@ -464,33 +484,28 @@ class AddMoneyScreen extends Component {
                   ]}
                 >
                   <Text style={styles.containerHeaderText1}>Tổng thanh toán</Text>
-                  <Text style={[styles.inforPaymentText1, styles.fontBold]}>50,000 đ</Text>
+                  <Text style={[styles.inforPaymentText1, styles.fontBold]}>{this.state.money} đ</Text>
                 </View>
 
                 <View style={[styles.marginLeft10, styles.marginTop20]}>
                   <Text style={styles.shopText2}>Ngân hàng</Text>
-                  <Text style={[styles.shortText, {marginLeft: 0, marginTop: 0}]}>Ngân hàng thương mại cổ phần Ngoại thương Việt Nam</Text>
+                  <Text style={[styles.shortText, {marginLeft: 0, marginTop: 0}]}>{this.state.listBank.data.Bank}</Text>
                 </View>
 
                 <View style={[styles.flexRowStart, styles.marginTop20, {justifyContent: 'space-between'}]}>
                 <View style={styles.marginLeft10}>
                   <Text style={styles.shopText2}>Số tài khoản</Text>
-                  <Text style={[styles.shortText, {marginLeft: 0, marginTop: 0}]}>89999000</Text>
+                  <Text style={[styles.shortText, {marginLeft: 0, marginTop: 0}]}>{this.state.listBank.data.STK}</Text>
                 </View>
                 <Image source={img1}/>
                 </View>
 
                 <View style={[styles.marginLeft10, styles.marginTop20]}>
                   <Text style={styles.shopText2}>Chủ tài khoản</Text>
-                  <Text style={[styles.shortText, {marginLeft: 0, marginTop: 0}]}>Lê văn Yên</Text>
+                  <Text style={[styles.shortText, {marginLeft: 0, marginTop: 0}]}>{this.state.listBank.data.TenTK}</Text>
                 </View>
 
-                <View style={[styles.marginLeft10, styles.marginTop20]}>
-                  <Text style={styles.shopText2}>chi nhánh</Text>
-                  <Text style={[styles.shortText, {marginLeft: 0, marginTop: 0}]}>Đông Anh</Text>
-                </View>
-
-                <View style={[styles.flexRowStart, styles.marginTop20, {justifyContent: 'space-between'}]}>
+               <View style={[styles.flexRowStart, styles.marginTop20, {justifyContent: 'space-between'}]}>
                 <View style={styles.marginLeft10}>
                   <Text style={styles.shopText2}>Nội dung chuyển khoản</Text>
                   <Text style={[styles.shortText, {marginLeft: 0, marginTop: 0}]}>DB712050FFI EZ6763 linh le</Text>

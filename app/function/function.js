@@ -924,6 +924,46 @@ class Functions {
     network.fetchGET_HEADER(url, body, token, callback);
   };
 
+  getListBank = async (component) => {
+    let url = global.urlRoot + global.urlGetListBank;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+
+    callback = async (responseData) => {
+      component.setState({ listBank: responseData, ActivityIndicator: false });
+    };
+
+    network.fetchGET_HEADER(url, body, token, callback);
+  };
+
+  depositBank = async (component) => {
+    var money = component.state.money;
+
+    let url = global.urlRoot + global.urlDepositBank;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+    let data;
+
+    body.Amount = money;
+
+    data = JSON.stringify(body);
+
+    callback = async (responseData) => {
+      component.setState({ visible: true });
+    };
+
+    //network.fetchPUT_HEADER(url, data, token, callback);
+    network.fetchPOST_HEADER(url, data, token, callback);
+  };
+
   logout = async (component) => {
     try {
       await AsyncStorage.setItem("dataPersonal", "");

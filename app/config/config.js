@@ -30,6 +30,8 @@ global.urlPopularName = '/shopping/tags?mode=top'
 global.urlBanners = '/banners'
 global.urlPopularBranch = '/shopping/brands'
 global.urlUserDetail = '/user/details'
+global.urlGetListBank = '/user/payments/bank'
+global.urlDepositBank = '/user/deposit/bank'
 // cost ship, vat
 global.ship = 0
 global.giam_gia = 0
