@@ -9,7 +9,8 @@ import {
   LogBox,
   SearchBox,
   ImageBackground,
-  ActivityIndicator
+  ActivityIndicator,
+  Dimensions
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
 import { Text } from "react-native-paper";
@@ -122,6 +123,8 @@ const img = require("../../app/assets/circle_bg.png");
 
 var component;
 
+var height = Math.floor(Dimensions.get('window').width * 0.9 * 296/1560);
+
 class CategoryScreen extends Component {
   state = {
     listService: [],
@@ -192,7 +195,7 @@ class CategoryScreen extends Component {
 
   _renderItem_Banner({ item, index }) {
     return (
-      <Image style={{ width: '90%', height: 200, marginLeft: '5%', marginRight: '5%' }} source={{ uri: item.img }} />
+      <Image style={{ width: '90%', height: height, marginLeft: '5%', marginRight: '5%' }} source={{ uri: item.img }} />
     );
   }
 

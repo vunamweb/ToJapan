@@ -8,7 +8,7 @@ import styles from "../../app/style/style";
 
 export default function Banner({ mode, style, ...props }) {
   return (
-    <View style={{width: '100%', height:200, borderRadius: 16, alignItems: 'center', justifyContent: 'center'}}>
+    <View style={{width: '100%', borderRadius: 16, alignItems: 'center', justifyContent: 'center'}}>
       <Carousel
                 data={props.carouselItems}
                 renderItem={props.renderItem}

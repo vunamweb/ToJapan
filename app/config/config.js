@@ -10,6 +10,7 @@ global.noPhone = "Chưa có số điện thoại"
 global.noAddress = "Chưa có địa chỉ"
 // URL
 global.urlRoot = 'https://mobile.tojapan.jp';
+global.urlData = 'https://statics.tomexpress.jp/';
 global.urlLogin = '/login';
 global.urlUpdateUser = '/user/update'
 global.urlChangePassword = '/user/password'

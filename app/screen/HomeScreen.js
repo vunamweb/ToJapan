@@ -156,6 +156,7 @@ const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
 
 var component__;
+var height = Math.floor(Dimensions.get('window').width * 0.9 * 296/1560);
 
 
 class HomeScreen extends Component {
@@ -213,7 +214,7 @@ class HomeScreen extends Component {
 
   _renderItem_Banner({ item, index }) {
     return (
-      <Image style={{ width: '90%', height: 200, marginLeft: '5%', marginRight: '5%' }} source={{ uri: item.img }} />
+      <Image style={{ width: '90%', height: height, marginLeft: '5%', marginRight: '5%' }} source={{ uri: item.img }} />
     );
   }
 

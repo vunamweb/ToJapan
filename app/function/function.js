@@ -873,7 +873,8 @@ class Functions {
       for (count = 0; count < responseData.data.length; count++) {
         var banner = {};
 
-        banner.img = "https://neilpatel.com/wp-content/uploads/2021/02/ExamplesofSuccessfulBannerAdvertising-700x420.jpg";
+        //banner.img = "https://neilpatel.com/wp-content/uploads/2021/02/ExamplesofSuccessfulBannerAdvertising-700x420.jpg";
+        banner.img = global.urlData + responseData.data[count];
         listBanner.push(banner);
       }
 
