@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   LogBox,
+  Dimensions
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
 import { Text, Switch } from "react-native-paper";
@@ -141,7 +142,7 @@ class ProductDaugiaScreen extends Component {
 
   _renderItem_3 = ({ item, index }) => {
     return (
-      <View style={{ padding: 15, width: "50%" }}>
+      <View style={{ padding: 15, width: "100%" }}>
         <View
           style={{ borderRadius: 30, backgroundColor: "white", width: "100%" }}
         >
@@ -534,11 +535,19 @@ class ProductDaugiaScreen extends Component {
 
               <Header1>Sản phẩm Tương tự</Header1>
               {/* Slider Product */}
-              <SliderProduct
-                dataCarouselSlider={null}
-                renderCarouselSlider={this._renderItem_2}
-                dataProductSlider={dataProductSlider}
-                renderProductSlider={this._renderItem_3}
+              <Carousel
+                data={dataProductSlider}
+                renderItem={this._renderItem_3}
+                top={0}
+                itemWidth={Dimensions.get('window').width/2}
+                loop={true}
+              />
+              <Carousel
+                data={dataProductSlider}
+                renderItem={this._renderItem_3}
+                top={0}
+                itemWidth={Dimensions.get('window').width/2}
+                loop={true}
               />
               {/* END */}
             </View>
