@@ -8,6 +8,8 @@ global.updateUserNotOk = "Cập nhật không thành công"
 global.noName = "Chưa có tên"
 global.noPhone = "Chưa có số điện thoại"
 global.noAddress = "Chưa có địa chỉ"
+global.noBid = "Bạn chưa đấu giá sản phẩm này"
+global.noBuyNow = "Hiện giờ chưa có"
 // URL
 global.urlRoot = 'https://mobile.tojapan.jp';
 global.urlData = 'https://statics.tomexpress.jp/';
@@ -19,7 +21,9 @@ global.urlAddAdress = '/user/address'
 global.urlPopularProduct = '/shopping/:shop/top'
 global.urlService = '/shopping/category?cat={cat}'
 global.urlProductByTag = '/shopping/{cat}/products/?cat_id={cat_id}'
+global.urlProductByTagAuction = '/auctions/products/?cat_id={cat_id}'
 global.urlProduct = '/shopping/{cat}/product/{id}'
+global.urlProductAuction = '/auctions/product/{id}'
 global.urlCart = '/cart'
 global.urlAddProductToCart = '/cart/add'
 global.urlRemoveCart = '/cart/remove'

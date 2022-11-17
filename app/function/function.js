@@ -523,7 +523,7 @@ class Functions {
       component.setState({ ActivityIndicator3: false });
     };
 
-    component.setState({ ActivityIndicator: true });
+    component.setState({ ActivityIndicator3: true });
     network.fetchGET_HEADER(url, body, token, callback);
   };
 
@@ -562,9 +562,10 @@ class Functions {
     cat_name,
     listService
   ) => {
-    if (cat == "yahoo_auction") cat = "yahoo";
+    //if (cat == "yahoo_auction") cat = "yahoo";
 
-    let url = global.urlRoot + global.urlProductByTag;
+    let url = (cat != "yahoo_auction") ? global.urlRoot + global.urlProductByTag : global.urlRoot + global.urlProductByTagAuction;
+   
     url = url.replace("{cat}", cat);
     url = url.replace("{cat_id}", cat_id);
 
@@ -594,9 +595,9 @@ class Functions {
     cat_name,
     listService
   ) => {
-    if (cat == "yahoo_auction") cat = "yahoo";
+    //if (cat == "yahoo_auction") cat = "yahoo";
 
-    let url = global.urlRoot + global.urlProductByTag;
+    let url = (cat != "yahoo_auction") ? global.urlRoot + global.urlProductByTag : global.urlRoot + global.urlProductByTagAuction;
     url = url.replace("{cat}", cat);
     url = url.replace("{cat_id}", cat_id);
 
@@ -696,7 +697,7 @@ class Functions {
   };
 
   getProduct = async (component, cat, id) => {
-    let url = global.urlRoot + global.urlProduct;
+    let url = (cat != "yahoo_auction") ? global.urlRoot + global.urlProduct : global.urlRoot + global.urlProductAuction;
     url = url.replace("{cat}", cat);
     url = url.replace("{id}", id);
 

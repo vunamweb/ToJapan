@@ -135,8 +135,8 @@ const dataCarouselSlider = [
     shop: "mercari",
   },
   {
-    title: "Y!Auction",
-    shop: "yahoo",
+    title: "Y!Shopping",
+    shop: 'yahoo',
   },
   {
     title: "Amazon",
@@ -278,7 +278,7 @@ class HomeScreen extends Component {
               borderRadius: 30,
               backgroundColor: "white",
               width: "100%",
-              padding: 20,
+              padding: 10,
              
             }}
           >
@@ -289,7 +289,7 @@ class HomeScreen extends Component {
             </View>
             <View style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}>
               <Text style={{ color: "#23262F", fontSize: 16 }}>
-                {item.title}
+                {item.title.substr(0, 15)}
               </Text>
               <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
                 Từ {this.state.shop}
@@ -337,7 +337,7 @@ class HomeScreen extends Component {
                 borderRadius: 30,
                 backgroundColor: "white",
                 width: "100%",
-                padding: 20,
+                padding: 10,
                
               }}
             >

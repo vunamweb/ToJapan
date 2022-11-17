@@ -241,19 +241,19 @@ class CategoryScreen extends Component {
       <TouchableOpacity
       style={{width: '50%', marginTop: 20}}
       onPress={() =>
-        functions.gotoScreenProduct(component.props.navigation.state.params.itemId, item.code, this.props.navigation, "ProductScreen")
+        functions.gotoScreenProduct(component.props.navigation.state.params.itemId, (item.code != undefined ? item.code : item.ID), this.props.navigation, "ProductScreen")
       }
       >
       <View style={{ paddingRight: 5, width: '100%' }}>
-      <View style={{borderRadius: 30, padding: 20, backgroundColor: 'white', width: '100%'}}>
+      <View style={{borderRadius: 30, padding: 10, backgroundColor: 'white', width: '100%'}}>
         <View>
-      <Image style={{width: '100%',height: 128}} source={{ uri: item.image }} />
+      <Image style={{width: '100%',height: 128}} source={{ uri: (item.Image != undefined ? item.Image : item.image) }} />
         <View style={{ position: "absolute", top: 5, right: 5 }}>
           <Image source={image1} />
         </View>
         <View style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}>
           <Text style={{ color: "#23262F", fontSize: 16 }}>
-            {item.title}
+            {(item.title != undefined ? item.title.substr(0, 15) : item.Title.substr(0, 15))}
           </Text>
           <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
           Từ {component.state.service}
@@ -268,7 +268,7 @@ class CategoryScreen extends Component {
             <View>
               <Text style={{ color: "#D63F5C", fontSize: 16 }}>{item.price} ¥</Text>
               <Text style={{ fontSize: 12, color: "#777E90" }}>
-              {item.priceVN} VND
+              {(item.priceVN != undefined ? item.priceVN : item.PriceVN)} VND
               </Text>
             </View>
             <Image source={image2} />
@@ -284,19 +284,19 @@ class CategoryScreen extends Component {
       <TouchableOpacity
       style={{width: '50%', marginTop: 20}}
       onPress={() =>
-        functions.gotoScreenProduct(component.props.navigation.state.params.itemId, item.code, this.props.navigation, "ProductScreen")
+        functions.gotoScreenProduct(component.props.navigation.state.params.itemId, (item.code != undefined ? item.code : item.ID), this.props.navigation, "ProductScreen")
       }
       >
       <View style={{ paddingLeft: 5, width: '100%' }}>
-      <View style={{borderRadius: 30, padding: 20, backgroundColor: 'white', width: '100%'}}>
+      <View style={{borderRadius: 30, padding: 10, backgroundColor: 'white', width: '100%'}}>
         <View>
-      <Image style={{width: '100%',height: 128}} source={{ uri: item.image }} />
+        <Image style={{width: '100%',height: 128}} source={{ uri: (item.Image != undefined ? item.Image : item.image) }} />
         <View style={{ position: "absolute", top: 5, right: 5 }}>
           <Image source={image1} />
         </View>
         <View style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}>
           <Text style={{ color: "#23262F", fontSize: 16 }}>
-            {item.title}
+          {(item.title != undefined ? item.title.substr(0, 15) : item.Title.substr(0, 15))}
           </Text>
           <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
           Từ {component.state.service}
@@ -311,7 +311,7 @@ class CategoryScreen extends Component {
             <View>
               <Text style={{ color: "#D63F5C", fontSize: 16 }}>{item.price} ¥</Text>
               <Text style={{ fontSize: 12, color: "#777E90" }}>
-              {item.priceVN} VND
+              {(item.priceVN != undefined ? item.priceVN : item.PriceVN)} VND
               </Text>
             </View>
             <Image source={image2} />
@@ -347,7 +347,7 @@ class CategoryScreen extends Component {
 })
 
   componentDidMount() {
-    //LogBox.ignoreAllLogs(['VirtualizedLists should never be nested']);
+    LogBox.ignoreAllLogs(['VirtualizedLists should never be nested']);
     component = this;
 
     //this.getData();

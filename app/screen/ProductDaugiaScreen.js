@@ -11,6 +11,8 @@ import {
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
 import { Text, Switch } from "react-native-paper";
 
+import moment from "moment";
+
 import Background from "../components/Background";
 import TextInput from "../components/TextInput";
 import CustomToolbar1 from "../components/CustomToolbar1";
@@ -68,6 +70,8 @@ const image3 = require("../../app/assets/ship.png");
 class ProductDaugiaScreen extends Component {
   state = {
     order: false,
+    currentCount: 0,
+    intervalId: null,
   };
 
   _renderItem = ({ item, index }) => {
@@ -102,7 +106,7 @@ class ProductDaugiaScreen extends Component {
     );
   }
 
-  _renderItem_2({ item, index }) {
+  _renderItem_2 = ({ item, index }) => {
     if (index == 0)
       return (
         <View
@@ -133,7 +137,7 @@ class ProductDaugiaScreen extends Component {
           </Text>
         </View>
       );
-  }
+  };
 
   _renderItem_3 = ({ item, index }) => {
     return (
@@ -177,21 +181,69 @@ class ProductDaugiaScreen extends Component {
   };
 
   componentDidMount() {
+    var intervalId = setInterval(this.time, 1000);
+    this.setState({ intervalId: intervalId });
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
   }
+
+  componentWillUnmount() {
+    //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    clearInterval(this.state.intervalId);
+  }
+
+  time = () => {
+    this.setState({
+      currentCount: this.state.currentCount + 1,
+    });
+  };
 
   addProduct = () => {
     this.setState({
       order: true,
     });
   };
+
+  getProduct = () => {
+    var product = this.props.navigation.state.params.itemId;
+    product = JSON.parse(product);
+
+    return product;
+  };
+
   render() {
+    var product = this.getProduct();
+
+    var buttonBuyNow =
+      product.buy_now != undefined && product.buy_now > 0 ? (
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: "#E3F2FC", marginTop: 20 }]}
+        >
+          <Text style={{ color: "black" }}>Mua ngay</Text>
+        </TouchableOpacity>
+      ) : (
+        <View />
+      );
+
+    var dateCurrent = moment().unix();
+    var dateEndBid = moment(product.end).unix();
+
+    var time = dateEndBid - dateCurrent;
+    var date = new Date(time * 1000);
+
+    var day = Math.floor(time / 86400);
+    var hours = Math.floor((time - (day * 24 * 3600))/3600);
+    var minutes = date.getMinutes();
+    var seconds = date.getSeconds();
+
     return (
       <ScrollView>
         <Background start="1" full="1">
           {/* Toolbar */}
           <View style={styles.fullWith}>
-            <Image style={styles.fullWith} source={img1} />
+            <Image
+              style={[styles.fullWith, { width: "100%", height: 300 }]}
+              source={{ uri: product.images[0] }}
+            />
             <CustomToolbar1 component={this} />
           </View>
           {/* END */}
@@ -203,7 +255,7 @@ class ProductDaugiaScreen extends Component {
                   styles.marginBottom20,
                 ]}
               >
-                CASIOzzzz g-shock mini Gショックミニ g-baller カスタム
+                {product.title}
               </Text>
 
               <View
@@ -221,12 +273,15 @@ class ProductDaugiaScreen extends Component {
                     styles.marginBottom20,
                   ]}
                 >
-                  <Text style={styles.money2}>00d: 02h : 30m : 49s</Text>
+                  <Text style={styles.money2}>
+                    {day}d: {hours}h : {minutes}m : {seconds}s
+                  </Text>
                 </View>
                 <View style={[styles.flexRowStart]}>
                   <Image source={require("../assets/Auction.png")} />
                   <Text style={(styles.paymentText2, styles.marginLeft5)}>
-                    Đang đấu giá: <Text style={styles.money3}>50</Text>
+                    Đang đấu giá:{" "}
+                    <Text style={styles.money3}>{product.bids}</Text>
                   </Text>
                   <View
                     style={[
@@ -248,7 +303,7 @@ class ProductDaugiaScreen extends Component {
 
                 <View style={{ flexDirection: "row" }}>
                   <Text style={{ color: "#D63F5C", fontSize: 22 }}>
-                    20.400 ¥
+                    {product.price} ¥
                   </Text>
                   <Text
                     style={{
@@ -258,7 +313,7 @@ class ProductDaugiaScreen extends Component {
                       marginTop: 5,
                     }}
                   >
-                    3.753.600 đ
+                    {product.priceVN} đ
                   </Text>
                 </View>
 
@@ -277,7 +332,7 @@ class ProductDaugiaScreen extends Component {
 
                 <View style={{ flexDirection: "row" }}>
                   <Text style={{ color: "#D63F5C", fontSize: 22 }}>
-                    20.400 ¥
+                    {product.buy_now >0 ? product.buy_now + '¥' : global.noBuyNow} 
                   </Text>
                   <Text
                     style={{
@@ -287,7 +342,7 @@ class ProductDaugiaScreen extends Component {
                       marginTop: 5,
                     }}
                   >
-                    3.753.600 đ
+                    {product.buy_now >0 ? (product.buy_now * 169) + 'đ' : ''}
                   </Text>
                 </View>
               </View>
@@ -327,7 +382,6 @@ class ProductDaugiaScreen extends Component {
                   styles.button,
                   { backgroundColor: "#3187EA", marginTop: 20 },
                 ]}
-
                 onPress={() =>
                   functions.gotoScreen(this.props.navigation, "AuctionScreen")
                 }
@@ -341,101 +395,17 @@ class ProductDaugiaScreen extends Component {
                   styles.button,
                   { backgroundColor: "#E3F2FC", marginTop: 20 },
                 ]}
-
                 onPress={() =>
-                  functions.gotoScreen(this.props.navigation, "LastMinutesScreen")
+                  functions.gotoScreen(
+                    this.props.navigation,
+                    "LastMinutesScreen"
+                  )
                 }
               >
                 <Text style={{ color: "black" }}>Săn phút chót</Text>
               </TouchableOpacity>
               {/* END button2 */}
-              {/* BUTTON 3 */}
-              <TouchableOpacity
-                onPress={this.addProduct.bind(this)}
-                style={[
-                  styles.button,
-                  {
-                    backgroundColor: "white",
-                    marginTop: 20,
-                    borderColor: "#3187EA",
-                    borderWidth: 1,
-                  },
-                ]}
-              >
-                <Text style={{ color: "#3187EA" }}>Mua ngay</Text>
-              </TouchableOpacity>
-              {/* END button3 */}
-              {/* 3 */}
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  marginTop: 20,
-                }}
-              >
-                <View style={{ flexDirection: "row" }}>
-                  <Image source={img2} />
-                  <View style={{ marginLeft: 10 }}>
-                    <Text
-                      style={{ fontSize: 18, fontWeight: "700", color: "#000" }}
-                    >
-                      Aqua0710398
-                    </Text>
-                    <Text style={{ fontSize: 12, color: "#777E90" }}>
-                      9826 Đơn hàng
-                    </Text>
-                    <Text style={{ fontSize: 12, color: "#3187EA" }}>
-                      Shop có độ uy tín cao
-                    </Text>
-                  </View>
-                </View>
-                <Image source={image1} style={{ marginTop: 20 }} />
-              </View>
-              {/* END 3 */}
-              {/* 4 */}
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-around",
-                  marginTop: 20,
-                }}
-              >
-                {/* 4-1 */}
-                <View>
-                  <Text style={{ fontSize: 14, color: "#777E90" }}>Tốt</Text>
-                  <Text
-                    style={{ fontSize: 18, color: "#000", fontWeight: "700" }}
-                  >
-                    1.000
-                  </Text>
-                </View>
-                {/* End */}
-                {/* 4-2 */}
-                <View>
-                  <Text style={{ fontSize: 14, color: "#777E90" }}>
-                    Bình thường
-                  </Text>
-                  <Text
-                    style={{ fontSize: 18, color: "#000", fontWeight: "700" }}
-                  >
-                    0
-                  </Text>
-                </View>
-                {/* End */}
-                {/* 4-3 */}
-                <View>
-                  <Text style={{ fontSize: 14, color: "#777E90" }}>
-                    không Tốt
-                  </Text>
-                  <Text
-                    style={{ fontSize: 18, color: "#000", fontWeight: "700" }}
-                  >
-                    6
-                  </Text>
-                </View>
-                {/* End */}
-              </View>
-              {/* END 4 */}
+              {buttonBuyNow}
               {/* Thông tin sản phẩm */}
               <Text style={{ fontSize: 18, fontWeight: "700", marginTop: 20 }}>
                 Thông tin sản phẩm
@@ -453,7 +423,7 @@ class ProductDaugiaScreen extends Component {
                 <Text
                   style={{ fontSize: 16, color: "#23262F", fontWeight: "600" }}
                 >
-                  12:15 05/07/2022
+                  {product.startTime}
                 </Text>
               </View>
               <View
@@ -469,7 +439,7 @@ class ProductDaugiaScreen extends Component {
                 <Text
                   style={{ fontSize: 16, color: "#23262F", fontWeight: "600" }}
                 >
-                  12:15 05/07/2022
+                  {product.endTime}
                 </Text>
               </View>
               <View
@@ -485,7 +455,7 @@ class ProductDaugiaScreen extends Component {
                 <Text
                   style={{ fontSize: 16, color: "#23262F", fontWeight: "600" }}
                 >
-                  Có
+                  {product.auto_time}
                 </Text>
               </View>
               <View
@@ -499,7 +469,7 @@ class ProductDaugiaScreen extends Component {
                 <Text
                   style={{ fontSize: 16, color: "#23262F", fontWeight: "600" }}
                 >
-                  Có
+                  {product.return_item}
                 </Text>
               </View>
               <View
@@ -557,22 +527,7 @@ class ProductDaugiaScreen extends Component {
               </Text>
               <View style={{ marginTop: 20 }}>
                 <Text style={{ fontSize: 16, color: "#23262F" }}>
-                  Ends July 10, 2022 Seiko CHRONOGRAPH Chronograph Ref.6138-8000
-                  Panda Day-Date Men's Mechanical Self-winding Watch Gentleman
-                  Antique
-                  {"\n"}
-                  Country of origin ... Made in Switzerland
-                  {"\n"}
-                  {"\n"}
-                  Specifications ... Mechanical manual winding
-                  {"\n"}
-                  {"\n"}
-                  Case size: about 39 mm
-                  {"\n"}
-                  {"\n"}
-                  Consumption tax, shipping fee, and because we are opening an
-                  individual store, we do not charge consumption tax. The
-                  shipping fee is freight collect.
+                  {product.description.replace(/<\/?[^>]+(>|$)/g, "")}
                 </Text>
               </View>
               {/* END mô tả san pham */}
