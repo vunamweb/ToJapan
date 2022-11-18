@@ -10,6 +10,9 @@ global.noPhone = "Chưa có số điện thoại"
 global.noAddress = "Chưa có địa chỉ"
 global.noBid = "Bạn chưa đấu giá sản phẩm này"
 global.noBuyNow = "Hiện giờ chưa có"
+global.TextAuction1 = "Khi bạn đặt giá thầu, điều đó có nghĩa bạn cam kết mua mặthàng này nếu bạn là ngườii thắng thầu"
+global.seller = "Người bán"
+global.informationSeller = "xem link để biết chi tiết"
 // URL
 global.urlRoot = 'https://mobile.tojapan.jp';
 global.urlData = 'https://statics.tomexpress.jp/';
@@ -37,6 +40,7 @@ global.urlPopularBranch = '/shopping/brands'
 global.urlUserDetail = '/user/details'
 global.urlGetListBank = '/user/payments/bank'
 global.urlDepositBank = '/user/deposit/bank'
+global.addBid = '/auctions/bid'
 // cost ship, vat
 global.ship = 0
 global.giam_gia = 0

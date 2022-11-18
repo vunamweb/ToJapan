@@ -840,6 +840,38 @@ class Functions {
     network.fetchPOST_HEADER(url, data, token, callback);
   };
 
+  addBid = async (product, component) => {
+    let url = global.urlRoot + global.addBid;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+    let data;
+
+    body.Product = product.productID;
+    body.Price = component.state.money;
+
+    body.Address = {};
+    body.Address.Name = component.state.listAddress.data[0].Name;
+    body.Address.Address = component.state.listAddress.data[0].Address;
+    body.Address.Phone = component.state.listAddress.data[0].Phone;
+
+    body.Url = product.url; 
+    body.Shipment = component.state.saveShip ? "air" : "sea";
+    body.Description = '';
+    
+    data = JSON.stringify(body);
+
+    callback = (responseData) => {
+      functions.gotoScreen(component.props.navigation, "ManagerAuctionScreen")
+    };
+
+    //network.fetchPUT_HEADER(url, data, token, callback);
+    network.fetchPOST_HEADER(url, data, token, callback);
+  };
+
   getOrders = async (component) => {
     let url = global.urlRoot + global.urlgetOrder;
 

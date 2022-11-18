@@ -309,7 +309,7 @@ class AddMoneyScreen extends Component {
             label="Nhập số tiền nạp"
             title="Nhập số tiền nạp"
             keyboardType='numeric'
-            onChangeText={(value) => this.setState({money: value.replace(/[- #*;,.<>\{\}\[\]\\\/]/gi, '')})}
+            onChangeText={(value) => this.setState({money: value.replace(/[^0-9]/g, '')})}
             value={this.state.money}
             styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
           />

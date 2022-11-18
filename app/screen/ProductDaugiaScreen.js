@@ -384,7 +384,7 @@ class ProductDaugiaScreen extends Component {
                   { backgroundColor: "#3187EA", marginTop: 20 },
                 ]}
                 onPress={() =>
-                  functions.gotoScreen(this.props.navigation, "AuctionScreen")
+                  functions.gotoScreenWithParam(JSON.stringify(product), this.props.navigation, "AuctionScreen")
                 }
               >
                 <Text style={{ color: "white" }}>Đấu giá</Text>
@@ -397,7 +397,8 @@ class ProductDaugiaScreen extends Component {
                   { backgroundColor: "#E3F2FC", marginTop: 20 },
                 ]}
                 onPress={() =>
-                  functions.gotoScreen(
+                  functions.gotoScreenWithParam(
+                    JSON.stringify(product),
                     this.props.navigation,
                     "LastMinutesScreen"
                   )

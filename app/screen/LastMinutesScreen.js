@@ -9,6 +9,7 @@ import {
   LogBox,
   SearchBox,
   ImageBackground,
+  ActivityIndicator,
 } from "react-native";
 import { Rating, AirbnbRating, Tooltip } from "react-native-elements";
 import {
@@ -20,7 +21,10 @@ import {
   Modal,
 } from "react-native-paper";
 
+import moment from "moment";
+
 import Background from "../components/Background";
+import BackgroundHome from "../components/BackgroundHome";
 import TextInput from "../components/TextInput";
 import CustomToolbar from "../components/CustomToolbar";
 import Banner from "../components/Banner";
@@ -57,10 +61,32 @@ const image8 = require("../../app/assets/phuongthucthanhtoan.png");
 const image9 = require("../../app/assets/image_75.png");
 const image10 = require("../../app/assets/Icon_R.png");
 
-class LastMinutesScreen extends Component {
+var product;
+
+class AuctionScreen extends Component {
   state = {
     visible: false,
     visibleGTGT: false,
+    listAddress: {
+      data: [
+        {
+          Name: global.noName,
+          Phone: global.noPhone,
+          Address: global.noAddress,
+        },
+      ],
+    },
+    currentCount: 0,
+    intervalId: null,
+    saveShip: true,
+    transfer: true,
+    userDetail: {
+      Balance: 0,
+      Hold: 0,
+      JPY: 0,
+    },
+    money: 0,
+    ActivityIndicator: true,
   };
 
   _renderItem({ item, index }) {
@@ -170,14 +196,73 @@ class LastMinutesScreen extends Component {
     headerTitleStyle: {
       color: "white",
     },
-    title: "Đăng ký săn phút chót",
+    title: "Đấu giá",
   });
 
   componentDidMount() {
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+
+    var intervalId = setInterval(this.time, 1000);
+    this.setState({ intervalId: intervalId });
+
+    functions.getListAddress(this);
+    functions.getUserDetail(this);
+
+    this.prefillMoney();
   }
 
+  componentWillUnmount() {
+    //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    clearInterval(this.state.intervalId);
+  }
+
+  getProduct = () => {
+    var product = this.props.navigation.state.params.itemId;
+    product = JSON.parse(product);
+
+    return product;
+  };
+
+  time = () => {
+    this.setState({
+      currentCount: this.state.currentCount + 1,
+    });
+  };
+
+  prefillMoney = () => {
+    this.setState({
+      money: product.setPrice,
+    });
+  };
+
   render() {
+    var name = this.state.listAddress.data[0].Name;
+    var phone = this.state.listAddress.data[0].Phone;
+    var namePhone = name + " |" + "  " + phone;
+
+    var address = this.state.listAddress.data[0].Address;
+
+    product = this.getProduct();
+
+    var dateCurrent = moment().unix();
+    var dateEndBid = moment(product.end).unix();
+
+    var time = dateEndBid - dateCurrent;
+    var date = new Date(time * 1000);
+
+    var day = Math.floor(time / 86400);
+    var hours = Math.floor((time - day * 24 * 3600) / 3600);
+    var minutes = date.getMinutes();
+    var seconds = date.getSeconds();
+
+    var View1 = <View />;
+    var View2 = (
+      <ActivityIndicator
+        size="large"
+        animating={this.state.ActivityIndicator}
+      />
+    );
+
     return (
       <Provider>
         <ScrollView>
@@ -188,7 +273,7 @@ class LastMinutesScreen extends Component {
               contentContainerStyle={styles.shortModal}
             >
               {/* HEADER */}
-              <View style={styles.shortHeaderModal}>
+              <View style={[styles.shortHeaderModal, { display: "none" }]}>
                 <Text style={{ color: "white", fontSize: 20 }}>
                   Chọn dịch vụ GTGT
                 </Text>
@@ -466,14 +551,10 @@ class LastMinutesScreen extends Component {
               </TouchableOpacity>
             </Modal>
           </Portal>
-          <Background full="1" start="1">
+          <BackgroundHome full="1" start="1">
             <View style={[styles.homeBody, styles.marginHeader]}>
               {/* Address */}
-              <Address
-                text1="Nguyen Van Nam | +84 0393301497"
-                text2="Số 9 ngõ 25/36 Phú Minh, Phường Minh Khai, Quận Bắc Từ Liêm, Hà Nội, Việt Nam"
-                component={this}
-              />
+              <Address text1={namePhone} text2={address} component={this} />
               {/* END */}
               {/* Container 1 */}
               <View style={[styles.padding, styles.marginTop10]}>
@@ -484,8 +565,7 @@ class LastMinutesScreen extends Component {
                     styles.marginBottom20,
                   ]}
                 >
-                  Khi bạn đặt giá thầu, điều đó có nghĩa bạn cam kết mua mặt
-                  hàng này nếu bạn là ngườii thắng thầu
+                  {global.TextAuction1}
                 </Text>
 
                 <View
@@ -503,7 +583,9 @@ class LastMinutesScreen extends Component {
                       styles.marginBottom20,
                     ]}
                   >
-                    <Text style={styles.money2}>00d: 02h : 30m : 49s</Text>
+                    <Text>
+                      {day}d: {hours}h : {minutes}m : {seconds}s
+                    </Text>
                   </View>
                 </View>
 
@@ -524,9 +606,8 @@ class LastMinutesScreen extends Component {
                       { color: "#D63F5C" },
                     ]}
                   >
-                    Cảnh báo rủi ro: Người bán Mrea0603 có mức độ uy tín rất
-                    thấp, nên tham gia đấu giá bạn phải chấp nhận hoàn toàn mọi
-                    rủi ro
+                    {global.seller}: {product.seller} (
+                    {global.informationSeller} {product.seller_url})
                   </Text>
                 </View>
 
@@ -540,13 +621,14 @@ class LastMinutesScreen extends Component {
                   <Text style={styles.paymentText6}>Giá đấu của bạn</Text>
                 </View>
                 <TextInput
-                  label="65,499 ¥"
-                  title="Email *"
-                  returnKeyType="next"
-                  autoCapitalize="none"
-                  autoCompleteType="email"
-                  textContentType="emailAddress"
-                  keyboardType="email-address"
+                  label="¥"
+                  keyboardType="numeric"
+                  onChangeText={(value) =>
+                    this.setState({
+                      money: value.replace(/[^0-9]/g, ''),
+                    })
+                  }
+                  value={"" + this.state.money + ""}
                   styleParent={{
                     borderColor: "#E6E8EC",
                     backgroundColor: "white",
@@ -605,9 +687,12 @@ class LastMinutesScreen extends Component {
                   Phương thức vận chuyển
                 </Text>
                 <View style={[styles.shortOption, { padding: 0 }]}>
-                  <RadioButton status="checked" />
+                  <RadioButton
+                    status={this.state.saveShip ? "checked" : "unchecked"}
+                    onPress={() => this.setState({ saveShip: true })}
+                  />
                   <Text style={styles.shortText}>
-                    Gom và giao hàng tiết kiện
+                    Gom và giao hàng tiết kiệm
                   </Text>
                   <Tooltip popover={<Text>Info here</Text>}>
                     <Image
@@ -623,7 +708,10 @@ class LastMinutesScreen extends Component {
                     styles.marginBottom20,
                   ]}
                 >
-                  <RadioButton status="checked" />
+                  <RadioButton
+                    status={!this.state.saveShip ? "checked" : "unchecked"}
+                    onPress={() => this.setState({ saveShip: false })}
+                  />
                   <Text style={styles.shortText}>
                     Giao hàng ngay khi nhận được tại kho
                   </Text>
@@ -671,41 +759,32 @@ class LastMinutesScreen extends Component {
                       { borderWidth: 1, borderColor: "#3187EA" },
                     ]}
                   >
-                    <RadioButton />
+                    <RadioButton
+                      status={this.state.transfer ? "checked" : "unchecked"}
+                      onPress={() => this.setState({ transfer: true })}
+                    />
                     <View style={{ flex: 1 }}>
-                      <Text style={styles.paymentText4}>Ví ToJapan</Text>
-                      <Text style={[styles.marginTop10, styles.paymentText5]}>
-                        Số dư khả dụng:{" "}
-                        <Text style={styles.fontBold}>2,000,000đ</Text>
-                      </Text>
-                      <Text style={[styles.marginTop10, styles.paymentText2]}>
-                        Thanh toán cho các đơn đặt hàng của bạn nhanh hơn và dễ
-                        dàng hơn với ví ToJapan
-                      </Text>
-                    </View>
-                  </View>
-                  <View style={[styles.shortOption, styles.marginTop20]}>
-                    <RadioButton />
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.paymentText4}>
-                        Thẻ tín dụng hoặc thẻ ghi nợ
-                      </Text>
-                      <Text style={[styles.marginTop10, styles.paymentText2]}>
-                        Bảo mật tài khoản thanh toán được mã hóa SSL 256-bit
-                      </Text>
+                      <Text style={styles.paymentText4}>Chuyển khoản</Text>
                     </View>
                   </View>
                   <TouchableOpacity
                     onPress={() =>
-                      functions.gotoScreen(this.props.navigation, "WaletScreen")
+                      functions.gotoScreenWithParam(
+                        JSON.stringify(this.state.userDetail),
+                        this.props.navigation,
+                        "WaletScreen"
+                      )
                     }
                   >
                     <View style={[styles.shortOption, styles.marginTop20]}>
-                      <RadioButton />
+                      <RadioButton
+                        status={!this.state.transfer ? "checked" : "unchecked"}
+                        onPress={() => this.setState({ transfer: false })}
+                      />
                       <View style={{ flex: 1 }}>
                         <Text style={styles.paymentText4}>Ví VND</Text>
                         <Text style={[styles.marginTop10, styles.paymentText2]}>
-                          Số dư khả dụng: 0đ
+                          Số dư khả dụng: {this.state.userDetail.Balance}đ
                         </Text>
                       </View>
                     </View>
@@ -720,19 +799,19 @@ class LastMinutesScreen extends Component {
               >
                 <View style={[styles.seach, { marginTop: 0 }]}>
                   <Text style={styles.money1}>Tổng tiền sản phẩm</Text>
-                  <Text style={styles.money2}>10,868 ¥</Text>
+                  <Text style={styles.money2}>{this.state.money} ¥</Text>
                 </View>
                 <View style={[styles.seach, styles.marginTop10]}>
                   <Text style={styles.money1}>Tiền thuế</Text>
-                  <Text style={styles.money2}>10,868 ¥</Text>
+                  <Text style={styles.money2}>{global.vat} ¥</Text>
                 </View>
                 <View style={[styles.seach, styles.marginTop10]}>
                   <Text style={styles.money1}>Phí dịch vụ ToJapan</Text>
-                  <Text style={styles.money2}>10,868 ¥</Text>
+                  <Text style={styles.money2}>{global.tojapan} ¥</Text>
                 </View>
                 <View style={[styles.seach, styles.marginTop10]}>
                   <Text style={styles.money1}>Phí thanh toán</Text>
-                  <Text style={styles.money2}>10,868 ¥</Text>
+                  <Text style={styles.money2}>{global.thanhtoan} ¥</Text>
                 </View>
                 <View
                   style={[
@@ -744,7 +823,7 @@ class LastMinutesScreen extends Component {
                 >
                   <Text style={styles.money1}>Phiếu giảm giá</Text>
                   <Text style={[styles.money2, { color: "#13AB2C" }]}>
-                    10,868 ¥
+                    {global.giam_gia} ¥
                   </Text>
                 </View>
                 {/* TỒNG ĐƠN HÀNG */}
@@ -760,7 +839,7 @@ class LastMinutesScreen extends Component {
                         { color: "#D63F5C" },
                       ]}
                     >
-                      10,868 ¥
+                      {this.state.money} ¥
                     </Text>
                   </View>
                 </View>
@@ -801,20 +880,19 @@ class LastMinutesScreen extends Component {
                     styles.button,
                     { backgroundColor: "#3187EA", marginTop: 0 },
                   ]}
-                  onPress={() =>
-                    functions.gotoScreen(this.props.navigation, "ManagerAuctionScreen")
-                  }
+                  onPress={() => functions.addBid(product, this)}
                 >
-                  <Text style={{ color: "white" }}>Đăng ký săn phút chót</Text>
+                  {this.state.ActivityIndicator == "" ? View1 : View2}
+                  <Text style={{ color: "white" }}>Đấu giá</Text>
                 </TouchableOpacity>
               </View>
               {/* END */}
             </View>
-          </Background>
+          </BackgroundHome>
         </ScrollView>
       </Provider>
     );
   }
 }
 
-export default LastMinutesScreen;
+export default AuctionScreen;
