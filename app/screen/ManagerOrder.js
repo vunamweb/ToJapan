@@ -379,17 +379,6 @@ class ManagerOrder extends Component {
             />
   </View>;
 
-  SecondRoute = () => <View style={[{ flex: 1, backgroundColor: '#FAFAFA'}, styles.borderNormal, styles.margin]}>
-  <SliderProduct
-           dataCarouselSlider={null}
-           renderCarouselSlider={this._renderItem_2_}
-           dataProductSlider={this.state.orderList}
-           renderProductSlider={this._renderItem_3}
-           col={1}
-           style="1"
-         />
-</View>;
-
   _renderScene = SceneMap({
     "1": () => this.Route(''),
     "2": () => this.Route(global.orderCancel),

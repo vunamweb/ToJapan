@@ -41,6 +41,7 @@ global.urlUserDetail = '/user/details'
 global.urlGetListBank = '/user/payments/bank'
 global.urlDepositBank = '/user/deposit/bank'
 global.addBid = '/auctions/bid'
+global.urlAutionOrder = '/auctions?Status=tat_ca&page=1&itemsPerPage=20'
 // cost ship, vat
 global.ship = 0
 global.giam_gia = 0
@@ -54,5 +55,17 @@ global.orderBuy = 'da_mua_hang'
 global.orderWaiting = 'dang_cho'
 global.orderVN = 'vc_vn'
 global.orderJYP = 'vc_jp'
+// status auction
+global.SPC = 'dang_dau_gia'
+global.success1 = 'thanh_cong'
+global.success2 = 'dang_xu_ly'
+global.endAuction = 'Đã kết thúc'
+global.noEndAuction = 'chưa kết thúc'
+global.statusfaildAuction1 = 'that_bai'
+global.statusfaildAuction2 = 'bi_vuot_gia'
+global.faildAuction = 'Đấu giá thất bại'
+global.processAuction = "Đang xử lý"
+
+
 
 

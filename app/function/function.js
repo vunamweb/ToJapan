@@ -890,6 +890,24 @@ class Functions {
     network.fetchGET_HEADER(url, body, token, callback);
   };
 
+  getAuction = async (component) => {
+    let url = global.urlRoot + global.urlAutionOrder;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+
+    callback = async (responseData) => {
+      component.setState({ orderList: responseData.data });
+      component.setState({ ActivityIndicator: false });
+    };
+
+    component.setState({ ActivityIndicator: true });
+    network.fetchGET_HEADER(url, body, token, callback);
+  };
+
   getBanners = async (component) => {
     let url = global.urlRoot + global.urlBanners;
 

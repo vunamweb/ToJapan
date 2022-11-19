@@ -11,9 +11,11 @@ import {
   ImageBackground,
   Text,
   useWindowDimensions,
+  ActivityIndicator,
+  Modal,
 } from "react-native";
 import { Rating, AirbnbRating, Slider } from "react-native-elements";
-import { Modal, Portal, Provider, RadioButton } from "react-native-paper";
+import { Portal, Provider, RadioButton } from "react-native-paper";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 
 import Background from "../components/Background";
@@ -35,48 +37,6 @@ import functions from "../../app/function/function";
 import { HeaderBackground } from "react-navigation-stack";
 //import { Provider } from "react-native-paper/lib/typescript/core/settings";
 
-const dataProductSlider = [
-  {
-    text1: "釣り用フックキーパー 釣り用フ...",
-    status1: "Đã kết thúc",
-    status2: "Đấu giá thất bại",
-    madau: "g1057850171",
-    giahientai: "23,845",
-    giadau: "11",
-  },
-  {
-    text1: "釣り用フックキーパー 釣り用フ...",
-    status1: "Đã kết thúc",
-    status2: "Đấu giá thất bại",
-    madau: "g1057850171",
-    giahientai: "23,845",
-    giadau: "11",
-  },
-  {
-    text1: "釣り用フックキーパー 釣り用フ...",
-    status1: "Đã kết thúc",
-    status2: "Đấu giá thất bại",
-    madau: "g1057850171",
-    giahientai: "23,845",
-    giadau: "11",
-  },
-  {
-    text1: "釣り用フックキーパー 釣り用フ...",
-    status1: "Đã kết thúc",
-    status2: "Đấu giá thất bại",
-    madau: "g1057850171",
-    giahientai: "23,845",
-    giadau: "11",
-  },
-];
-
-const img1 = require("../../app/assets/sort-down.png");
-const img2 = require("../../app/assets/star_1.png");
-const img3 = require("../../app/assets/heart.png");
-
-const img = require("../../app/assets/Rectangle_1944.png");
-const image1 = require("../../app/assets/arrow-right.png");
-const image2 = require("../../app/assets/shopping_bag.png");
 const image3 = require("../../app/assets/notification-bing.png");
 const image4 = require("../../app/assets/shopping-bag.png");
 
@@ -84,10 +44,13 @@ class ManagerAuctionScreen extends Component {
   state = {
     index: 0,
     routes: [
-      { key: "1", title: "Đang đấu", icon: "ios-paper" },
+      { key: "1", title: "Đang đấu"},
       { icon: "ios-paper", key: "2", title: "Săn phút chót" },
       { icon: "ios-paper", key: "3", title: "Đấu thắng" },
     ],
+    ActivityIndicator: false,
+    orderList: [],
+    visible: true
   };
 
   static navigationOptions = ({ navigation }) => ({
@@ -122,57 +85,83 @@ class ManagerAuctionScreen extends Component {
     title: "Quản lý đấu giá",
   });
 
+  showOrder = (status) => {
+    var listOrder = this.state.orderList;
+    var response = [];
+    var count;
+
+    for(count = 0; count < listOrder.length; count++)
+      switch(status) {
+        case '2':
+          if(!listOrder[count].End && listOrder[count].Status == global.SPC)
+            response.push(listOrder[count]);
+            break;
+        case '3':
+          if(listOrder[count].End && (listOrder[count].Status == global.success1 || listOrder[count].Status == global.success2))
+          response.push(listOrder[count]);
+          break;
+        
+        default:
+          response.push(listOrder[count]);
+      }
+
+    return response;    
+ }
+
+ getCountTab = (status) => {
+  var listOrder = this.state.orderList;
+  var count = 0, key;
+
+  for(key = 0; key < listOrder.length; key++) {
+    switch(status) {
+      case '2':
+        if(!listOrder[key].End && listOrder[key].Status == global.SPC)
+          count++;
+          break;
+      case '3':
+        if(listOrder[key].End && (listOrder[key].Status == global.success1 || listOrder[key].Status == global.success2))
+        count++;
+        break;
+      
+      default:
+        count++;
+    }
+  }
+
+  return count.toString();
+}
+
   componentDidMount() {
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
 
     this.props.navigation.setParams({
       my: this,
     });
+
+    functions.getAuction(this);
   }
 
   _handleIndexChange = (index) => {
     this.setState({ index });
   };
 
-  FirstRoute = () => (
-    <View
-      style={[{ flex: 1, backgroundColor: "#FAFAFA" }, styles.borderNormal]}
-    >
-      <SliderProduct
-        dataCarouselSlider={null}
-        renderCarouselSlider={this._renderItem_2_}
-        dataProductSlider={dataProductSlider}
-        renderProductSlider={this._renderItem_3}
-        col={1}
-        style="1"
-      />
-      <IconBottom component={this}/>
-    </View>
-  );
-
-  SecondRoute = () => (
-    <View
-      style={[
-        { flex: 1, backgroundColor: "#FAFAFA" },
-        styles.borderNormal,
-        styles.margin,
-      ]}
-    >
-      <SliderProduct
-        dataCarouselSlider={null}
-        renderCarouselSlider={this._renderItem_2_}
-        dataProductSlider={dataProductSlider}
-        renderProductSlider={this._renderItem_3}
-        col={1}
-        style="1"
-      />
-    </View>
-  );
+  Route = (status) => 
+  <View style={[{ flex: 1, backgroundColor: '#FAFAFA'}, styles.borderNormal]}>
+     <SliderProduct
+              dataCarouselSlider={null}
+              renderCarouselSlider={this._renderItem_2_}
+              dataProductSlider={this.showOrder(status)}
+              //dataProductSlider={dataProductSlider}
+              renderProductSlider={this._renderItem_3}
+              col={1}
+              style="1"
+            />
+  </View>;
 
   _renderScene = SceneMap({
-    "1": this.FirstRoute,
-    "2": this.SecondRoute,
-    "3": this.SecondRoute,
+    "1": () => this.Route('1'),
+    "2": () => this.Route('2'),
+    "3": () => this.Route('3')
   });
 
   //layout = useWindowDimensions();
@@ -210,11 +199,11 @@ class ManagerAuctionScreen extends Component {
       >
         <View style={{ width: "100%", flexDirection: "row" }}>
           <TouchableOpacity
-          onPress={() =>
-            functions.gotoScreen(this.props.navigation, "ProductDaugiaScreen")
-          }
           >
-          <Image source={img} style={{width: 70}} />
+          <Image
+            style={{ width: 128, height: 128 }}
+            source={{ uri: item.Image }}
+          />
           </TouchableOpacity>
           <View style={{ marginTop: 0, marginLeft: 20, flex: 1 }}>
             <View
@@ -224,13 +213,14 @@ class ManagerAuctionScreen extends Component {
                 { justifyContent: "space-between" },
               ]}
             >
-              <Text style={styles.paymentText2}>{item.status1}</Text>
-              <Text style={[styles.auctionText1, styles.fontBold]}>
-                {item.status2}
+              <Text style={styles.paymentText2}>{item.End ? global.endAuction : global.noEndAuction}</Text>
+              
+              <Text style={[styles.auctionText1, styles.fontBold, item.Status == global.statusfaildAuction1 || item.Status == global.statusfaildAuction2 ? styles.error : styles.success]}>
+                {item.Status == global.statusfaildAuction1 || item.Status == global.statusfaildAuction2 ? global.faildAuction : global.processAuction }
               </Text>
             </View>
 
-            <Text style={styles.money3}>{item.text1}</Text>
+            <Text style={[styles.money3, { fontSize: 12 }]}>{item.Name}</Text>
 
             <View
               style={[
@@ -241,7 +231,7 @@ class ManagerAuctionScreen extends Component {
               ]}
             >
               <Text style={styles.paymentText2}>Mã đấu</Text>
-              <Text style={[styles.auctionText2]}>{item.madau}</Text>
+              <Text style={[styles.auctionText2]}>{item.Order}</Text>
             </View>
 
             <View
@@ -254,8 +244,8 @@ class ManagerAuctionScreen extends Component {
             >
               <Text style={styles.paymentText2}>Giá hiện tại</Text>
               <Text style={[styles.mangerOderText3, styles.fontBold]}>
-                {item.giahientai}¥
-                <Text style={[styles.containerHeaderText2]}> 4,387,480 VND</Text>
+                {item.Price}¥
+                <Text style={[styles.containerHeaderText2]}> {item.PriceVN} VND</Text>
               </Text>
             </View>
 
@@ -269,8 +259,8 @@ class ManagerAuctionScreen extends Component {
             >
               <Text style={styles.paymentText2}>Giá đấu</Text>
               <Text style={[styles.mangerOderText3, styles.fontBold]}>
-                {item.giadau}¥
-                <Text style={styles.containerHeaderText2}>4,387,480 VND</Text>
+                {item.Bid}¥
+                <Text style={styles.containerHeaderText2}> {item.Bid * 184} VND</Text>
               </Text>
             </View>
 
@@ -284,8 +274,70 @@ class ManagerAuctionScreen extends Component {
   };
 
   render() {
+    var View1 = <View />;
+    var View2 = (
+      <View style={{ marginTop: 40 }}>
+        <ActivityIndicator
+                size="large"
+                animating={this.state.ActivityIndicator}
+              />
+      </View>
+    );
+
+    var component = this;
+
     return (
+      <Provider>
+
+<Portal>
+<Modal
+              visible={this.state.visible}
+              contentContainerStyle={styles.shortModal}
+            >
+              {/* HEADER */}
+              <View style={styles.shortHeaderModal}>
+                <Text style={{ color: "white", fontSize: 20 }}>Sắp xếp</Text>
+                <TouchableOpacity
+                  onPress={null}
+                  style={{
+                    position: "absolute",
+                    top: 10,
+                    right: 0,
+                    marginRight: 20,
+                  }}
+                >
+                  <Text style={{ color: "white" }}>x</Text>
+                </TouchableOpacity>
+              </View>
+              {/* END */}
+              {/* Body */}
+              <View style={{ backgroundColor: "white" }}>
+                <View style={styles.shortOption}>
+                  <RadioButton status="checked" />
+                  <Text style={styles.shortText}>Mặc định</Text>
+                </View>
+                <View style={{ height: 1, backgroundColor: "#cccccc" }} />
+                <View style={styles.shortOption}>
+                  <RadioButton />
+                  <Text style={styles.shortText}>Giá từ thấp đến cao</Text>
+                </View>
+                <View style={{ height: 1, backgroundColor: "#cccccc" }} />
+                <View style={styles.shortOption}>
+                  <RadioButton />
+                  <Text style={styles.shortText}>Giá từ cao đến thấp</Text>
+                </View>
+                <View style={{ height: 1, backgroundColor: "#cccccc" }} />
+                <View style={styles.shortOption}>
+                  <RadioButton />
+                  <Text style={styles.shortText}>Sản phẩm mới</Text>
+                </View>
+              </View>
+              {/* END */}
+            </Modal>
+            </Portal>
+
       <View style={{ marginTop: 30, flex: 1 }}>
+        {this.state.ActivityIndicator == "" ? View1 : View2}
         <TabView
           navigationState={this.state}
           renderScene={this._renderScene}
@@ -307,7 +359,7 @@ class ManagerAuctionScreen extends Component {
                         { backgroundColor: "#3187EA" },
                       ]}
                     >
-                      <Text>2</Text>
+                      <Text><Text>{component.getCountTab(route.key)}</Text></Text>
                     </View>
                   ) : (
                     <View
@@ -317,7 +369,7 @@ class ManagerAuctionScreen extends Component {
                         { backgroundColor: "#ccc" },
                       ]}
                     >
-                      <Text>2</Text>
+                      <Text>{component.getCountTab(route.key)}</Text>
                     </View>
                   )}
                 </View>
@@ -326,6 +378,7 @@ class ManagerAuctionScreen extends Component {
           )}
         />
       </View>
+      </Provider>
     );
   }
 }
