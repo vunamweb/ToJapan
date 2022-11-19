@@ -85,6 +85,7 @@ class AuctionScreen extends Component {
     },
     money: 0,
     ActivityIndicator: true,
+    ActivityIndicator1: false,
   };
 
   _renderItem({ item, index }) {
@@ -249,7 +250,7 @@ class AuctionScreen extends Component {
     var View2 = (
       <ActivityIndicator
         size="large"
-        animating={this.state.ActivityIndicator}
+        animating={true}
       />
     );
 
@@ -850,6 +851,8 @@ class AuctionScreen extends Component {
                   Bạn nên tìm hiểu về các điều khoản và chính sách cỉa ToJapan
                   trước khi đấu thầu
                 </Text>
+
+                {this.state.ActivityIndicator1 == "" ? View1 : View2}
               </View>
               {/* Total */}
               <View
@@ -872,7 +875,6 @@ class AuctionScreen extends Component {
                   ]}
                   onPress={() => functions.addBid(product, this)}
                 >
-                  {this.state.ActivityIndicator == "" ? View1 : View2}
                   <Text style={{ color: "white" }}>Đấu giá</Text>
                 </TouchableOpacity>
               </View>

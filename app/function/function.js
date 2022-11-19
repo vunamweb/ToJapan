@@ -868,7 +868,7 @@ class Functions {
       functions.gotoScreen(component.props.navigation, "ManagerAuctionScreen")
     };
 
-    //network.fetchPUT_HEADER(url, data, token, callback);
+    component.setState({ ActivityIndicator1: true });
     network.fetchPOST_HEADER(url, data, token, callback);
   };
 
