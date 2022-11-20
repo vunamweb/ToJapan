@@ -22,7 +22,6 @@ export default class App extends React.Component {
         <Carousel
         data={this.props.dataCarouselSlider}
         renderItem={this.props.renderCarouselSlider}
-        sliderWidth={350}
         top={0}
         activeSlideAlignment="start"
         itemWidth={140}
