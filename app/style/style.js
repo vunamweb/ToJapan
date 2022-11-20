@@ -8,6 +8,12 @@ module.exports = StyleSheet.create({
   success: {
     color: 'green'
   },
+  show: {
+    display: 'flex'
+  },
+  hide: {
+    display: 'none'
+  },
   circle: {
     width: 56,
     height: 56,
@@ -401,6 +407,12 @@ module.exports = StyleSheet.create({
     marginTop: 8,
   },
   shortModal: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    height: 30
+  },
+  shortModal1: {
     position: "absolute",
     bottom: 0,
     width: "100%",

@@ -40,6 +40,8 @@ import { HeaderBackground } from "react-navigation-stack";
 const image3 = require("../../app/assets/notification-bing.png");
 const image4 = require("../../app/assets/shopping-bag.png");
 
+var idBid;
+
 class ManagerAuctionScreen extends Component {
   state = {
     index: 0,
@@ -50,7 +52,7 @@ class ManagerAuctionScreen extends Component {
     ],
     ActivityIndicator: false,
     orderList: [],
-    visible: true
+    visible: false
   };
 
   static navigationOptions = ({ navigation }) => ({
@@ -131,7 +133,23 @@ class ManagerAuctionScreen extends Component {
   return count.toString();
 }
 
+hideModal = () => {
+  this.setState({
+    visible: false,
+  });
+};
+
+showModal = (id) => {
+  idBid = id; 
+
+  this.setState({
+    visible: true,
+  });
+};
+
   componentDidMount() {
+    this.showModal.bind(this);
+
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
 
     this.props.navigation.setParams({
@@ -265,7 +283,11 @@ class ManagerAuctionScreen extends Component {
             </View>
 
             <View style={[styles.flexRowStart, { justifyContent: "flex-end" }]}>
-              <Text style={[styles.mangerOderText3, styles.fontBold]}>Xoá</Text>
+              <TouchableOpacity
+              onPress={ () => this.showModal(item._id)}
+              >
+              <Text style={[styles.mangerOderText3, styles.fontBold, item.Status == global.statusfaildAuction1 || item.Status == global.statusfaildAuction2 ? styles.show : styles.hide]}>Xoá</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -288,17 +310,17 @@ class ManagerAuctionScreen extends Component {
 
     return (
       <Provider>
-
 <Portal>
 <Modal
               visible={this.state.visible}
-              contentContainerStyle={styles.shortModal}
+              transparent={true}
             >
+              <View style={{position: 'absolute', bottom: 0, width: '100%'}}>
               {/* HEADER */}
               <View style={styles.shortHeaderModal}>
-                <Text style={{ color: "white", fontSize: 20 }}>Sắp xếp</Text>
+                <Text style={{ color: "white", fontSize: 20 }}>Đấu giá</Text>
                 <TouchableOpacity
-                  onPress={null}
+                  onPress={this.hideModal.bind(this)}
                   style={{
                     position: "absolute",
                     top: 10,
@@ -311,28 +333,39 @@ class ManagerAuctionScreen extends Component {
               </View>
               {/* END */}
               {/* Body */}
-              <View style={{ backgroundColor: "white" }}>
-                <View style={styles.shortOption}>
-                  <RadioButton status="checked" />
-                  <Text style={styles.shortText}>Mặc định</Text>
-                </View>
-                <View style={{ height: 1, backgroundColor: "#cccccc" }} />
-                <View style={styles.shortOption}>
-                  <RadioButton />
-                  <Text style={styles.shortText}>Giá từ thấp đến cao</Text>
-                </View>
-                <View style={{ height: 1, backgroundColor: "#cccccc" }} />
-                <View style={styles.shortOption}>
-                  <RadioButton />
-                  <Text style={styles.shortText}>Giá từ cao đến thấp</Text>
-                </View>
-                <View style={{ height: 1, backgroundColor: "#cccccc" }} />
-                <View style={styles.shortOption}>
-                  <RadioButton />
-                  <Text style={styles.shortText}>Sản phẩm mới</Text>
-                </View>
+              <View style={{ width: '100%', backgroundColor: "white", flexDirection: 'row', justifyContent: 'space-evenly', padding: 20 }}>
+                {/* Button huy */}
+                <TouchableOpacity
+                      style={[
+                        styles.buttonNotFull,
+                        {
+                          backgroundColor: "white",
+                          marginTop: 0,
+                          borderColor: "#3187EA",
+                          borderWidth: 1,
+                          paddingVertical: 15,
+                          paddingHorizontal: 20,
+                        },
+                      ]} 
+                      onPress={this.hideModal.bind(this)}
+                    >
+                      <Text style={{ color: "#3187EA" }}>Huỷ bỏ</Text>
+                    </TouchableOpacity>
+                    {/* END */}
+                    {/* Button ap dung */}
+                    <TouchableOpacity
+                      style={[
+                        styles.buttonNotFull,
+                        { backgroundColor: "#3187EA", marginTop: 0,  paddingVertical: 15, paddingHorizontal: 40 },
+                      ]}
+                      onPress={ () => functions.deleteBid(this, idBid)}
+                    >
+                      <Text style={{ color: "white" }}>Xoá đấu giá</Text>
+                    </TouchableOpacity>
+                    {/* END */}
               </View>
               {/* END */}
+              </View>
             </Modal>
             </Portal>
 

@@ -1016,6 +1016,36 @@ class Functions {
     network.fetchPOST_HEADER(url, data, token, callback);
   };
 
+  deleteBid = async (component, id) => {
+    var orderList = [];
+    var count;
+
+    let url = global.urlRoot + global.deleteBid;
+    url = url.replace(":id", id);
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+    let data;
+
+    data = JSON.stringify(body);
+
+    callback = (responseData) => {
+      if(responseData.success) {
+        for (count = 0; count < component.state.orderList.length; count++) {
+          if (component.state.orderList[count]._id != id)
+            orderList.push(component.state.orderList[count]);
+        }
+        component.setState({ orderList: orderList, ActivityIndicator: false, visible: false });
+      }
+    };
+
+    component.setState({ ActivityIndicator: true });
+    network.fetchDELETE_HEADER(url, data, token, callback);
+  };
+
   logout = async (component) => {
     try {
       await AsyncStorage.setItem("dataPersonal", "");
