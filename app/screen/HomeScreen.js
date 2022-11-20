@@ -284,9 +284,6 @@ class HomeScreen extends Component {
           >
             <View style={{ padding: 0 }}>
             <Image style={{width: '100%',height: 128}} source={{ uri: item.image }} />
-            <View style={{ position: "absolute", top: 5, right: 20 }}>
-              <Image source={image1} />
-            </View>
             <View style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}>
               <Text style={{ color: "#23262F", fontSize: 16 }}>
                 {item.title.substr(0, 15)}

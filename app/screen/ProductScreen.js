@@ -8,7 +8,7 @@ import {
   ScrollView,
   LogBox,
   ActivityIndicator,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
 import { Text, Modal, Portal, Provider } from "react-native-paper";
@@ -75,6 +75,8 @@ class ProductScreen extends Component {
       images: [],
       buy_now: null,
     },
+    productSimilar1: [],
+    productSimilar2: [],
     countCart: 0,
   };
 
@@ -145,49 +147,63 @@ class ProductScreen extends Component {
 
   _renderItem_3 = ({ item, index }) => {
     return (
-      <View style={{ padding: 15, width: "100%" }}>
-        <View
-          style={{ borderRadius: 30, backgroundColor: "white", width: "100%" }}
-        >
-          <Image source={img} />
-          <View style={{ position: "absolute", top: 5, right: 5 }}>
-            <Image source={image1} />
-          </View>
-          <View style={{ marginTop: 30 }}>
-            <Text style={{ color: "#23262F", fontSize: 16 }}>{item.text1}</Text>
-            <Text style={{ color: "#23262F", fontSize: 16 }}>{item.text2}</Text>
-            <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
-              {item.text3}
-            </Text>
-            <Rating
-              imageSize={15}
-              readonly
-              startingValue={3}
-              style={styles.rating}
+      <TouchableOpacity
+        onPress={() =>
+          component.showSimilarProduct(item.ID)
+        }
+      >
+        <View style={{ padding: 15, width: "100%" }}>
+          <View
+            style={{
+              borderRadius: 30,
+              backgroundColor: "white",
+              width: "100%",
+            }}
+          >
+            <Image
+              style={[styles.fullWith, { width: "100%", height: 300 }]}
+              source={{ uri: item.Image }}
             />
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <View>
-                <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                  {item.text4} ¥
-                </Text>
-                <Text style={{ fontSize: 12, color: "#777E90" }}>
-                  {item.text5} VND
-                </Text>
+            <View style={{ marginTop: 30 }}>
+              <Text style={{ color: "#23262F", fontSize: 16 }}>
+                {item.Title}
+              </Text>
+              <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
+                Từ {component.props.navigation.state.params.cat}
+              </Text>
+              <Rating
+                imageSize={15}
+                readonly
+                startingValue={3}
+                style={styles.rating}
+              />
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <View>
+                  <Text style={{ color: "#D63F5C", fontSize: 16 }}>
+                    {item.Price} ¥
+                  </Text>
+                  <Text style={{ fontSize: 12, color: "#777E90" }}>
+                    {item.Price * 184} VND
+                  </Text>
+                </View>
+                <Image source={image2} />
               </View>
-              <Image source={image2} />
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
   componentDidMount() {
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
 
-    //component = this;
+    component = this;
 
     var cat = this.props.navigation.state.params.cat;
     var id = this.props.navigation.state.params.id;
@@ -215,6 +231,13 @@ class ProductScreen extends Component {
 
     this.gotoTop();
   };
+
+  showSimilarProduct = (id) => {
+    
+    functions.getProduct(this, this.props.navigation.state.params.cat, id);
+
+    this.gotoTop();
+  }
 
   hideModal = () => {
     this.setState({
@@ -251,7 +274,11 @@ class ProductScreen extends Component {
               { backgroundColor: "#3187EA", marginTop: 20 },
             ]}
             onPress={() =>
-              functions.gotoScreenWithParam(JSON.stringify(this.state.product), this.props.navigation, "ProductDaugiaScreen")
+              functions.gotoScreenWithParam(
+                JSON.stringify(this.state.product),
+                this.props.navigation,
+                "ProductDaugiaScreen"
+              )
             }
           >
             <Text style={{ color: "white" }}>Trả giá lại</Text>
@@ -294,7 +321,11 @@ class ProductScreen extends Component {
               Giá bạn đã trả cho sản phẩm
             </Text>
             <View style={{ flexDirection: "row" }}>
-              <Text style={{ color: "#13AB2C", fontSize: 22 }}>{this.state.product.BidData != undefined ? this.state.product.BidData.Bid + '¥' : global.noBid} </Text>
+              <Text style={{ color: "#13AB2C", fontSize: 22 }}>
+                {this.state.product.BidData != undefined
+                  ? this.state.product.BidData.Bid + "¥"
+                  : global.noBid}{" "}
+              </Text>
               <Text
                 style={{
                   fontSize: 16,
@@ -303,7 +334,9 @@ class ProductScreen extends Component {
                   marginTop: 5,
                 }}
               >
-                {this.state.product.BidData != undefined ? (this.state.product.BidData.Bid * 196) + 'đ' : ''} 
+                {this.state.product.BidData != undefined
+                  ? this.state.product.BidData.Bid * 196 + "đ"
+                  : ""}
               </Text>
             </View>
           </View>
@@ -467,18 +500,18 @@ class ProductScreen extends Component {
           <Header1>Sản phẩm Tương tự</Header1>
           {/* Slider Product */}
           <Carousel
-                data={dataProductSlider}
-                renderItem={this._renderItem_3}
-                top={0}
-                itemWidth={Dimensions.get('window').width/2}
-                loop={true}
+            data={this.state.productSimilar1}
+            renderItem={this._renderItem_3}
+            top={0}
+            itemWidth={Dimensions.get("window").width / 2}
+            loop={true}
           />
           <Carousel
-                data={dataProductSlider}
-                renderItem={this._renderItem_3}
-                top={0}
-                itemWidth={Dimensions.get('window').width/2}
-                loop={true}
+            data={this.state.productSimilar2}
+            renderItem={this._renderItem_3}
+            top={0}
+            itemWidth={Dimensions.get("window").width / 2}
+            loop={true}
           />
         </View>
       ) : (

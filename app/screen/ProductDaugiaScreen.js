@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView,
   LogBox,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
 import { Text, Switch } from "react-native-paper";
@@ -27,37 +27,6 @@ import Address from "../components/Address";
 
 import styles from "../../app/style/style";
 import functions from "../../app/function/function";
-
-const dataProductSlider = [
-  {
-    text1: "[Crocs] Classic All",
-    text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
-    text4: "5,434",
-    text5: "1,016,158",
-  },
-  {
-    text1: "[Crocs] Classic All",
-    text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
-    text4: "5,434",
-    text5: "1,016,158",
-  },
-  {
-    text1: "[Crocs] Classic All",
-    text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
-    text4: "5,434",
-    text5: "1,016,158",
-  },
-  {
-    text1: "[Crocs] Classic All",
-    text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
-    text4: "5,434",
-    text5: "1,016,158",
-  },
-];
 
 const img1 = require("../../app/assets/product.png");
 const img2 = require("../../app/assets/circle_bg.png");
@@ -142,42 +111,61 @@ class ProductDaugiaScreen extends Component {
 
   _renderItem_3 = ({ item, index }) => {
     return (
-      <View style={{ padding: 15, width: "100%" }}>
-        <View
-          style={{ borderRadius: 30, backgroundColor: "white", width: "100%" }}
-        >
-          <Image source={img} />
-          <View style={{ position: "absolute", top: 5, right: 5 }}>
-            <Image source={image1} />
-          </View>
-          <View style={{ marginTop: 30 }}>
-            <Text style={{ color: "#23262F", fontSize: 16 }}>{item.text1}</Text>
-            <Text style={{ color: "#23262F", fontSize: 16 }}>{item.text2}</Text>
-            <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
-              {item.text3}
-            </Text>
-            <Rating
-              imageSize={15}
-              readonly
-              startingValue={3}
-              style={styles.rating}
+      <TouchableOpacity
+        onPress={() =>
+          functions.gotoScreenProduct(
+            component.props.navigation.state.params.cat,
+            component.props.navigation.state.params.id,
+            component.props.navigation,
+            "ProductScreen"
+          )
+        }
+      >
+        <View style={{ padding: 15, width: "100%" }}>
+          <View
+            style={{
+              borderRadius: 30,
+              backgroundColor: "white",
+              width: "100%",
+            }}
+          >
+            <Image
+              style={[styles.fullWith, { width: "100%", height: 300 }]}
+              source={{ uri: item.Image }}
             />
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <View>
-                <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                  {item.text4} ¥
-                </Text>
-                <Text style={{ fontSize: 12, color: "#777E90" }}>
-                  {item.text5} VND
-                </Text>
+            <View style={{ marginTop: 30 }}>
+              <Text style={{ color: "#23262F", fontSize: 16 }}>
+                {item.Title}
+              </Text>
+              <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
+                Từ {component.props.navigation.state.params.cat}
+              </Text>
+              <Rating
+                imageSize={15}
+                readonly
+                startingValue={3}
+                style={styles.rating}
+              />
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <View>
+                  <Text style={{ color: "#D63F5C", fontSize: 16 }}>
+                    {item.Price} ¥
+                  </Text>
+                  <Text style={{ fontSize: 12, color: "#777E90" }}>
+                    {item.Price * 184} VND
+                  </Text>
+                </View>
+                <Image source={image2} />
               </View>
-              <Image source={image2} />
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -232,7 +220,7 @@ class ProductDaugiaScreen extends Component {
     var date = new Date(time * 1000);
 
     var day = Math.floor(time / 86400);
-    var hours = Math.floor((time - (day * 24 * 3600))/3600);
+    var hours = Math.floor((time - day * 24 * 3600) / 3600);
     var minutes = date.getMinutes();
     var seconds = date.getSeconds();
 
@@ -333,7 +321,9 @@ class ProductDaugiaScreen extends Component {
 
                 <View style={{ flexDirection: "row" }}>
                   <Text style={{ color: "#D63F5C", fontSize: 22 }}>
-                    {product.buy_now >0 ? product.buy_now + '¥' : global.noBuyNow} 
+                    {product.buy_now > 0
+                      ? product.buy_now + "¥"
+                      : global.noBuyNow}
                   </Text>
                   <Text
                     style={{
@@ -343,7 +333,7 @@ class ProductDaugiaScreen extends Component {
                       marginTop: 5,
                     }}
                   >
-                    {product.buy_now >0 ? (product.buy_now * 169) + 'đ' : ''}
+                    {product.buy_now > 0 ? product.buy_now * 169 + "đ" : ""}
                   </Text>
                 </View>
               </View>
@@ -384,7 +374,11 @@ class ProductDaugiaScreen extends Component {
                   { backgroundColor: "#3187EA", marginTop: 20 },
                 ]}
                 onPress={() =>
-                  functions.gotoScreenWithParam(JSON.stringify(product), this.props.navigation, "AuctionScreen")
+                  functions.gotoScreenWithParam(
+                    JSON.stringify(product),
+                    this.props.navigation,
+                    "AuctionScreen"
+                  )
                 }
               >
                 <Text style={{ color: "white" }}>Đấu giá</Text>
@@ -533,24 +527,6 @@ class ProductDaugiaScreen extends Component {
                 </Text>
               </View>
               {/* END mô tả san pham */}
-
-              <Header1>Sản phẩm Tương tự</Header1>
-              {/* Slider Product */}
-              <Carousel
-                data={dataProductSlider}
-                renderItem={this._renderItem_3}
-                top={0}
-                itemWidth={Dimensions.get('window').width/2}
-                loop={true}
-              />
-              <Carousel
-                data={dataProductSlider}
-                renderItem={this._renderItem_3}
-                top={0}
-                itemWidth={Dimensions.get('window').width/2}
-                loop={true}
-              />
-              {/* END */}
             </View>
           </View>
         </Background>

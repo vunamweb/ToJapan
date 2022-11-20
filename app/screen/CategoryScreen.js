@@ -248,9 +248,6 @@ class CategoryScreen extends Component {
       <View style={{borderRadius: 30, padding: 10, backgroundColor: 'white', width: '100%'}}>
         <View>
       <Image style={{width: '100%',height: 128}} source={{ uri: (item.Image != undefined ? item.Image : item.image) }} />
-        <View style={{ position: "absolute", top: 5, right: 5 }}>
-          <Image source={image1} />
-        </View>
         <View style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}>
           <Text style={{ color: "#23262F", fontSize: 16 }}>
             {(item.title != undefined ? item.title.substr(0, 15) : item.Title.substr(0, 15))}
@@ -291,9 +288,6 @@ class CategoryScreen extends Component {
       <View style={{borderRadius: 30, padding: 10, backgroundColor: 'white', width: '100%'}}>
         <View>
         <Image style={{width: '100%',height: 128}} source={{ uri: (item.Image != undefined ? item.Image : item.image) }} />
-        <View style={{ position: "absolute", top: 5, right: 5 }}>
-          <Image source={image1} />
-        </View>
         <View style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}>
           <Text style={{ color: "#23262F", fontSize: 16 }}>
           {(item.title != undefined ? item.title.substr(0, 15) : item.Title.substr(0, 15))}

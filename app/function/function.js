@@ -564,8 +564,11 @@ class Functions {
   ) => {
     //if (cat == "yahoo_auction") cat = "yahoo";
 
-    let url = (cat != "yahoo_auction") ? global.urlRoot + global.urlProductByTag : global.urlRoot + global.urlProductByTagAuction;
-   
+    let url =
+      cat != "yahoo_auction"
+        ? global.urlRoot + global.urlProductByTag
+        : global.urlRoot + global.urlProductByTagAuction;
+
     url = url.replace("{cat}", cat);
     url = url.replace("{cat_id}", cat_id);
 
@@ -597,7 +600,10 @@ class Functions {
   ) => {
     //if (cat == "yahoo_auction") cat = "yahoo";
 
-    let url = (cat != "yahoo_auction") ? global.urlRoot + global.urlProductByTag : global.urlRoot + global.urlProductByTagAuction;
+    let url =
+      cat != "yahoo_auction"
+        ? global.urlRoot + global.urlProductByTag
+        : global.urlRoot + global.urlProductByTagAuction;
     url = url.replace("{cat}", cat);
     url = url.replace("{cat_id}", cat_id);
 
@@ -697,7 +703,13 @@ class Functions {
   };
 
   getProduct = async (component, cat, id) => {
-    let url = (cat != "yahoo_auction") ? global.urlRoot + global.urlProduct : global.urlRoot + global.urlProductAuction;
+    var productSimilar1 = [];
+    var productSimilar2 = [];
+
+    let url =
+      cat != "yahoo_auction"
+        ? global.urlRoot + global.urlProduct
+        : global.urlRoot + global.urlProductAuction;
     url = url.replace("{cat}", cat);
     url = url.replace("{id}", id);
 
@@ -705,10 +717,36 @@ class Functions {
     datauser = JSON.parse(datauser);
     var token = datauser.token;
 
+    var count;
+
     let body = {};
 
     callback = async (responseData) => {
-      component.setState({ product: responseData.data });
+      if (responseData.data.recommend != undefined) {
+        var similarProduct = responseData.data.recommend;
+
+        for (
+          count = 0;
+          count < Math.round(similarProduct.length / 2);
+          count++
+        ) {
+          productSimilar1.push(similarProduct[count]);
+        }
+
+        for (
+          count = Math.round(similarProduct.length / 2);
+          count < similarProduct.length;
+          count++
+        ) {
+          productSimilar2.push(similarProduct[count]);
+        }
+      }
+
+      component.setState({
+        product: responseData.data,
+        productSimilar1: productSimilar1,
+        productSimilar2: productSimilar2,
+      });
       component.setState({ ActivityIndicator: false });
     };
 
@@ -858,14 +896,14 @@ class Functions {
     body.Address.Address = component.state.listAddress.data[0].Address;
     body.Address.Phone = component.state.listAddress.data[0].Phone;
 
-    body.Url = product.url; 
+    body.Url = product.url;
     body.Shipment = component.state.saveShip ? "air" : "sea";
-    body.Description = '';
-    
+    body.Description = "";
+
     data = JSON.stringify(body);
 
     callback = (responseData) => {
-      functions.gotoScreen(component.props.navigation, "ManagerAuctionScreen")
+      functions.gotoScreen(component.props.navigation, "ManagerAuctionScreen");
     };
 
     component.setState({ ActivityIndicator1: true });
@@ -929,7 +967,11 @@ class Functions {
         listBanner.push(banner);
       }
 
-      component.setState({ ActivityIndicator1: false, ActivityIndicator5: false, dataBanner: listBanner });
+      component.setState({
+        ActivityIndicator1: false,
+        ActivityIndicator5: false,
+        dataBanner: listBanner,
+      });
     };
 
     network.fetchGET_HEADER(url, body, token, callback);
@@ -952,7 +994,10 @@ class Functions {
         listPopularBranch.push(responseData.data[count]);
       }
 
-      component.setState({ ActivityIndicator2: false, dataPopularBranch: listPopularBranch });
+      component.setState({
+        ActivityIndicator2: false,
+        dataPopularBranch: listPopularBranch,
+      });
     };
 
     network.fetchGET_HEADER(url, body, token, callback);
@@ -1033,12 +1078,16 @@ class Functions {
     data = JSON.stringify(body);
 
     callback = (responseData) => {
-      if(responseData.success) {
+      if (responseData.success) {
         for (count = 0; count < component.state.orderList.length; count++) {
           if (component.state.orderList[count]._id != id)
             orderList.push(component.state.orderList[count]);
         }
-        component.setState({ orderList: orderList, ActivityIndicator: false, visible: false });
+        component.setState({
+          orderList: orderList,
+          ActivityIndicator: false,
+          visible: false,
+        });
       }
     };
 
