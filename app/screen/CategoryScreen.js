@@ -443,6 +443,7 @@ gotoSearch = () => {
                   dataProductSlider={this.state.listProductByTag}
                   renderProductSlider={this._renderItem_3}
                   loop={true}
+                  scrollEnabled={false}
               />
               {/* END */}
             </View>

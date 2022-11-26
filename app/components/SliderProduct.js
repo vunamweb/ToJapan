@@ -33,6 +33,7 @@ export default class App extends React.Component {
          data={this.props.dataProductSlider}
          renderItem={this.props.renderProductSlider}
          col={col}
+         scrollEnabled={this.props.scrollEnabled}
       />
       {/* END */}
       </View>

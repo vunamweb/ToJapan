@@ -908,7 +908,7 @@ class SearchScreen extends Component {
               {this.state.ActivityIndicator == "" ? View1 : View2}
               <View style={{ flex: 1 }}>
                 {/* kết quả tìm kiếm */}
-                <View style={styles.seach}>
+                <View style={[styles.seach, { marginTop: 20 }]}>
                   <Text>
                     Kết quả tìm kiếm:
                     <Text style={{ fontWeight: "700" }}>
@@ -921,16 +921,17 @@ class SearchScreen extends Component {
                 </View>
                 {/* END */}
                 {/* Từ khoá phổ biến */}
+                <View>
                 <Header1>Từ khoá phổ biến</Header1>
                 <Carousel
                   data={dataTKPB1}
                   renderItem={this._renderItem_2_}
-                  sliderWidth={350}
                   top={0}
                   itemWidth={140}
                 />
+                </View>
                 {/* END */}
-                <View style={{ marginTop: 30 }} />
+                <View/>
                 {/* Slider Product */}
                 <SliderProduct
                   dataCarouselSlider={null}
