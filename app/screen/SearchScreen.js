@@ -82,6 +82,7 @@ class SearchScreen extends Component {
     sort4: false,
     listProductByTag: [],
     ActivityIndicator: false,
+    price: 0
   };
 
   _renderItem({ item, index }) {
@@ -606,10 +607,13 @@ class SearchScreen extends Component {
     var View1 = <View />;
     var View2 = <ActivityIndicator size="large" animating={true} />;
 
+    var shop = JSON.parse(this.props.navigation.state.params.itemId).shop;
+
+    var showPrice = (shop == 'mercari' || shop == 'rakuten' || shop == 'yahoo_shopping' || shop == 'yahoo_auction') ? 'styles.show' : 'styles.none';
+
     return (
       <Provider>
-        <ScrollView>
-          {/* Modal */}
+        {/* Modal */}
           <Portal>
             {/* Modal short */}
             <Modal
@@ -744,18 +748,24 @@ class SearchScreen extends Component {
                   {/* END Dropdown2 */}
                   <Text style={styles.filterTitle}>Khoảng giá</Text>
                   <Slider
-                    style={{ width: "100%", height: 1 }}
-                    minimumValue={0}
-                    maximumValue={100}
+                    style={[{ width: "100%", height: 1 }, showPrice]}
+                    minimumValue={global.min}
+                    maximumValue={global.max}
+                    value={this.state.price}
+    onValueChange={(value) => this.setState({ price: value })}
                     minimumTrackTintColor="#777E90"
                     maximumTrackTintColor="#777E90"
-                    value={0}
                     thumbStyle={{
                       width: 10,
                       height: 10,
                       backgroundColor: "#777E90",
                     }}
                   />
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
+                    <Text>{global.min}</Text>
+                    <Text>{Math.round(this.state.price)}</Text>
+                    <Text>{global.max}</Text>
+                  </View>
                   <Text style={[styles.filterTitle, { marginTop: 40 }]}>
                     Lọc theo tình trạng hàng hoá
                   </Text>
@@ -877,7 +887,8 @@ class SearchScreen extends Component {
                           this,
                           shop,
                           catId,
-                          condition
+                          condition,
+                          this.state.price
                         )
                       }
                     >
@@ -893,9 +904,9 @@ class SearchScreen extends Component {
           </Portal>
           {/* END */}
           <Background full="1">
-            <View style={styles.homeBody}>
+            <View style={[styles.homeBody, { flex: 1 }]}>
               {this.state.ActivityIndicator == "" ? View1 : View2}
-              <View>
+              <View style={{ flex: 1 }}>
                 {/* kết quả tìm kiếm */}
                 <View style={styles.seach}>
                   <Text>
@@ -931,7 +942,7 @@ class SearchScreen extends Component {
               </View>
             </View>
           </Background>
-        </ScrollView>
+        
       </Provider>
     );
   }

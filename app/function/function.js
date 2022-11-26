@@ -637,7 +637,8 @@ class Functions {
     component,
     cat,
     cat_id,
-    filter
+    filter,
+    price
   ) => {
     //if (cat == "yahoo_auction") cat = "yahoo";
 
@@ -648,7 +649,9 @@ class Functions {
     url = url.replace("{cat}", cat);
     url = url.replace("{cat_id}", cat_id);
     url = url + '&condition='+filter+'';
-
+    if(price > 0)
+      url = url + '&max='+Math.round(price)+'';
+    
     var datauser = await this.getDataUser();
     datauser = JSON.parse(datauser);
     var token = datauser.token;

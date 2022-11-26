@@ -66,6 +66,9 @@ global.statusfaildAuction1 = 'that_bai'
 global.statusfaildAuction2 = 'bi_vuot_gia'
 global.faildAuction = 'Đấu giá thất bại'
 global.processAuction = "Đang xử lý"
+// Price
+global.min = 0
+global.max = 5000000
 
 
 

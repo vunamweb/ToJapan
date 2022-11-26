@@ -17,7 +17,7 @@ export default class App extends React.Component {
 
     if(this.props.style == null)
     return (
-        <View>
+        <View style={{flex: 1}}>
         {/* Header */}
         <Carousel
         data={this.props.dataCarouselSlider}
