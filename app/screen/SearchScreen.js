@@ -9,9 +9,11 @@ import {
   LogBox,
   SearchBox,
   ImageBackground,
+  ActivityIndicator,
 } from "react-native";
 import { Rating, AirbnbRating, Slider } from "react-native-elements";
 import { Text, Modal, Portal, Provider, RadioButton } from "react-native-paper";
+import IconFontAwesome from "react-native-vector-icons/FontAwesome";
 
 import Background from "../components/Background";
 import TextInput from "../components/TextInput";
@@ -34,136 +36,6 @@ import { HeaderBackground } from "react-navigation-stack";
 
 const countries = ["Egypt", "Canada", "Australia", "Ireland"];
 
-const carouselItems = [
-  {
-    title: "Thời trang nam",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-  {
-    title: "Thời trang nữ",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-  {
-    title: "Thời trang trẻ em",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-  {
-    title: "NHà cửa đời sống",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-  {
-    title: "Thời trang nam",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-];
-
-const carouselItems_ = [
-  {
-    title: "Vé & thẻ ảnh",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-  {
-    title: "Điện gia dụng và thiết bị số",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-  {
-    title: "Ô tô và xe máy",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-  {
-    title: "Thể thao và dã ngoại",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-  {
-    title: "Thời trang nam",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-];
-
-const carouselItems1 = [
-  {
-    title: "Bape",
-    img: require("../../app/assets/Maskgroup_1.png"),
-  },
-  {
-    title: "Zara",
-    img: require("../../app/assets/Maskgroup_2.png"),
-  },
-  {
-    title: "Zippo",
-    img: require("../../app/assets/Maskgroup_3.png"),
-  },
-  {
-    title: "Credor",
-    img: require("../../app/assets/Maskgroup_4.png"),
-  },
-];
-
-const carouselItems2 = [
-  {
-    title: "Playstation",
-    img: require("../../app/assets/Maskgroup_5.png"),
-  },
-  {
-    title: "GUCCI",
-    img: require("../../app/assets/Maskgroup_6.png"),
-  },
-  {
-    title: "Canon",
-    img: require("../../app/assets/Maskgroup_7.png"),
-  },
-  {
-    title: "Adidas",
-    img: require("../../app/assets/Maskgroup_8.png"),
-  },
-];
-
-const carouselItems3 = [
-  {
-    title: "Ssol",
-    text: "9826 Đơn Hàng",
-  },
-  {
-    title: "Ssol",
-    text: "9826 Đơn Hàng",
-  },
-  {
-    title: "Ssol",
-    text: "9826 Đơn Hàng",
-  },
-  {
-    title: "Ssol",
-    text: "9826 Đơn Hàng",
-  },
-];
-
-const dataCarouselSlider = [
-  {
-    title: "Tất cả",
-  },
-  {
-    title: "Y!Auction",
-  },
-  {
-    title: "Mercari",
-  },
-  {
-    title: "Amazon",
-  },
-];
-
-const dataCarouselSlider1 = [
-  {
-    title: "Tất cả",
-  },
-  {
-    title: "Thời trang nam",
-  },
-  {
-    title: "Thời trang nữ",
-  },
-];
-
 const dataTKPB1 = [
   {
     title: "Đồ Câu cá",
@@ -179,52 +51,6 @@ const dataTKPB1 = [
   },
 ];
 
-const dataTKPB2 = [
-  {
-    title: "Túi xách",
-  },
-  {
-    title: "Giày dép",
-  },
-  {
-    title: "Áo nữ",
-  },
-  {
-    title: "Máy chơi game",
-  },
-];
-
-const dataProductSlider = [
-  {
-    text1: "[Crocs] Classic All",
-    text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
-    text4: "5,434",
-    text5: "1,016,158",
-  },
-  {
-    text1: "[Crocs] Classic All",
-    text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
-    text4: "5,434",
-    text5: "1,016,158",
-  },
-  {
-    text1: "[Crocs] Classic All",
-    text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
-    text4: "5,434",
-    text5: "1,016,158",
-  },
-  {
-    text1: "[Crocs] Classic All",
-    text2: "Terrain Sandals 2...",
-    text3: "Từ: Amazon Nhật",
-    text4: "5,434",
-    text5: "1,016,158",
-  },
-];
-
 const img1 = require("../../app/assets/sort-down.png");
 const img2 = require("../../app/assets/star_1.png");
 const img3 = require("../../app/assets/heart.png");
@@ -236,10 +62,26 @@ const image2 = require("../../app/assets/shopping_bag.png");
 const image3 = require("../../app/assets/search-normal.png");
 const image4 = require("../../app/assets/Filler.png");
 
+var listProduct, shop, listItem;
+var component;
+
 class SearchScreen extends Component {
   state = {
     visible: false,
     visibleFilter: false,
+    item: null,
+    filter1: true,
+    filter2: false,
+    filter3: false,
+    filter4: false,
+    filter5: false,
+    filter6: false,
+    sort1: true,
+    sort2: false,
+    sort3: false,
+    sort4: false,
+    listProductByTag: [],
+    ActivityIndicator: false,
   };
 
   _renderItem({ item, index }) {
@@ -319,44 +161,152 @@ class SearchScreen extends Component {
   }
 
   _renderItem_3 = ({ item, index }) => {
-    return (
-      <View style={{ padding: 15, width: "50%" }}>
-        <View
-          style={{ borderRadius: 30, backgroundColor: "white", width: "100%" }}
+    if (index % 2 == 0)
+      return (
+        <TouchableOpacity
+          style={{ width: "50%", marginTop: 20 }}
+          onPress={() =>
+            functions.gotoScreenProduct(
+              JSON.parse(this.props.navigation.state.params.itemId).shop,
+              item.code != undefined ? item.code : item.ID,
+              this.props.navigation,
+              "ProductScreen"
+            )
+          }
         >
-          <Image source={img} />
-          <View style={{ position: "absolute", top: 5, right: 5 }}>
-            <Image source={image1} />
-          </View>
-          <View style={{ marginTop: 30 }}>
-            <Text style={{ color: "#23262F", fontSize: 16 }}>{item.text1}</Text>
-            <Text style={{ color: "#23262F", fontSize: 16 }}>{item.text2}</Text>
-            <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
-              {item.text3}
-            </Text>
-            <Rating
-              imageSize={15}
-              readonly
-              startingValue={3}
-              style={styles.rating}
-            />
+          <View style={{ paddingRight: 5, width: "100%" }}>
             <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
+              style={{
+                borderRadius: 30,
+                padding: 10,
+                backgroundColor: "white",
+                width: "100%",
+              }}
             >
               <View>
-                <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                  {item.text4} ¥
-                </Text>
-                <Text style={{ fontSize: 12, color: "#777E90" }}>
-                  {item.text5} VND
-                </Text>
+                <Image
+                  style={{ width: "100%", height: 128 }}
+                  source={{
+                    uri: item.Image != undefined ? item.Image : item.image,
+                  }}
+                />
+                <View
+                  style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}
+                >
+                  <Text style={{ color: "#23262F", fontSize: 16 }}>
+                    {item.title != undefined
+                      ? item.title.substr(0, 15)
+                      : item.Title.substr(0, 15)}
+                  </Text>
+                  <Text
+                    style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}
+                  >
+                    Từ {shop}
+                  </Text>
+                  <Rating
+                    imageSize={15}
+                    readonly
+                    startingValue={0}
+                    style={styles.rating}
+                  />
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <View>
+                      <Text style={{ color: "#D63F5C", fontSize: 16 }}>
+                        {item.price} ¥
+                      </Text>
+                      <Text style={{ fontSize: 12, color: "#777E90" }}>
+                        {item.priceVN != undefined
+                          ? item.priceVN
+                          : item.PriceVN}{" "}
+                        VND
+                      </Text>
+                    </View>
+                    <Image source={image2} />
+                  </View>
+                </View>
               </View>
-              <Image source={image2} />
             </View>
           </View>
-        </View>
-      </View>
-    );
+        </TouchableOpacity>
+      );
+    else
+      return (
+        <TouchableOpacity
+          style={{ width: "50%", marginTop: 20 }}
+          onPress={() =>
+            functions.gotoScreenProduct(
+              JSON.parse(this.props.navigation.state.params.itemId).shop,
+              item.code != undefined ? item.code : item.ID,
+              this.props.navigation,
+              "ProductScreen"
+            )
+          }
+        >
+          <View style={{ paddingLeft: 5, width: "100%" }}>
+            <View
+              style={{
+                borderRadius: 30,
+                padding: 10,
+                backgroundColor: "white",
+                width: "100%",
+              }}
+            >
+              <View>
+                <Image
+                  style={{ width: "100%", height: 128 }}
+                  source={{
+                    uri: item.Image != undefined ? item.Image : item.image,
+                  }}
+                />
+                <View
+                  style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}
+                >
+                  <Text style={{ color: "#23262F", fontSize: 16 }}>
+                    {item.title != undefined
+                      ? item.title.substr(0, 15)
+                      : item.Title.substr(0, 15)}
+                  </Text>
+                  <Text
+                    style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}
+                  >
+                    Từ {shop}
+                  </Text>
+                  <Rating
+                    imageSize={15}
+                    readonly
+                    startingValue={0}
+                    style={styles.rating}
+                  />
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <View>
+                      <Text style={{ color: "#D63F5C", fontSize: 16 }}>
+                        {item.price} ¥
+                      </Text>
+                      <Text style={{ fontSize: 12, color: "#777E90" }}>
+                        {item.priceVN != undefined
+                          ? item.priceVN
+                          : item.PriceVN}{" "}
+                        VND
+                      </Text>
+                    </View>
+                    <Image source={image2} />
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </TouchableOpacity>
+      );
   };
 
   static navigationOptions = ({ navigation }) => ({
@@ -369,7 +319,7 @@ class SearchScreen extends Component {
             functions.gotoScreen(navigation, "KeywordPopularScreen")
           }
         >
-          <Image source={image3} style={{ marginRight: 20 }} />
+          <Image source={image3} style={{ marginRight: 20, display: "none" }} />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={
@@ -388,11 +338,13 @@ class SearchScreen extends Component {
     headerTitleStyle: {
       color: "white",
     },
-    title: "Đồng hồ lô",
+    title: JSON.parse(navigation.state.params.itemId).search,
   });
 
   componentDidMount() {
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+
+    component = this;
 
     this.props.navigation.setParams({
       my: this,
@@ -423,7 +375,237 @@ class SearchScreen extends Component {
     });
   };
 
+  getListProduct = () => {
+    var count;
+    var listProductSearch = [];
+
+    var listProduct =
+      this.state.listProductByTag.length == 0
+        ? JSON.parse(this.props.navigation.state.params.itemId).listProductByTag
+        : this.state.listProductByTag;
+
+    var search = JSON.parse(this.props.navigation.state.params.itemId).search;
+
+    for (count = 0; count < listProduct.length; count++)
+      if (search == "" || search == null)
+        listProductSearch.push(listProduct[count]);
+      else if (
+        listProduct[count].title.toUpperCase().includes(search.toUpperCase())
+      )
+        listProductSearch.push(listProduct[count]);
+
+    return listProductSearch;
+  };
+
+  sortListProduct = (listProduct, type) => {
+    switch (type) {
+      case 2:
+        return this.sortPriceASC(listProduct);
+        break;
+
+      case 3:
+        return this.sortPriceDSC(listProduct);
+        break;
+
+      case 4:
+        return this.sortPriceASC(listProduct);
+        break;
+
+      default:
+        return JSON.parse(this.props.navigation.state.params.itemId).listProductByTag;
+    }
+  };
+
+  performTimeConsumingTask = async (component) => {
+    return new Promise((resolve) =>
+      setTimeout(() => {
+        component.setState({
+          ActivityIndicator: false,
+        });
+      }, 200)
+    );
+  };
+
+  sortPriceASC = (listProduct) => {
+    var count, count1;
+
+    for (count = 0; count < listProduct.length - 1; count++)
+      for (count1 = count + 1; count1 < listProduct.length; count1++)
+        if (listProduct[count].price > listProduct[count1].price) {
+          var temp = listProduct[count];
+          listProduct[count] = listProduct[count1];
+          listProduct[count1] = temp;
+        }
+
+    return listProduct;
+  };
+
+  sortPriceDSC = (listProduct) => {
+    var count, count1;
+
+    for (count = 0; count < listProduct.length - 1; count++)
+      for (count1 = count + 1; count1 < listProduct.length; count1++)
+        if (listProduct[count].price < listProduct[count1].price) {
+          var temp = listProduct[count];
+          listProduct[count] = listProduct[count1];
+          listProduct[count1] = temp;
+        }
+
+    return listProduct;
+  };
+
+  sortDateDSC = (listProduct) => {
+    return this.sortPriceDSC(listProduct);
+  };
+
+  sort = (type) => {
+    var listProduct =
+      this.state.listProductByTag.length == 0
+        ? JSON.parse(this.props.navigation.state.params.itemId).listProductByTag
+        : this.state.listProductByTag;
+
+    switch (type) {
+      case 2:
+        this.setState({
+          sort1: false,
+          sort2: true,
+          sort3: false,
+          sort4: false,
+          visible: false,
+          ActivityIndicator: true,
+          listProductByTag: this.sortListProduct(listProduct, 2),
+        });
+        break;
+
+      case 3:
+        this.setState({
+          sort1: false,
+          sort2: false,
+          sort3: true,
+          sort4: false,
+          visible: false,
+          ActivityIndicator: true,
+          listProductByTag: this.sortListProduct(
+            listProduct,
+            3
+          ),
+        });
+        break;
+
+      case 4:
+        this.setState({
+          sort1: false,
+          sort2: false,
+          sort3: false,
+          sort4: true,
+          visible: false,
+          ActivityIndicator: true,
+          listProductByTag: this.sortListProduct(
+            listProduct,
+            3
+          ),
+        });
+        break;
+
+      default:
+        this.setState({
+          sort1: true,
+          sort2: false,
+          sort3: false,
+          sort4: false,
+          visible: false,
+          ActivityIndicator: true,
+          listProductByTag: this.sortListProduct(
+            listProduct,
+            1
+          ),
+        });
+    }
+
+    this.performTimeConsumingTask(this);
+  };
+
+  getShop = () => {
+    var data = this.props.navigation.state.params.itemId;
+    data = JSON.parse(data);
+    data = data.shop;
+
+    return data;
+  };
+
+  getListItem = () => {
+    var data = this.props.navigation.state.params.itemId;
+    data = JSON.parse(data);
+    data = data.listService;
+
+    var count;
+    var listItem = [];
+
+    for (count = 0; count < data.length; count++)
+      listItem.push(data[count].ten);
+
+    return listItem;
+  };
+
+  getCondition = () => {
+    if (this.state.filter1) return 1;
+    else if (this.state.filter2) return 2;
+    else if (this.state.filter3) return 3;
+    else if (this.state.filter4) return 4;
+    else if (this.state.filter5) return 5;
+    else return 6;
+  };
+
+  getCatId = () => {
+    var data = this.props.navigation.state.params.itemId;
+    data = JSON.parse(data);
+    data = data.listService;
+
+    var count;
+
+    for (count = 0; count < data.length; count++)
+      if (data[count].ten == this.state.item) return data[count].catid;
+
+    return 1;
+  };
+
+  getSelect = () => {
+    var data = this.props.navigation.state.params.itemId;
+    data = JSON.parse(data);
+    data = data.listService;
+
+    var count;
+
+    for (count = 0; count < data.length; count++)
+      if (data[count].ten == this.state.item) return count;
+
+    return 0;
+  };
+
+  reset = () => {
+    this.setState({
+      item: "no",
+      filter1: true,
+      filter2: false,
+      filter3: false,
+      filter4: false,
+      filter5: false,
+      filter6: false,
+    });
+  };
+
   render() {
+    listProduct = this.getListProduct();
+    shop = this.getShop();
+    listItem = this.getListItem();
+
+    var condition = this.getCondition();
+    var catId = this.getCatId();
+    var selected = this.getSelect();
+
+    var View1 = <View />;
+    var View2 = <ActivityIndicator size="large" animating={true} />;
+
     return (
       <Provider>
         <ScrollView>
@@ -446,29 +628,41 @@ class SearchScreen extends Component {
                     marginRight: 20,
                   }}
                 >
-                  <Text style={{ color: "white" }}>x</Text>
+                  <IconFontAwesome name="close" size={10} color="white" />
                 </TouchableOpacity>
               </View>
               {/* END */}
               {/* Body */}
               <View style={{ backgroundColor: "white" }}>
                 <View style={styles.shortOption}>
-                  <RadioButton status="checked" />
+                  <RadioButton
+                    status={this.state.sort1 ? "checked" : "unchecked"}
+                    onPress={() => this.sort(1)}
+                  />
                   <Text style={styles.shortText}>Mặc định</Text>
                 </View>
                 <View style={{ height: 1, backgroundColor: "#cccccc" }} />
                 <View style={styles.shortOption}>
-                  <RadioButton />
+                  <RadioButton
+                    status={this.state.sort2 ? "checked" : "unchecked"}
+                    onPress={() => this.sort(2)}
+                  />
                   <Text style={styles.shortText}>Giá từ thấp đến cao</Text>
                 </View>
                 <View style={{ height: 1, backgroundColor: "#cccccc" }} />
                 <View style={styles.shortOption}>
-                  <RadioButton />
+                  <RadioButton
+                    status={this.state.sort3 ? "checked" : "unchecked"}
+                    onPress={() => this.sort(3)}
+                  />
                   <Text style={styles.shortText}>Giá từ cao đến thấp</Text>
                 </View>
                 <View style={{ height: 1, backgroundColor: "#cccccc" }} />
                 <View style={styles.shortOption}>
-                  <RadioButton />
+                  <RadioButton
+                    status={this.state.sort4 ? "checked" : "unchecked"}
+                    onPress={() => this.sort(4)}
+                  />
                   <Text style={styles.shortText}>Sản phẩm mới</Text>
                 </View>
               </View>
@@ -484,95 +678,170 @@ class SearchScreen extends Component {
                 {/* HEADER */}
                 <View style={styles.filterHeaderModal}>
                   <TouchableOpacity onPress={this.hideModalFilter.bind(this)}>
-                    <Text style={{ color: "black" }}>x</Text>
+                  <IconFontAwesome name="close" size={10} color="black" />
                   </TouchableOpacity>
                   <Text style={{ color: "black", fontSize: 20 }}>Bộ lọc</Text>
-                  <Text style={{ color: "#3187EA", fontSize: 20 }}>
-                    Đặt lại
-                  </Text>
+                  <TouchableOpacity onPress={() => this.reset()}>
+                    <Text style={{ color: "#3187EA", fontSize: 20 }}>
+                      Đặt lại
+                    </Text>
+                  </TouchableOpacity>
                 </View>
                 {/* END */}
                 {/* Body */}
                 <View style={{ backgroundColor: "white", padding: 20 }}>
                   <Text style={styles.filterTitle}>Danh mục</Text>
                   {/* Dropdown1 */}
-                <Dropdown
-                  onSelect={(selectedItem, index) => {
-                    this.setState({
-                      visibleGTGT: true,
-                    })
-                  }}
-                  data={countries}
-                  renderCustomizedButtonChild={(selectedItem, index) => {
-                    return (
-                      <View style={[styles.flexRowStart]}>
-                        <Text
-                          style={[styles.marginLeft10, styles.paymentText7]}
-                        >
-                          {selectedItem ? selectedItem : "Chọn Danh mục"}
-                        </Text>
-                        <View style={[styles.flexRowEnd]}>
-                          <Image source={image3_1} />
+                  <Dropdown
+                    onSelect={(selectedItem, index) => {
+                      this.setState({
+                        visibleGTGT: true,
+                        item: selectedItem,
+                      });
+                    }}
+                    defaultValueByIndex={selected}
+                    data={listItem}
+                    renderCustomizedButtonChild={(selectedItem, index) => {
+                      return (
+                        <View style={[styles.flexRowStart]}>
+                          <Text
+                            style={[styles.marginLeft10, styles.paymentText7]}
+                          >
+                            {selectedItem ? selectedItem : "Chọn Danh mục"}
+                          </Text>
+                          <View style={[styles.flexRowEnd]}>
+                            <Image source={image3_1} />
+                          </View>
                         </View>
-                      </View>
-                    );
-                  }}
-                />
-                {/* END Dropdown1 */}
+                      );
+                    }}
+                  />
+                  {/* END Dropdown1 */}
                   <Text style={styles.filterTitle}>Kích thước</Text>
-                   {/* Dropdown2 */}
-                <Dropdown
-                  onSelect={(selectedItem, index) => {
-                    this.setState({
-                      visibleGTGT: true,
-                    })
-                  }}
-                  data={countries}
-                  renderCustomizedButtonChild={(selectedItem, index) => {
-                    return (
-                      <View style={[styles.flexRowStart]}>
-                        <Text
-                          style={[styles.marginLeft10, styles.paymentText7]}
-                        >
-                          {selectedItem ? selectedItem : "Tất cả"}
-                        </Text>
-                        <View style={[styles.flexRowEnd]}>
-                          <Image source={image3_1} />
+                  {/* Dropdown2 */}
+                  <Dropdown
+                    onSelect={(selectedItem, index) => {
+                      this.setState({
+                        visibleGTGT: true,
+                      });
+                    }}
+                    data={countries}
+                    renderCustomizedButtonChild={(selectedItem, index) => {
+                      return (
+                        <View style={[styles.flexRowStart]}>
+                          <Text
+                            style={[styles.marginLeft10, styles.paymentText7]}
+                          >
+                            {selectedItem ? selectedItem : "Tất cả"}
+                          </Text>
+                          <View style={[styles.flexRowEnd]}>
+                            <Image source={image3_1} />
+                          </View>
                         </View>
-                      </View>
-                    );
-                  }}
-                />
-                {/* END Dropdown2 */}
+                      );
+                    }}
+                  />
+                  {/* END Dropdown2 */}
                   <Text style={styles.filterTitle}>Khoảng giá</Text>
                   <Slider
-  style={{width: '100%', height: 1}}
-  minimumValue={0}
-  maximumValue={100}
-  minimumTrackTintColor="#FFFFFF"
-  maximumTrackTintColor="#777E90"
-  thumbStyle={{width: 10, height: 10, backgroundColor: '#777E90'}}
-/>
-                  <Text style={[styles.filterTitle, {marginTop: 40}]}>
+                    style={{ width: "100%", height: 1 }}
+                    minimumValue={0}
+                    maximumValue={100}
+                    minimumTrackTintColor="#777E90"
+                    maximumTrackTintColor="#777E90"
+                    value={0}
+                    thumbStyle={{
+                      width: 10,
+                      height: 10,
+                      backgroundColor: "#777E90",
+                    }}
+                  />
+                  <Text style={[styles.filterTitle, { marginTop: 40 }]}>
                     Lọc theo tình trạng hàng hoá
                   </Text>
-                  <CheckBox label="Mới" status="checked" onPress={null} />
+                  <CheckBox
+                    label="Mới"
+                    status={this.state.filter1 ? "checked" : "unchecked"}
+                    onPress={() =>
+                      this.setState({
+                        filter1: true,
+                        filter2: false,
+                        filter3: false,
+                        filter4: false,
+                        filter5: false,
+                        filter6: false,
+                      })
+                    }
+                  />
                   <CheckBox
                     label="Không có vết xước"
-                    status="checked"
-                    onPress={null}
+                    status={this.state.filter2 ? "checked" : "unchecked"}
+                    onPress={() =>
+                      this.setState({
+                        filter1: false,
+                        filter2: true,
+                        filter3: false,
+                        filter4: false,
+                        filter5: false,
+                        filter6: false,
+                      })
+                    }
                   />
-                  <CheckBox label="Vết xước" status="checked" onPress={null} />
+                  <CheckBox
+                    label="Vết xước"
+                    status={this.state.filter3 ? "checked" : "unchecked"}
+                    onPress={() =>
+                      this.setState({
+                        filter1: false,
+                        filter2: false,
+                        filter3: true,
+                        filter4: false,
+                        filter5: false,
+                        filter6: false,
+                      })
+                    }
+                  />
                   <CheckBox
                     label="Ít khi sử dụng"
-                    status="checked"
-                    onPress={null}
+                    status={this.state.filter4 ? "checked" : "unchecked"}
+                    onPress={() =>
+                      this.setState({
+                        filter1: false,
+                        filter2: false,
+                        filter3: false,
+                        filter4: true,
+                        filter5: false,
+                        filter6: false,
+                      })
+                    }
                   />
-                  <CheckBox label="Hơi xước" status="checked" onPress={null} />
+                  <CheckBox
+                    label="Hơi xước"
+                    status={this.state.filter5 ? "checked" : "unchecked"}
+                    onPress={() =>
+                      this.setState({
+                        filter1: false,
+                        filter2: false,
+                        filter3: false,
+                        filter4: false,
+                        filter5: true,
+                        filter6: false,
+                      })
+                    }
+                  />
                   <CheckBox
                     label="Đã sử dụng"
-                    status="checked"
-                    onPress={null}
+                    status={this.state.filter6 ? "checked" : "unchecked"}
+                    onPress={() =>
+                      this.setState({
+                        filter1: false,
+                        filter2: false,
+                        filter3: false,
+                        filter4: false,
+                        filter5: false,
+                        filter6: true,
+                      })
+                    }
                   />
                   <View
                     style={{
@@ -603,7 +872,14 @@ class SearchScreen extends Component {
                         styles.buttonNotFull,
                         { backgroundColor: "#3187EA", marginTop: 0 },
                       ]}
-                      onPress={null}
+                      onPress={() =>
+                        functions.getListProductByTagFilter(
+                          this,
+                          shop,
+                          catId,
+                          condition
+                        )
+                      }
                     >
                       <Text style={{ color: "white" }}>Áp dụng</Text>
                     </TouchableOpacity>
@@ -618,12 +894,15 @@ class SearchScreen extends Component {
           {/* END */}
           <Background full="1">
             <View style={styles.homeBody}>
+              {this.state.ActivityIndicator == "" ? View1 : View2}
               <View>
                 {/* kết quả tìm kiếm */}
                 <View style={styles.seach}>
                   <Text>
                     Kết quả tìm kiếm:
-                    <Text style={{ fontWeight: "700" }}>5.44</Text>
+                    <Text style={{ fontWeight: "700" }}>
+                      {listProduct.length}
+                    </Text>
                   </Text>
                   <TouchableOpacity onPress={this.showModal.bind(this)}>
                     <Image source={img1} />
@@ -645,7 +924,7 @@ class SearchScreen extends Component {
                 <SliderProduct
                   dataCarouselSlider={null}
                   renderCarouselSlider={this._renderItem_2}
-                  dataProductSlider={dataProductSlider}
+                  dataProductSlider={listProduct}
                   renderProductSlider={this._renderItem_3}
                 />
                 {/* END */}

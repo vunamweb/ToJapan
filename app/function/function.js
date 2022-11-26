@@ -633,6 +633,40 @@ class Functions {
     network.fetchGET_HEADER(url, body, token, callback);
   };
 
+  getListProductByTagFilter = async (
+    component,
+    cat,
+    cat_id,
+    filter
+  ) => {
+    //if (cat == "yahoo_auction") cat = "yahoo";
+
+    let url =
+      cat != "yahoo_auction"
+        ? global.urlRoot + global.urlProductByTag
+        : global.urlRoot + global.urlProductByTagAuction;
+    url = url.replace("{cat}", cat);
+    url = url.replace("{cat_id}", cat_id);
+    url = url + '&condition='+filter+'';
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+
+    callback = async (responseData) => {
+      component.setState({
+        listProductByTag: responseData.data,
+        //ActivityIndicator3: false,
+        ActivityIndicator: false,
+      });
+    };
+
+    component.setState({ ActivityIndicator: true, visibleFilter: false });
+    network.fetchGET_HEADER(url, body, token, callback);
+  };
+
   getPopularItem = async (component, shop) => {
     let url = global.urlRoot + global.urlPopularItem;
 

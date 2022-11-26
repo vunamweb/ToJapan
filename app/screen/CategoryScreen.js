@@ -327,7 +327,7 @@ class CategoryScreen extends Component {
         <View style={{paddingRight: 20}}>
         <TouchableOpacity
         onPress={() =>
-          functions.gotoScreen(navigation, "KeywordPopularScreen")
+          navigation.getParam("my").gotoSearch()
         }
         >
            <Image source={image3}/>
@@ -337,12 +337,26 @@ class CategoryScreen extends Component {
     headerTitleStyle: {
       color: 'white'
     },
-    title: 'Category'
+    title: navigation.state.params.itemId
 })
+
+gotoSearch = () => {
+  var data = {};
+
+  data.listService = this.state.listService;
+  data.shop = this.props.navigation.state.params.itemId;
+  data.listProductByTag = this.state.listProductByTag;
+
+  functions.gotoScreenWithParam(JSON.stringify(data), this.props.navigation, "KeywordPopularScreen")
+}
 
   componentDidMount() {
     LogBox.ignoreAllLogs(['VirtualizedLists should never be nested']);
     component = this;
+
+    this.props.navigation.setParams({
+      my: this,
+    });
 
     //this.getData();
 

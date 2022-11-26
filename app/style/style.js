@@ -408,9 +408,9 @@ module.exports = StyleSheet.create({
   },
   shortModal: {
     position: "absolute",
-    bottom: 0,
+    bottom: -30,
     width: "100%",
-    height: 30
+    //height: 'auto'
   },
   shortModal1: {
     position: "absolute",

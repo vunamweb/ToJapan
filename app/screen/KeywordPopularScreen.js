@@ -84,6 +84,10 @@ const dataTKPB2 = [
 const image3 = require("../../app/assets/Filler.png");
 
 class KeyWordPopularScreen extends Component {
+  state = {
+    search: null
+  }
+  
   _renderItem({ item, index }) {
     return (
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -113,13 +117,22 @@ class KeyWordPopularScreen extends Component {
   onChangeSearch = (navigation) => {
     functions.gotoScreen(navigation, "ForgotPassWordScreen");
   }
+
+  componentDidMount() {
+    //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    //component = this;
+
+    this.props.navigation.setParams({
+      my: this,
+    });
+}
   
 
   static navigationOptions = ({ navigation }) => ({
     //headerStyle: { backgroundColor: '#00FF57' },
     headerBackground: () => <HeaderBg />,
     headerRight: (
-      <View style={{ paddingRight: 20, marginTop: 30, flexDirection: "row" }}>
+      <View style={{ paddingRight: 20, marginBottom: 10, flexDirection: "row" }}>
         <Searchbar
           style={{
             backgroundColor: "white",
@@ -127,14 +140,9 @@ class KeyWordPopularScreen extends Component {
             borderRadius: 20,
           }}
           placeholder="Nhập tên sản phẩm"
+          onChangeText={(value) => navigation.getParam("my").setState({search: value})}
+          onIconPress={ () => navigation.getParam("my").gotoSearch(navigation.getParam("my").state.search) }
         />
-        <TouchableOpacity
-        onPress={() =>
-          functions.gotoScreen(navigation, "SearchScreen")
-        }
-        >
-          <Image source={image3} style={{ marginTop: 10 }} />
-        </TouchableOpacity>
       </View>
     ),
     headerTitleStyle: {
@@ -143,9 +151,17 @@ class KeyWordPopularScreen extends Component {
     title: "",
   });
 
-  componentDidMount() {
-    LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+  gotoSearch = (search) => {
+    var data = this.props.navigation.state.params.itemId;
+    data = JSON.parse(data)
+    data.search = search;
+  
+    functions.gotoScreenWithParam(JSON.stringify(data), this.props.navigation, "SearchScreen");
   }
+
+  /*componentDidMount() {
+    LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+  }*/
 
   render() {
     return (
