@@ -44,6 +44,9 @@ global.addBid = '/auctions/bid'
 global.urlAutionOrder = '/auctions?Status=tat_ca&page=1&itemsPerPage=20'
 global.deleteBid = '/auctions/remove/:id'
 global.historySearch = '/user/search?limit=20&sort=DESC'
+global.addfavorite = '/user/favorite/add'
+global.removefavorite = '/user/favorite/:id'
+global.urlListFavorite = '/user/favorite'
 // cost ship, vat
 global.ship = 0
 global.giam_gia = 0

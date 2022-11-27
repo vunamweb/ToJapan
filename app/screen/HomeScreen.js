@@ -8,10 +8,12 @@ import {
   ScrollView,
   LogBox,
   ActivityIndicator,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
 import { Text } from "react-native-paper";
+
+import IconFontAwesome from "react-native-vector-icons/FontAwesome";
 
 import BackgroundHome from "../components/BackgroundHome";
 import TextInput from "../components/TextInput";
@@ -29,100 +31,28 @@ import functions from "../../app/function/function";
 const carouselItems = [
   {
     title: "Mercari",
-    shop: 'mercari',
+    shop: "mercari",
     img: require("../../app/assets/mercari_1.png"),
   },
   {
     title: "Y!Auction",
-    shop: 'yahoo_auction',
+    shop: "yahoo_auction",
     img: require("../../app/assets/Y!Auction.png"),
   },
   {
     title: "Y!Shopping",
-    shop: 'yahoo_shopping',
+    shop: "yahoo_shopping",
     img: require("../../app/assets/yahoo-shopping.png"),
   },
   {
     title: "Amazon JP",
-    shop: 'amazon',
+    shop: "amazon",
     img: require("../../app/assets/Amazon_JS.png"),
   },
   {
     title: "Rakuten",
-    shop: 'rakuten',
+    shop: "rakuten",
     img: require("../../app/assets/Rakuten_1.png"),
-  },
-];
-
-const carouselItems1 = [
-  {
-    title: "Bape",
-    img: require("../../app/assets/Maskgroup_1.png"),
-  },
-  {
-    title: "Zara",
-    img: require("../../app/assets/Maskgroup_2.png"),
-  },
-  {
-    title: "Zippo",
-    img: require("../../app/assets/Maskgroup_3.png"),
-  },
-  {
-    title: "Credor",
-    img: require("../../app/assets/Maskgroup_4.png"),
-  },
-];
-
-const carouselItems2 = [
-  {
-    title: "Playstation",
-    img: require("../../app/assets/Maskgroup_5.png"),
-  },
-  {
-    title: "GUCCI",
-    img: require("../../app/assets/Maskgroup_6.png"),
-  },
-  {
-    title: "Canon",
-    img: require("../../app/assets/Maskgroup_7.png"),
-  },
-  {
-    title: "Adidas",
-    img: require("../../app/assets/Maskgroup_8.png"),
-  },
-];
-
-const dataBanner = [
-  {
-    img: "https://neilpatel.com/wp-content/uploads/2021/02/ExamplesofSuccessfulBannerAdvertising-700x420.jpg",
-  },
-  {
-    img: "https://neilpatel.com/wp-content/uploads/2021/02/ExamplesofSuccessfulBannerAdvertising-700x420.jpg",
-  },
-  {
-    img: "https://neilpatel.com/wp-content/uploads/2021/02/ExamplesofSuccessfulBannerAdvertising-700x420.jpg",
-  },
-  {
-    img: "https://neilpatel.com/wp-content/uploads/2021/02/ExamplesofSuccessfulBannerAdvertising-700x420.jpg",
-  },
-];
-
-const carouselItems3 = [
-  {
-    title: "Ssol",
-    text: "9826 Đơn Hàng",
-  },
-  {
-    title: "Ssol",
-    text: "9826 Đơn Hàng",
-  },
-  {
-    title: "Ssol",
-    text: "9826 Đơn Hàng",
-  },
-  {
-    title: "Ssol",
-    text: "9826 Đơn Hàng",
   },
 ];
 
@@ -136,7 +66,7 @@ const dataCarouselSlider = [
   },
   {
     title: "Y!Shopping",
-    shop: 'yahoo',
+    shop: "yahoo",
   },
   {
     title: "Amazon",
@@ -156,19 +86,19 @@ const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
 
 var component__;
-var height = Math.floor(Dimensions.get('window').width * 0.9 * 296/1560);
-
+var height = Math.floor((Dimensions.get("window").width * 0.9 * 296) / 1560);
 
 class HomeScreen extends Component {
   state = {
     dataProductSlider: [],
     dataBanner: [],
     dataPopularBranch: [],
+    ListFavorite: [],
     ActivityIndicator1: true,
     ActivityIndicator2: true,
     ActivityIndicator3: true,
-    shop: '',
-    index: 0
+    shop: "",
+    index: 0,
   };
 
   _renderItem = ({ item, index }) => {
@@ -176,7 +106,11 @@ class HomeScreen extends Component {
       <View style={{ alignItems: "center" }}>
         <TouchableOpacity
           onPress={() =>
-            functions.gotoScreenWithParam(item.shop, this.props.navigation, "CategoryScreen")
+            functions.gotoScreenWithParam(
+              item.shop,
+              this.props.navigation,
+              "CategoryScreen"
+            )
           }
         >
           <Image source={item.img} />
@@ -190,7 +124,7 @@ class HomeScreen extends Component {
     return (
       <View style={{ alignItems: "center" }}>
         <Image source={require("../../app/assets/Maskgroup_1.png")} />
-          <Text>{item.Brand}</Text>
+        <Text>{item.Brand}</Text>
       </View>
     );
   };
@@ -214,7 +148,15 @@ class HomeScreen extends Component {
 
   _renderItem_Banner({ item, index }) {
     return (
-      <Image style={{ width: '90%', height: height, marginLeft: '5%', marginRight: '5%' }} source={{ uri: item.img }} />
+      <Image
+        style={{
+          width: "90%",
+          height: height,
+          marginLeft: "5%",
+          marginRight: "5%",
+        }}
+        source={{ uri: item.img }}
+      />
     );
   }
 
@@ -230,13 +172,13 @@ class HomeScreen extends Component {
           }}
         >
           <TouchableOpacity
-          onPress={() =>
-            functions.getListPopularProduct(component__, item.shop)
-          }
+            onPress={() =>
+              functions.getListPopularProduct(component__, item.shop)
+            }
           >
-          <Text style={{ color: "white", fontSize: 16, fontWeight: "500" }}>
-            {item.title}
-          </Text>
+            <Text style={{ color: "white", fontSize: 16, fontWeight: "500" }}>
+              {item.title}
+            </Text>
           </TouchableOpacity>
         </View>
       );
@@ -251,83 +193,101 @@ class HomeScreen extends Component {
           }}
         >
           <TouchableOpacity
-          onPress={() =>
-            functions.getListPopularProduct(component__, item.shop)
-          }
+            onPress={() =>
+              functions.getListPopularProduct(component__, item.shop)
+            }
           >
-          <Text style={{ color: "black", fontSize: 16, fontWeight: "500" }}>
-            {item.title}
-          </Text>
+            <Text style={{ color: "black", fontSize: 16, fontWeight: "500" }}>
+              {item.title}
+            </Text>
           </TouchableOpacity>
         </View>
       );
   }
 
   _renderItem_3 = ({ item, index }) => {
-    if(index % 2 == 0)
-    return (
-      <TouchableOpacity
-        style={{ width: "50%", marginTop: 20 }}
-        onPress={() =>
-          functions.gotoScreenProduct(component__.state.shop, item.code, component__.props.navigation, "ProductScreen")
-        }
-      >
-        <View style={{ paddingRight: 5, width: "100%" }}>
-          <View
-            style={{
-              borderRadius: 30,
-              backgroundColor: "white",
-              width: "100%",
-              padding: 10,
-             
-            }}
-          >
-            <View style={{ padding: 0 }}>
-            <Image style={{width: '100%',height: 128}} source={{ uri: item.image }} />
-            <View style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}>
-              <Text style={{ color: "#23262F", fontSize: 16 }}>
-                {item.title.substr(0, 15)}
-              </Text>
-              <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
-                Từ {this.state.shop}
-              </Text>
-              <Rating
-                imageSize={15}
-                readonly
-                startingValue={0}
-                style={styles.rating}
-              />
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <View>
-                  <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                    {item.price} ¥
+    if (index % 2 == 0)
+      return (
+        <View style={{ width: "50%", marginTop: 20 }}>
+          <View style={{ paddingRight: 5, width: "100%" }}>
+            <View
+              style={{
+                borderRadius: 30,
+                backgroundColor: "white",
+                width: "100%",
+                padding: 10,
+              }}
+            >
+              <View style={{ padding: 0 }}>
+                <Image
+                  style={{ width: "100%", height: 128 }}
+                  source={{ uri: item.image }}
+                />
+                <TouchableOpacity
+                  style={{ position: "absolute", top: 5, right: 20 }}
+                  onPress={() =>
+                    this.addRemoveFavorite(item.code)
+                  }
+                >
+                  <View>
+                  {
+                    (component__.checkFavorite(item.code)) ? <IconFontAwesome name="heart" size={15} color="#3187EA" /> : <IconFontAwesome name="heart" size={15} color="#ccc" /> 
+                  }
+                  </View>
+                </TouchableOpacity>
+                <View
+                  style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}
+                >
+                  <TouchableOpacity
+                    onPress={() =>
+                      functions.gotoScreenProduct(
+                        component__.state.shop,
+                        item.code,
+                        component__.props.navigation,
+                        "ProductScreen"
+                      )
+                    }
+                  >
+                    <Text style={{ color: "#23262F", fontSize: 16 }}>
+                      {item.title.substr(0, 15)}
+                    </Text>
+                  </TouchableOpacity>
+                  <Text
+                    style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}
+                  >
+                    Từ {this.state.shop}
                   </Text>
-                  <Text style={{ fontSize: 12, color: "#777E90" }}>
-                    {item.priceVN} VND
-                  </Text>
+                  <Rating
+                    imageSize={15}
+                    readonly
+                    startingValue={0}
+                    style={styles.rating}
+                  />
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <View>
+                      <Text style={{ color: "#D63F5C", fontSize: 16 }}>
+                        {item.price} ¥
+                      </Text>
+                      <Text style={{ fontSize: 12, color: "#777E90" }}>
+                        {item.priceVN} VND
+                      </Text>
+                    </View>
+                    <Image source={image2} />
+                  </View>
                 </View>
-                <Image source={image2} />
               </View>
-            </View>
             </View>
           </View>
         </View>
-      </TouchableOpacity>
-    );
-    else 
-    return (
-      (
-        <TouchableOpacity
-          style={{ width: "50%", marginTop: 20 }}
-          onPress={() =>
-            functions.gotoScreenProduct(component__.state.shop, item.code, component__.props.navigation, "ProductScreen")
-          }
-        >
+      );
+    else
+      return (
+        <View style={{ width: "50%", marginTop: 20 }}>
           <View style={{ paddingLeft: 5, width: "100%" }}>
             <View
               style={{
@@ -335,62 +295,115 @@ class HomeScreen extends Component {
                 backgroundColor: "white",
                 width: "100%",
                 padding: 10,
-               
               }}
             >
               <View style={{ padding: 0 }}>
-              <Image style={{width: '100%',height: 128}} source={{ uri: item.image }} />
-              <View style={{ position: "absolute", top: 5, right: 20 }}>
-                <Image source={image1} />
-              </View>
-              <View style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}>
-                <Text style={{ color: "#23262F", fontSize: 16 }}>
-                  {item.title}
-                </Text>
-                <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
-                  Từ {this.state.shop}
-                </Text>
-                <Rating
-                  imageSize={15}
-                  readonly
-                  startingValue={0}
-                  style={styles.rating}
+                <Image
+                  style={{ width: "100%", height: 128 }}
+                  source={{ uri: item.image }}
                 />
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
+                <TouchableOpacity
+                  style={{ position: "absolute", top: 5, right: 20 }}
+                  onPress={() =>
+                    this.addRemoveFavorite(item.code)
+                  }
                 >
-                  <View>
-                    <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                      {item.price} ¥
-                    </Text>
-                    <Text style={{ fontSize: 12, color: "#777E90" }}>
-                      {item.priceVN} VND
-                    </Text>
+                 <View>
+                  {
+                    (component__.checkFavorite(item.code)) ? <IconFontAwesome name="heart" size={15} color="#3187EA" /> : <IconFontAwesome name="heart" size={15} color="#ccc" /> 
+                  }
                   </View>
-                  <Image source={image2} />
+                </TouchableOpacity>
+                <View
+                  style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}
+                >
+                  <TouchableOpacity
+                    onPress={() =>
+                      functions.gotoScreenProduct(
+                        component__.state.shop,
+                        item.code,
+                        component__.props.navigation,
+                        "ProductScreen"
+                      )
+                    }
+                  >
+                    <Text style={{ color: "#23262F", fontSize: 16 }}>
+                      {item.title.substr(0, 15)}
+                    </Text>
+                  </TouchableOpacity>
+                  <Text
+                    style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}
+                  >
+                    Từ {this.state.shop}
+                  </Text>
+                  <Rating
+                    imageSize={15}
+                    readonly
+                    startingValue={0}
+                    style={styles.rating}
+                  />
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <View>
+                      <Text style={{ color: "#D63F5C", fontSize: 16 }}>
+                        {item.price} ¥
+                      </Text>
+                      <Text style={{ fontSize: 12, color: "#777E90" }}>
+                        {item.priceVN} VND
+                      </Text>
+                    </View>
+                    <Image source={image2} />
+                  </View>
                 </View>
-              </View>
               </View>
             </View>
           </View>
-        </TouchableOpacity>
-      )
-    )
+        </View>
+      );
   };
 
   static navigationOptions = ({ navigation }) => ({
-    title: ''
-})
+    title: "",
+  });
+
+  checkFavorite = (product) => {
+    var count;
+    var listFavorite = this.state.ListFavorite;
+
+    for(count = 0; count < listFavorite.length; count++)
+      if(listFavorite[count].Product == product)
+        return true;
+
+    return false;    
+  }
+
+  getIdFavoriteFromProduct = (product) => {
+    var count;
+    var listFavorite = this.state.ListFavorite;
+
+    for(count = 0; count < listFavorite.length; count++)
+      if(listFavorite[count].Product == product)
+        return listFavorite[count]._id;
+}
+
+  addRemoveFavorite = (product) => {
+     if(this.checkFavorite(product))
+       functions.deleteFavorite(this, this.getIdFavoriteFromProduct(product));
+     else 
+       functions.addFavorite(product, this.state.shop, this);
+  }
 
   componentDidMount() {
     component__ = this;
 
     functions.getBanners(this);
     functions.getPoplularBranch(this);
-    functions.getListPopularProduct(this, 'mercari');
+    functions.getListPopularProduct(this, "mercari");
+    functions.getListFavorite(this);
     //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
   }
 
@@ -398,9 +411,9 @@ class HomeScreen extends Component {
     var View1 = <View />;
     var View2 = (
       <ActivityIndicator
-                size="large"
-                animating={this.state.ActivityIndicator}
-              />
+        size="large"
+        animating={this.state.ActivityIndicator}
+      />
     );
 
     return (
@@ -428,9 +441,9 @@ class HomeScreen extends Component {
             />
             {/* Banner */}
             {this.state.ActivityIndicator1 == "" ? View1 : View2}
-            <Banner 
-            renderItem={this._renderItem_Banner}
-            carouselItems={this.state.dataBanner}
+            <Banner
+              renderItem={this._renderItem_Banner}
+              carouselItems={this.state.dataBanner}
             />
             {/* END */}
           </View>

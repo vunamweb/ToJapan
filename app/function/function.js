@@ -1148,6 +1148,86 @@ class Functions {
     network.fetchDELETE_HEADER(url, data, token, callback);
   };
 
+  addFavorite = async (productId, shop, component) => {
+    let url = global.urlRoot + global.addfavorite;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+    let data;
+
+    body.Product = productId;
+    body.Site = shop;
+    data = JSON.stringify(body);
+
+    callback = async (responseData) => {
+      var listFavorite = component.state.ListFavorite;
+
+      var product = {}
+      product.Product = productId;
+      product._id = responseData.data;
+
+      listFavorite.push(product);
+
+      component.setState({ ActivityIndicator3: false, ListFavorite: listFavorite });
+    };
+
+    component.setState({ ActivityIndicator3: true });
+    network.fetchPUT_HEADER(url, data, token, callback);
+  };
+
+  deleteFavorite = async (component, product) => {
+    var orderList = [];
+    var count;
+
+    let url = global.urlRoot + global.removefavorite;
+    url = url.replace(":id", product);
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+    let data;
+
+    data = JSON.stringify(body);
+
+    callback = (responseData) => {
+      var listFavorite = component.state.ListFavorite;
+
+      if (responseData.success) {
+        for (count = 0; count < listFavorite.length; count++) {
+          if (listFavorite[count]._id == product)
+          listFavorite.splice(count, 1);
+        }
+        
+        component.setState({ ActivityIndicator3: false, ListFavorite: listFavorite });
+      }
+    };
+
+    component.setState({ ActivityIndicator3: true });
+    network.fetchDELETE_HEADER(url, data, token, callback);
+  };
+
+  getListFavorite = async (component) => {
+    let url = global.urlRoot + global.urlListFavorite;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+
+    callback = async (responseData) => {
+      component.setState({ ListFavorite: responseData.data, ActivityIndicator3: false });
+    };
+
+    component.setState({ ActivityIndicator3: true });
+    network.fetchGET_HEADER(url, body, token, callback);
+  };
+
   logout = async (component) => {
     try {
       await AsyncStorage.setItem("dataPersonal", "");
