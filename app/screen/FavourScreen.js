@@ -11,6 +11,7 @@ import {
   ImageBackground,
   Text,
   useWindowDimensions,
+  ActivityIndicator
 } from "react-native";
 import { Rating, AirbnbRating, Slider } from "react-native-elements";
 import { Modal, Portal, Provider, RadioButton } from "react-native-paper";
@@ -34,6 +35,16 @@ import functions from "../../app/function/function";
 
 import { HeaderBackground } from "react-navigation-stack";
 //import { Provider } from "react-native-paper/lib/typescript/core/settings";
+
+const img1 = require("../../app/assets/sort-down.png");
+const img2 = require("../../app/assets/star_1.png");
+const img3 = require("../../app/assets/heart.png");
+
+const img = require("../../app/assets/Rectangle_1944.png");
+const image1 = require("../../app/assets/arrow-right.png");
+const image2 = require("../../app/assets/shopping_bag.png");
+const image3 = require("../../app/assets/search-normal.png");
+const image4 = require("../../app/assets/Filler.png");
 
 const dataProductSlider = [
   {
@@ -70,16 +81,6 @@ const dataProductSlider = [
   },
 ];
 
-const img1 = require("../../app/assets/sort-down.png");
-const img2 = require("../../app/assets/star_1.png");
-const img3 = require("../../app/assets/heart.png");
-
-const img = require("../../app/assets/Rectangle_1944.png");
-const image1 = require("../../app/assets/arrow-right.png");
-const image2 = require("../../app/assets/shopping_bag.png");
-const image3 = require("../../app/assets/search-normal.png");
-const image4 = require("../../app/assets/Filler.png");
-
 class FavourScreen extends Component {
   state = {
     index: 0,
@@ -87,6 +88,8 @@ class FavourScreen extends Component {
       { key: "1", title: "Sản phẩm", icon: "ios-paper" },
       { icon: "ios-paper", key: "2", title: "Cửa hàng" },
     ],
+    ListFavorite: [],
+    ActivityIndicator3: false
   };
 
   static navigationOptions = ({ navigation }) => ({
@@ -127,6 +130,8 @@ class FavourScreen extends Component {
     this.props.navigation.setParams({
       my: this,
     });
+
+    functions.getListFavorite(this);
   }
 
   _handleIndexChange = (index) => {
@@ -137,11 +142,10 @@ class FavourScreen extends Component {
     <View
       style={[{ flex: 1, backgroundColor: "#FAFAFA" }, styles.borderNormal]}
     >
-      <CheckBox status="checked" label="Đã chọn (0/3)" />
       <SliderProduct
         dataCarouselSlider={null}
         renderCarouselSlider={this._renderItem_2_}
-        dataProductSlider={dataProductSlider}
+        dataProductSlider={this.state.ListFavorite}
         renderProductSlider={this._renderItem_3}
         col={1}
         style="1"
@@ -234,13 +238,7 @@ class FavourScreen extends Component {
         }}
       >
         <View style={{ width: "100%", flexDirection: "row" }}>
-          <TouchableOpacity
-            onPress={() =>
-              functions.gotoScreen(this.props.navigation, "ProductDaugiaScreen")
-            }
-          >
-            <Image source={img} style={{ width: 70 }} />
-          </TouchableOpacity>
+          <Image source={{ uri: item.Image }} style={{ width: 100 }} />
           <View style={{ marginTop: 0, marginLeft: 20, flex: 1 }}>
             <View
               style={[
@@ -249,13 +247,21 @@ class FavourScreen extends Component {
                 { justifyContent: "space-between" },
               ]}
             >
-              <Text style={styles.paymentText2}>{item.status1}</Text>
-              <Text style={[styles.auctionText1, styles.fontBold]}>
-                {item.status2}
-              </Text>
+              <Text style={styles.paymentText2}>{item.Site}</Text>
             </View>
 
-            <Text style={styles.money3}>{item.text1}</Text>
+            <TouchableOpacity
+              onPress={() =>
+                functions.gotoScreenProduct(
+                  item.Site,
+                  item.Product,
+                  this.props.navigation,
+                  "ProductScreen"
+                )
+              }
+            >
+              <Text style={styles.money3}>{item.Name}</Text>
+            </TouchableOpacity>
 
             <View
               style={[
@@ -265,45 +271,25 @@ class FavourScreen extends Component {
                 { justifyContent: "space-between" },
               ]}
             >
-              <Text style={styles.paymentText2}>Mã đấu</Text>
-              <Text style={[styles.auctionText2]}>{item.madau}</Text>
-            </View>
-
-            <View
-              style={[
-                styles.flexRowStart,
-                styles.marginBottom10,
-                styles.marginTop10,
-                { justifyContent: "space-between" },
-              ]}
-            >
-              <Text style={styles.paymentText2}>Giá hiện tại</Text>
               <Text style={[styles.mangerOderText3, styles.fontBold]}>
-                {item.giahientai}¥
+                {item.Price}¥
                 <Text style={[styles.containerHeaderText2]}>
                   {" "}
-                  4,387,480 VND
+                  {item.PriceVN} VND
                 </Text>
               </Text>
             </View>
 
-            <View
-              style={[
-                styles.flexRowStart,
-                styles.marginBottom10,
-                styles.marginTop10,
-                { justifyContent: "space-between" },
-              ]}
-            >
-              <Text style={styles.paymentText2}>Giá đấu</Text>
-              <Text style={[styles.mangerOderText3, styles.fontBold]}>
-                {item.giadau}¥
-                <Text style={styles.containerHeaderText2}>4,387,480 VND</Text>
-              </Text>
-            </View>
-
             <View style={[styles.flexRowStart, { justifyContent: "flex-end" }]}>
-              <Text style={[styles.mangerOderText3, styles.fontBold]}>Xoá</Text>
+              <TouchableOpacity
+              onPress={() =>
+                functions.deleteFavorite(this, item._id)
+              }
+              >
+                <Text style={[styles.mangerOderText3, styles.fontBold]}>
+                  Xoá
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -312,8 +298,17 @@ class FavourScreen extends Component {
   };
 
   render() {
+    var View1 = <View />;
+    var View2 = (
+      <ActivityIndicator
+        size="large"
+        animating={true}
+      />
+    );
+
     return (
-      <View style={{ marginTop: 30, flex: 1 }}>
+      <View style={{ marginTop: 0, flex: 1 }}>
+        {this.state.ActivityIndicator3 == "" ? View1 : View2}
         <TabView
           navigationState={this.state}
           renderScene={this._renderScene}
