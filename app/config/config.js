@@ -43,6 +43,7 @@ global.urlDepositBank = '/user/deposit/bank'
 global.addBid = '/auctions/bid'
 global.urlAutionOrder = '/auctions?Status=tat_ca&page=1&itemsPerPage=20'
 global.deleteBid = '/auctions/remove/:id'
+global.historySearch = '/user/search?limit=20&sort=DESC'
 // cost ship, vat
 global.ship = 0
 global.giam_gia = 0

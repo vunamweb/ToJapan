@@ -82,7 +82,9 @@ class SearchScreen extends Component {
     sort4: false,
     listProductByTag: [],
     ActivityIndicator: false,
-    price: 0
+    ActivityIndicator2: true,
+    price: 0,
+    listPopularName: [],
   };
 
   _renderItem({ item, index }) {
@@ -155,7 +157,7 @@ class SearchScreen extends Component {
         }}
       >
         <Text style={{ color: "black", fontSize: 16, fontWeight: "500" }}>
-          {item.title}
+          {item.vi}
         </Text>
       </View>
     );
@@ -350,6 +352,8 @@ class SearchScreen extends Component {
     this.props.navigation.setParams({
       my: this,
     });
+
+    functions.getPopularName(this);
   }
 
   showModal = () => {
@@ -923,11 +927,13 @@ class SearchScreen extends Component {
                 {/* Từ khoá phổ biến */}
                 <View>
                 <Header1>Từ khoá phổ biến</Header1>
+                {this.state.ActivityIndicator2 == "" ? View1 : View2}
                 <Carousel
-                  data={dataTKPB1}
+                  data={this.state.listPopularName}
                   renderItem={this._renderItem_2_}
                   top={0}
                   itemWidth={140}
+                  loop={true}
                 />
                 </View>
                 {/* END */}

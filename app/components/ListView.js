@@ -51,7 +51,6 @@ export default function ListView({ mode, style, ...props }) {
       <FlatList
         style={{ padding: 0}}
         numColumns={props.col}
-        disableVirtualization
         {...props}
       />
     </SafeAreaView>

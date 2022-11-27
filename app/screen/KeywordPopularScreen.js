@@ -9,6 +9,7 @@ import {
   LogBox,
   SearchBox,
   ImageBackground,
+  ActivityIndicator,
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
 import { Text, Searchbar } from "react-native-paper";
@@ -85,10 +86,22 @@ const image3 = require("../../app/assets/Filler.png");
 
 class KeyWordPopularScreen extends Component {
   state = {
-    search: null
-  }
-  
+    search: null,
+    listPopularName: [],
+    listSearchHistory: [],
+    ActivityIndicator: true,
+    ActivityIndicator2: true,
+  };
+
   _renderItem({ item, index }) {
+    return (
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <Text>{item.title}</Text>
+        <Image source={item.img} />
+      </View>
+    );
+  }
+  _renderItem_({ item, index }) {
     return (
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Text>{item.title}</Text>
@@ -108,7 +121,7 @@ class KeyWordPopularScreen extends Component {
         }}
       >
         <Text style={{ color: "black", fontSize: 16, fontWeight: "500" }}>
-          {item.title}
+          {item.vi}
         </Text>
       </View>
     );
@@ -116,7 +129,7 @@ class KeyWordPopularScreen extends Component {
 
   onChangeSearch = (navigation) => {
     functions.gotoScreen(navigation, "ForgotPassWordScreen");
-  }
+  };
 
   componentDidMount() {
     //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
@@ -125,23 +138,44 @@ class KeyWordPopularScreen extends Component {
     this.props.navigation.setParams({
       my: this,
     });
-}
-  
+
+    functions.getPopularName(this);
+    functions.getHistorySearch(this);
+  }
 
   static navigationOptions = ({ navigation }) => ({
     //headerStyle: { backgroundColor: '#00FF57' },
     headerBackground: () => <HeaderBg />,
     headerRight: (
-      <View style={{ paddingRight: 20, marginBottom: 10, flexDirection: "row" }}>
+      <View
+        style={{ paddingRight: 20, marginBottom: 10, flexDirection: "row" }}
+      >
         <Searchbar
           style={{
-            backgroundColor: "white",
             marginRight: 10,
             borderRadius: 20,
+            height: 40,
+            backgroundColor: 'transparent',
+            //backgroundColor: 'white',
+            //opacity: 0.5,
+            borderWidth: 0.5,
+            borderRadius: 20,
+            borderColor: 'white',
+            //color: 'white'
           }}
+          placeholderTextColor="white"
+          inputStyle={{ color: 'whitte' }}
+          leftIconContainerStyle={{ color: 'white' }}
+          //icon = {{type: 'material-community', color: '#86939e', name: 'share' }}
           placeholder="Nhập tên sản phẩm"
-          onChangeText={(value) => navigation.getParam("my").setState({search: value})}
-          onIconPress={ () => navigation.getParam("my").gotoSearch(navigation.getParam("my").state.search) }
+          onChangeText={(value) =>
+            navigation.getParam("my").setState({ search: value })
+          }
+          onIconPress={() =>
+            navigation
+              .getParam("my")
+              .gotoSearch(navigation.getParam("my").state.search)
+          }
         />
       </View>
     ),
@@ -153,58 +187,63 @@ class KeyWordPopularScreen extends Component {
 
   gotoSearch = (search) => {
     var data = this.props.navigation.state.params.itemId;
-    data = JSON.parse(data)
+    data = JSON.parse(data);
     data.search = search;
-  
-    functions.gotoScreenWithParam(JSON.stringify(data), this.props.navigation, "SearchScreen");
-  }
+
+    functions.gotoScreenWithParam(
+      JSON.stringify(data),
+      this.props.navigation,
+      "SearchScreen"
+    );
+  };
 
   /*componentDidMount() {
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
   }*/
 
   render() {
+    var View1 = <View />;
+    var View2 = (
+      <ActivityIndicator
+        size="large"
+        animating={this.state.ActivityIndicator}
+      />
+    );
+
     return (
-      <ScrollView>
-        <Background full="1">
-          <View style={styles.homeBody}>
-            <View>
-              {/* Từ khoá phổ biến */}
-              <Header1>Từ khoá phổ biến</Header1>
-              <Carousel
-                data={dataTKPB1}
-                renderItem={this._renderItem_2_}
-                sliderWidth={350}
-                top={0}
-                itemWidth={140}
-              />
-              <Carousel
-                data={dataTKPB2}
-                renderItem={this._renderItem_2_}
-                sliderWidth={350}
-                top={20}
-                itemWidth={140}
-              />
-              {/* END */}
-              {/* Lịch sử tìm kiếm */}
-              <View style={styles.history}>
-                <Text style={{ fontSize: 18, fontWeight: "700" }}>
-                  Lịch sử tìm kiếm
-                </Text>
-                <Text style={{ fontSize: 14 }}>Xoá tất cả</Text>
-              </View>
-              {/* END */}
-              {/* List Lịch sử tìm kiếm */}
-              <ListView
-                data={carouselItems}
-                renderItem={this._renderItem}
-                col="1"
-              />
-              {/* END */}
+      <Background full="1">
+        <View style={styles.homeBody}>
+          <View>
+            {/* Từ khoá phổ biến */}
+            <Header1>Từ khoá phổ biến</Header1>
+            {this.state.ActivityIndicator2 == "" ? View1 : View2}
+            <Carousel
+              data={this.state.listPopularName}
+              renderItem={this._renderItem_2_}
+              top={0}
+              itemWidth={140}
+              loop={true}
+            />
+            {/* END */}
+            {/* Lịch sử tìm kiếm */}
+            <View style={styles.history}>
+              <Text style={{ fontSize: 18, fontWeight: "700" }}>
+                Lịch sử tìm kiếm
+              </Text>
+              <Text style={{ fontSize: 14 }}>Xoá tất cả</Text>
             </View>
+            {/* END */}
+            {/* List Lịch sử tìm kiếm */}
+            {this.state.ActivityIndicator == "" ? View1 : View2}
+            <ListView
+              data={carouselItems}
+              renderItem={this._renderItem_}
+              col="1"
+            />
+            {/* END */}
           </View>
-        </Background>
-      </ScrollView>
+        </View>
+      </Background>
     );
   }
 }

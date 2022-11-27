@@ -381,6 +381,10 @@ class HomeScreen extends Component {
     )
   };
 
+  static navigationOptions = ({ navigation }) => ({
+    title: ''
+})
+
   componentDidMount() {
     component__ = this;
 

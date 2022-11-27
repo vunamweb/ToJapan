@@ -1074,6 +1074,22 @@ class Functions {
     network.fetchGET_HEADER(url, body, token, callback);
   };
 
+  getHistorySearch = async (component) => {
+    let url = global.urlRoot + global.historySearch;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+
+    callback = async (responseData) => {
+      component.setState({ listSearchHistory: responseData.data, ActivityIndicator: false });
+    };
+
+    network.fetchGET_HEADER(url, body, token, callback);
+  };
+
   depositBank = async (component) => {
     var money = component.state.money;
 
