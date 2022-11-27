@@ -220,11 +220,11 @@ class HomeScreen extends Component {
             >
               <View style={{ padding: 0 }}>
                 <Image
-                  style={{ width: "100%", height: 128 }}
+                  style={{ width: "100%", height: 128, marginTop: 10}}
                   source={{ uri: item.image }}
                 />
                 <TouchableOpacity
-                  style={{ position: "absolute", top: 5, right: 20 }}
+                  style={{ position: "absolute", top: -5, right: 5 }}
                   onPress={() =>
                     this.addRemoveFavorite(item.code)
                   }
@@ -236,7 +236,7 @@ class HomeScreen extends Component {
                   </View>
                 </TouchableOpacity>
                 <View
-                  style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}
+                  style={{ marginTop: 30 }}
                 >
                   <TouchableOpacity
                     onPress={() =>
@@ -299,11 +299,11 @@ class HomeScreen extends Component {
             >
               <View style={{ padding: 0 }}>
                 <Image
-                  style={{ width: "100%", height: 128 }}
+                  style={{ width: "100%", height: 128, marginTop: 10 }}
                   source={{ uri: item.image }}
                 />
                 <TouchableOpacity
-                  style={{ position: "absolute", top: 5, right: 20 }}
+                  style={{ position: "absolute", top: -5, right: 5 }}
                   onPress={() =>
                     this.addRemoveFavorite(item.code)
                   }
@@ -315,7 +315,7 @@ class HomeScreen extends Component {
                   </View>
                 </TouchableOpacity>
                 <View
-                  style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}
+                  style={{ marginTop: 30 }}
                 >
                   <TouchableOpacity
                     onPress={() =>

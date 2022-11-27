@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
 import { Text } from "react-native-paper";
+import IconFontAwesome from "react-native-vector-icons/FontAwesome";
 
 import Background from "../components/Background";
 import TextInput from "../components/TextInput";
@@ -31,90 +32,6 @@ import functions from "../../app/function/function";
 
 import { HeaderBackground } from "react-navigation-stack";
 
-const carouselItems = [
-  {
-    title: "Thời trang nam",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-  {
-    title: "Thời trang nữ",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-  {
-    title: "Thời trang trẻ em",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-  {
-    title: "NHà cửa đời sống",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-  {
-    title: "Thời trang nam",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-];
-
-const carouselItems_ = [
-  {
-    title: "Vé & thẻ ảnh",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-  {
-    title: "Điện gia dụng và thiết bị số",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-  {
-    title: "Ô tô và xe máy",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-  {
-    title: "Thể thao và dã ngoại",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-  {
-    title: "Thời trang nam",
-    img: require("../../app/assets/circle_bg.png"),
-  },
-];
-
-const carouselItems1 = [
-  {
-    title: "Bape",
-    img: require("../../app/assets/Maskgroup_1.png"),
-  },
-  {
-    title: "Zara",
-    img: require("../../app/assets/Maskgroup_2.png"),
-  },
-  {
-    title: "Zippo",
-    img: require("../../app/assets/Maskgroup_3.png"),
-  },
-  {
-    title: "Credor",
-    img: require("../../app/assets/Maskgroup_4.png"),
-  },
-];
-
-const carouselItems2 = [
-  {
-    title: "Playstation",
-    img: require("../../app/assets/Maskgroup_5.png"),
-  },
-  {
-    title: "GUCCI",
-    img: require("../../app/assets/Maskgroup_6.png"),
-  },
-  {
-    title: "Canon",
-    img: require("../../app/assets/Maskgroup_7.png"),
-  },
-  {
-    title: "Adidas",
-    img: require("../../app/assets/Maskgroup_8.png"),
-  },
-];
-
 const img3 = require("../../app/assets/heart.png");
 const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
@@ -131,6 +48,7 @@ class CategoryScreen extends Component {
     listProductByTag: [],
     listPopularItem: [],
     listPopularName: [],
+    ListFavorite: [],
     dataPopularBranch: [],
     dataBanner: [],
     service: '',
@@ -236,86 +154,164 @@ class CategoryScreen extends Component {
   }
 
   _renderItem_3 = ({ item, index }) => {
-    if(index %2 == 0)
-    return (
-      <TouchableOpacity
-      style={{width: '50%', marginTop: 20}}
-      onPress={() =>
-        functions.gotoScreenProduct(component.props.navigation.state.params.itemId, (item.code != undefined ? item.code : item.ID), this.props.navigation, "ProductScreen")
-      }
-      >
-      <View style={{ paddingRight: 5, width: '100%' }}>
-      <View style={{borderRadius: 30, padding: 10, backgroundColor: 'white', width: '100%'}}>
-        <View>
-      <Image style={{width: '100%',height: 128}} source={{ uri: (item.Image != undefined ? item.Image : item.image) }} />
-        <View style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}>
-          <Text style={{ color: "#23262F", fontSize: 16 }}>
-            {(item.title != undefined ? item.title.substr(0, 15) : item.Title.substr(0, 15))}
-          </Text>
-          <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
-          Từ {component.state.service}
-          </Text>
-          <Rating
-  imageSize={15}
-  readonly
-  startingValue={0}
-  style={styles.rating}
-/>
-          <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-            <View>
-              <Text style={{ color: "#D63F5C", fontSize: 16 }}>{item.price} ¥</Text>
-              <Text style={{ fontSize: 12, color: "#777E90" }}>
-              {(item.priceVN != undefined ? item.priceVN : item.PriceVN)} VND
-              </Text>
+    if (index % 2 == 0)
+      return (
+        <View style={{ width: "50%", marginTop: 20 }}>
+          <View style={{ paddingRight: 5, width: "100%" }}>
+            <View
+              style={{
+                borderRadius: 30,
+                backgroundColor: "white",
+                width: "100%",
+                padding: 10,
+              }}
+            >
+              <View style={{ padding: 0 }}>
+                <Image
+                  style={{ width: "100%", height: 128, marginTop: 10}}
+                  source={{ uri: item.image }}
+                />
+                <TouchableOpacity
+                  style={{ position: "absolute", top: -5, right: 5 }}
+                  onPress={() =>
+                    this.addRemoveFavorite(item.code)
+                  }
+                >
+                  <View>
+                  {
+                    (this.checkFavorite(item.code)) ? <IconFontAwesome name="heart" size={15} color="#3187EA" /> : <IconFontAwesome name="heart" size={15} color="#ccc" /> 
+                  }
+                  </View>
+                </TouchableOpacity>
+                <View
+                  style={{ marginTop: 30 }}
+                >
+                  <TouchableOpacity
+                    onPress={() =>
+                      functions.gotoScreenProduct(
+                        this.props.navigation.state.params.itemId,
+                        item.code,
+                        this.props.navigation,
+                        "ProductScreen"
+                      )
+                    }
+                  >
+                    <Text style={{ color: "#23262F", fontSize: 16 }}>
+                      {item.title.substr(0, 15)}
+                    </Text>
+                  </TouchableOpacity>
+                  <Text
+                    style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}
+                  >
+                    Từ {this.state.shop}
+                  </Text>
+                  <Rating
+                    imageSize={15}
+                    readonly
+                    startingValue={0}
+                    style={styles.rating}
+                  />
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <View>
+                      <Text style={{ color: "#D63F5C", fontSize: 16 }}>
+                        {item.price} ¥
+                      </Text>
+                      <Text style={{ fontSize: 12, color: "#777E90" }}>
+                        {item.priceVN} VND
+                      </Text>
+                    </View>
+                    <Image source={image2} />
+                  </View>
+                </View>
+              </View>
             </View>
-            <Image source={image2} />
           </View>
         </View>
-        </View>
-      </View>
-      </View>
-      </TouchableOpacity>
-    );
-    else 
-    return (
-      <TouchableOpacity
-      style={{width: '50%', marginTop: 20}}
-      onPress={() =>
-        functions.gotoScreenProduct(component.props.navigation.state.params.itemId, (item.code != undefined ? item.code : item.ID), this.props.navigation, "ProductScreen")
-      }
-      >
-      <View style={{ paddingLeft: 5, width: '100%' }}>
-      <View style={{borderRadius: 30, padding: 10, backgroundColor: 'white', width: '100%'}}>
-        <View>
-        <Image style={{width: '100%',height: 128}} source={{ uri: (item.Image != undefined ? item.Image : item.image) }} />
-        <View style={{ marginTop: 30, paddingLeft: 20, paddingRight: 20 }}>
-          <Text style={{ color: "#23262F", fontSize: 16 }}>
-          {(item.title != undefined ? item.title.substr(0, 15) : item.Title.substr(0, 15))}
-          </Text>
-          <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
-          Từ {component.state.service}
-          </Text>
-          <Rating
-  imageSize={15}
-  readonly
-  startingValue={0}
-  style={styles.rating}
-/>
-          <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-            <View>
-              <Text style={{ color: "#D63F5C", fontSize: 16 }}>{item.price} ¥</Text>
-              <Text style={{ fontSize: 12, color: "#777E90" }}>
-              {(item.priceVN != undefined ? item.priceVN : item.PriceVN)} VND
-              </Text>
+      );
+    else
+      return (
+        <View style={{ width: "50%", marginTop: 20 }}>
+          <View style={{ paddingLeft: 5, width: "100%" }}>
+            <View
+              style={{
+                borderRadius: 30,
+                backgroundColor: "white",
+                width: "100%",
+                padding: 10,
+              }}
+            >
+              <View style={{ padding: 0 }}>
+                <Image
+                  style={{ width: "100%", height: 128, marginTop: 10 }}
+                  source={{ uri: item.image }}
+                />
+                <TouchableOpacity
+                  style={{ position: "absolute", top: -5, right: 5 }}
+                  onPress={() =>
+                    this.addRemoveFavorite(item.code)
+                  }
+                >
+                 <View>
+                  {
+                    (this.checkFavorite(item.code)) ? <IconFontAwesome name="heart" size={15} color="#3187EA" /> : <IconFontAwesome name="heart" size={15} color="#ccc" /> 
+                  }
+                  </View>
+                </TouchableOpacity>
+                <View
+                  style={{ marginTop: 30 }}
+                >
+                  <TouchableOpacity
+                    onPress={() =>
+                      functions.gotoScreenProduct(
+                        this.props.navigation.state.params.itemId,
+                        item.code,
+                        this.props.navigation,
+                        "ProductScreen"
+                      )
+                    }
+                  >
+                    <Text style={{ color: "#23262F", fontSize: 16 }}>
+                      {item.title.substr(0, 15)}
+                    </Text>
+                  </TouchableOpacity>
+                  <Text
+                    style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}
+                  >
+                    Từ {this.state.shop}
+                  </Text>
+                  <Rating
+                    imageSize={15}
+                    readonly
+                    startingValue={0}
+                    style={styles.rating}
+                  />
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <View>
+                      <Text style={{ color: "#D63F5C", fontSize: 16 }}>
+                        {item.price} ¥
+                      </Text>
+                      <Text style={{ fontSize: 12, color: "#777E90" }}>
+                        {item.priceVN} VND
+                      </Text>
+                    </View>
+                    <Image source={image2} />
+                  </View>
+                </View>
+              </View>
             </View>
-            <Image source={image2} />
           </View>
         </View>
-        </View>
-      </View>
-      </View>
-      </TouchableOpacity>
-    )
+      );
   };
 
   static navigationOptions = ({ navigation }) => ({
@@ -367,6 +363,7 @@ gotoSearch = () => {
     functions.getPopularName(this);
     functions.getPoplularBranch(this);
     functions.getListService(this, itemId);
+    functions.getListFavorite(this);
   }
 
   getData = async () => {
@@ -375,6 +372,33 @@ gotoSearch = () => {
     await functions.getListService(this, itemId);
     functions.getListProductByTag(this, itemId);
 
+  }
+
+  checkFavorite = (product) => {
+    var count;
+    var listFavorite = this.state.ListFavorite;
+
+    for(count = 0; count < listFavorite.length; count++)
+      if(listFavorite[count].Product == product)
+        return true;
+
+    return false;    
+  }
+
+  getIdFavoriteFromProduct = (product) => {
+    var count;
+    var listFavorite = this.state.ListFavorite;
+
+    for(count = 0; count < listFavorite.length; count++)
+      if(listFavorite[count].Product == product)
+        return listFavorite[count]._id;
+}
+
+  addRemoveFavorite = (product) => {
+     if(this.checkFavorite(product))
+       functions.deleteFavorite(this, this.getIdFavoriteFromProduct(product));
+     else 
+       functions.addFavorite(product, this.props.navigation.state.params.itemId, this);
   }
 
   render() {
