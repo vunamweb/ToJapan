@@ -417,6 +417,7 @@ class HomeScreen extends Component {
     );
 
     return (
+      <View style={{flex: 1}}>
       <ScrollView>
         <BackgroundHome sourse="true" start="1">
           {/* Toolbar */}
@@ -497,14 +498,15 @@ class HomeScreen extends Component {
               />
               {/* END */}
             </View>
-            <View style={styles.bottom}>
+          </View>
+        </BackgroundHome>
+      </ScrollView>
+      <View style={[styles.bottom, { marginTop: 0 }]}>
               {/* Bottom */}
               <IconBottom component={this} />
               {/* END */}
             </View>
-          </View>
-        </BackgroundHome>
-      </ScrollView>
+      </View>
     );
   }
 }

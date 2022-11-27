@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView,
   LogBox,
-  AsyncStorage
+  AsyncStorage,
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating, Tooltip } from "react-native-elements";
 import { Text } from "react-native-paper";
@@ -84,7 +84,7 @@ const data3 = [
     text: "Liên hệ ToJapan",
     img: require("../../app/assets/Contact.png"),
     border: "none",
-    link: "ComplainScreen"
+    link: "ComplainScreen",
   },
 ];
 
@@ -131,13 +131,13 @@ class ProfileScreen extends Component {
   }
 
   state = {
-    name: '',
+    name: "",
     userDetail: {
-      "Balance": 0,
-      "Hold": 0,
-      "JPY": 0
-    }
-  }
+      Balance: 0,
+      Hold: 0,
+      JPY: 0,
+    },
+  };
 
   _renderItem = ({ item, index }) => {
     let height = item.border == "none" ? 0 : 1;
@@ -187,7 +187,7 @@ class ProfileScreen extends Component {
       let value = await functions.getDataUser();
 
       value = JSON.parse(value);
-  
+
       name = value.data.name;
 
       this.setState({ name: name });
@@ -198,111 +198,114 @@ class ProfileScreen extends Component {
 
   render() {
     return (
-      <ScrollView>
-        <Background sourse="true" start="1">
-          {/* Toolbar */}
-          <CustomToolbar2 name={this.state.name} component={this} />
-          {/* END */}
-          <View
-            style={[
-              styles.homeBody,
-              styles.padding,
-              styles.marginTop10,
-              { borderTopRightRadius: 0, borderTopLeftRadius: 0 },
-            ]}
-          >
-            {/* MONEY */}
+      <View style={{ flex: 1 }}>
+        <ScrollView>
+          <Background sourse="true" start="1">
+            {/* Toolbar */}
+            <CustomToolbar2 name={this.state.name} component={this} />
+            {/* END */}
             <View
               style={[
-                styles.address,
-                styles.bgWhite,
+                styles.homeBody,
                 styles.padding,
-                styles.borderNormal,
-                styles.marginBottom20,
-                {
-                  borderColor: "#3187EA",
-                  borderWidth: 1,
-                  justifyContent: "flex-start",
-                  alignItems: "flex-start",
-                },
+                styles.marginTop10,
+                { borderTopRightRadius: 0, borderTopLeftRadius: 0 },
               ]}
             >
-              <View>
-                <Text style={styles.paymentText2}>Tiền có sẵn</Text>
-                <Text style={(styles.marginTop5, styles.waletText1)}>{this.state.userDetail.Balance} ¥</Text>
-              </View>
-              <View style={{ marginLeft: 50 }}>
-                <View style={styles.flexRowStart}>
-                  <Text style={styles.paymentText2}>Tiền giữ</Text>
-                  <Tooltip popover={<Text>Info here</Text>}>
-                    <Image
-                      source={image4}
-                      style={{ marginTop: 2, marginLeft: 10 }}
-                    />
-                  </Tooltip>
+              {/* MONEY */}
+              <View
+                style={[
+                  styles.address,
+                  styles.bgWhite,
+                  styles.padding,
+                  styles.borderNormal,
+                  styles.marginBottom20,
+                  {
+                    borderColor: "#3187EA",
+                    borderWidth: 1,
+                    justifyContent: "flex-start",
+                    alignItems: "flex-start",
+                  },
+                ]}
+              >
+                <View>
+                  <Text style={styles.paymentText2}>Tiền có sẵn</Text>
+                  <Text style={(styles.marginTop5, styles.waletText1)}>
+                    {this.state.userDetail.Balance} ¥
+                  </Text>
                 </View>
+                <View style={{ marginLeft: 50 }}>
+                  <View style={styles.flexRowStart}>
+                    <Text style={styles.paymentText2}>Tiền giữ</Text>
+                    <Tooltip popover={<Text>Info here</Text>}>
+                      <Image
+                        source={image4}
+                        style={{ marginTop: 2, marginLeft: 10 }}
+                      />
+                    </Tooltip>
+                  </View>
 
-                <Text style={(styles.marginTop5, styles.waletText1)}>{this.state.userDetail.Hold} ¥</Text>
+                  <Text style={(styles.marginTop5, styles.waletText1)}>
+                    {this.state.userDetail.Hold} ¥
+                  </Text>
+                </View>
               </View>
+              {/* END MONEY */}
+              <Text style={styles.paymentText6}>
+                Số tiền này là một ước tính dựa trên tỷ lệ chuyển đổi tiền tệ
+                gần đây nhất.
+              </Text>
+              <Collapse
+                title="Hoạt động của tôi"
+                data={data1}
+                renderItem={this._renderItem}
+                col={1}
+              />
+
+              <Collapse
+                title="Quản lý mua bán"
+                data={data2}
+                renderItem={this._renderItem}
+                col={1}
+              />
+
+              <Collapse
+                title="Hỗ trợ khách hàng"
+                data={data3}
+                renderItem={this._renderItem}
+                col={1}
+              />
+
+              <Collapse
+                title="Về chúng tôi"
+                data={data4}
+                renderItem={this._renderItem}
+                col={1}
+              />
+
+              <TouchableOpacity
+                onPress={() => functions.logout(this)}
+                style={[
+                  styles.button,
+                  {
+                    backgroundColor: "white",
+                    marginTop: 20,
+                    borderColor: "#D63F5C",
+                    borderWidth: 1,
+                  },
+                ]}
+              >
+                <Text style={{ color: "#D63F5C" }}>Đăng xuất</Text>
+              </TouchableOpacity>
             </View>
-            {/* END MONEY */}
-            <Text style={styles.paymentText6}>
-              Số tiền này là một ước tính dựa trên tỷ lệ chuyển đổi tiền tệ gần
-              đây nhất.
-            </Text>
-            <Collapse
-              title="Hoạt động của tôi"
-              data={data1}
-              renderItem={this._renderItem}
-              col={1}
-            />
-
-            <Collapse
-              title="Quản lý mua bán"
-              data={data2}
-              renderItem={this._renderItem}
-              col={1}
-            />
-
-            <Collapse
-              title="Hỗ trợ khách hàng"
-              data={data3}
-              renderItem={this._renderItem}
-              col={1}
-            />
-
-            <Collapse
-              title="Về chúng tôi"
-              data={data4}
-              renderItem={this._renderItem}
-              col={1}
-            />
-
-            <TouchableOpacity
-              onPress={() =>
-                functions.logout(this)
-              }
-              style={[
-                styles.button,
-                {
-                  backgroundColor: "white",
-                  marginTop: 20,
-                  borderColor: "#D63F5C",
-                  borderWidth: 1,
-                },
-              ]}
-            >
-              <Text style={{ color: "#D63F5C" }}>Đăng xuất</Text>
-            </TouchableOpacity>
-
-            <View style={styles.bottom}>
-              {/* Bottom */}
-              <IconBottom component={this} />
-              {/* END */}
-            </View>
-          </View>
-        </Background>
-      </ScrollView>
+          </Background>
+        </ScrollView>
+        <View style={[styles.bottom, { marginTop: 0 }]}>
+          {/* Bottom */}
+          <IconBottom component={this} />
+          {/* END */}
+        </View>
+      </View>
     );
   }
 }
