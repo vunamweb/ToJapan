@@ -52,6 +52,8 @@ class ProductDaugiaScreen extends Component {
     },
     productSimilar1: [],
     productSimilar2: [],
+    activeAuction: false,
+    ActivityIndicator: false
   };
 
   _renderItem = ({ item, index }) => {
@@ -418,7 +420,7 @@ class ProductDaugiaScreen extends Component {
                   </Text>
                   <Text style={styles.money3}>10.000 Point</Text>
                 </View>
-                <Switch />
+                <Switch value={this.state.activeAuction} onValueChange={() => functions.activeAuction(this) } />
               </View>
               {/* BUTTON 1 */}
               <TouchableOpacity

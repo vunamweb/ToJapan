@@ -198,7 +198,7 @@ class Functions {
   gotoScreenProduct = (cat, id, navigation, screen) => {
     if(cat == 'yahoo_auction')
       screen  = 'ProductDaugiaScreen';
-      
+
     navigation.navigate(screen, {
       cat: cat,
       id: id,
@@ -507,6 +507,25 @@ class Functions {
     component.gotoTop();
 
     network.fetchPOST(url, body, callback);
+  };
+
+  activeAuction = async (component) => {
+    let url = global.urlRoot + global.urlAuction;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+    body.active = true;
+    body = JSON.stringify(body);
+
+    callback = (responseData) => {
+      component.setState({ activeAuction: true, ActivityIndicator: false });
+    };
+
+    component.setState({ ActivityIndicator: true });
+    network.fetchPOST_HEADER(url, body, token, callback);
   };
 
   updateUser = (data, component) => {
