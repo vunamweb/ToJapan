@@ -65,6 +65,8 @@ class AuctionScreen extends Component {
   state = {
     visible: false,
     visibleGTGT: false,
+    visibleAlert: false,
+    type: null,
     listAddress: {
       data: [
         {
@@ -213,6 +215,15 @@ class AuctionScreen extends Component {
     clearInterval(this.state.intervalId);
   }
 
+  addBid = (product) => {
+     var money = this.state.money;
+
+     if(money < product.price)
+      this.setState({ type: 1, visibleAlert: true });
+     else 
+      functions.addBid(product, this);
+  }
+
   getProduct = () => {
     var product = this.props.navigation.state.params.itemId;
     product = JSON.parse(product);
@@ -254,10 +265,78 @@ class AuctionScreen extends Component {
       />
     );
 
-    return (
+    var type = this.state.type;
+    var messageAlert, style;
+
+    if(type == 1) {
+      messageAlert = (<Text style={[{ textAlign: 'center', marginTop: 20 }, styles.error]}>{global.actionPriceWrongAuction}</Text>);
+    } else if(type == 2) {
+      messageAlert = (<Text style={[{ textAlign: 'center', marginTop: 20 }, styles.error]}>{global.actionFaildAuction}</Text>);
+    } else {
+      messageAlert = (<Text style={[{ textAlign: 'center', marginTop: 20 }, styles.success]}>{global.actionSuccessAuction}</Text>);
+    }
+      
+return (
       <Provider>
         <ScrollView>
           <Portal>
+
+          <Modal
+              visible={this.state.visibleAlert}
+              contentContainerStyle={styles.shortModal}
+            >
+
+              {/* Body */}
+              <View style={{ backgroundColor: "white" }}>
+                <View>
+                  <View style={{ height: 1, backgroundColor: "#cccccc" }} />
+                   {messageAlert}
+                  <View
+                    style={[
+                      {
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                      },
+                      styles.padding,
+                    ]}
+                  >
+                    {/* Button huy */}
+                    <TouchableOpacity
+                      style={[
+                        styles.buttonNotFull,
+                        {
+                          backgroundColor: "white",
+                          marginTop: 0,
+                          borderColor: "#3187EA",
+                          borderWidth: 1,
+                          paddingHorizontal: 30,
+                        },
+                      ]}
+                      onPress={() => this.setState({ visibleAlert: false })}
+                    >
+                      <Text style={{ color: "#3187EA" }}>Đấu giá lại</Text>
+                    </TouchableOpacity>
+                    {/* END */}
+                    {/* Button ap dung */}
+                    <TouchableOpacity
+                      style={[
+                        styles.buttonNotFull,
+                        { backgroundColor: "#3187EA", marginTop: 0, paddingHorizontal: 30, },
+                      ]}
+                      onPress={() => functions.gotoScreen(this.props.navigation, "ManagerAuctionScreen")}
+                    >
+                      <Text style={{ color: "white" }}>Quản lý đấu giá</Text>
+                    </TouchableOpacity>
+                    {/* END */}
+                  </View>
+                </View>
+              </View>
+              {/* END */}
+            </Modal>
+
+
+
+
             {/* Modal short */}
             <Modal
               visible={this.state.visibleGTGT}
@@ -465,7 +544,7 @@ class AuctionScreen extends Component {
                           borderWidth: 1,
                         },
                       ]}
-                      onPress={null}
+                      onPress={() => this.setState({ visibleAlert: false })}
                     >
                       <Text style={{ color: "#3187EA" }}>Huỷ bỏ</Text>
                     </TouchableOpacity>
@@ -478,7 +557,7 @@ class AuctionScreen extends Component {
                       ]}
                       onPress={null}
                     >
-                      <Text style={{ color: "white" }}>Áp dụng</Text>
+                      <Text style={{ color: "white" }}>Quản lý đấu giá</Text>
                     </TouchableOpacity>
                     {/* END */}
                   </View>
@@ -574,7 +653,7 @@ class AuctionScreen extends Component {
                       styles.marginBottom20,
                     ]}
                   >
-                    <Text>
+                    <Text style={styles.money2}>
                       {day}d: {hours}h : {minutes}m : {seconds}s
                     </Text>
                   </View>
@@ -873,7 +952,7 @@ class AuctionScreen extends Component {
                     styles.button,
                     { backgroundColor: "#3187EA", marginTop: 0 },
                   ]}
-                  onPress={() => functions.addBid(product, this)}
+                  onPress={() => this.addBid(product)}
                 >
                   <Text style={{ color: "white" }}>Đấu giá</Text>
                 </TouchableOpacity>

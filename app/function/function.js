@@ -1062,7 +1062,10 @@ class Functions {
     data = JSON.stringify(body);
 
     callback = (responseData) => {
-      functions.gotoScreen(component.props.navigation, "ManagerAuctionScreen");
+      if(!responseData.success) 
+      component.setState({ type: 2, visibleAlert: true, ActivityIndicator1: false });
+       else 
+       component.setState({ type: 3, visibleAlert: true, ActivityIndicator1: false }); 
     };
 
     component.setState({ ActivityIndicator1: true });

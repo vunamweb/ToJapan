@@ -18,6 +18,9 @@ global.confirmPassword = "Vui lòng xác nhận password"
 global.wrongPassword = "Xác nhận password sai"
 global.phoneEmpty = "Vui lòng nhập phone"
 global.idEmpty = "Vui lòng nhập ID"
+global.actionFaildAuction = "Bạn đã đấu giá thất bại, vui lòng nhập lại giá"
+global.actionSuccessAuction = "Chúc mừng bạn, bạn đã đấu giá thành công"
+global.actionPriceWrongAuction = "Giá đấu của bạn nhỏ hơn giá hiện tại, vui lòng nhập lại giá"
 // URL
 global.urlRoot = 'https://mobile.tojapan.jp';
 global.urlData = 'https://statics.tomexpress.jp/';
