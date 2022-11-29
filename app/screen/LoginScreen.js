@@ -30,10 +30,10 @@ class LoginScreen extends Component {
 
   componentDidMount() {
     //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
-    this.retrieveDataPersonal();
+    //this.retrieveDataPersonal();
   }
 
-  retrieveDataPersonal = async () => {
+  /*retrieveDataPersonal = async () => {
     try {
       let value = await AsyncStorage.getItem("dataPersonal");
 
@@ -42,7 +42,7 @@ class LoginScreen extends Component {
     } catch (error) {
       return null;
     }
-  };
+  };*/
 
   static navigationOptions = ({ navigation }) => ({
     title: "",
