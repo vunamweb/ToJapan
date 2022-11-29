@@ -19,6 +19,7 @@ export default class App extends React.Component {
         sliderWidth={Dimensions.get('window').width}
         {...this.props}
         onSnapToItem={(index) => this.setState({ activeIndex: index })}
+        inactiveSlideOpacity={1}
       />
     );
   }

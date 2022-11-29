@@ -169,17 +169,17 @@ class CategoryScreen extends Component {
               <View style={{ padding: 0 }}>
                 <Image
                   style={{ width: "100%", height: 128, marginTop: 10}}
-                  source={{ uri: item.image }}
+                  source={{ uri: (item.Image != undefined ? item.Image : item.image) }}
                 />
                 <TouchableOpacity
                   style={{ position: "absolute", top: -5, right: 5 }}
                   onPress={() =>
-                    this.addRemoveFavorite(item.code)
+                    this.addRemoveFavorite((item.code != undefined ? item.code : item.ID))
                   }
                 >
                   <View>
                   {
-                    (this.checkFavorite(item.code)) ? <IconFontAwesome name="heart" size={15} color="#3187EA" /> : <IconFontAwesome name="heart" size={15} color="#ccc" /> 
+                    (this.checkFavorite((item.code != undefined ? item.code : item.ID))) ? <IconFontAwesome name="heart" size={15} color="#3187EA" /> : <IconFontAwesome name="heart" size={15} color="#ccc" /> 
                   }
                   </View>
                 </TouchableOpacity>
@@ -190,20 +190,20 @@ class CategoryScreen extends Component {
                     onPress={() =>
                       functions.gotoScreenProduct(
                         this.props.navigation.state.params.itemId,
-                        item.code,
+                        (item.code != undefined ? item.code : item.ID),
                         this.props.navigation,
                         "ProductScreen"
                       )
                     }
                   >
                     <Text style={{ color: "#23262F", fontSize: 16 }}>
-                      {item.title.substr(0, 15)}
+                    {(item.title != undefined ? item.title.substr(0, 15) : item.Title.substr(0, 15))}
                     </Text>
                   </TouchableOpacity>
                   <Text
                     style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}
                   >
-                    Từ {this.state.shop}
+                    Từ {this.props.navigation.state.params.itemId}
                   </Text>
                   <Rating
                     imageSize={15}
@@ -219,10 +219,10 @@ class CategoryScreen extends Component {
                   >
                     <View>
                       <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                        {item.price} ¥
+                      {item.price != undefined ? item.price : item.Price} ¥
                       </Text>
                       <Text style={{ fontSize: 12, color: "#777E90" }}>
-                        {item.priceVN} VND
+                      {(item.priceVN != undefined ? item.priceVN : item.PriceVN)} VND
                       </Text>
                     </View>
                     <Image source={image2} />
@@ -248,7 +248,7 @@ class CategoryScreen extends Component {
               <View style={{ padding: 0 }}>
                 <Image
                   style={{ width: "100%", height: 128, marginTop: 10 }}
-                  source={{ uri: item.image }}
+                  source={{ uri: (item.Image != undefined ? item.Image : item.image) }}
                 />
                 <TouchableOpacity
                   style={{ position: "absolute", top: -5, right: 5 }}
@@ -269,20 +269,20 @@ class CategoryScreen extends Component {
                     onPress={() =>
                       functions.gotoScreenProduct(
                         this.props.navigation.state.params.itemId,
-                        item.code,
+                        (item.code != undefined ? item.code : item.ID),
                         this.props.navigation,
                         "ProductScreen"
                       )
                     }
                   >
                     <Text style={{ color: "#23262F", fontSize: 16 }}>
-                      {item.title.substr(0, 15)}
+                    {(item.title != undefined ? item.title.substr(0, 15) : item.Title.substr(0, 15))}
                     </Text>
                   </TouchableOpacity>
                   <Text
                     style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}
                   >
-                    Từ {this.state.shop}
+                    Từ {this.props.navigation.state.params.itemId}
                   </Text>
                   <Rating
                     imageSize={15}
@@ -298,10 +298,10 @@ class CategoryScreen extends Component {
                   >
                     <View>
                       <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                        {item.price} ¥
+                        {item.price != undefined ? item.price : item.Price} ¥
                       </Text>
                       <Text style={{ fontSize: 12, color: "#777E90" }}>
-                        {item.priceVN} VND
+                      {(item.priceVN != undefined ? item.priceVN : item.PriceVN)} VND
                       </Text>
                     </View>
                     <Image source={image2} />
