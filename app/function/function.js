@@ -196,6 +196,9 @@ class Functions {
   };
 
   gotoScreenProduct = (cat, id, navigation, screen) => {
+    if(cat == 'yahoo_auction')
+      screen  = 'ProductDaugiaScreen';
+      
     navigation.navigate(screen, {
       cat: cat,
       id: id,

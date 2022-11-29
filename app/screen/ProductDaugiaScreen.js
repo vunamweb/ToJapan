@@ -8,6 +8,7 @@ import {
   ScrollView,
   LogBox,
   Dimensions,
+  ActivityIndicator
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
 import { Text, Switch } from "react-native-paper";
@@ -37,11 +38,20 @@ const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
 const image3 = require("../../app/assets/ship.png");
 
+var component;
+
 class ProductDaugiaScreen extends Component {
   state = {
     order: false,
     currentCount: 0,
     intervalId: null,
+    product: {
+      images: [],
+      buy_now: null,
+      description: ''
+    },
+    productSimilar1: [],
+    productSimilar2: [],
   };
 
   _renderItem = ({ item, index }) => {
@@ -113,12 +123,7 @@ class ProductDaugiaScreen extends Component {
     return (
       <TouchableOpacity
         onPress={() =>
-          functions.gotoScreenProduct(
-            component.props.navigation.state.params.cat,
-            component.props.navigation.state.params.id,
-            component.props.navigation,
-            "ProductScreen"
-          )
+          component.showSimilarProduct(item.ID)
         }
       >
         <View style={{ padding: 15, width: "100%" }}>
@@ -173,6 +178,13 @@ class ProductDaugiaScreen extends Component {
     var intervalId = setInterval(this.time, 1000);
     this.setState({ intervalId: intervalId });
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+
+    component = this;
+
+    var cat = this.props.navigation.state.params.cat;
+    var id = this.props.navigation.state.params.id;
+
+    functions.getProduct(this, cat, id);
   }
 
   componentWillUnmount() {
@@ -193,10 +205,23 @@ class ProductDaugiaScreen extends Component {
   };
 
   getProduct = () => {
-    var product = this.props.navigation.state.params.itemId;
-    product = JSON.parse(product);
+    var product = this.state.product;
 
     return product;
+  };
+
+  showSimilarProduct = (id) => {
+    
+    functions.getProduct(this, this.props.navigation.state.params.cat, id);
+
+    this.gotoTop();
+  }
+
+  gotoTop = () => {
+    this.refs._scrollView.scrollTo({
+      y: 0,
+      animated: true,
+    });
   };
 
   render() {
@@ -224,8 +249,32 @@ class ProductDaugiaScreen extends Component {
     var minutes = date.getMinutes();
     var seconds = date.getSeconds();
 
+    var productSimilar =
+      this.state.product.description != undefined ? (
+        <View>
+          <Header1>Sản phẩm Tương tự</Header1>
+          {/* Slider Product */}
+          <Carousel
+            data={this.state.productSimilar1}
+            renderItem={this._renderItem_3}
+            top={0}
+            itemWidth={Dimensions.get("window").width / 2}
+            loop={true}
+          />
+          <Carousel
+            data={this.state.productSimilar2}
+            renderItem={this._renderItem_3}
+            top={0}
+            itemWidth={Dimensions.get("window").width / 2}
+            loop={true}
+          />
+        </View>
+      ) : (
+        <View />
+      );
+
     return (
-      <ScrollView>
+      <ScrollView ref="_scrollView">
         <Background start="1" full="1">
           {/* Toolbar */}
           <View style={styles.fullWith}>
@@ -237,6 +286,10 @@ class ProductDaugiaScreen extends Component {
           </View>
           {/* END */}
           <View style={[styles.homeBody, { marginTop: -40 }]}>
+          <ActivityIndicator
+                size="large"
+                animating={this.state.ActivityIndicator}
+              />
             <View style={styles.homeContent}>
               <Text
                 style={[
@@ -527,6 +580,7 @@ class ProductDaugiaScreen extends Component {
                 </Text>
               </View>
               {/* END mô tả san pham */}
+              {productSimilar}
             </View>
           </View>
         </Background>
