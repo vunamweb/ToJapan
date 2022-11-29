@@ -30,6 +30,7 @@ class RegisterScreen extends Component {
     colorBorderID: '#E6E8EC',
     colorBorderPassWord: '#E6E8EC',
     colorBorderConfirmPassWord: '#E6E8EC',
+    secureTextEntry: true
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -44,10 +45,7 @@ class RegisterScreen extends Component {
   };
 
   onClickEye = () => {
-    this.refs._scrollView.scrollTo({
-      y: 0,
-      animated: true,
-    });
+    this.setState({ secureTextEntry: !this.state.secureTextEntry });
   };
 
   render() {
@@ -130,7 +128,7 @@ class RegisterScreen extends Component {
           <Text style={styles.mandatoryColor}>*</Text>
         </View>
         <TextInput
-          secureTextEntry
+          secureTextEntry={this.state.secureTextEntry}
           title="Mật khẩu *"
           label="Nhập mật khẩu"
           onChangeText={(value) => this.setState({passWord: value})}
@@ -139,6 +137,7 @@ class RegisterScreen extends Component {
           returnKeyType="next"
           leftIcon="lock-outline"
           rightIcon="eye-outline"
+          component={this}
           styleParent={{borderColor: this.state.colorBorderPassWord, backgroundColor: 'white'}}
         />
         <View style={[styles.titleTextinput, styles.textGeneral]}>
@@ -146,7 +145,7 @@ class RegisterScreen extends Component {
           <Text style={styles.mandatoryColor}>*</Text>
         </View>
         <TextInput
-          secureTextEntry
+          secureTextEntry={this.state.secureTextEntry}
           title="Nhập lại Mật khẩu *"
           label="Nhập lại mật khẩu"
           onChangeText={(value) => this.setState({confirmPassword: value})}
@@ -154,6 +153,7 @@ class RegisterScreen extends Component {
           returnKeyType="next"
           leftIcon="lock-outline"
           rightIcon="eye-outline"
+          component={this}
           styleParent={{borderColor: this.state.colorBorderConfirmPassWord, backgroundColor: 'white'}}
         />
         <TouchableOpacity

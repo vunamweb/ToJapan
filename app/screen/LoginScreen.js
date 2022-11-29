@@ -25,6 +25,7 @@ class LoginScreen extends Component {
     colorBorderPassWord: '#E6E8EC',
     errorMessage: '',
     ActivityIndicator: false,
+    secureTextEntry: true
   };
 
   componentDidMount() {
@@ -46,6 +47,10 @@ class LoginScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "",
   });
+
+  onClickEye = () => {
+    this.setState({ secureTextEntry: !this.state.secureTextEntry });
+  };
 
   render() {
     return (
@@ -71,7 +76,7 @@ class LoginScreen extends Component {
           <Text style={styles.mandatoryColor}>*</Text>
         </View>
         <TextInput
-          secureTextEntry
+          secureTextEntry={this.state.secureTextEntry}
           title="Mật khẩu *"
           label="Nhập mật khẩu"
           onChangeText={(value) => this.setState({passWord: value})}
@@ -79,6 +84,7 @@ class LoginScreen extends Component {
           returnKeyType="next"
           leftIcon="lock-outline"
           rightIcon="eye-outline"
+          component={this}
           styleParent={{borderColor: this.state.colorBorderPassWord, backgroundColor: 'white'}}
         />
         <View style={styles.remember}>
