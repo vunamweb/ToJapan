@@ -13,10 +13,16 @@ global.noBuyNow = "Hiện giờ chưa có"
 global.TextAuction1 = "Khi bạn đặt giá thầu, điều đó có nghĩa bạn cam kết mua mặthàng này nếu bạn là ngườii thắng thầu"
 global.seller = "Người bán"
 global.informationSeller = "xem link để biết chi tiết"
+global.nameEmpty = "Vui lòng nhập tên"
+global.confirmPassword = "Vui lòng xác nhận password"
+global.wrongPassword = "Xác nhận password sai"
+global.phoneEmpty = "Vui lòng nhập phone"
+global.idEmpty = "Vui lòng nhập ID"
 // URL
 global.urlRoot = 'https://mobile.tojapan.jp';
 global.urlData = 'https://statics.tomexpress.jp/';
 global.urlLogin = '/login';
+global.urlRegistration = '/register';
 global.urlUpdateUser = '/user/update'
 global.urlChangePassword = '/user/password'
 global.urlAddAdress = '/user/address'

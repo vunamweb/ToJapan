@@ -406,6 +406,106 @@ class Functions {
     network.fetchPOST(url, body, callback);
   };
 
+  register = (name, passWord, confirmPassword, phone, email, ID, component) => {
+    let url = global.urlRoot + global.urlRegistration;
+
+    let body = {};
+    body.Username = ID;
+    body.Password = passWord;
+    body.Email = email;
+    body.Name = name;
+    body.Phone = phone;
+    body = JSON.stringify(body);
+
+    var callback = (responseData) => {
+      component.setState({ ActivityIndicator: false });
+      functions.gotoScreen(component.props.navigation, "ConfirmScreen");
+    };
+
+    if (email == "") {
+      component.setState({ colorBorderEmail: "red" });
+      component.setState({ errorMessage: global.emailEmpty });
+
+      component.gotoTop();
+      return;
+    } else if (!this.validateEmail(email)) {
+      component.setState({ colorBorderEmail: "red" });
+      component.setState({ errorMessage: global.emailNotCorrect });
+
+      component.gotoTop();
+      return;
+    } else {
+      component.setState({ colorBorderEmail: "#E6E8EC" });
+      component.setState({ errorMessage: "" });
+    }
+
+    if (name == "") {
+      component.setState({ colorBorderName: "red" });
+      component.setState({ errorMessage: global.nameEmpty });
+
+      component.gotoTop();
+      return;
+    } else {
+      component.setState({ colorBorderName: "#E6E8EC" });
+      component.setState({ errorMessage: "" });
+    }
+
+    if (phone == "") {
+      component.setState({ colorBorderPhone: "red" });
+      component.setState({ errorMessage: global.phoneEmpty });
+
+      component.gotoTop();
+      return;
+    } else {
+      component.setState({ colorBorderPhone: "#E6E8EC" });
+      component.setState({ errorMessage: "" });
+    }
+
+    if (ID == "") {
+      component.setState({ colorBorderID: "red" });
+      component.setState({ errorMessage: global.idEmpty });
+      return;
+    } else {
+      component.setState({ colorBorderid: "#E6E8EC" });
+      component.setState({ errorMessage: "" });
+    }
+
+    if (passWord == "") {
+      component.setState({ colorBorderPassWord: "red" });
+      component.setState({ errorMessage: global.passWordEmpty });
+
+      component.gotoTop();
+      return;
+    } else {
+      component.setState({ colorBorderPassWord: "#E6E8EC" });
+      component.setState({ errorMessage: "" });
+    }
+
+    if (confirmPassword == "") {
+      component.setState({ colorBorderConfirmPassWord: "red" });
+      component.setState({ errorMessage: global.confirmPassword });
+
+      component.gotoTop();
+      return;
+    } else if(confirmPassword != passWord) {
+      component.setState({ colorBorderConfirmPassWord: "red" });
+      component.setState({ errorMessage: global.wrongPassword });
+
+      component.gotoTop();
+      return;
+    }
+    else
+     {
+      component.setState({ colorBorderConfirmPassWord: "#E6E8EC" });
+      component.setState({ errorMessage: "" });
+    }
+
+    component.setState({ ActivityIndicator: true });
+    component.gotoTop();
+
+    network.fetchPOST(url, body, callback);
+  };
+
   updateUser = (data, component) => {
     let url = global.urlRoot + global.urlUpdateUser;
     let token = data.token;

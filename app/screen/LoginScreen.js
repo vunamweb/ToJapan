@@ -43,6 +43,10 @@ class LoginScreen extends Component {
     }
   };
 
+  static navigationOptions = ({ navigation }) => ({
+    title: "",
+  });
+
   render() {
     return (
       <Background center="true">
