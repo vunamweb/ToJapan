@@ -93,6 +93,8 @@ class HomeScreen extends Component {
     dataProductSlider: [],
     dataBanner: [],
     dataPopularBranch: [],
+    cart: [],
+    countCart: 0,
     ListFavorite: [],
     ActivityIndicator1: true,
     ActivityIndicator2: true,
@@ -277,7 +279,11 @@ class HomeScreen extends Component {
                         {item.priceVN} VND
                       </Text>
                     </View>
+                    <TouchableOpacity
+                    onPress={ () => this.addProduct(item, this.state.shop)}
+                    >
                     <Image source={image2} />
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>
@@ -356,7 +362,11 @@ class HomeScreen extends Component {
                         {item.priceVN} VND
                       </Text>
                     </View>
+                    <TouchableOpacity
+                    onPress={ () => this.addProduct(item, this.state.shop)}
+                    >
                     <Image source={image2} />
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>
@@ -404,8 +414,37 @@ class HomeScreen extends Component {
     functions.getPoplularBranch(this);
     functions.getListPopularProduct(this, "mercari");
     functions.getListFavorite(this);
+
+    this.setCart();
     //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
   }
+
+  setCart = async () => {
+    var cart = await functions.getCart();
+
+    this.setState({ cart: JSON.parse(cart), ActivityIndicator: false });
+  };
+
+  addProduct = async (product, cat) => {
+    await functions.addCart(
+      product,
+      cat,
+      this
+    );
+
+    /*this.setState({
+      order: true,
+    });*/
+
+    this.gotoTop();
+  };
+
+  gotoTop = () => {
+    this.refs._scrollView.scrollTo({
+      y: 0,
+      animated: true,
+    });
+  };
 
   render() {
     var View1 = <View />;
@@ -418,7 +457,7 @@ class HomeScreen extends Component {
 
     return (
       <View style={{flex: 1}}>
-      <ScrollView>
+      <ScrollView ref="_scrollView">
         <BackgroundHome sourse="true" start="1">
           {/* Toolbar */}
           <CustomToolbar component={this} />
