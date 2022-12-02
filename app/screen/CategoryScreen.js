@@ -218,11 +218,11 @@ class CategoryScreen extends Component {
                     }}
                   >
                     <View>
-                      <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                      {item.price != undefined ? item.price : item.Price} ¥
+                      <Text style={[{ color: "#D63F5C", fontSize: 16 }, styles.fontBold]}>
+                      {item.price != undefined ? functions.convertMoney(item.price) : functions.convertMoney(item.Price)} ¥
                       </Text>
                       <Text style={{ fontSize: 12, color: "#777E90" }}>
-                      {(item.priceVN != undefined ? item.priceVN : item.PriceVN)} VND
+                      {(item.priceVN != undefined ? functions.convertMoney(item.priceVN) : functions.convertMoney(item.PriceVN))} VND
                       </Text>
                     </View>
                     <Image source={image2} />
@@ -297,11 +297,11 @@ class CategoryScreen extends Component {
                     }}
                   >
                     <View>
-                      <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                        {item.price != undefined ? item.price : item.Price} ¥
+                    <Text style={[{ color: "#D63F5C", fontSize: 16 }, styles.fontBold]}>
+                        {item.price != undefined ? functions.convertMoney(item.price) : functions.convertMoney(item.Price)} ¥
                       </Text>
                       <Text style={{ fontSize: 12, color: "#777E90" }}>
-                      {(item.priceVN != undefined ? item.priceVN : item.PriceVN)} VND
+                      {(item.priceVN != undefined ? functions.convertMoney(item.priceVN) : functions.convertMoney(item.PriceVN))} VND
                       </Text>
                     </View>
                     <Image source={image2} />

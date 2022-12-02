@@ -357,7 +357,7 @@ class AddMoneyScreen extends Component {
                 fontWeight: "700",
               }}
             >
-              {this.state.money} ¥
+              { functions.convertMoney(this.state.money) } ¥
             </Text>
           </View>
           {/* end */}

@@ -709,7 +709,7 @@ class ProductScreen extends Component {
                   <View style={{ flexDirection: "row" }}>
                     <Text style={{ color: "#D63F5C", fontSize: 22 }}>
                       {this.state.product.price != undefined
-                        ? this.state.product.price
+                        ? functions.convertMoney(this.state.product.price)
                         : this.state.product.Price}{" "}
                       ¥
                     </Text>
@@ -722,7 +722,7 @@ class ProductScreen extends Component {
                       }}
                     >
                       {this.state.product.priceVN != undefined
-                        ? this.state.product.priceVN
+                        ? functions.convertMoney(this.state.product.priceVN)
                         : this.state.product.PriceVN}{" "}
                       đ
                     </Text>

@@ -111,7 +111,7 @@ class WaletScreen extends Component {
                 <View>
                   <Text style={styles.paymentText2}>Tiền có sẵn</Text>
                   <Text style={(styles.marginTop5, styles.waletText1)}>
-                    {moneyJYP} ¥
+                    { functions.convertMoney(moneyJYP) } ¥
                   </Text>
                 </View>
                 <View style={{ marginLeft: 50 }}>
@@ -126,7 +126,7 @@ class WaletScreen extends Component {
                   </View>
 
                   <Text style={(styles.marginTop5, styles.waletText1)}>
-                    {moneyJYPHOLD} ¥
+                    { functions.convertMoney(moneyJYPHOLD) } ¥
                   </Text>
                 </View>
               </View>
@@ -188,7 +188,7 @@ class WaletScreen extends Component {
                   <View>
                     <Text style={styles.paymentText2}>Tiền có sẵn</Text>
                     <Text style={(styles.marginTop5, styles.waletText1)}>
-                      {moneyJYP} ¥
+                      { functions.convertMoney(moneyJYP) } ¥
                     </Text>
                     <Text style={styles.paymentText2}>
                       Quy đổi
@@ -209,7 +209,7 @@ class WaletScreen extends Component {
                     </View>
 
                     <Text style={(styles.marginTop5, styles.waletText1)}>
-                      {moneyJYPHOLD} ¥
+                      { functions.convertMoney(moneyJYPHOLD) } ¥
                     </Text>
                     <Text style={styles.paymentText2}>
                       Quy đổi
@@ -308,7 +308,7 @@ class WaletScreen extends Component {
                   <View>
                     <Text style={styles.paymentText2}>Tiền có sẵn</Text>
                     <Text style={(styles.marginTop5, styles.waletText1)}>
-                      {moneyVN} ¥
+                      { functions.convertMoney(moneyVN) } ¥
                     </Text>
                     <Text style={styles.paymentText2}>
                       Quy đổi

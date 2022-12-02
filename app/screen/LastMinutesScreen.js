@@ -873,7 +873,7 @@ class AuctionScreen extends Component {
               >
                 <View style={[styles.seach, { marginTop: 0 }]}>
                   <Text style={styles.money1}>Tổng tiền sản phẩm</Text>
-                  <Text style={styles.money2}>{this.state.money} ¥</Text>
+                  <Text style={styles.money2}>{ functions.convertMoney(this.state.money) } ¥</Text>
                 </View>
                 <View style={[styles.seach, styles.marginTop10]}>
                   <Text style={styles.money1}>Tiền thuế</Text>
@@ -913,7 +913,7 @@ class AuctionScreen extends Component {
                         { color: "#D63F5C" },
                       ]}
                     >
-                      {this.state.money} ¥
+                      { functions.convertMoney(this.state.money) } ¥
                     </Text>
                   </View>
                 </View>

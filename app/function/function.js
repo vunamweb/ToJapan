@@ -1362,6 +1362,15 @@ class Functions {
 
     functions.gotoScreen(component.props.navigation, "LoginScreen");
   };
+
+  convertMoney = (number) => {
+    var number=  number.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    number = number.replace('$', '');
+    number = number.replace('.00', '');
+
+    return number;
+    
+  }
 }
 
 const functions = new Functions();

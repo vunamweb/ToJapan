@@ -157,10 +157,10 @@ class CartScreen extends Component {
             >
               <View>
                 <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                  {item.Price} ¥
+                  { functions.convertMoney(item.Price) } ¥
                 </Text>
                 <Text style={{ fontSize: 12, color: "#777E90" }}>
-                  {item.PriceVN} VND
+                  { functions.convertMoney(item.PriceVN) } VND
                 </Text>
               </View>
             </View>
@@ -386,7 +386,7 @@ class CartScreen extends Component {
               ]}
             >
               <Text style={styles.money1}>Tổng phụ</Text>
-              <Text style={styles.money2}>{subTotalJYP} ¥</Text>
+              <Text style={styles.money2}>{ functions.convertMoney(subTotalJYP) } ¥</Text>
             </View>
             {/* END */}
             {/* Money2 */}
@@ -432,10 +432,10 @@ class CartScreen extends Component {
                 <Text
                   style={{ fontSize: 22, color: "#D63F5C", fontWeight: "700" }}
                 >
-                  {totalJYP} ¥
+                  { functions.convertMoney(totalJYP) } ¥
                 </Text>
                 <Text style={{ fontSize: 14, color: "#23262F" }}>
-                  {totalVN} đ
+                  { functions.convertMoney(totalVN) } đ
                 </Text>
               </View>
               {/* end */}

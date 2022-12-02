@@ -220,12 +220,12 @@ class SearchScreen extends Component {
                   >
                     <View>
                       <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                        {item.price} ¥
+                        { functions.convertMoney(item.price) } ¥
                       </Text>
                       <Text style={{ fontSize: 12, color: "#777E90" }}>
                         {item.priceVN != undefined
-                          ? item.priceVN
-                          : item.PriceVN}{" "}
+                          ? functions.convertMoney(item.priceVN)
+                          : functions.convertMoney(item.PriceVN)}{" "}
                         VND
                       </Text>
                     </View>
@@ -293,12 +293,12 @@ class SearchScreen extends Component {
                   >
                     <View>
                       <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                        {item.price} ¥
+                        { functions.convertMoney(item.price) } ¥
                       </Text>
                       <Text style={{ fontSize: 12, color: "#777E90" }}>
                         {item.priceVN != undefined
-                          ? item.priceVN
-                          : item.PriceVN}{" "}
+                          ? functions.convertMoney(item.priceVN)
+                          : functions.convertMoney(item.PriceVN)}{" "}
                         VND
                       </Text>
                     </View>

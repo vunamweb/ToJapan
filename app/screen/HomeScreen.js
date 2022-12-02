@@ -272,11 +272,11 @@ class HomeScreen extends Component {
                     }}
                   >
                     <View>
-                      <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                        {item.price} ¥
+                      <Text style={[{ color: "#D63F5C", fontSize: 16 }, styles.fontBold]}>
+                        { functions.convertMoney(item.price) } ¥
                       </Text>
                       <Text style={{ fontSize: 12, color: "#777E90" }}>
-                        {item.priceVN} VND
+                      { functions.convertMoney(item.priceVN) } VND
                       </Text>
                     </View>
                     <TouchableOpacity
@@ -355,11 +355,11 @@ class HomeScreen extends Component {
                     }}
                   >
                     <View>
-                      <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                        {item.price} ¥
+                    <Text style={[{ color: "#D63F5C", fontSize: 16 }, styles.fontBold]}>
+                      { functions.convertMoney(item.price) } ¥
                       </Text>
                       <Text style={{ fontSize: 12, color: "#777E90" }}>
-                        {item.priceVN} VND
+                        { functions.convertMoney(item.priceVN)} VND
                       </Text>
                     </View>
                     <TouchableOpacity

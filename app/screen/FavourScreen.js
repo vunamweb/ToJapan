@@ -272,10 +272,10 @@ class FavourScreen extends Component {
               ]}
             >
               <Text style={[styles.mangerOderText3, styles.fontBold]}>
-                {item.Price}¥
+                { functions.convertMoney( functions.convertMoney(item.Price) ) }¥
                 <Text style={[styles.containerHeaderText2]}>
                   {" "}
-                  {item.PriceVN} VND
+                  { functions.convertMoney(item.PriceVN) } VND
                 </Text>
               </Text>
             </View>

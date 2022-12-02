@@ -48,7 +48,10 @@ class ProductDaugiaScreen extends Component {
     product: {
       images: [],
       buy_now: null,
-      description: ''
+      description: '',
+      price: 0,
+      priceVN: 0,
+      buy_now: 0
     },
     productSimilar1: [],
     productSimilar2: [],
@@ -161,10 +164,10 @@ class ProductDaugiaScreen extends Component {
               >
                 <View>
                   <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                    {item.Price} ¥
+                    { functions.convertMoney(item.Price) } ¥
                   </Text>
                   <Text style={{ fontSize: 12, color: "#777E90" }}>
-                    {item.Price * 184} VND
+                    { functions.convertMoney(item.Price * 184) } VND
                   </Text>
                 </View>
                 <Image source={image2} />
@@ -347,7 +350,7 @@ class ProductDaugiaScreen extends Component {
 
                 <View style={{ flexDirection: "row" }}>
                   <Text style={{ color: "#D63F5C", fontSize: 22 }}>
-                    {product.price} ¥
+                    { functions.convertMoney(product.price) } ¥
                   </Text>
                   <Text
                     style={{
@@ -357,7 +360,7 @@ class ProductDaugiaScreen extends Component {
                       marginTop: 5,
                     }}
                   >
-                    {product.priceVN} đ
+                    { functions.convertMoney(product.priceVN) } đ
                   </Text>
                 </View>
 
@@ -377,7 +380,7 @@ class ProductDaugiaScreen extends Component {
                 <View style={{ flexDirection: "row" }}>
                   <Text style={{ color: "#D63F5C", fontSize: 22 }}>
                     {product.buy_now > 0
-                      ? product.buy_now + "¥"
+                      ? functions.convertMoney(product.buy_now) + "¥"
                       : global.noBuyNow}
                   </Text>
                   <Text

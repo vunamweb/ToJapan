@@ -234,7 +234,7 @@ class AddressScreen extends Component {
               >
                 <View>
                   <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                    {price} đ
+                    { functions.convertMoney(price) } đ
                   </Text>
                 </View>
               </View>
@@ -797,7 +797,7 @@ return (
               >
                 <View style={[styles.seach, { marginTop: 0 }]}>
                   <Text style={styles.money1}>Tổng tiền sản phẩm</Text>
-                  <Text style={styles.money2}>{subTotalJYP} ¥</Text>
+                  <Text style={styles.money2}>{ functions.convertMoney(subTotalJYP) } ¥</Text>
                 </View>
                 <View style={[styles.seach, styles.marginTop10]}>
                   <Text style={styles.money1}>Tiền thuế</Text>
@@ -837,7 +837,7 @@ return (
                         { color: "#D63F5C" },
                       ]}
                     >
-                      {totalJYP} ¥
+                      { functions.convertMoney(totalJYP) } ¥
                     </Text>
                   </View>
                   <Text style={(styles.paymentText6, styles.marginTop20)}>
@@ -899,10 +899,10 @@ return (
                       fontWeight: "700",
                     }}
                   >
-                    {totalFinalJYP} ¥
+                    { functions.convertMoney(totalFinalJYP) } ¥
                   </Text>
                   <Text style={{ fontSize: 14, color: "#23262F" }}>
-                    {totalFinalVN} đ
+                    { functions.convertMoney(totalFinalVN) } đ
                   </Text>
                 </View>
                 {/* end */}

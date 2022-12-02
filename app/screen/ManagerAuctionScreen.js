@@ -262,8 +262,8 @@ showModal = (id) => {
             >
               <Text style={styles.paymentText2}>Giá hiện tại</Text>
               <Text style={[styles.mangerOderText3, styles.fontBold]}>
-                {item.Price}¥
-                <Text style={[styles.containerHeaderText2]}> {item.PriceVN} VND</Text>
+                { functions.convertMoney(item.Price) }¥
+                <Text style={[styles.containerHeaderText2]}> { functions.convertMoney(item.PriceVN) } VND</Text>
               </Text>
             </View>
 
@@ -277,8 +277,8 @@ showModal = (id) => {
             >
               <Text style={styles.paymentText2}>Giá đấu</Text>
               <Text style={[styles.mangerOderText3, styles.fontBold]}>
-                {item.Bid}¥
-                <Text style={styles.containerHeaderText2}> {item.Bid * 184} VND</Text>
+                { functions.convertMoney(item.Bid) }¥
+                <Text style={styles.containerHeaderText2}> { functions.convertMoney(item.Bid * 184) } VND</Text>
               </Text>
             </View>
 
