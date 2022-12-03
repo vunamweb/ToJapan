@@ -16,7 +16,7 @@ export default function CustomToolbar({ mode, style, ...props }) {
           {props.component.state.countCart == 0 ? props.component.state.cart.length.toString() : props.component.state.countCart.toString()}
           </Text>
         <View style={styles.rightIcon}>
-          <Image source={require("../assets/notification-bing.png")} />
+          <Image style={{ width: 24, height: 24 }} source={require("../assets/notification-bing.png")} />
         </View>
         <View style={styles.rightIcon}>
           <TouchableOpacity
@@ -24,7 +24,7 @@ export default function CustomToolbar({ mode, style, ...props }) {
             functions.gotoCart(props.component)
           }
           >
-          <Image source={require("../assets/shopping-bag.png")} />
+          <Image style={{ width: 24, height: 24 }} source={require("../assets/shopping-bag.png")} />
           </TouchableOpacity>
         </View>
       </View>

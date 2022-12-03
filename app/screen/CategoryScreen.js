@@ -229,7 +229,7 @@ class CategoryScreen extends Component {
                       {(item.priceVN != undefined ? functions.convertMoney(item.priceVN) : functions.convertMoney(item.PriceVN))} VND
                       </Text>
                     </View>
-                    <Image source={image2} />
+                    <Image style={{ width:32, height: 32 }} source={image2} />
                   </View>
                 </View>
               </View>
@@ -308,7 +308,7 @@ class CategoryScreen extends Component {
                       {(item.priceVN != undefined ? functions.convertMoney(item.priceVN) : functions.convertMoney(item.PriceVN))} VND
                       </Text>
                     </View>
-                    <Image source={image2} />
+                    <Image style={{ width:32, height: 32 }} source={image2} />
                   </View>
                 </View>
               </View>

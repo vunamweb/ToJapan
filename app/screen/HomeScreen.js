@@ -286,7 +286,7 @@ class HomeScreen extends Component {
                     <TouchableOpacity
                     onPress={ () => this.addProduct(item, this.state.shop)}
                     >
-                    <Image source={image2} />
+                    <Image style={{ width:32, height: 32 }} source={image2} />
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -369,7 +369,7 @@ class HomeScreen extends Component {
                     <TouchableOpacity
                     onPress={ () => this.addProduct(item, this.state.shop)}
                     >
-                    <Image source={image2} />
+                    <Image style={{ width:32, height: 32 }} source={image2} />
                     </TouchableOpacity>
                   </View>
                 </View>
