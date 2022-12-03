@@ -1314,7 +1314,7 @@ class Functions {
   
         listFavorite.push(product);
       }
-      
+
       component.setState({ ActivityIndicator3: false, ListFavorite: listFavorite });
     };
 
@@ -1389,6 +1389,7 @@ class Functions {
   };
 
   convertMoney = (number) => {
+    //return number;
     var number=  number.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     number = number.replace('$', '');
     number = number.replace('.00', '');

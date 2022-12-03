@@ -16,7 +16,9 @@ export default function CustomToolbar1({ mode, style, ...props }) {
         <View style={[styles.navBar]}>
           {/* left icon */}
           <View style={styles.leftContainer}>
-            <TouchableOpacity onPress={() => props.component.props.navigation.goBack()}>
+            <TouchableOpacity
+              onPress={() => props.component.props.navigation.goBack()}
+            >
               <Image source={require("../assets/arrow-left.png")} />
             </TouchableOpacity>
           </View>
@@ -24,9 +26,13 @@ export default function CustomToolbar1({ mode, style, ...props }) {
           {/* right icon */}
           <View style={styles.rightContainer}>
             <View style={styles.rightIcon}>
-              <Image source={require("../assets/shopping-bag.png")} />
+              <TouchableOpacity
+                onPress={() => functions.gotoCart(props.component)}
+              >
+                <Image source={require("../assets/shopping-bag.png")} />
+              </TouchableOpacity>
             </View>
-            <View style={styles.rightIcon}>
+            <View style={[styles.rightIcon, styles.hide]}>
               <Image source={require("../assets/dot.png")} />
             </View>
           </View>
@@ -40,7 +46,7 @@ export default function CustomToolbar1({ mode, style, ...props }) {
             { position: "absolute", bottom: 80, right: 20, width: "100%" },
           ]}
         >
-          <View style={styles.rightIcon}>
+          <View style={[styles.rightIcon, styles.hide]}>
             <Image source={require("../assets/share.png")} />
           </View>
           <View style={styles.rightIcon}>
@@ -59,11 +65,7 @@ export default function CustomToolbar1({ mode, style, ...props }) {
         ]}
       >
         <View style={[styles.leftContainer, { flexDirection: "row" }]}>
-          <TouchableOpacity
-            onPress={() =>
-              functions.gotoCart(props.component)
-            }
-          >
+          <TouchableOpacity onPress={() => functions.gotoCart(props.component)}>
             <Image source={require("../assets/shopping-bag.png")} />
           </TouchableOpacity>
           <View style={{ marginLeft: 20 }}>
@@ -77,7 +79,9 @@ export default function CustomToolbar1({ mode, style, ...props }) {
         </View>
         {/* left icon */}
         <View style={styles.leftContainer}>
-          <TouchableOpacity onPress={() => props.component.props.navigation.goBack()}>
+          <TouchableOpacity
+            onPress={() => props.component.props.navigation.goBack()}
+          >
             <Image source={require("../assets/arrow-left.png")} />
           </TouchableOpacity>
         </View>

@@ -548,7 +548,7 @@ class ProductScreen extends Component {
               contentContainerStyle={styles.shortModal}
             >
               {/* HEADER */}
-              <View style={styles.shortHeaderModal}>
+              <View style={[styles.shortHeaderModal]}>
                 <Text style={{ color: "white", fontSize: 20 }}>Thuộc tính</Text>
                 <TouchableOpacity
                   onPress={this.hideModal.bind(this)}
@@ -760,6 +760,7 @@ class ProductScreen extends Component {
                       styles.flexRowStart,
                       styles.marginTop20,
                       styles.borderNormal,
+                      styles.hide,
                       {
                         justifyContent: "space-between",
                         paddingLeft: 10,

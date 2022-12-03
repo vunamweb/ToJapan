@@ -87,14 +87,6 @@ const dataProductSlider = [
 ];
 
 const image3 = require("../../app/assets/setting-2.png");
-const img1 = require("../../app/assets/sort-down.png");
-const img2 = require("../../app/assets/star_1.png");
-const img3 = require("../../app/assets/heart.png");
-
-const img = require("../../app/assets/image_6.png");
-const image1 = require("../../app/assets/heart.png");
-const image2 = require("../../app/assets/shopping_bag.png");
-const image4 = require("../../app/assets/Filler.png");
 
 var component;
 
@@ -142,13 +134,13 @@ class CartScreen extends Component {
           marginBottom: 10,
         }}
       >
-        <View style={{ width: '100%', flexDirection: "row", flex: 1, flexGrow: 1 }}>
+        <View style={{ flexDirection: "row", flex: 1 }}>
           <Image
             style={{ width: 128, height: 128 }}
             source={{ uri: item.Image }}
           />
-          <View style={{ marginTop: 0, marginLeft: 20 }}>
-            <Text style={[styles.money3, {flexWrap: 'wrap', flex: 1, flexShrink: 1}]}>{item.Name}</Text>
+          <View style={{ marginTop: 0, marginLeft: 20, marginRight: 20, flex: 1 }}>
+            <Text style={[styles.money3]}>{item.Name}</Text>
             <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
               Từ {item.Shop}
             </Text>
@@ -160,7 +152,7 @@ class CartScreen extends Component {
                   { functions.convertMoney(item.Price) } ¥
                 </Text>
                 <Text style={{ fontSize: 12, color: "#777E90" }}>
-                  { functions.convertMoney(item.PriceVN) } VND
+                  { functions.convertMoney((item.PriceVN != undefined ? item.PriceVN : item.Price * 184)) } VND
                 </Text>
               </View>
             </View>
@@ -221,7 +213,7 @@ class CartScreen extends Component {
     //headerStyle: { backgroundColor: '#00FF57' },
     headerBackground: () => <HeaderBg />,
     headerRight: (
-      <View style={{ paddingRight: 20, marginTop: 0, flexDirection: "row" }}>
+      <View style={[{ paddingRight: 20, marginTop: 0, flexDirection: "row" }, styles.hide]}>
         <TouchableOpacity
           onPress={() => functions.gotoScreen(navigation, "SearchScreen")}
         >
@@ -335,8 +327,8 @@ class CartScreen extends Component {
 
     var total = this.getTotal();
 
-    var subTotalJYP = total.totalJYP;
-    var subTotalVN = total.totalVN;
+    var subTotalJYP = (total.totalJYP != undefined) ? total.totalJYP : 0;
+    var subTotalVN =  (total.totalVN != undefined) ? total.totalVN : 0;
 
     var totalJYP = subTotalJYP + global.ship + global.giam_gia;
     var totalVN = subTotalVN + global.ship + global.giam_gia;
@@ -435,7 +427,7 @@ class CartScreen extends Component {
                   { functions.convertMoney(totalJYP) } ¥
                 </Text>
                 <Text style={{ fontSize: 14, color: "#23262F" }}>
-                  { functions.convertMoney(totalVN) } đ
+                { functions.convertMoney(totalJYP * 184) } đ
                 </Text>
               </View>
               {/* end */}
