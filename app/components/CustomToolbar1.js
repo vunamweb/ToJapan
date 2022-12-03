@@ -64,7 +64,7 @@ export default function CustomToolbar1({ mode, style, ...props }) {
           { position: "absolute", top: 0, paddingTop: 70, backgroundColor: "#13AB2C", padding: 20 },
         ]}
       >
-        <View style={[styles.leftContainer, { flexDirection: "row",position: 'absolute', left: 70, bottom: 20 }]}>
+        <View style={[styles.leftContainer, { flexDirection: "row",position: 'absolute', left: 90, bottom: 20 }]}>
           <TouchableOpacity style={{ marginTop: 10 }} onPress={() => functions.gotoCart(props.component)}>
             <Image source={require("../assets/shopping-bag.png")} />
           </TouchableOpacity>
@@ -78,7 +78,7 @@ export default function CustomToolbar1({ mode, style, ...props }) {
           </View>   
         </View>
         {/* left icon */}
-        <View style={styles.leftContainer}>
+        <View style={[styles.leftContainer, { width: 30 }]}>
           <TouchableOpacity
             onPress={() => props.component.props.navigation.goBack()}
           >
