@@ -32,11 +32,11 @@ const data = [
     src: require('../../app/assets/heart_1.png'),
     link: 'FavourScreen'
   },
-  {
+  /*{
     title: 'Đơn hàng',
     src: require('../../app/assets/oder.png'),
     link: 'ManagerOrder'
-  },
+  },*/
   {
     title: 'Bưu phẩm',
     src: require('../../app/assets/box.png')
