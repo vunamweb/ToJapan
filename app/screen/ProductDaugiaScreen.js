@@ -38,6 +38,8 @@ const img = require("../../app/assets/image_6.png");
 const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
 const image3 = require("../../app/assets/ship.png");
+const heart = require("../../app/assets/heart.png");
+const heart_active = require("../../app/assets/heart-active.png");
 
 const minHeight = 50;
 
@@ -176,18 +178,18 @@ getIdFavoriteFromProduct = (product) => {
             }}
           >
             <Image
-              style={{ width: "100%", height: 128, marginTop: 10}}
+              style={{ width: "100%", height: 128, marginTop: 20}}
               source={{ uri: item.Image }}
             />
             <TouchableOpacity
-                  style={{ position: "absolute", top: -5, right: 5 }}
+                  style={{ position: "absolute", top: 10, right: 15 }}
                   onPress={() =>
                     this.addRemoveFavorite(item.ID)
                   }
                 >
                   <View>
                   {
-                    (this.checkFavorite(item.ID)) ? <IconFontAwesome name="heart" size={15} color="#3187EA" /> : <IconFontAwesome name="heart" size={15} color="#ccc" /> 
+                    (this.checkFavorite(item.ID)) ? <Image style={{ width: 16, height: 16 }} source={heart_active}/> : <Image source={heart}/> 
                   }
                   </View>
                 </TouchableOpacity>

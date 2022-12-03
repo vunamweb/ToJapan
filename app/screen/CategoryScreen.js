@@ -37,6 +37,8 @@ const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
 const image3 = require("../../app/assets/search-normal.png");
 const img = require("../../app/assets/circle_bg.png");
+const heart = require("../../app/assets/heart.png");
+const heart_active = require("../../app/assets/heart-active.png");
 
 var component;
 
@@ -170,18 +172,18 @@ class CategoryScreen extends Component {
             >
               <View style={{ padding: 0 }}>
                 <Image
-                  style={{ width: "100%", height: 128, marginTop: 10}}
+                  style={{ width: "100%", height: 128, marginTop: 20}}
                   source={{ uri: (item.Image != undefined ? item.Image : item.image) }}
                 />
                 <TouchableOpacity
-                  style={{ position: "absolute", top: -5, right: 5 }}
+                  style={{ position: "absolute", top: 0, right: 5 }}
                   onPress={() =>
                     this.addRemoveFavorite((item.code != undefined ? item.code : item.ID))
                   }
                 >
                   <View>
                   {
-                    (this.checkFavorite((item.code != undefined ? item.code : item.ID))) ? <IconFontAwesome name="heart" size={15} color="#3187EA" /> : <IconFontAwesome name="heart" size={15} color="#ccc" /> 
+                    (this.checkFavorite((item.code != undefined ? item.code : item.ID))) ? <Image style={{ width: 16, height: 16 }} source={heart_active}/> : <Image source={heart}/> 
                   }
                   </View>
                 </TouchableOpacity>
@@ -249,18 +251,18 @@ class CategoryScreen extends Component {
             >
               <View style={{ padding: 0 }}>
                 <Image
-                  style={{ width: "100%", height: 128, marginTop: 10 }}
+                  style={{ width: "100%", height: 128, marginTop: 20 }}
                   source={{ uri: (item.Image != undefined ? item.Image : item.image) }}
                 />
                 <TouchableOpacity
-                  style={{ position: "absolute", top: -5, right: 5 }}
+                  style={{ position: "absolute", top: 0, right: 5 }}
                   onPress={() =>
                     this.addRemoveFavorite(item.code)
                   }
                 >
                  <View>
                   {
-                    (this.checkFavorite(item.code)) ? <IconFontAwesome name="heart" size={15} color="#3187EA" /> : <IconFontAwesome name="heart" size={15} color="#ccc" /> 
+                    (this.checkFavorite(item.code)) ? <Image style={{ width: 16, height: 16 }} source={heart_active}/> : <Image source={heart}/> 
                   }
                   </View>
                 </TouchableOpacity>
