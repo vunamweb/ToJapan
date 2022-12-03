@@ -57,7 +57,7 @@ class IconBottom extends Component {
       }
       >
         <Image
-          style={styles.img}
+          style={[styles.img, { width: 24, height: 24 }]}
           source={item.src}
         />
         <Text style={{color: '#777E90'}}>{item.title}</Text>
