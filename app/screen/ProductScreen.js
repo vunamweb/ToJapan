@@ -78,6 +78,10 @@ class ProductScreen extends Component {
     productSimilar1: [],
     productSimilar2: [],
     countCart: 0,
+    bgTVGH: 'white',
+    colorTVGH: '#3187EA',
+    bgMN: '#E3F2FC',
+    colorMN: 'black'
   };
 
   _renderItem = ({ item, index }) => {
@@ -251,14 +255,24 @@ class ProductScreen extends Component {
     });
   };
 
+  MN = () => {
+    this.setState({ colorMN: 'white', bgMN: "#3187EA", colorTVGH: 'black', bgTVGH: "#E3F2FC" });
+  }
+
+  TVGH = () => {
+    this.setState({ colorTVGH: 'white', bgTVGH: "#3187EA", colorMN: 'black', bgMN: "#E3F2FC" });
+
+    this.addProduct();
+  }
+
   render() {
     var buttonBuyNow =
       this.state.product.buy_now != undefined &&
       this.state.product.buy_now > 0 ? (
         <TouchableOpacity
-          style={[styles.button, { backgroundColor: "#E3F2FC", marginTop: 20 }]}
+          style={[styles.button, { backgroundColor: this.state.bgMN, marginTop: 20 }]}
         >
-          <Text style={{ color: "black" }}>Mua ngay</Text>
+          <Text style={{ color: this.state.colorMN }}>Mua ngay</Text>
         </TouchableOpacity>
       ) : (
         <View />
@@ -291,18 +305,25 @@ class ProductScreen extends Component {
       ) : (
         <View>
           <TouchableOpacity
-            onPress={this.addProduct.bind(this)}
+          onPress={this.MN.bind(this)}
+          style={[styles.button, { backgroundColor: this.state.bgMN, marginTop: 20 }]}
+        >
+          <Text style={{ color: this.state.colorMN }}>Mua ngay</Text>
+        </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={this.TVGH.bind(this)}
             style={[
               styles.button,
               {
-                backgroundColor: "white",
+                backgroundColor: this.state.bgTVGH,
                 marginTop: 20,
                 borderColor: "#3187EA",
                 borderWidth: 1,
               },
             ]}
           >
-            <Text style={{ color: "#3187EA" }}>Thêm vào giỏ hàng</Text>
+            <Text style={{ color: this.state.colorTVGH }}>Thêm vào giỏ hàng</Text>
           </TouchableOpacity>
         </View>
       );
