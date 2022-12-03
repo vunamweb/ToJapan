@@ -67,7 +67,7 @@ class ProductDaugiaScreen extends Component {
     if(this.checkFavorite(product))
       functions.deleteFavorite(this, this.getIdFavoriteFromProduct(product));
     else 
-      functions.addFavorite(product, this.state.shop, this);
+      functions.addFavorite(product, this.props.navigation.state.params.cat, this);
  }
 
  checkFavorite = (product) => {
@@ -178,12 +178,12 @@ getIdFavoriteFromProduct = (product) => {
             <TouchableOpacity
                   style={{ position: "absolute", top: -5, right: 5 }}
                   onPress={() =>
-                    this.addRemoveFavorite(item.code)
+                    this.addRemoveFavorite(item.ID)
                   }
                 >
                   <View>
                   {
-                    (this.checkFavorite(item.code)) ? <IconFontAwesome name="heart" size={15} color="#3187EA" /> : <IconFontAwesome name="heart" size={15} color="#ccc" /> 
+                    (this.checkFavorite(item.ID)) ? <IconFontAwesome name="heart" size={15} color="#3187EA" /> : <IconFontAwesome name="heart" size={15} color="#ccc" /> 
                   }
                   </View>
                 </TouchableOpacity>
@@ -234,6 +234,8 @@ getIdFavoriteFromProduct = (product) => {
     var id = this.props.navigation.state.params.id;
 
     functions.getProduct(this, cat, id);
+
+    functions.getListFavorite(this);
   }
 
   componentWillUnmount() {

@@ -239,6 +239,23 @@ class Functions {
     }
   };
 
+  getListFavorite = async (component) => {
+    var data;
+
+    try {
+      await AsyncStorage.getItem("listFavorite").then((response) => {
+        data = response;
+        component.setState({ ListFavorite: response });
+      });
+
+      return data;
+      //console.log(JSON.stringify(obj));
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
   getCart = async () => {
     var data;
 
@@ -1290,12 +1307,14 @@ class Functions {
     callback = async (responseData) => {
       var listFavorite = component.state.ListFavorite;
 
-      var product = {}
-      product.Product = productId;
-      product._id = responseData.data;
-
-      listFavorite.push(product);
-
+      if(responseData.success) {
+        var product = {}
+        product.Product = productId;
+        product._id = responseData.data;
+  
+        listFavorite.push(product);
+      }
+      
       component.setState({ ActivityIndicator3: false, ListFavorite: listFavorite });
     };
 
@@ -1346,6 +1365,12 @@ class Functions {
     let body = {};
 
     callback = async (responseData) => {
+      try {
+        await AsyncStorage.setItem("listFavorite", JSON.stringify(responseData.data));
+      } catch (error) {
+        console.log(error);
+      }
+
       component.setState({ ListFavorite: responseData.data, ActivityIndicator3: false });
     };
 
