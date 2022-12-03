@@ -265,6 +265,11 @@ class ProductScreen extends Component {
     this.addProduct();
   }
 
+  static navigationOptions = ({ navigation }) => ({
+    title: "",
+  });
+
+
   render() {
     var buttonBuyNow =
       this.state.product.buy_now != undefined &&

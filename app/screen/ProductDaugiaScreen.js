@@ -299,6 +299,11 @@ getIdFavoriteFromProduct = (product) => {
     )
   }
 
+  static navigationOptions = ({ navigation }) => ({
+    title: "",
+  });
+
+
   render() {
     var product = this.getProduct();
 

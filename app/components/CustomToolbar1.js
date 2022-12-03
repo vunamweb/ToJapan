@@ -61,11 +61,11 @@ export default function CustomToolbar1({ mode, style, ...props }) {
       <View
         style={[
           styles.fullWith,
-          { position: "absolute", backgroundColor: "#13AB2C", padding: 20 },
+          { position: "absolute", top: 0, paddingTop: 70, backgroundColor: "#13AB2C", padding: 20 },
         ]}
       >
-        <View style={[styles.leftContainer, { flexDirection: "row" }]}>
-          <TouchableOpacity onPress={() => functions.gotoCart(props.component)}>
+        <View style={[styles.leftContainer, { flexDirection: "row",position: 'absolute', left: 70, bottom: 20 }]}>
+          <TouchableOpacity style={{ marginTop: 10 }} onPress={() => functions.gotoCart(props.component)}>
             <Image source={require("../assets/shopping-bag.png")} />
           </TouchableOpacity>
           <View style={{ marginLeft: 20 }}>
@@ -75,7 +75,7 @@ export default function CustomToolbar1({ mode, style, ...props }) {
             <Text style={{ fontSize: 14, color: "white" }}>
               Đã thêm sản phầm vào giỏ hàng({props.component.state.countCart})
             </Text>
-          </View>
+          </View>   
         </View>
         {/* left icon */}
         <View style={styles.leftContainer}>
