@@ -475,7 +475,7 @@ getIdFavoriteFromProduct = (product) => {
               <TouchableOpacity
                 style={[
                   styles.button,
-                  { backgroundColor: "#3187EA", marginTop: 20 },
+                  { backgroundColor: "#E3F2FC", marginTop: 20 },
                 ]}
                 onPress={() =>
                   functions.gotoScreenWithParam(
@@ -485,7 +485,7 @@ getIdFavoriteFromProduct = (product) => {
                   )
                 }
               >
-                <Text style={{ color: "white" }}>Đấu giá</Text>
+                <Text style={{ color: "black" }}>Đấu giá</Text>
               </TouchableOpacity>
               {/* END button1 */}
               {/* BUTTON 2 */}
