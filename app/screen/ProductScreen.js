@@ -236,6 +236,10 @@ class ProductScreen extends Component {
     this.gotoTop();
   };
 
+  addBuyNow = () => {
+    functions.addBuyNowShop(this.state.product, this.props.navigation.state.params.cat, this);
+  }
+
   showSimilarProduct = (id) => {
     
     functions.getProduct(this, this.props.navigation.state.params.cat, id);
@@ -257,6 +261,8 @@ class ProductScreen extends Component {
 
   MN = () => {
     this.setState({ colorMN: 'white', bgMN: "#3187EA", colorTVGH: 'black', bgTVGH: "#E3F2FC" });
+
+    this.addBuyNow();
   }
 
   TVGH = () => {

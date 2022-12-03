@@ -57,6 +57,7 @@ global.addfavorite = '/user/favorite/add'
 global.removefavorite = '/user/favorite/:id'
 global.urlListFavorite = '/user/favorite'
 global.urlAuction = '/user/auction/active'
+global.urlDeleteAllCart = '/cart/remove/clear'
 // cost ship, vat
 global.ship = 0
 global.giam_gia = 0

@@ -196,8 +196,7 @@ class Functions {
   };
 
   gotoScreenProduct = (cat, id, navigation, screen) => {
-    if(cat == 'yahoo_auction')
-      screen  = 'ProductDaugiaScreen';
+    if (cat == "yahoo_auction") screen = "ProductDaugiaScreen";
 
     navigation.navigate(screen, {
       cat: cat,
@@ -297,6 +296,26 @@ class Functions {
     this.addProductTocart(product.code, cat, 1, component);
   };
 
+  addBuyNowShop = async (product, cat, component) => {
+    let url = global.urlRoot + global.urlDeleteAllCart;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+    body.do = true;
+
+    body = JSON.stringify(body);
+
+    callback = async (responseData) => {
+      functions.addProductTocartBuyNow(product.code, cat, 1, component);
+    };
+
+    component.setState({ ActivityIndicator: true });
+    network.fetchPATCH_HEADER(url, body, token, callback);
+  };
+
   addProductTocart = async (productId, Shop, quantity, component) => {
     let url = global.urlRoot + global.urlAddProductToCart;
 
@@ -316,6 +335,36 @@ class Functions {
       await AsyncStorage.setItem("cart", JSON.stringify(responseData.data));
 
       component.setState({ order: true, countCart: responseData.data.length });
+    };
+
+    network.fetchPUT_HEADER(url, data, token, callback);
+  };
+
+  addProductTocartBuyNow = async (productId, Shop, quantity, component) => {
+    let url = global.urlRoot + global.urlAddProductToCart;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+    let data;
+
+    body.Shop = this.convertShopToID(Shop);
+    body.Code = productId;
+    body.Quantity = quantity;
+    data = JSON.stringify(body);
+
+    callback = async (responseData) => {
+      await AsyncStorage.setItem("cart", JSON.stringify(responseData.data));
+
+      component.setState({ ActivityIndicator: false });
+
+      functions.gotoScreenWithParam(
+        JSON.stringify(responseData.data),
+        component.props.navigation,
+        "PaymentScreen"
+      );
     };
 
     network.fetchPUT_HEADER(url, data, token, callback);
@@ -507,15 +556,13 @@ class Functions {
 
       component.gotoTop();
       return;
-    } else if(confirmPassword != passWord) {
+    } else if (confirmPassword != passWord) {
       component.setState({ colorBorderConfirmPassWord: "red" });
       component.setState({ errorMessage: global.wrongPassword });
 
       component.gotoTop();
       return;
-    }
-    else
-     {
+    } else {
       component.setState({ colorBorderConfirmPassWord: "#E6E8EC" });
       component.setState({ errorMessage: "" });
     }
@@ -772,13 +819,7 @@ class Functions {
     network.fetchGET_HEADER(url, body, token, callback);
   };
 
-  getListProductByTagFilter = async (
-    component,
-    cat,
-    cat_id,
-    filter,
-    price
-  ) => {
+  getListProductByTagFilter = async (component, cat, cat_id, filter, price) => {
     //if (cat == "yahoo_auction") cat = "yahoo";
 
     let url =
@@ -787,10 +828,9 @@ class Functions {
         : global.urlRoot + global.urlProductByTagAuction;
     url = url.replace("{cat}", cat);
     url = url.replace("{cat_id}", cat_id);
-    url = url + '&condition='+filter+'';
-    if(price > 0)
-      url = url + '&max='+Math.round(price)+'';
-    
+    url = url + "&condition=" + filter + "";
+    if (price > 0) url = url + "&max=" + Math.round(price) + "";
+
     var datauser = await this.getDataUser();
     datauser = JSON.parse(datauser);
     var token = datauser.token;
@@ -1079,10 +1119,18 @@ class Functions {
     data = JSON.stringify(body);
 
     callback = (responseData) => {
-      if(!responseData.success) 
-      component.setState({ type: 2, visibleAlert: true, ActivityIndicator1: false });
-       else 
-       component.setState({ type: 3, visibleAlert: true, ActivityIndicator1: false }); 
+      if (!responseData.success)
+        component.setState({
+          type: 2,
+          visibleAlert: true,
+          ActivityIndicator1: false,
+        });
+      else
+        component.setState({
+          type: 3,
+          visibleAlert: true,
+          ActivityIndicator1: false,
+        });
     };
 
     component.setState({ ActivityIndicator1: true });
@@ -1226,7 +1274,10 @@ class Functions {
     let body = {};
 
     callback = async (responseData) => {
-      component.setState({ listSearchHistory: responseData.data, ActivityIndicator: false });
+      component.setState({
+        listSearchHistory: responseData.data,
+        ActivityIndicator: false,
+      });
     };
 
     network.fetchGET_HEADER(url, body, token, callback);
@@ -1307,15 +1358,18 @@ class Functions {
     callback = async (responseData) => {
       var listFavorite = component.state.ListFavorite;
 
-      if(responseData.success) {
-        var product = {}
+      if (responseData.success) {
+        var product = {};
         product.Product = productId;
         product._id = responseData.data;
-  
+
         listFavorite.push(product);
       }
 
-      component.setState({ ActivityIndicator3: false, ListFavorite: listFavorite });
+      component.setState({
+        ActivityIndicator3: false,
+        ListFavorite: listFavorite,
+      });
     };
 
     component.setState({ ActivityIndicator3: true });
@@ -1343,11 +1397,13 @@ class Functions {
 
       if (responseData.success) {
         for (count = 0; count < listFavorite.length; count++) {
-          if (listFavorite[count]._id == product)
-          listFavorite.splice(count, 1);
+          if (listFavorite[count]._id == product) listFavorite.splice(count, 1);
         }
-        
-        component.setState({ ActivityIndicator3: false, ListFavorite: listFavorite });
+
+        component.setState({
+          ActivityIndicator3: false,
+          ListFavorite: listFavorite,
+        });
       }
     };
 
@@ -1366,12 +1422,18 @@ class Functions {
 
     callback = async (responseData) => {
       try {
-        await AsyncStorage.setItem("listFavorite", JSON.stringify(responseData.data));
+        await AsyncStorage.setItem(
+          "listFavorite",
+          JSON.stringify(responseData.data)
+        );
       } catch (error) {
         console.log(error);
       }
 
-      component.setState({ ListFavorite: responseData.data, ActivityIndicator3: false });
+      component.setState({
+        ListFavorite: responseData.data,
+        ActivityIndicator3: false,
+      });
     };
 
     component.setState({ ActivityIndicator3: true });
@@ -1390,24 +1452,26 @@ class Functions {
 
   convertMoney = (number) => {
     //return number;
-    var number=  number.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    number = number.replace('$', '');
-    number = number.replace('.00', '');
+    var number = number.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+    });
+    number = number.replace("$", "");
+    number = number.replace(".00", "");
 
     return number;
-    
-  }
+  };
 
   formatTitle = (title) => {
-     /*var count;
+    /*var count;
 
      if(title.length < 15) {
         for(count = title.length; count < 15; count++)
           title = title + 'les';
      }*/
 
-     return title.substr(0, 15);
-  }
+    return title.substr(0, 15);
+  };
 }
 
 const functions = new Functions();
