@@ -61,6 +61,10 @@ class ProductDaugiaScreen extends Component {
     activeAuction: false,
     ActivityIndicator: false,
     ListFavorite: [],
+    bgDaugia: '#E3F2FC',
+    colorDaugia: 'black',
+    bgSPC: '#E3F2FC',
+    colorSPC: 'black'
   };
 
   addRemoveFavorite = (product) => {
@@ -275,6 +279,26 @@ getIdFavoriteFromProduct = (product) => {
     });
   };
 
+  SPC = (product) => {
+    this.setState({ colorSPC: 'white', bgSPC: "#3187EA", colorDaugia: 'black', bgDaugia: "#E3F2FC" });
+
+    functions.gotoScreenWithParam(
+      JSON.stringify(product),
+      this.props.navigation,
+      "LastMinutesScreen"
+    )
+  }
+
+  DG = (product) => {
+    this.setState({ colorDaugia: 'white', bgDaugia: "#3187EA", colorSPC: 'black', bgSPC: "#E3F2FC" });
+
+    functions.gotoScreenWithParam(
+      JSON.stringify(product),
+      this.props.navigation,
+      "AuctionScreen"
+    )
+  }
+
   render() {
     var product = this.getProduct();
 
@@ -475,34 +499,26 @@ getIdFavoriteFromProduct = (product) => {
               <TouchableOpacity
                 style={[
                   styles.button,
-                  { backgroundColor: "#E3F2FC", marginTop: 20 },
+                  { backgroundColor: this.state.bgDaugia, marginTop: 20 },
                 ]}
                 onPress={() =>
-                  functions.gotoScreenWithParam(
-                    JSON.stringify(product),
-                    this.props.navigation,
-                    "AuctionScreen"
-                  )
+                  this.DG(product)
                 }
               >
-                <Text style={{ color: "black" }}>Đấu giá</Text>
+                <Text style={{ color: this.state.colorDaugia }}>Đấu giá</Text>
               </TouchableOpacity>
               {/* END button1 */}
               {/* BUTTON 2 */}
               <TouchableOpacity
                 style={[
                   styles.button,
-                  { backgroundColor: "#E3F2FC", marginTop: 20 },
+                  { backgroundColor: this.state.bgSPC, marginTop: 20 },
                 ]}
                 onPress={() =>
-                  functions.gotoScreenWithParam(
-                    JSON.stringify(product),
-                    this.props.navigation,
-                    "LastMinutesScreen"
-                  )
+                  this.SPC(product)
                 }
               >
-                <Text style={{ color: "black" }}>Săn phút chót</Text>
+                <Text style={{ color: this.state.colorSPC }}>Săn phút chót</Text>
               </TouchableOpacity>
               {/* END button2 */}
               {buttonBuyNow}
