@@ -1371,6 +1371,17 @@ class Functions {
     return number;
     
   }
+
+  formatTitle = (title) => {
+     /*var count;
+
+     if(title.length < 15) {
+        for(count = title.length; count < 15; count++)
+          title = title + 'les';
+     }*/
+
+     return title.substr(0, 15);
+  }
 }
 
 const functions = new Functions();

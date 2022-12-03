@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
 import { Text, Switch } from "react-native-paper";
+import IconFontAwesome from "react-native-vector-icons/FontAwesome";
 
 import moment from "moment";
 
@@ -38,6 +39,8 @@ const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
 const image3 = require("../../app/assets/ship.png");
 
+const minHeight = 50;
+
 var component;
 
 class ProductDaugiaScreen extends Component {
@@ -56,8 +59,36 @@ class ProductDaugiaScreen extends Component {
     productSimilar1: [],
     productSimilar2: [],
     activeAuction: false,
-    ActivityIndicator: false
+    ActivityIndicator: false,
+    ListFavorite: [],
   };
+
+  addRemoveFavorite = (product) => {
+    if(this.checkFavorite(product))
+      functions.deleteFavorite(this, this.getIdFavoriteFromProduct(product));
+    else 
+      functions.addFavorite(product, this.state.shop, this);
+ }
+
+ checkFavorite = (product) => {
+  var count;
+  var listFavorite = this.state.ListFavorite;
+
+  for(count = 0; count < listFavorite.length; count++)
+    if(listFavorite[count].Product == product)
+      return true;
+
+  return false;    
+}
+
+getIdFavoriteFromProduct = (product) => {
+  var count;
+  var listFavorite = this.state.ListFavorite;
+
+  for(count = 0; count < listFavorite.length; count++)
+    if(listFavorite[count].Product == product)
+      return listFavorite[count]._id;
+}
 
   _renderItem = ({ item, index }) => {
     return (
@@ -131,21 +162,34 @@ class ProductDaugiaScreen extends Component {
           component.showSimilarProduct(item.ID)
         }
       >
-        <View style={{ padding: 15, width: "100%" }}>
+        <View style={{ padding: 0, width: "90%" }}>
           <View
             style={{
               borderRadius: 30,
               backgroundColor: "white",
               width: "100%",
+              padding: 10,
             }}
           >
             <Image
-              style={[styles.fullWith, { width: "100%", height: 300 }]}
+              style={{ width: "100%", height: 128, marginTop: 10}}
               source={{ uri: item.Image }}
             />
+            <TouchableOpacity
+                  style={{ position: "absolute", top: -5, right: 5 }}
+                  onPress={() =>
+                    this.addRemoveFavorite(item.code)
+                  }
+                >
+                  <View>
+                  {
+                    (this.checkFavorite(item.code)) ? <IconFontAwesome name="heart" size={15} color="#3187EA" /> : <IconFontAwesome name="heart" size={15} color="#ccc" /> 
+                  }
+                  </View>
+                </TouchableOpacity>
             <View style={{ marginTop: 30 }}>
-              <Text style={{ color: "#23262F", fontSize: 16 }}>
-                {item.Title}
+              <Text style={{ color: "#23262F", fontSize: 16, minHeight: minHeight }}>
+                { functions.formatTitle(item.Title) }
               </Text>
               <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
                 Từ {component.props.navigation.state.params.cat}
@@ -163,7 +207,7 @@ class ProductDaugiaScreen extends Component {
                 }}
               >
                 <View>
-                  <Text style={{ color: "#D63F5C", fontSize: 16 }}>
+                  <Text style={[{ color: "#D63F5C", fontSize: 16 }, styles.fontBold]}>
                     { functions.convertMoney(item.Price) } ¥
                   </Text>
                   <Text style={{ fontSize: 12, color: "#777E90" }}>

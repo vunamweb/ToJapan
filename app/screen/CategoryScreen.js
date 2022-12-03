@@ -42,6 +42,8 @@ var component;
 
 var height = Math.floor(Dimensions.get('window').width * 0.9 * 296/1560);
 
+const minHeight = 50;
+
 class CategoryScreen extends Component {
   state = {
     listService: [],
@@ -196,7 +198,7 @@ class CategoryScreen extends Component {
                       )
                     }
                   >
-                    <Text style={{ color: "#23262F", fontSize: 16 }}>
+                    <Text style={{ color: "#23262F", fontSize: 16, minHeight: minHeight }}>
                     {(item.title != undefined ? item.title.substr(0, 15) : item.Title.substr(0, 15))}
                     </Text>
                   </TouchableOpacity>
@@ -275,7 +277,7 @@ class CategoryScreen extends Component {
                       )
                     }
                   >
-                    <Text style={{ color: "#23262F", fontSize: 16 }}>
+                    <Text style={{ color: "#23262F", fontSize: 16, minHeight: minHeight }}>
                     {(item.title != undefined ? item.title.substr(0, 15) : item.Title.substr(0, 15))}
                     </Text>
                   </TouchableOpacity>

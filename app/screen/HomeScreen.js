@@ -88,6 +88,8 @@ const image2 = require("../../app/assets/shopping_bag.png");
 var component__;
 var height = Math.floor((Dimensions.get("window").width * 0.9 * 296) / 1560);
 
+const minHeight = 50;
+
 class HomeScreen extends Component {
   state = {
     dataProductSlider: [],
@@ -250,8 +252,8 @@ class HomeScreen extends Component {
                       )
                     }
                   >
-                    <Text style={{ color: "#23262F", fontSize: 16 }}>
-                      {item.title.substr(0, 15)}
+                    <Text style={{ color: "#23262F", fontSize: 16, minHeight: minHeight }}>
+                      { functions.formatTitle(item.title) }
                     </Text>
                   </TouchableOpacity>
                   <Text
@@ -333,8 +335,8 @@ class HomeScreen extends Component {
                       )
                     }
                   >
-                    <Text style={{ color: "#23262F", fontSize: 16 }}>
-                      {item.title.substr(0, 15)}
+                    <Text style={{ color: "#23262F", fontSize: 16, minHeight: minHeight }}>
+                    { functions.formatTitle(item.title) }
                     </Text>
                   </TouchableOpacity>
                   <Text
