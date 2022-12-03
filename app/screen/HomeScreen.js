@@ -117,7 +117,7 @@ class HomeScreen extends Component {
             )
           }
         >
-          <Image source={item.img} />
+          <Image source={item.img} style={{ width: 48, height: 48 }} />
           <Text>{item.title}</Text>
         </TouchableOpacity>
       </View>
