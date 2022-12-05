@@ -29,7 +29,7 @@ export default function CustomToolbar1({ mode, style, ...props }) {
               <TouchableOpacity
                 onPress={() => functions.gotoCart(props.component)}
               >
-                <Image source={require("../assets/shopping-bag.png")} />
+                <Image style={{ width: 24, height: 24 }} source={require("../assets/shopping-bag.png")} />
               </TouchableOpacity>
             </View>
             <View style={[styles.rightIcon, styles.hide]}>
