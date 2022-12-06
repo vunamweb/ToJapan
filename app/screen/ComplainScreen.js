@@ -68,7 +68,7 @@ class ComplainScreen extends Component {
             <Text>Tiêu đề khiếu nại</Text>
           </View>
           <TextInput
-            label="Nhập tiêu đề"
+            placeholder="Nhập tiêu đề"
             title="Email *"
             returnKeyType="next"
             autoCapitalize="none"
@@ -82,7 +82,7 @@ class ComplainScreen extends Component {
             <Text>ID đấu giá/ Mã đơn hàng/ Mã gói hàng</Text>
           </View>
           <TextInput
-            label="Nhập ID"
+            placeholder="Nhập ID"
             title="Email *"
             returnKeyType="next"
             autoCapitalize="none"
@@ -96,7 +96,7 @@ class ComplainScreen extends Component {
             <Text>ID đấu giá/ Mã đơn hàng/ Mã gói hàng</Text>
           </View>
           <TextInput
-            label="Nhập Nôi dung"
+            placeholder="Nhập Nôi dung"
             title="Email *"
             returnKeyType="next"
             autoCapitalize="none"

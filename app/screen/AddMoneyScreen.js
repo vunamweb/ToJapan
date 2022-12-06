@@ -306,7 +306,7 @@ class AddMoneyScreen extends Component {
             <Text style={styles.shopText2}>Nạp tiền</Text>
           </View>
           <TextInput
-            label="Nhập số tiền nạp"
+            placeholder="Nhập số tiền nạp"
             title="Nhập số tiền nạp"
             keyboardType='numeric'
             onChangeText={(value) => this.setState({money: value.replace(/[^0-9]/g, '')})}

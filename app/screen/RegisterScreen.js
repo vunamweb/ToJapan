@@ -71,7 +71,7 @@ class RegisterScreen extends Component {
           <Text style={styles.mandatoryColor}>*</Text>
         </View>
         <TextInput
-          label="Nhập địa chỉ email"
+          placeholder="Nhập địa chỉ email"
           onChangeText={(value) => this.setState({email: value})}
           value={this.state.email}
           autoCapitalize="none"
@@ -86,7 +86,7 @@ class RegisterScreen extends Component {
           <Text style={styles.mandatoryColor}>*</Text>
         </View>
         <TextInput
-          label="Nhập Tên"
+          placeholder="Nhập Tên"
           onChangeText={(value) => this.setState({name: value})}
           value={this.state.name}
           autoCapitalize="none"
@@ -100,7 +100,7 @@ class RegisterScreen extends Component {
           <Text style={styles.mandatoryColor}>*</Text>
         </View>
         <TextInput
-          label="Nhập số điện thoại"
+          placeholder="Nhập số điện thoại"
           onChangeText={(value) => this.setState({phone: value.replace(/[^0-9]/g, '')})}
           value={this.state.phone}
           autoCapitalize="none"
@@ -115,7 +115,7 @@ class RegisterScreen extends Component {
           <Text style={styles.mandatoryColor}>*</Text>
         </View>
         <TextInput
-          label="Nhập ID"
+          placeholder="Nhập ID"
           autoCapitalize="none"
           value={ID}
           styleParent={{borderColor: this.state.colorBorderID,  backgroundColor: 'white'}}
@@ -130,7 +130,7 @@ class RegisterScreen extends Component {
         <TextInput
           secureTextEntry={this.state.secureTextEntry}
           title="Mật khẩu *"
-          label="Nhập mật khẩu"
+          placeholder="Nhập mật khẩu"
           onChangeText={(value) => this.setState({passWord: value})}
           onPress={() => this.onClickEye()}
           value={this.state.passWord}
@@ -147,7 +147,7 @@ class RegisterScreen extends Component {
         <TextInput
           secureTextEntry={this.state.secureTextEntry}
           title="Nhập lại Mật khẩu *"
-          label="Nhập lại mật khẩu"
+          placeholder="Nhập lại mật khẩu"
           onChangeText={(value) => this.setState({confirmPassword: value})}
           value={this.state.confirmPassword}
           returnKeyType="next"

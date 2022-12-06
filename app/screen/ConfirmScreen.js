@@ -24,7 +24,7 @@ class ConfirmScreen extends Component {
         <Header>Xác Nhận</Header>
         <Text style={[styles.textCenter, {marginBottom: 20}]}>Bạn đã đăng ký thành công, chúng tôi sẽ thông báo kết quả sớm đến bạn</Text>
         <TextInput
-          label="Ciskydsg.nv@gmail.com"
+          placeholder="Ciskydsg.nv@gmail.com"
           returnKeyType="next"
           autoCapitalize="none"
           autoCompleteType="email"

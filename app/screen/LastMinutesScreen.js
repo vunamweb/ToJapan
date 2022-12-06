@@ -695,7 +695,7 @@ class AuctionScreen extends Component {
                   <Text style={styles.paymentText6}>Giá đấu của bạn</Text>
                 </View>
                 <TextInput
-                  label="¥"
+                  placeholder="¥"
                   keyboardType="numeric"
                   onChangeText={(value) =>
                     this.setState({

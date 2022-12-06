@@ -28,7 +28,7 @@ class ForgotPassWordScreen extends Component {
           <Text style={styles.mandatoryColor}>*</Text>
         </View>
         <TextInput
-          label="Nhập địa chỉ email"
+          placeholder="Nhập địa chỉ email"
           title="Email *"
           returnKeyType="next"
           autoCapitalize="none"

@@ -89,7 +89,7 @@ class PersonalScreen extends Component {
             <Text style={styles.mandatoryColor}>*</Text>
           </View>
           <TextInput
-            label="Nhập họ và tên"
+            placeholder="Nhập họ và tên"
             title="Email *"
             value={this.state.data.name}
             returnKeyType="next"
@@ -124,7 +124,7 @@ class PersonalScreen extends Component {
           />
           <TextInput
             title="Số điện thoại"
-            label="Số điện thoại"
+            placeholder="Số điện thoại"
             value={this.state.data.phone}
             returnKeyType="next"
             autoCapitalize="none"
@@ -262,7 +262,7 @@ class PersonalScreen extends Component {
             <Text style={styles.mandatoryColor}>*</Text>
           </View>
           <TextInput
-            label="Nhập Mã bưu điện"
+            placeholder="Nhập Mã bưu điện"
             title="Email *"
             returnKeyType="next"
             autoCapitalize="none"
@@ -282,7 +282,7 @@ class PersonalScreen extends Component {
             <Text style={styles.mandatoryColor}>*</Text>
           </View>
           <TextInput
-            label="Nhập Địa chỉ chi tiết"
+            placeholder="Nhập Địa chỉ chi tiết"
             title="Email *"
             value={this.state.data.address}
             returnKeyType="next"

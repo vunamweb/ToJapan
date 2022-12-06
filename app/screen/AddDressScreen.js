@@ -75,7 +75,7 @@ class AddDressScreen extends Component {
             <Text style={styles.mandatoryColor}>*</Text>
           </View>
           <TextInput
-            label="Nhập họ và tên"
+            placeholder="Nhập họ và tên"
             title="Email *"
             onChangeText={(value) => this.setState({ name: value })}
             value={this.state.name}
@@ -117,7 +117,7 @@ class AddDressScreen extends Component {
             />
             <TextInput
               title="Số điện thoại"
-              label="Số điện thoại"
+              placeholder="Số điện thoại"
               onChangeText={(value) => this.setState({ phone: value })}
               value={this.state.phone}
               returnKeyType="next"
@@ -256,7 +256,7 @@ class AddDressScreen extends Component {
             <Text style={styles.mandatoryColor}>*</Text>
           </View>
           <TextInput
-            label="Nhập Mã bưu điện"
+            placeholder="Nhập Mã bưu điện"
             title="Email *"
             returnKeyType="next"
             autoCapitalize="none"
@@ -271,7 +271,7 @@ class AddDressScreen extends Component {
             <Text style={styles.mandatoryColor}>*</Text>
           </View>
           <TextInput
-            label="Nhập Địa chỉ chi tiết"
+            placeholder="Nhập Địa chỉ chi tiết"
             title="Email *"
             onChangeText={(value) => this.setState({ address: value })}
             value={this.state.address}

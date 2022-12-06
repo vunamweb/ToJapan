@@ -69,7 +69,7 @@ class LoginScreen extends Component {
           <Text style={styles.mandatoryColor}>*</Text>
         </View>
         <TextInput
-          label="Nhập ID hoặc địa chỉ email"
+          placeholder="Nhập ID hoặc địa chỉ email"
           onChangeText={(value) => this.setState({ userName: value })}
           value={this.state.userName}
           autoCapitalize="none"
@@ -86,7 +86,7 @@ class LoginScreen extends Component {
         <TextInput
           secureTextEntry={this.state.secureTextEntry}
           title="Mật khẩu *"
-          label="Nhập mật khẩu"
+          placeholder="Nhập mật khẩu"
           onChangeText={(value) => this.setState({ passWord: value })}
           value={this.state.passWord}
           returnKeyType="next"

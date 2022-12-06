@@ -81,7 +81,7 @@ class ChangePasswordScreen extends Component {
           </View>
           <TextInput
             secureTextEntry
-            label="Nhập mật khẩu cũ"
+            placeholder="Nhập mật khẩu cũ"
             title="Email *"
             onChangeText={(value) => this.setState({oldPass: value})}
             value={this.state.oldPass}
@@ -94,7 +94,7 @@ class ChangePasswordScreen extends Component {
           </View>
           <TextInput
             secureTextEntry
-            label="Nhập mật khau"
+            placeholder="Nhập mật khau"
             title="Email *"
             onChangeText={(value) => this.setState({newPass: value})}
             value={this.state.newPass}
@@ -107,7 +107,7 @@ class ChangePasswordScreen extends Component {
           </View>
           <TextInput
             secureTextEntry
-            label="Nhập lại mât khẩu"
+            placeholder="Nhập lại mât khẩu"
             styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
           />
 <TouchableOpacity

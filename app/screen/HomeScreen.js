@@ -468,7 +468,7 @@ class HomeScreen extends Component {
           {/* END */}
           <View style={[styles.fullWith, { padding: 20 }]}>
             <TextInput
-              label="Tìm kiếm"
+              placeholder="Tìm kiếm"
               title="Tìm kiếm"
               returnKeyType="next"
               autoCapitalize="none"
