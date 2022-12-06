@@ -12,9 +12,13 @@ export default function CustomToolbar({ mode, style, ...props }) {
         <Image source={require("../assets/Logo_small_white.png")} />
       </View>
       <View style={styles.rightContainer}>
-        <Text style={{position: 'absolute', right: 10, top: -15, fontSize: 20, fontWeight: 700, color: 'red'}}>
+
+        <View style={[styles.circleSmall, { position: 'absolute', backgroundColor: 'white', right: 5, top: -15 }]}>
+        <Text style={{ fontSize: 15, fontWeight: 700, color: 'blue'}}>
           {props.component.state.countCart == 0 ? props.component.state.cart.length.toString() : props.component.state.countCart.toString()}
           </Text>
+        </View>
+        
         <View style={styles.rightIcon}>
           <Image style={{ width: 24, height: 24 }} source={require("../assets/notification-bing.png")} />
         </View>

@@ -302,7 +302,7 @@ class ProfileScreen extends Component {
         </ScrollView>
         <View style={[styles.bottom, { marginTop: 0 }]}>
           {/* Bottom */}
-          <IconBottom component={this} />
+          <IconBottom component={this} type="5" />
           {/* END */}
         </View>
       </View>

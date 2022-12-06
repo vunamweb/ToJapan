@@ -150,7 +150,7 @@ class FavourScreen extends Component {
         col={1}
         style="1"
       />
-      <IconBottom component={this} />
+      <IconBottom component={this} type="3" />
     </View>
   );
 

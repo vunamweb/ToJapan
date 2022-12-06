@@ -377,6 +377,7 @@ class ManagerOrder extends Component {
               col={1}
               style="1"
             />
+            <IconBottom component={this} type="4" />
   </View>;
 
   _renderScene = SceneMap({

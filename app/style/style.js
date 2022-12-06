@@ -25,6 +25,11 @@ module.exports = StyleSheet.create({
     height: 20,
     borderRadius: 20 / 2,
   },
+  circleSmallOfSmall: {
+    width: 15,
+    height: 15,
+    borderRadius: 15 / 2,
+  },
   circleSmall: {
     width: 20,
     height: 20,
@@ -580,6 +585,11 @@ fontSize: 22
     paddingHorizontal: 20,
     marginBottom: 20,
     marginLeft: 20
+  },
+  // END
+  // NUMBER CART
+  numberCart: {
+    backgroundColor: 'white'
   }
   // END
 });

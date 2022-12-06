@@ -65,7 +65,7 @@ class ManagerAuctionScreen extends Component {
             functions.gotoScreen(navigation, "KeywordPopularScreen")
           }
         >
-          <Image source={image3} style={{ marginRight: 20 }} />
+          <Image source={image3} style={{ marginRight: 20, width: 24, height: 24 }} />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={
@@ -76,7 +76,7 @@ class ManagerAuctionScreen extends Component {
             //navigation.getParam('my').showModalFilter.bind(navigation.getParam('my'))
           }
         >
-          <Image source={image4} />
+          <Image style={{ width: 24, height: 24 }} source={image4} />
         </TouchableOpacity>
       </View>
     ),
@@ -174,6 +174,7 @@ showModal = (id) => {
               col={1}
               style="1"
             />
+            <IconBottom component={this} type="2" />
   </View>;
 
   _renderScene = SceneMap({
