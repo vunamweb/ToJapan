@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 
-import { TouchableOpacity, StyleSheet, View, ActivityIndicator, AsyncStorage } from "react-native";
+import {
+  TouchableOpacity,
+  StyleSheet,
+  View,
+  ActivityIndicator,
+  AsyncStorage,
+} from "react-native";
 import { CheckBox } from "react-native-elements";
 import { Text } from "react-native-paper";
 
@@ -19,30 +25,26 @@ class LoginScreen extends Component {
   }
 
   state = {
-    userName: '',
-    passWord: '',
-    colorBorderUserName: '#E6E8EC',
-    colorBorderPassWord: '#E6E8EC',
-    errorMessage: '',
+    userName: "",
+    passWord: "",
+    colorBorderUserName: "#E6E8EC",
+    colorBorderPassWord: "#E6E8EC",
+    errorMessage: "",
     ActivityIndicator: false,
-    secureTextEntry: true
+    secureTextEntry: true,
+    checked: false,
   };
 
-  componentDidMount() {
-    //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
-    //this.retrieveDataPersonal();
-  }
+  componentDidMount = async () => {
+    let userName = await AsyncStorage.getItem("userName");
+    let passWord = await AsyncStorage.getItem("passWord");
 
-  /*retrieveDataPersonal = async () => {
-    try {
-      let value = await AsyncStorage.getItem("dataPersonal");
-
-      if(value != '' && value != null )
-        functions.gotoScreen(this.props.navigation, "HomeScreen");
-    } catch (error) {
-      return null;
-    }
-  };*/
+    if (userName != "" && userName != null) {
+      this.setState({ userName: userName, passWord: passWord, checked: true });
+    } else {
+      this.setState({ userName: '', passWord: '', checked: false });
+    } 
+  };
 
   static navigationOptions = ({ navigation }) => ({
     title: "",
@@ -58,18 +60,24 @@ class LoginScreen extends Component {
         <Logo type="login" />
         <Header>Đăng nhập</Header>
         <Text style={styles.error}>{this.state.errorMessage}</Text>
-        <ActivityIndicator size="large" animating={this.state.ActivityIndicator}></ActivityIndicator>
+        <ActivityIndicator
+          size="large"
+          animating={this.state.ActivityIndicator}
+        />
         <View style={[styles.titleTextinput, styles.textGeneral]}>
           <Text>Email</Text>
           <Text style={styles.mandatoryColor}>*</Text>
         </View>
         <TextInput
           label="Nhập ID hoặc địa chỉ email"
-          onChangeText={(value) => this.setState({userName: value})}
+          onChangeText={(value) => this.setState({ userName: value })}
           value={this.state.userName}
           autoCapitalize="none"
           leftIcon="email-outline"
-          styleParent={{borderColor: this.state.colorBorderUserName, backgroundColor: 'white'}}
+          styleParent={{
+            borderColor: this.state.colorBorderUserName,
+            backgroundColor: "white",
+          }}
         />
         <View style={[styles.titleTextinput, styles.textGeneral]}>
           <Text>Mật khẩu</Text>
@@ -79,16 +87,24 @@ class LoginScreen extends Component {
           secureTextEntry={this.state.secureTextEntry}
           title="Mật khẩu *"
           label="Nhập mật khẩu"
-          onChangeText={(value) => this.setState({passWord: value})}
+          onChangeText={(value) => this.setState({ passWord: value })}
           value={this.state.passWord}
           returnKeyType="next"
           leftIcon="lock-outline"
           rightIcon="eye-outline"
           component={this}
-          styleParent={{borderColor: this.state.colorBorderPassWord, backgroundColor: 'white'}}
+          styleParent={{
+            borderColor: this.state.colorBorderPassWord,
+            backgroundColor: "white",
+          }}
         />
         <View style={styles.remember}>
-          <CheckBox containerStyle={styles.checkbox} title="Nhớ mật khẩu" />
+          <CheckBox
+            checked={this.state.checked}
+            containerStyle={styles.checkbox}
+            title="Nhớ mật khẩu"
+            onPress={() => this.setState({ checked: !this.state.checked })}
+          />
           <View style={styles.forgotPassword}>
             <TouchableOpacity
               onPress={() =>
@@ -110,7 +126,9 @@ class LoginScreen extends Component {
         <View style={styles.row}>
           <Text>Bạn đã chưa có tài khoản?</Text>
           <TouchableOpacity
-            onPress={() => functions.gotoScreen(this.props.navigation, "RegisterScreen")}
+            onPress={() =>
+              functions.gotoScreen(this.props.navigation, "RegisterScreen")
+            }
           >
             <Text style={styles.link}> Đăng ký</Text>
           </TouchableOpacity>

@@ -1,16 +1,17 @@
 import * as React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
-import { Checkbox } from 'react-native-paper';
+//import { Checkbox } from 'react-native-paper';
+import CheckBox from '@react-native-community/checkbox';
 
-function CheckBox({ label, status, onPress }) {
+function CheckBox_({ label, status, onPress }) {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Checkbox status={status} />
+        <CheckBox status={status} />
         <Text style={{ fontWeight: 'bold' }}>{label}</Text>
       </View>
     </TouchableOpacity>
   );
 }
 
-export default CheckBox;
+export default CheckBox_;

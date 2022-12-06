@@ -212,9 +212,18 @@ class Functions {
       );
   };
 
-  saveDataUser = async (responseData) => {
+  saveDataUser = async (responseData, component) => {
     try {
       await AsyncStorage.setItem("dataPersonal", JSON.stringify(responseData));
+
+      if(component.state.checked) {
+        await AsyncStorage.setItem("userName", component.state.userName);
+        await AsyncStorage.setItem("passWord", component.state.passWord);
+      } else {
+        await AsyncStorage.setItem("userName", '');
+        await AsyncStorage.setItem("passWord", '');
+      }
+
       this.setCart();
       //console.log(JSON.stringify(obj));
     } catch (error) {
@@ -435,12 +444,12 @@ class Functions {
     body.password = passWord;
     body = JSON.stringify(body);
 
-    callback = (responseData) => {
+    var callback = (responseData) => {
       if (responseData.data == null) {
         component.setState({ errorMessage: global.loginWrong });
         component.setState({ ActivityIndicator: false });
       } else {
-        functions.saveDataUser(responseData);
+        functions.saveDataUser(responseData, component);
 
         component.setState({ ActivityIndicator: false });
         functions.gotoScreen(component.props.navigation, "HomeScreen");
