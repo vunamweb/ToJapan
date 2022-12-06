@@ -27,7 +27,8 @@ import SliderProduct from "../components/SliderProduct";
 import IconBottom from "../components/IconBottom";
 import HeaderBg from "../components/HeaderBackground";
 import ListView from "../components/ListView";
-import CheckBox from "../components/Checkbox";
+//import CheckBox from "../components/Checkbox";
+import { CheckBox } from "react-native-elements";
 
 import styles from "../style/style";
 import functions from "../../app/function/function";
@@ -162,8 +163,8 @@ class CartScreen extends Component {
         <View style={[styles.seach, { marginTop: 0 }]}>
           <CheckBox
             label=""
-            status={
-              item.check == undefined || item.check == true ? "checked" : ""
+            checked={
+              item.check == undefined || item.check == true ? true : false
             }
             onPress={() => component.setState({ code: item.Code })}
           />
@@ -352,8 +353,9 @@ class CartScreen extends Component {
             {/* Header */}
             <View style={[styles.seach, { paddingRight: 20, paddingLeft: 20 }]}>
               <CheckBox
-                label="Chọn tất cả"
-                status={this.state.selectAll}
+                containerStyle ={{backgroundColor: 'transparent', borderWidth: 0}}
+                title="Chọn tất cả"
+                checked={this.state.selectAll}
                 onPress={() => this.selectAll()}
               />
               <TouchableOpacity onPress={null}>
