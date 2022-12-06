@@ -21,7 +21,7 @@ import {
   Modal,
 } from "react-native-paper";
 
-import Background from "../components/Background";
+import Background from "../components/BackgroundHome";
 import TextInput from "../components/TextInput";
 import CustomToolbar from "../components/CustomToolbar";
 import Banner from "../components/Banner";
@@ -331,7 +331,8 @@ return (
               </View>
               {/* END */}
               {/* Body */}
-              <View style={{ backgroundColor: "white" }}>
+              <View style={[{ backgroundColor: "white", alignItems: 'center', paddingTop: 20, height: 100 }]}><Text>Đang cập nhật ở phiên bản sau</Text></View>
+              <View style={[{ backgroundColor: "white" }, styles.hide]}>
                 <View
                   style={[
                     styles.shortOption,
@@ -588,7 +589,7 @@ return (
             </Modal>
           </Portal>
           <Background full="1" start="1">
-            <View style={[styles.homeBody, styles.marginHeader]}>
+            <View style={[styles.homeBody, styles.marginHeader, { marginTop: 0 }]}>
             {this.state.ActivityIndicator == "" ? View1 : View2}
               {/* Address */}
               <Address
@@ -618,6 +619,7 @@ return (
                     styles.flexRowStart,
                     styles.alignCenter,
                     styles.marginTop20,
+                    styles.hide
                   ]}
                 >
                   <Image source={image1} />
@@ -711,6 +713,11 @@ return (
                 </View>
                 {/* Dropdown2 */}
                 <Dropdown
+                  onSelect={(selectedItem, index) => {
+                    this.setState({
+                      visibleGTGT: true,
+                    })
+                  }}
                   data={countries}
                   renderCustomizedButtonChild={(selectedItem, index) => {
                     return (

@@ -11,7 +11,9 @@ import {
   ImageBackground,
   ActivityIndicator,
 } from "react-native";
+
 import { Rating, AirbnbRating, Tooltip } from "react-native-elements";
+
 import {
   Text,
   Searchbar,
@@ -20,6 +22,8 @@ import {
   Portal,
   Modal,
 } from "react-native-paper";
+
+import { CheckBox } from "react-native-elements";
 
 import moment from "moment";
 
@@ -35,7 +39,7 @@ import SliderProduct from "../components/SliderProduct";
 import IconBottom from "../components/IconBottom";
 import HeaderBg from "../components/HeaderBackground";
 import ListView from "../components/ListView";
-import CheckBox from "../components/Checkbox";
+//import CheckBox from "../components/Checkbox";
 import Address from "../components/Address";
 import Dropdown from "../components/Select";
 
@@ -89,6 +93,8 @@ class AuctionScreen extends Component {
     },
     money: 0,
     ActivityIndicator: true,
+    checked1: false,
+    checked2: false
   };
 
   _renderItem({ item, index }) {
@@ -626,7 +632,7 @@ class AuctionScreen extends Component {
             </Modal>
           </Portal>
           <BackgroundHome full="1" start="1">
-            <View style={[styles.homeBody, styles.marginHeader]}>
+            <View style={[styles.homeBody, styles.marginHeader, { marginTop: 0 }]}>
               {/* Address */}
               <Address text1={namePhone} text2={address} component={this} />
               {/* END */}
@@ -710,10 +716,11 @@ class AuctionScreen extends Component {
                 />
 
                 <View style={{ paddingRight: 20 }}>
-                  <CheckBox
-                    label="Xác nhận đồng ý đấu giá sản phẩm và không khiếu nại"
-                    status="checked"
-                    onPress={null}
+                <CheckBox
+                    containerStyle ={{backgroundColor: 'transparent', borderWidth: 0}}
+                    title="Xác nhận đồng ý đấu giá sản phẩm và không khiếu nại"
+                    checked={this.state.checked1}
+                    onPress={() => this.setState({ checked1: !this.state.checked1 })}
                   />
                 </View>
 
@@ -921,13 +928,18 @@ class AuctionScreen extends Component {
               </View>
               {/* END CONTAINER 3 */}
               <View>
-                <View style={[styles.flexRowStart, styles.padding]}>
-                  <CheckBox label="" status="checked" onPress={null} />
+              <View style={[styles.flexRowStart, styles.padding, { flex: 1 }]}>
+                  <CheckBox 
+                  checked={this.state.checked2}
+                  onPress={() => this.setState({ checked2: !this.state.checked2 })}
+                  />
+                  <View style={{ flex: 1, marginTop: 10 }}>
                   <Text style={styles.containerHeaderText1}>
                     Đồng ý với
                     <Text style={[styles.href]}> Điều khoản & chính sách</Text>
                     <Text> của to japan</Text>
                   </Text>
+                  </View>
                 </View>
 
                 <Text style={[styles.paymentText2, { marginLeft: 20 }]}>

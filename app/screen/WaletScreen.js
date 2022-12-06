@@ -44,7 +44,7 @@ const img2 = require("../../app/assets/check.png");
 const img3 = require("../../app/assets/JP.png");
 const img5 = require("../../app/assets/history.png");
 
-var moneyJYP, moneyJYPHOLD, moneyVN, moneyVNHOLD, QD;
+var moneyJYP = 0, moneyJYPHOLD = 0, moneyVN = 0, moneyVNHOLD = 0, QD;
 
 class WaletScreen extends Component {
   state= {
