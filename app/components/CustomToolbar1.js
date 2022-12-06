@@ -6,6 +6,9 @@ import Icon from "react-native-vector-icons/Ionicons";
 import styles from "../../app/style/style";
 import functions from "../../app/function/function";
 
+const heart = require("../../app/assets/heart.png");
+const heart_active = require("../../app/assets/heart-active.png");
+
 export default function CustomToolbar1({ mode, style, ...props }) {
   let order = props.component.state.order;
 
@@ -50,7 +53,13 @@ export default function CustomToolbar1({ mode, style, ...props }) {
             <Image source={require("../assets/share.png")} />
           </View>
           <View style={styles.rightIcon}>
-            <Image source={require("../assets/heart_2.png")} />
+          <TouchableOpacity
+              onPress={() => props.component.addRemoveFavorite(props.component.props.navigation.state.params.id)}
+            >
+          {
+              ( props.component.checkFavorite(props.component.props.navigation.state.params.id)) ? <Image style={{ width: 16, height: 16 }} source={heart_active}/> : <Image source={heart}/> 
+          }
+          </TouchableOpacity>
           </View>
         </View>
         {/* END bottom container */}
@@ -66,7 +75,7 @@ export default function CustomToolbar1({ mode, style, ...props }) {
       >
         <View style={[styles.leftContainer, { flexDirection: "row",position: 'absolute', left: 90, bottom: 20 }]}>
           <TouchableOpacity style={{ marginTop: 10 }} onPress={() => functions.gotoCart(props.component)}>
-            <Image source={require("../assets/shopping-bag.png")} />
+            <Image style={{ width: 24, height: 24 }} source={require("../assets/shopping-bag.png")} />
           </TouchableOpacity>
           <View style={{ marginLeft: 20 }}>
             <Text style={{ fontSize: 18, fontWeight: "700", color: "white" }}>

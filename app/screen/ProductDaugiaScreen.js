@@ -220,7 +220,6 @@ getIdFavoriteFromProduct = (product) => {
                     { functions.convertMoney(item.Price * 184) } VND
                   </Text>
                 </View>
-                <Image source={image2} />
               </View>
             </View>
           </View>
@@ -402,7 +401,7 @@ getIdFavoriteFromProduct = (product) => {
                   </Text>
                 </View>
                 <View style={[styles.flexRowStart]}>
-                  <Image source={require("../assets/Auction.png")} />
+                  <Image style={{ width: 24, height: 24 }} source={require("../assets/auction_daugia.png")} />
                   <Text style={(styles.paymentText2, styles.marginLeft5)}>
                     Đang đấu giá:{" "}
                     <Text style={styles.money3}>{product.bids}</Text>
@@ -493,7 +492,7 @@ getIdFavoriteFromProduct = (product) => {
                   styles.borderNormal,
                 ]}
               >
-                <Image source={require("../assets/Y!Auction.png")} />
+                <Image style={{ width: 48, height: 48 }} source={require("../assets/Y!Auction.png")} />
                 <View style={[styles.addressContent, { paddingLeft: 5 }]}>
                   <Text style={styles.paymentText2}>
                     Kích hoạt VIP Yahoo! Auction

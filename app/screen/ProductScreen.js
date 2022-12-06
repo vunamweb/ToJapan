@@ -81,7 +81,8 @@ class ProductScreen extends Component {
     bgTVGH: 'white',
     colorTVGH: '#3187EA',
     bgMN: '#E3F2FC',
-    colorMN: 'black'
+    colorMN: 'black',
+    ListFavorite: [],
   };
 
   _renderItem = ({ item, index }) => {
@@ -213,6 +214,7 @@ class ProductScreen extends Component {
     var id = this.props.navigation.state.params.id;
 
     functions.getProduct(this, cat, id);
+    functions.getListFavorite(this);
   }
 
   gotoTop = () => {
@@ -270,6 +272,33 @@ class ProductScreen extends Component {
 
     this.addProduct();
   }
+
+  addRemoveFavorite = (product) => {
+    if(this.checkFavorite(product))
+      functions.deleteFavorite(this, this.getIdFavoriteFromProduct(product));
+    else 
+      functions.addFavorite(product, this.props.navigation.state.params.cat, this);
+ }
+
+ checkFavorite = (product) => {
+  var count;
+  var listFavorite = this.state.ListFavorite;
+
+  for(count = 0; count < listFavorite.length; count++)
+    if(listFavorite[count].Product == product)
+      return true;
+
+  return false;    
+}
+
+getIdFavoriteFromProduct = (product) => {
+  var count;
+  var listFavorite = this.state.ListFavorite;
+
+  for(count = 0; count < listFavorite.length; count++)
+    if(listFavorite[count].Product == product)
+      return listFavorite[count]._id;
+}
 
   static navigationOptions = ({ navigation }) => ({
     title: "",
