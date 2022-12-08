@@ -24,6 +24,7 @@ import Carousel from "../components/Carousel";
 import ContainerHeader from "../components/ContainerHeader";
 import Header1 from "../components/Header1";
 import SliderProduct from "../components/SliderProduct"
+import SliderProduct1 from "../components/SliderProduct1"
 import IconBottom from "../components/IconBottom"
 import HeaderBg from "../components/HeaderBackground"
 
@@ -124,7 +125,7 @@ class CategoryScreen extends Component {
   _renderItem_2({ item, index }) {
     if(item.ten == component.state.service)
     return (
-      <View style={{ alignItems: "center", backgroundColor: '#3187EA', borderRadius: 16, padding: 10 }}>
+      <View style={{ alignItems: "center", backgroundColor: '#3187EA', borderRadius: 16, padding: 10, marginRight: 10 }}>
         <TouchableOpacity
         onPress={() =>
           functions.getListProductByTagClick(component, component.props.navigation.state.params.itemId, item.catid, item.ten, component.state.listService)
@@ -137,7 +138,7 @@ class CategoryScreen extends Component {
     );
     else 
     return (
-        <View style={{alignItems: "center", borderRadius: 16, backgroundColor: '#E6E8EC', padding: 10 }}>
+        <View style={{alignItems: "center", borderRadius: 16, backgroundColor: '#E6E8EC', padding: 10, marginRight: 10 }}>
           <TouchableOpacity
           onPress={() =>
             functions.getListProductByTagClick(component, component.props.navigation.state.params.itemId, item.catid, item.ten, component.state.listService)
@@ -465,13 +466,12 @@ gotoSearch = () => {
               <View style={{ marginTop: 40 }}><Header1>Hot! categories</Header1></View>
               {this.state.ActivityIndicator4 == "" ? View1 : View2}
               {/* Slider Product */}
-              <SliderProduct 
+              <SliderProduct1 
                   dataCarouselSlider={this.state.listService}
                   renderCarouselSlider={this._renderItem_2}
                   dataProductSlider={this.state.listProductByTag}
                   renderProductSlider={this._renderItem_3}
-                  loop={true}
-                  scrollEnabled={false}
+                  scrollEnabled={true}
               />
               {/* END */}
             </View>
