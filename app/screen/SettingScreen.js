@@ -34,7 +34,7 @@ const data1 = [
   },
   {
     text: "Danh sách địa chỉ",
-    img: require("../../app/assets/location_1.png"),
+    img: require("../../app/assets/location_black.png"),
     link: "ListAddress"
   },
   {
@@ -88,7 +88,7 @@ class SettingScreen extends Component {
         onPress={() => functions.gotoScreen(this.props.navigation, link)}
       >
         <View style={styles.flexRowStart}>
-          <Image source={item.img} />
+          <Image style={{ width: 24, height: 24 }} source={item.img} />
           <View style={{ flex: 1 }}>
             <View
               style={[

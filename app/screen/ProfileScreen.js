@@ -29,8 +29,7 @@ import functions from "../../app/function/function";
 const data1 = [
   {
     text: "Lịch sử tìm kiếm",
-    img: require("../../app/assets/history_1.png"),
-    link: "HistorySearchScreen",
+    img: require("../../app/assets/history.png"),
   },
   {
     text: "Đấu giá",
@@ -42,7 +41,7 @@ const data1 = [
   },
   {
     text: "Yêu thích",
-    img: require("../../app/assets/heart.png"),
+    img: require("../../app/assets/heart-black.png"),
     border: "none",
   },
 ];
@@ -84,7 +83,6 @@ const data3 = [
     text: "Liên hệ ToJapan",
     img: require("../../app/assets/Contact.png"),
     border: "none",
-    link: "ComplainScreen",
   },
 ];
 
@@ -139,16 +137,21 @@ class ProfileScreen extends Component {
     },
   };
 
+  goto = (link) => {
+    if(link != "" && link != null)
+    functions.gotoScreen(this.props.navigation, link) 
+  }
+
   _renderItem = ({ item, index }) => {
     let height = item.border == "none" ? 0 : 1;
-    let link = item.link != null ? item.link : "HomeScreen";
+    let link = item.link != null ? item.link : "";
 
     return (
       <TouchableOpacity
-        onPress={() => functions.gotoScreen(this.props.navigation, link)}
+        onPress={() => this.goto(link)}
       >
         <View style={styles.flexRowStart}>
-          <Image source={item.img} />
+          <Image style={{ width: 24, height: 24 }}  source={item.img} />
           <View style={{ flex: 1 }}>
             <View
               style={[

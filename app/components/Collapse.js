@@ -19,7 +19,7 @@ export default class App extends React.Component {
 
     return (
         <View style={{marginTop: 20}}>
-        <Text style={[styles.paymentText6, styles.fontBold, styles.marginBottom10]}>{this.props.title}</Text>
+        <Text style={[styles.paymentText6, styles.fontBold, styles.marginBottom30]}>{this.props.title}</Text>
       {/* List Product */}
       <View style={[styles.bgWhite, {backgroundColor: 'white'},
         styles.borderNormal]}>
