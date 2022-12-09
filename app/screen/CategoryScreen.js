@@ -33,6 +33,8 @@ import functions from "../../app/function/function";
 
 import { HeaderBackground } from "react-navigation-stack";
 
+import moment from "moment";
+
 const img3 = require("../../app/assets/heart.png");
 const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
@@ -41,6 +43,7 @@ const image3 = require("../../app/assets/search-normal.png");
 const img = require("../../app/assets/circle_bg.png");
 const heart = require("../../app/assets/heart.png");
 const heart_active = require("../../app/assets/heart-active.png");
+const clock = require("../../app/assets/clock.png");
 
 var component;
 
@@ -63,6 +66,8 @@ class CategoryScreen extends Component {
     ActivityIndicator3: false,
     ActivityIndicator4: true,
     ActivityIndicator5: true,
+    intervalId: null,
+    currentCount: 0,
   };
   _renderItem({ item, index }) {
     return (
@@ -103,6 +108,28 @@ class CategoryScreen extends Component {
     );
     this.gotoProduct();
   };
+
+  getCountDown = (endTime) => {
+    var response = {};
+
+    var dateCurrent = moment().unix();
+    var dateEndBid = moment(endTime).unix();
+
+    var time = dateEndBid - dateCurrent;
+    var date = new Date(time * 1000);
+
+    var day = Math.floor(time / 86400);
+    var hours = Math.floor((time - day * 24 * 3600) / 3600);
+    var minutes = date.getMinutes();
+    var seconds = date.getSeconds();
+
+    response.day = day;
+    response.hours = hours;
+    response.minutes = minutes;
+    response.seconds = seconds;
+
+    return response
+   }
 
   _renderItem_1({ item, index }) {
     return (
@@ -253,6 +280,13 @@ class CategoryScreen extends Component {
                   </View>
                 </TouchableOpacity>
                 <View style={{ marginTop: 30 }}>
+                {item.code != undefined ? 
+                <View/> : 
+                <View style={{ flexDirection: 'row', marginBottom: 5 }}>
+                  <Image style={{ width: 16, height: 16 }} source={clock}/>
+                  <Text style={{ marginLeft: 10, color: '#3187EA' }}>{this.getCountDown(item.End).day}d: {this.getCountDown(item.End).hours}h : {this.getCountDown(item.End).minutes}m : {this.getCountDown(item.End).seconds}s</Text>
+                  </View>
+                }
                   <TouchableOpacity
                     onPress={() =>
                       functions.gotoScreenProduct(
@@ -370,6 +404,13 @@ class CategoryScreen extends Component {
                   </View>
                 </TouchableOpacity>
                 <View style={{ marginTop: 30 }}>
+                {item.code != undefined ? 
+                <View/> : 
+                <View style={{ flexDirection: 'row', marginBottom: 5 }}>
+                  <Image style={{ width: 16, height: 16 }} source={clock}/>
+                  <Text style={{ marginLeft: 10, color: '#3187EA' }}>{this.getCountDown(item.End).day}d: {this.getCountDown(item.End).hours}h : {this.getCountDown(item.End).minutes}m : {this.getCountDown(item.End).seconds}s</Text>
+                  </View>
+                }
                   <TouchableOpacity
                     onPress={() =>
                       functions.gotoScreenProduct(
@@ -485,6 +526,9 @@ class CategoryScreen extends Component {
       my: this,
     });
 
+    var intervalId = setInterval(this.time, 1000);
+    this.setState({ intervalId: intervalId });
+
     //this.getData();
 
     var itemId = this.props.navigation.state.params.itemId;
@@ -496,6 +540,17 @@ class CategoryScreen extends Component {
     functions.getListService(this, itemId);
     functions.getListFavorite(this);
   }
+
+  componentWillUnmount() {
+    //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    clearInterval(this.state.intervalId);
+  }
+
+  time = () => {
+    this.setState({
+      currentCount: this.state.currentCount + 1,
+    });
+  };
 
   getData = async () => {
     var itemId = this.props.navigation.state.params.itemId;
