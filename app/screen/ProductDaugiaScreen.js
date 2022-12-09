@@ -8,7 +8,7 @@ import {
   ScrollView,
   LogBox,
   Dimensions,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
 import { Text, Switch } from "react-native-paper";
@@ -53,48 +53,51 @@ class ProductDaugiaScreen extends Component {
     product: {
       images: [],
       buy_now: null,
-      description: '',
+      description: "",
       price: 0,
       priceVN: 0,
-      buy_now: 0
+      buy_now: 0,
     },
     productSimilar1: [],
     productSimilar2: [],
     activeAuction: false,
     ActivityIndicator: false,
     ListFavorite: [],
-    bgDaugia: '#E3F2FC',
-    colorDaugia: 'black',
-    bgSPC: '#E3F2FC',
-    colorSPC: 'black'
+    bgDaugia: "#E3F2FC",
+    colorDaugia: "black",
+    bgSPC: "#E3F2FC",
+    colorSPC: "black",
   };
 
   addRemoveFavorite = (product) => {
-    if(this.checkFavorite(product))
+    if (this.checkFavorite(product))
       functions.deleteFavorite(this, this.getIdFavoriteFromProduct(product));
-    else 
-      functions.addFavorite(product, this.props.navigation.state.params.cat, this);
- }
+    else
+      functions.addFavorite(
+        product,
+        this.props.navigation.state.params.cat,
+        this
+      );
+  };
 
- checkFavorite = (product) => {
-  var count;
-  var listFavorite = this.state.ListFavorite;
+  checkFavorite = (product) => {
+    var count;
+    var listFavorite = this.state.ListFavorite;
 
-  for(count = 0; count < listFavorite.length; count++)
-    if(listFavorite[count].Product == product)
-      return true;
+    for (count = 0; count < listFavorite.length; count++)
+      if (listFavorite[count].Product == product) return true;
 
-  return false;    
-}
+    return false;
+  };
 
-getIdFavoriteFromProduct = (product) => {
-  var count;
-  var listFavorite = this.state.ListFavorite;
+  getIdFavoriteFromProduct = (product) => {
+    var count;
+    var listFavorite = this.state.ListFavorite;
 
-  for(count = 0; count < listFavorite.length; count++)
-    if(listFavorite[count].Product == product)
-      return listFavorite[count]._id;
-}
+    for (count = 0; count < listFavorite.length; count++)
+      if (listFavorite[count].Product == product)
+        return listFavorite[count]._id;
+  };
 
   _renderItem = ({ item, index }) => {
     return (
@@ -163,39 +166,41 @@ getIdFavoriteFromProduct = (product) => {
 
   _renderItem_3 = ({ item, index }) => {
     return (
-      <TouchableOpacity
-        onPress={() =>
-          component.showSimilarProduct(item.ID)
-        }
-      >
-        <View style={{ padding: 0, width: "90%" }}>
+      <TouchableOpacity onPress={() => component.showSimilarProduct(item.ID)}>
+        <View style={{ padding: 0, marginBottom: 20, width: Dimensions.get("window").width / 2 - 20 }}>
           <View
             style={{
               borderRadius: 30,
               backgroundColor: "white",
-              width: "100%",
+              //width: "100%",
               padding: 10,
+              marginRight: 10
             }}
           >
             <Image
-              style={{ width: "100%", height: 128, marginTop: 20}}
+              style={{ width: "100%", height: 128, marginTop: 20 }}
               source={{ uri: item.Image }}
             />
             <TouchableOpacity
-                  style={{ position: "absolute", top: 10, right: 15 }}
-                  onPress={() =>
-                    this.addRemoveFavorite(item.ID)
-                  }
-                >
-                  <View>
-                  {
-                    (this.checkFavorite(item.ID)) ? <Image style={{ width: 16, height: 16 }} source={heart_active}/> : <Image source={heart}/> 
-                  }
-                  </View>
-                </TouchableOpacity>
+              style={{ position: "absolute", top: 10, right: 15 }}
+              onPress={() => this.addRemoveFavorite(item.ID)}
+            >
+              <View>
+                {this.checkFavorite(item.ID) ? (
+                  <Image
+                    style={{ width: 16, height: 16 }}
+                    source={heart_active}
+                  />
+                ) : (
+                  <Image source={heart} />
+                )}
+              </View>
+            </TouchableOpacity>
             <View style={{ marginTop: 30 }}>
-              <Text style={{ color: "#23262F", fontSize: 16, minHeight: minHeight }}>
-                { functions.formatTitle(item.Title) }
+              <Text
+                style={{ color: "#23262F", fontSize: 16, minHeight: minHeight }}
+              >
+                {functions.formatTitle(item.Title)}
               </Text>
               <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
                 Từ {component.props.navigation.state.params.cat}
@@ -213,11 +218,16 @@ getIdFavoriteFromProduct = (product) => {
                 }}
               >
                 <View>
-                  <Text style={[{ color: "#D63F5C", fontSize: 16 }, styles.fontBold]}>
-                    { functions.convertMoney(item.Price) } ¥
+                  <Text
+                    style={[
+                      { color: "#D63F5C", fontSize: 16 },
+                      styles.fontBold,
+                    ]}
+                  >
+                    {functions.convertMoney(item.Price)} ¥
                   </Text>
                   <Text style={{ fontSize: 12, color: "#777E90" }}>
-                    { functions.convertMoney(item.Price * 184) } VND
+                    {functions.convertMoney(item.Price * 184)} VND
                   </Text>
                 </View>
               </View>
@@ -267,11 +277,10 @@ getIdFavoriteFromProduct = (product) => {
   };
 
   showSimilarProduct = (id) => {
-    
     functions.getProduct(this, this.props.navigation.state.params.cat, id);
 
     this.gotoTop();
-  }
+  };
 
   gotoTop = () => {
     this.refs._scrollView.scrollTo({
@@ -281,29 +290,38 @@ getIdFavoriteFromProduct = (product) => {
   };
 
   SPC = (product) => {
-    this.setState({ colorSPC: 'white', bgSPC: "#3187EA", colorDaugia: 'black', bgDaugia: "#E3F2FC" });
+    this.setState({
+      colorSPC: "white",
+      bgSPC: "#3187EA",
+      colorDaugia: "black",
+      bgDaugia: "#E3F2FC",
+    });
 
     functions.gotoScreenWithParam(
       JSON.stringify(product),
       this.props.navigation,
       "LastMinutesScreen"
-    )
-  }
+    );
+  };
 
   DG = (product) => {
-    this.setState({ colorDaugia: 'white', bgDaugia: "#3187EA", colorSPC: 'black', bgSPC: "#E3F2FC" });
+    this.setState({
+      colorDaugia: "white",
+      bgDaugia: "#3187EA",
+      colorSPC: "black",
+      bgSPC: "#E3F2FC",
+    });
 
     functions.gotoScreenWithParam(
       JSON.stringify(product),
       this.props.navigation,
       "AuctionScreen"
-    )
-  }
+    );
+  };
 
   static navigationOptions = ({ navigation }) => ({
     title: "",
   });
-
 
   render() {
     var product = this.getProduct();
@@ -332,22 +350,26 @@ getIdFavoriteFromProduct = (product) => {
 
     var productSimilar =
       this.state.product.description != undefined ? (
-        <View>
+        <View style={{ flex: 1, width: "100%" }}>
           <Header1>Sản phẩm Tương tự</Header1>
           {/* Slider Product */}
-          <Carousel
-            data={this.state.productSimilar1}
-            renderItem={this._renderItem_3}
-            top={0}
-            itemWidth={Dimensions.get("window").width / 2}
-            loop={true}
+          <SliderProduct
+            dataCarouselSlider={null}
+            renderCarouselSlider={this._renderItem_2}
+            dataProductSlider={this.state.productSimilar1}   
+            renderProductSlider={this._renderItem_3}
+            scrollEnabled={true}
+            horizontal={true}
+            col={1}
           />
-          <Carousel
-            data={this.state.productSimilar2}
-            renderItem={this._renderItem_3}
-            top={0}
-            itemWidth={Dimensions.get("window").width / 2}
-            loop={true}
+          <SliderProduct
+            dataCarouselSlider={null}
+            renderCarouselSlider={this._renderItem_2}
+            dataProductSlider={this.state.productSimilar2}
+            renderProductSlider={this._renderItem_3}
+            scrollEnabled={true}
+            horizontal={true}
+            col={1}
           />
         </View>
       ) : (
@@ -367,10 +389,10 @@ getIdFavoriteFromProduct = (product) => {
           </View>
           {/* END */}
           <View style={[styles.homeBody, { marginTop: -40 }]}>
-          <ActivityIndicator
-                size="large"
-                animating={this.state.ActivityIndicator}
-              />
+            <ActivityIndicator
+              size="large"
+              animating={this.state.ActivityIndicator}
+            />
             <View style={styles.homeContent}>
               <Text
                 style={[
@@ -401,7 +423,10 @@ getIdFavoriteFromProduct = (product) => {
                   </Text>
                 </View>
                 <View style={[styles.flexRowStart]}>
-                  <Image style={{ width: 24, height: 24 }} source={require("../assets/auction_daugia.png")} />
+                  <Image
+                    style={{ width: 24, height: 24 }}
+                    source={require("../assets/auction_daugia.png")}
+                  />
                   <Text style={(styles.paymentText2, styles.marginLeft5)}>
                     Đang đấu giá:{" "}
                     <Text style={styles.money3}>{product.bids}</Text>
@@ -426,7 +451,7 @@ getIdFavoriteFromProduct = (product) => {
 
                 <View style={{ flexDirection: "row" }}>
                   <Text style={{ color: "#D63F5C", fontSize: 22 }}>
-                    { functions.convertMoney(product.price) } ¥
+                    {functions.convertMoney(product.price)} ¥
                   </Text>
                   <Text
                     style={{
@@ -436,7 +461,7 @@ getIdFavoriteFromProduct = (product) => {
                       marginTop: 5,
                     }}
                   >
-                    { functions.convertMoney(product.priceVN) } đ
+                    {functions.convertMoney(product.priceVN)} đ
                   </Text>
                 </View>
 
@@ -492,14 +517,20 @@ getIdFavoriteFromProduct = (product) => {
                   styles.borderNormal,
                 ]}
               >
-                <Image style={{ width: 48, height: 48 }} source={require("../assets/Y!Auction.png")} />
+                <Image
+                  style={{ width: 48, height: 48 }}
+                  source={require("../assets/Y!Auction.png")}
+                />
                 <View style={[styles.addressContent, { paddingLeft: 5 }]}>
                   <Text style={styles.paymentText2}>
                     Kích hoạt VIP Yahoo! Auction
                   </Text>
                   <Text style={styles.money3}>10.000 Point</Text>
                 </View>
-                <Switch value={this.state.activeAuction} onValueChange={() => functions.activeAuction(this) } />
+                <Switch
+                  value={this.state.activeAuction}
+                  onValueChange={() => functions.activeAuction(this)}
+                />
               </View>
               {/* BUTTON 1 */}
               <TouchableOpacity
@@ -507,9 +538,7 @@ getIdFavoriteFromProduct = (product) => {
                   styles.button,
                   { backgroundColor: this.state.bgDaugia, marginTop: 20 },
                 ]}
-                onPress={() =>
-                  this.DG(product)
-                }
+                onPress={() => this.DG(product)}
               >
                 <Text style={{ color: this.state.colorDaugia }}>Đấu giá</Text>
               </TouchableOpacity>
@@ -520,11 +549,11 @@ getIdFavoriteFromProduct = (product) => {
                   styles.button,
                   { backgroundColor: this.state.bgSPC, marginTop: 20 },
                 ]}
-                onPress={() =>
-                  this.SPC(product)
-                }
+                onPress={() => this.SPC(product)}
               >
-                <Text style={{ color: this.state.colorSPC }}>Săn phút chót</Text>
+                <Text style={{ color: this.state.colorSPC }}>
+                  Săn phút chót
+                </Text>
               </TouchableOpacity>
               {/* END button2 */}
               {buttonBuyNow}

@@ -34,6 +34,7 @@ export default class App extends React.Component {
          renderItem={this.props.renderProductSlider}
          col={col}
          scrollEnabled={this.props.scrollEnabled}
+         horizontal={this.props.horizontal}
       />
       {/* END */}
       </View>
@@ -56,6 +57,7 @@ export default class App extends React.Component {
        data={this.props.dataProductSlider}
        renderItem={this.props.renderProductSlider}
        col={col}
+       horizontal={this.props.horizontal}
     />
     {/* END */}
     </View>

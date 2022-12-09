@@ -11,6 +11,10 @@ export default class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.carousel.snapToItem(1);
+  }
+
   render() {
     return (
       <Carousel
