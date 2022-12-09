@@ -32,6 +32,7 @@ import functions from "../../app/function/function";
 
 const img1 = require("../../app/assets/product.png");
 const img2 = require("../../app/assets/circle_bg.png");
+const image2_auction = require("../../app/assets/auction-buy.png");
 const img3 = require("../../app/assets/heart.png");
 
 const img = require("../../app/assets/image_6.png");
@@ -60,7 +61,7 @@ class ProductDaugiaScreen extends Component {
     },
     productSimilar1: [],
     productSimilar2: [],
-    activeAuction: false,
+    activeAuction: true,
     ActivityIndicator: false,
     ListFavorite: [],
     bgDaugia: "#E3F2FC",
@@ -167,14 +168,20 @@ class ProductDaugiaScreen extends Component {
   _renderItem_3 = ({ item, index }) => {
     return (
       <TouchableOpacity onPress={() => component.showSimilarProduct(item.ID)}>
-        <View style={{ padding: 0, marginBottom: 20, width: Dimensions.get("window").width / 2 - 20 }}>
+        <View
+          style={{
+            padding: 0,
+            marginBottom: 20,
+            width: Dimensions.get("window").width / 2 - 20,
+          }}
+        >
           <View
             style={{
               borderRadius: 30,
               backgroundColor: "white",
               //width: "100%",
               padding: 10,
-              marginRight: 10
+              marginRight: 10,
             }}
           >
             <Image
@@ -230,6 +237,10 @@ class ProductDaugiaScreen extends Component {
                     {functions.convertMoney(item.Price * 184)} VND
                   </Text>
                 </View>
+                <Image
+                  style={{ width: 32, height: 32 }}
+                  source={image2_auction}
+                />
               </View>
             </View>
           </View>
@@ -356,7 +367,7 @@ class ProductDaugiaScreen extends Component {
           <SliderProduct
             dataCarouselSlider={null}
             renderCarouselSlider={this._renderItem_2}
-            dataProductSlider={this.state.productSimilar1}   
+            dataProductSlider={this.state.productSimilar1}
             renderProductSlider={this._renderItem_3}
             scrollEnabled={true}
             horizontal={true}

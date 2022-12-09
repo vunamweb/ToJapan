@@ -1,4 +1,4 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 
 import {
   TouchableOpacity,
@@ -10,7 +10,7 @@ import {
   SearchBox,
   ImageBackground,
   ActivityIndicator,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating } from "react-native-elements";
 import { Text } from "react-native-paper";
@@ -23,10 +23,10 @@ import Banner from "../components/Banner";
 import Carousel from "../components/Carousel";
 import ContainerHeader from "../components/ContainerHeader";
 import Header1 from "../components/Header1";
-import SliderProduct from "../components/SliderProduct"
-import SliderProduct1 from "../components/SliderProduct1"
-import IconBottom from "../components/IconBottom"
-import HeaderBg from "../components/HeaderBackground"
+import SliderProduct from "../components/SliderProduct";
+import SliderProduct1 from "../components/SliderProduct1";
+import IconBottom from "../components/IconBottom";
+import HeaderBg from "../components/HeaderBackground";
 
 import styles from "../style/style";
 import functions from "../../app/function/function";
@@ -36,6 +36,7 @@ import { HeaderBackground } from "react-navigation-stack";
 const img3 = require("../../app/assets/heart.png");
 const image1 = require("../../app/assets/heart.png");
 const image2 = require("../../app/assets/shopping_bag.png");
+const image2_auction = require("../../app/assets/auction-buy.png");
 const image3 = require("../../app/assets/search-normal.png");
 const img = require("../../app/assets/circle_bg.png");
 const heart = require("../../app/assets/heart.png");
@@ -43,7 +44,7 @@ const heart_active = require("../../app/assets/heart-active.png");
 
 var component;
 
-var height = Math.floor(Dimensions.get('window').width * 0.9 * 296/1560);
+var height = Math.floor((Dimensions.get("window").width * 0.9 * 296) / 1560);
 
 const minHeight = 50;
 
@@ -56,24 +57,22 @@ class CategoryScreen extends Component {
     ListFavorite: [],
     dataPopularBranch: [],
     dataBanner: [],
-    service: '',
+    service: "",
     ActivityIndicator1: true,
     ActivityIndicator2: true,
     ActivityIndicator3: false,
     ActivityIndicator4: true,
     ActivityIndicator5: true,
-  }
+  };
   _renderItem({ item, index }) {
     return (
       <TouchableOpacity
-      onPress={() =>
-        component.getListProductByTagClick(item.catid, item.ten)
-      }
+        onPress={() => component.getListProductByTagClick(item.catid, item.ten)}
       >
-<View style={{ alignItems: "center" }}>
-        <Image source={img} />
-        <Text>{item.ten}</Text>
-      </View>
+        <View style={{ alignItems: "center" }}>
+          <Image source={img} />
+          <Text>{item.ten}</Text>
+        </View>
       </TouchableOpacity>
     );
   }
@@ -82,7 +81,7 @@ class CategoryScreen extends Component {
     return (
       <View style={{ alignItems: "center" }}>
         <Image source={require("../../app/assets/Maskgroup_1.png")} />
-          <Text>{item.Brand}</Text>
+        <Text>{item.Brand}</Text>
       </View>
     );
   };
@@ -92,70 +91,124 @@ class CategoryScreen extends Component {
       y: 300,
       animated: true,
     });
-}
+  };
 
   getListProductByTagClick = (catid, ten) => {
-    functions.getListProductByTagClick(component, component.props.navigation.state.params.itemId, catid, ten, component.state.listService)
+    functions.getListProductByTagClick(
+      component,
+      component.props.navigation.state.params.itemId,
+      catid,
+      ten,
+      component.state.listService
+    );
     this.gotoProduct();
-  }
+  };
 
   _renderItem_1({ item, index }) {
     return (
       <View style={styles.shop}>
-         <View style={{flexDirection: 'row'}}>
-            <View style={[styles.circle, {marginRight: 20}]}/>
-            <View>
-              <Text style={styles.shopText1}>{item.title}</Text>
-              <Text style={styles.shopText2}>{item.text}</Text>
-            </View>
-         </View>
-         <View style={{marginTop: 10}}>
-           <Image source={img3}/>
-         </View>
+        <View style={{ flexDirection: "row" }}>
+          <View style={[styles.circle, { marginRight: 20 }]} />
+          <View>
+            <Text style={styles.shopText1}>{item.title}</Text>
+            <Text style={styles.shopText2}>{item.text}</Text>
+          </View>
+        </View>
+        <View style={{ marginTop: 10 }}>
+          <Image source={img3} />
+        </View>
       </View>
     );
   }
 
   _renderItem_Banner({ item, index }) {
     return (
-      <Image style={{ width: '90%', height: height, marginLeft: '5%', marginRight: '5%' }} source={{ uri: item.img }} />
+      <Image
+        style={{
+          width: "90%",
+          height: height,
+          marginLeft: "5%",
+          marginRight: "5%",
+        }}
+        source={{ uri: item.img }}
+      />
     );
   }
 
   _renderItem_2({ item, index }) {
-    if(item.ten == component.state.service)
-    return (
-      <View style={{ alignItems: "center", backgroundColor: '#3187EA', borderRadius: 16, padding: 10, marginRight: 10 }}>
-        <TouchableOpacity
-        onPress={() =>
-          functions.getListProductByTagClick(component, component.props.navigation.state.params.itemId, item.catid, item.ten, component.state.listService)
-        }
+    if (item.ten == component.state.service)
+      return (
+        <View
+          style={{
+            alignItems: "center",
+            backgroundColor: "#3187EA",
+            borderRadius: 16,
+            padding: 10,
+            marginRight: 10,
+          }}
         >
-<Text style={{color: 'white', fontSize: 16, fontWeight: '500'}}>{item.ten}</Text>
-        </TouchableOpacity>
-        
-      </View>
-    );
-    else 
-    return (
-        <View style={{alignItems: "center", borderRadius: 16, backgroundColor: '#E6E8EC', padding: 10, marginRight: 10 }}>
           <TouchableOpacity
-          onPress={() =>
-            functions.getListProductByTagClick(component, component.props.navigation.state.params.itemId, item.catid, item.ten, component.state.listService)
-          }
+            onPress={() =>
+              functions.getListProductByTagClick(
+                component,
+                component.props.navigation.state.params.itemId,
+                item.catid,
+                item.ten,
+                component.state.listService
+              )
+            }
           >
-           <Text style={{color: 'black', fontSize: 16, fontWeight: '500'}}>{item.ten}</Text>
-           </TouchableOpacity>
+            <Text style={{ color: "white", fontSize: 16, fontWeight: "500" }}>
+              {item.ten}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      );
+    else
+      return (
+        <View
+          style={{
+            alignItems: "center",
+            borderRadius: 16,
+            backgroundColor: "#E6E8EC",
+            padding: 10,
+            marginRight: 10,
+          }}
+        >
+          <TouchableOpacity
+            onPress={() =>
+              functions.getListProductByTagClick(
+                component,
+                component.props.navigation.state.params.itemId,
+                item.catid,
+                item.ten,
+                component.state.listService
+              )
+            }
+          >
+            <Text style={{ color: "black", fontSize: 16, fontWeight: "500" }}>
+              {item.ten}
+            </Text>
+          </TouchableOpacity>
         </View>
       );
   }
 
   _renderItem_2_({ item, index }) {
     return (
-        <View style={{alignItems: "center", borderRadius: 16, backgroundColor: '#E6E8EC', padding: 10 }}>
-           <Text style={{color: 'black', fontSize: 16, fontWeight: '500'}}>{item.vi}</Text>
-        </View>
-      );
+      <View
+        style={{
+          alignItems: "center",
+          borderRadius: 16,
+          backgroundColor: "#E6E8EC",
+          padding: 10,
+        }}
+      >
+        <Text style={{ color: "black", fontSize: 16, fontWeight: "500" }}>
+          {item.vi}
+        </Text>
+      </View>
+    );
   }
 
   _renderItem_3 = ({ item, index }) => {
@@ -173,36 +226,53 @@ class CategoryScreen extends Component {
             >
               <View style={{ padding: 0 }}>
                 <Image
-                  style={{ width: "100%", height: 128, marginTop: 20}}
-                  source={{ uri: (item.Image != undefined ? item.Image : item.image) }}
+                  style={{ width: "100%", height: 128, marginTop: 20 }}
+                  source={{
+                    uri: item.Image != undefined ? item.Image : item.image,
+                  }}
                 />
                 <TouchableOpacity
                   style={{ position: "absolute", top: 0, right: 5 }}
                   onPress={() =>
-                    this.addRemoveFavorite((item.code != undefined ? item.code : item.ID))
+                    this.addRemoveFavorite(
+                      item.code != undefined ? item.code : item.ID
+                    )
                   }
                 >
                   <View>
-                  {
-                    (this.checkFavorite((item.code != undefined ? item.code : item.ID))) ? <Image style={{ width: 16, height: 16 }} source={heart_active}/> : <Image source={heart}/> 
-                  }
+                    {this.checkFavorite(
+                      item.code != undefined ? item.code : item.ID
+                    ) ? (
+                      <Image
+                        style={{ width: 16, height: 16 }}
+                        source={heart_active}
+                      />
+                    ) : (
+                      <Image source={heart} />
+                    )}
                   </View>
                 </TouchableOpacity>
-                <View
-                  style={{ marginTop: 30 }}
-                >
+                <View style={{ marginTop: 30 }}>
                   <TouchableOpacity
                     onPress={() =>
                       functions.gotoScreenProduct(
                         this.props.navigation.state.params.itemId,
-                        (item.code != undefined ? item.code : item.ID),
+                        item.code != undefined ? item.code : item.ID,
                         this.props.navigation,
                         "ProductScreen"
                       )
                     }
                   >
-                    <Text style={{ color: "#23262F", fontSize: 16, minHeight: minHeight }}>
-                    {(item.title != undefined ? item.title.substr(0, 15) : item.Title.substr(0, 15))}
+                    <Text
+                      style={{
+                        color: "#23262F",
+                        fontSize: 16,
+                        minHeight: minHeight,
+                      }}
+                    >
+                      {item.title != undefined
+                        ? item.title.substr(0, 15)
+                        : item.Title.substr(0, 15)}
                     </Text>
                   </TouchableOpacity>
                   <Text
@@ -223,14 +293,41 @@ class CategoryScreen extends Component {
                     }}
                   >
                     <View>
-                      <Text style={[{ color: "#D63F5C", fontSize: 16 }, styles.fontBold]}>
-                      {item.price != undefined ? functions.convertMoney(item.price) : functions.convertMoney(item.Price)} ¥
+                      <Text
+                        style={[
+                          { color: "#D63F5C", fontSize: 16 },
+                          styles.fontBold,
+                        ]}
+                      >
+                        {item.price != undefined
+                          ? functions.convertMoney(item.price)
+                          : functions.convertMoney(item.Price)}{" "}
+                        ¥
                       </Text>
                       <Text style={{ fontSize: 12, color: "#777E90" }}>
-                      {(item.priceVN != undefined ? functions.convertMoney(item.priceVN) : functions.convertMoney(item.PriceVN))} VND
+                        {item.priceVN != undefined
+                          ? functions.convertMoney(item.priceVN)
+                          : functions.convertMoney(item.PriceVN)}{" "}
+                        VND
                       </Text>
                     </View>
-                    <Image style={{ width:32, height: 32 }} source={image2} />
+                    <TouchableOpacity
+                      onPress={() =>
+                        functions.gotoScreenProduct(
+                          this.props.navigation.state.params.itemId,
+                          item.code != undefined ? item.code : item.ID,
+                          this.props.navigation,
+                          "ProductScreen"
+                        )
+                      }
+                    >
+                      <Image
+                        style={{ width: 32, height: 32 }}
+                        source={
+                          item.code != undefined ? image2 : image2_auction
+                        }
+                      />
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>
@@ -253,35 +350,46 @@ class CategoryScreen extends Component {
               <View style={{ padding: 0 }}>
                 <Image
                   style={{ width: "100%", height: 128, marginTop: 20 }}
-                  source={{ uri: (item.Image != undefined ? item.Image : item.image) }}
+                  source={{
+                    uri: item.Image != undefined ? item.Image : item.image,
+                  }}
                 />
                 <TouchableOpacity
                   style={{ position: "absolute", top: 0, right: 5 }}
-                  onPress={() =>
-                    this.addRemoveFavorite(item.code)
-                  }
+                  onPress={() => this.addRemoveFavorite(item.code)}
                 >
-                 <View>
-                  {
-                    (this.checkFavorite(item.code)) ? <Image style={{ width: 16, height: 16 }} source={heart_active}/> : <Image source={heart}/> 
-                  }
+                  <View>
+                    {this.checkFavorite(item.code) ? (
+                      <Image
+                        style={{ width: 16, height: 16 }}
+                        source={heart_active}
+                      />
+                    ) : (
+                      <Image source={heart} />
+                    )}
                   </View>
                 </TouchableOpacity>
-                <View
-                  style={{ marginTop: 30 }}
-                >
+                <View style={{ marginTop: 30 }}>
                   <TouchableOpacity
                     onPress={() =>
                       functions.gotoScreenProduct(
                         this.props.navigation.state.params.itemId,
-                        (item.code != undefined ? item.code : item.ID),
+                        item.code != undefined ? item.code : item.ID,
                         this.props.navigation,
                         "ProductScreen"
                       )
                     }
                   >
-                    <Text style={{ color: "#23262F", fontSize: 16, minHeight: minHeight }}>
-                    {(item.title != undefined ? item.title.substr(0, 15) : item.Title.substr(0, 15))}
+                    <Text
+                      style={{
+                        color: "#23262F",
+                        fontSize: 16,
+                        minHeight: minHeight,
+                      }}
+                    >
+                      {item.title != undefined
+                        ? item.title.substr(0, 15)
+                        : item.Title.substr(0, 15)}
                     </Text>
                   </TouchableOpacity>
                   <Text
@@ -302,14 +410,32 @@ class CategoryScreen extends Component {
                     }}
                   >
                     <View>
-                    <Text style={[{ color: "#D63F5C", fontSize: 16 }, styles.fontBold]}>
-                        {item.price != undefined ? functions.convertMoney(item.price) : functions.convertMoney(item.Price)} ¥
+                      <Text
+                        style={[
+                          { color: "#D63F5C", fontSize: 16 },
+                          styles.fontBold,
+                        ]}
+                      >
+                        {item.price != undefined
+                          ? functions.convertMoney(item.price)
+                          : functions.convertMoney(item.Price)}{" "}
+                        ¥
                       </Text>
                       <Text style={{ fontSize: 12, color: "#777E90" }}>
-                      {(item.priceVN != undefined ? functions.convertMoney(item.priceVN) : functions.convertMoney(item.PriceVN))} VND
+                        {item.priceVN != undefined
+                          ? functions.convertMoney(item.priceVN)
+                          : functions.convertMoney(item.PriceVN)}{" "}
+                        VND
                       </Text>
                     </View>
-                    <Image style={{ width:32, height: 32 }} source={image2} />
+                    <TouchableOpacity>
+                      <Image
+                        style={{ width: 32, height: 32 }}
+                        source={
+                          item.code != undefined ? image2 : image2_auction
+                        }
+                      />
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>
@@ -321,38 +447,38 @@ class CategoryScreen extends Component {
 
   static navigationOptions = ({ navigation }) => ({
     //headerStyle: { backgroundColor: '#00FF57' },
-    headerBackground: () => (
-      <HeaderBg/>
-    ),
+    headerBackground: () => <HeaderBg />,
     headerRight: (
-        <View style={{paddingRight: 20}}>
+      <View style={{ paddingRight: 20 }}>
         <TouchableOpacity
-        onPress={() =>
-          navigation.getParam("my").gotoSearch()
-        }
+          onPress={() => navigation.getParam("my").gotoSearch()}
         >
-           <Image source={image3}/>
+          <Image source={image3} />
         </TouchableOpacity>
-        </View>
+      </View>
     ),
     headerTitleStyle: {
-      color: 'white'
+      color: "white",
     },
-    title: navigation.state.params.itemId
-})
+    title: navigation.state.params.itemId,
+  });
 
-gotoSearch = () => {
-  var data = {};
+  gotoSearch = () => {
+    var data = {};
 
-  data.listService = this.state.listService;
-  data.shop = this.props.navigation.state.params.itemId;
-  data.listProductByTag = this.state.listProductByTag;
+    data.listService = this.state.listService;
+    data.shop = this.props.navigation.state.params.itemId;
+    data.listProductByTag = this.state.listProductByTag;
 
-  functions.gotoScreenWithParam(JSON.stringify(data), this.props.navigation, "KeywordPopularScreen")
-}
+    functions.gotoScreenWithParam(
+      JSON.stringify(data),
+      this.props.navigation,
+      "KeywordPopularScreen"
+    );
+  };
 
   componentDidMount() {
-    LogBox.ignoreAllLogs(['VirtualizedLists should never be nested']);
+    LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
     component = this;
 
     this.props.navigation.setParams({
@@ -376,54 +502,61 @@ gotoSearch = () => {
 
     await functions.getListService(this, itemId);
     functions.getListProductByTag(this, itemId);
-
-  }
+  };
 
   checkFavorite = (product) => {
     var count;
     var listFavorite = this.state.ListFavorite;
 
-    for(count = 0; count < listFavorite.length; count++)
-      if(listFavorite[count].Product == product)
-        return true;
+    for (count = 0; count < listFavorite.length; count++)
+      if (listFavorite[count].Product == product) return true;
 
-    return false;    
-  }
+    return false;
+  };
 
   getIdFavoriteFromProduct = (product) => {
     var count;
     var listFavorite = this.state.ListFavorite;
 
-    for(count = 0; count < listFavorite.length; count++)
-      if(listFavorite[count].Product == product)
+    for (count = 0; count < listFavorite.length; count++)
+      if (listFavorite[count].Product == product)
         return listFavorite[count]._id;
-}
+  };
 
   addRemoveFavorite = (product) => {
-     if(this.checkFavorite(product))
-       functions.deleteFavorite(this, this.getIdFavoriteFromProduct(product));
-     else 
-       functions.addFavorite(product, this.props.navigation.state.params.itemId, this);
-  }
+    if (this.checkFavorite(product))
+      functions.deleteFavorite(this, this.getIdFavoriteFromProduct(product));
+    else
+      functions.addFavorite(
+        product,
+        this.props.navigation.state.params.itemId,
+        this
+      );
+  };
 
   render() {
     var View1 = <View />;
     var View2 = (
       <ActivityIndicator
-                size="large"
-                animating={this.state.ActivityIndicator}
-              />
+        size="large"
+        animating={this.state.ActivityIndicator}
+      />
     );
 
     return (
-      <ScrollView ref='_scrollView'>
+      <ScrollView ref="_scrollView">
         <Background full="1">
-          <View style={[styles.fullWith, { padding: 20, paddingTop: 0, marginTop: 0 }]}>
+          <View
+            style={[
+              styles.fullWith,
+              { padding: 20, paddingTop: 0, marginTop: 0 },
+            ]}
+          >
             {/* Banner */}
             {this.state.ActivityIndicator5 == "" ? View1 : View2}
-            <Banner 
-            renderItem={this._renderItem_Banner}
-            carouselItems={this.state.dataBanner}
+            <Banner
+              renderItem={this._renderItem_Banner}
+              carouselItems={this.state.dataBanner}
             />
             {/* END */}
           </View>
@@ -451,7 +584,7 @@ gotoSearch = () => {
                 loop={true}
               />
               {/* END */}
-              <View style={{marginTop: 30}}></View>
+              <View style={{ marginTop: 30 }} />
               <Header1>Thương hiệu phổ biến</Header1>
               {this.state.ActivityIndicator3 == "" ? View1 : View2}
               {/* Slider 2 */}
@@ -463,15 +596,17 @@ gotoSearch = () => {
                 loop={true}
               />
               {/* END */}
-              <View style={{ marginTop: 40 }}><Header1>Hot! categories</Header1></View>
+              <View style={{ marginTop: 40 }}>
+                <Header1>Hot! categories</Header1>
+              </View>
               {this.state.ActivityIndicator4 == "" ? View1 : View2}
               {/* Slider Product */}
-              <SliderProduct1 
-                  dataCarouselSlider={this.state.listService}
-                  renderCarouselSlider={this._renderItem_2}
-                  dataProductSlider={this.state.listProductByTag}
-                  renderProductSlider={this._renderItem_3}
-                  scrollEnabled={true}
+              <SliderProduct1
+                dataCarouselSlider={this.state.listService}
+                renderCarouselSlider={this._renderItem_2}
+                dataProductSlider={this.state.listProductByTag}
+                renderProductSlider={this._renderItem_3}
+                scrollEnabled={true}
               />
               {/* END */}
             </View>
