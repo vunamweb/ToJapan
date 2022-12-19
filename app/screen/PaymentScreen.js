@@ -78,7 +78,9 @@ class AddressScreen extends Component {
     }, 
     ActivityIndicator: true,
     saveShip: true,
-    transfer: true
+    transfer: true,
+    messageAlert: null,
+    visibleAlertPayment: false
   };
 
   _renderItem({ item, index }) {
@@ -302,7 +304,45 @@ class AddressScreen extends Component {
 return (
       <Provider>
         <ScrollView>
+          
           <Portal>
+
+          <Modal
+              visible={this.state.visibleAlertPayment}
+              contentContainerStyle={styles.shortModal}
+            >
+
+              {/* Body */}
+              <View style={{ backgroundColor: "white" }}>
+                <View>
+                  <View style={{ height: 1, backgroundColor: "#cccccc" }} />
+                   {this.state.messageAlert}
+                  <View
+                    style={[
+                      {
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                      },
+                      styles.padding,
+                    ]}
+                  >
+                    {/* Button ap dung */}
+                    <TouchableOpacity
+                      style={[
+                        styles.buttonNotFull,
+                        { backgroundColor: "#3187EA", marginTop: 0, paddingHorizontal: 30, },
+                      ]}
+                      onPress={() => this.setState({ visibleAlertPayment: false })}
+                    >
+                      <Text style={{ color: "white" }}>Thanh toán lại</Text>
+                    </TouchableOpacity>
+                    {/* END */}
+                  </View>
+                </View>
+              </View>
+              {/* END */}
+            </Modal>
+
             {/* Modal short */}
             <Modal
               visible={this.state.visibleGTGT}
