@@ -444,6 +444,20 @@ module.exports = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderBottomStartRadius: 20,
   },
+  filterModal1: {
+    justifyContent: 'flex-start',
+    position: "absolute",
+    top: 0,
+    paddingTop: 30,
+    backgroundColor: "white",
+    right: 0,
+    width: "90%",
+    height: "100%",
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20,
+    overflow: 'hidden',
+    zIndex: 999999
+  },
   filterHeaderModal: {
     padding: 10,
     justifyContent: "space-between",
