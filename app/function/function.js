@@ -409,7 +409,7 @@ class Functions {
         break;
 
       case "mcr":
-        return "mcr";
+        return "mercari";
         break;
 
       default:

@@ -479,7 +479,7 @@ class DetailOrderScreen extends Component {
             </Modal>
           </Portal>
           <Background full="1" start="1">
-            <View style={[styles.homeBody, styles.marginHeader]}>
+            <View style={[styles.homeBody, styles.marginHeader, { marginTop: 0 }]}>
               {/* Address */}
               <Address text1={namePhone} text2={address} component={this} />
               {/* END */}
@@ -501,13 +501,13 @@ class DetailOrderScreen extends Component {
                   style={[
                     styles.seach,
                     styles.marginBottom20,
-                    { marginTop: 0 },
+                    { marginTop: 0, flex: 1, flexDirection: 'column' },
                   ]}
                 >
-                  <Text style={[styles.fontBold, styles.paymentText4]}>
+                  <Text style={[styles.fontBold, styles.paymentText4, { fontSize: 15 }]}>
                     {MDH}
                   </Text>
-                  <Text style={styles.mangerOderText1}>
+                  <Text style={[styles.mangerOderText1, { flex: 1 }]}>
                     {order.ProductStatus}
                   </Text>
                 </View>
@@ -552,11 +552,11 @@ class DetailOrderScreen extends Component {
                   style={[
                     styles.marginTop20,
                     styles.marginBottom20,
-                    { width: "100%", flexDirection: "row" },
+                    { width: "100%", flexDirection: "row", flex: 1 },
                   ]}
                 >
                   <Image source={{ uri: order.ProductData.productImages[0].uri }} style={{ width: 70, height: 70 }} />
-                  <View style={{ marginTop: 0, marginLeft: 20 }}>
+                  <View style={{ marginTop: 0, marginLeft: 20, flex: 1 }}>
                     <Text style={styles.money3}>{order.Description}</Text>
                     <Text style={styles.money3}>x{order.Amount}</Text>
                     <View

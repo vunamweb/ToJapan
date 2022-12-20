@@ -485,23 +485,24 @@ class ManagerOrder extends Component {
           width: "100%",
           marginBottom: 20,
           backgroundColor: "white",
+          flex: 1
         }}
       >
         {/* Text HEADER */}
-        <View style={[styles.seach, styles.marginBottom20, { marginTop: 0 }]}>
-          <Text style={[styles.fontBold, styles.paymentText4]}>{item.id}</Text>
-          <Text style={styles.mangerOderText1}>{item.Status}</Text>
+        <View style={[styles.seach, styles.marginBottom20, { marginTop: 0, flex: 1 }]}>
+          <Text style={[styles.fontBold, styles.paymentText4, { fontSize: 15, paddingRight: 10 }]}>{item.id}</Text>
+          <Text style={[styles.mangerOderText1, { flex: 1 }]}>{item.Status}</Text>
         </View>
         <Text style={[styles.mangerOderText2, styles.marginBottom20]}>
           Ngày tạo đơn: {item.created_at}
         </Text>
         {/* END TEXT HEADER */}
-        <View style={{ width: "100%", flexDirection: "row" }}>
+        <View style={{ width: "100%", flexDirection: "row", flex: 1 }}>
           <Image
             style={{ width: 128, height: 128 }}
             source={{ uri: item.ProductData.productImages[0].uri }}
           />
-          <View style={{ marginTop: 0, marginLeft: 20 }}>
+          <View style={{ marginTop: 0, marginLeft: 20, flex: 1 }}>
             <Text style={styles.money3}>{item.Description}</Text>
             <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
               x{item.Amount}
@@ -762,7 +763,7 @@ class ManagerOrder extends Component {
                 renderLabel={({ route, color }) => (
                   <View style={{ flexDirection: "row", paddingTop: 5 }}>
                     <Text style={{ color: "black" }}>{route.title}</Text>
-                    {route.key == "1" ? (
+                    {route.key == this.state.index +1 ? (
                       <View
                         style={[
                           styles.circleSmall,
