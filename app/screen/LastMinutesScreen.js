@@ -94,7 +94,8 @@ class AuctionScreen extends Component {
     money: 0,
     ActivityIndicator: true,
     checked1: false,
-    checked2: false
+    checked2: false,
+    errorFaildAuction: "",
   };
 
   _renderItem({ item, index }) {
@@ -200,10 +201,12 @@ class AuctionScreen extends Component {
   addBid = (product) => {
     var money = this.state.money;
 
-    if(money < product.price)
-     this.setState({ type: 1, visibleAlert: true });
-    else 
-     functions.addBid(product, this);
+    if (money < product.price) this.setState({ type: 1, visibleAlert: true });
+    else if (!this.state.checked1)
+      this.setState({ type: 2, visibleAlert: true });
+    else if (!this.state.checked2)
+      this.setState({ type: 3, visibleAlert: true });
+    else functions.addBid(product, this);
  }
 
   static navigationOptions = ({ navigation }) => ({
@@ -283,12 +286,36 @@ class AuctionScreen extends Component {
     var type = this.state.type;
     var messageAlert, style;
 
-    if(type == 1) {
-      messageAlert = (<Text style={[{ textAlign: 'center', marginTop: 20 }, styles.error]}>{global.actionPriceWrongAuction}</Text>);
-    } else if(type == 2) {
-      messageAlert = (<Text style={[{ textAlign: 'center', marginTop: 20 }, styles.error]}>{global.actionFaildAuction}</Text>);
+    if (type == 1) {
+      messageAlert = (
+        <Text style={[{ textAlign: "center", marginTop: 20 }, styles.error]}>
+          {global.actionPriceWrongAuction}
+        </Text>
+      );
+    } else if (type == 2) {
+      messageAlert = (
+        <Text style={[{ textAlign: "center", marginTop: 20 }, styles.error]}>
+          {global.actionNoDK1}
+        </Text>
+      );
+    } else if (type == 3) {
+      messageAlert = (
+        <Text style={[{ textAlign: "center", marginTop: 20 }, styles.error]}>
+          {global.actionNoDK2}
+        </Text>
+      );
+    } else if (type == 4) {
+      messageAlert = (
+        <Text style={[{ textAlign: "center", marginTop: 20 }, styles.error]}>
+          {global.actionFaildAuction} {this.state.errorFaildAuction}
+        </Text>
+      );
     } else {
-      messageAlert = (<Text style={[{ textAlign: 'center', marginTop: 20 }, styles.success]}>{global.actionSuccessAuction}</Text>);
+      messageAlert = (
+        <Text style={[{ textAlign: "center", marginTop: 20 }, styles.success]}>
+          {global.actionSuccessAuction}
+        </Text>
+      );
     }
 
     return (

@@ -90,7 +90,8 @@ class AuctionScreen extends Component {
     ActivityIndicator: true,
     ActivityIndicator1: false,
     checked1: false,
-    checked2: false
+    checked2: false,
+    errorFaildAuction: "",
   };
 
   _renderItem({ item, index }) {
@@ -219,13 +220,15 @@ class AuctionScreen extends Component {
   }
 
   addBid = (product) => {
-     var money = this.state.money;
+    var money = this.state.money;
 
-     if(money < product.price)
-      this.setState({ type: 1, visibleAlert: true });
-     else 
-      functions.addBid(product, this);
-  }
+    if (money < product.price) this.setState({ type: 1, visibleAlert: true });
+    else if (!this.state.checked1)
+      this.setState({ type: 2, visibleAlert: true });
+    else if (!this.state.checked2)
+      this.setState({ type: 3, visibleAlert: true });
+    else functions.addBid(product, this);
+  };
 
   getProduct = () => {
     var product = this.props.navigation.state.params.itemId;
@@ -261,39 +264,56 @@ class AuctionScreen extends Component {
     var seconds = date.getSeconds();
 
     var View1 = <View />;
-    var View2 = (
-      <ActivityIndicator
-        size="large"
-        animating={true}
-      />
-    );
+    var View2 = <ActivityIndicator size="large" animating={true} />;
 
     var type = this.state.type;
     var messageAlert, style;
 
-    if(type == 1) {
-      messageAlert = (<Text style={[{ textAlign: 'center', marginTop: 20 }, styles.error]}>{global.actionPriceWrongAuction}</Text>);
-    } else if(type == 2) {
-      messageAlert = (<Text style={[{ textAlign: 'center', marginTop: 20 }, styles.error]}>{global.actionFaildAuction}</Text>);
+    if (type == 1) {
+      messageAlert = (
+        <Text style={[{ textAlign: "center", marginTop: 20 }, styles.error]}>
+          {global.actionPriceWrongAuction}
+        </Text>
+      );
+    } else if (type == 2) {
+      messageAlert = (
+        <Text style={[{ textAlign: "center", marginTop: 20 }, styles.error]}>
+          {global.actionNoDK1}
+        </Text>
+      );
+    } else if (type == 3) {
+      messageAlert = (
+        <Text style={[{ textAlign: "center", marginTop: 20 }, styles.error]}>
+          {global.actionNoDK2}
+        </Text>
+      );
+    } else if (type == 4) {
+      messageAlert = (
+        <Text style={[{ textAlign: "center", marginTop: 20 }, styles.error]}>
+          {global.actionFaildAuction} {this.state.errorFaildAuction}
+        </Text>
+      );
     } else {
-      messageAlert = (<Text style={[{ textAlign: 'center', marginTop: 20 }, styles.success]}>{global.actionSuccessAuction}</Text>);
+      messageAlert = (
+        <Text style={[{ textAlign: "center", marginTop: 20 }, styles.success]}>
+          {global.actionSuccessAuction}
+        </Text>
+      );
     }
-      
-return (
+
+    return (
       <Provider>
         <ScrollView>
           <Portal>
-
-          <Modal
+            <Modal
               visible={this.state.visibleAlert}
               contentContainerStyle={styles.shortModal}
             >
-
               {/* Body */}
               <View style={{ backgroundColor: "white" }}>
                 <View>
                   <View style={{ height: 1, backgroundColor: "#cccccc" }} />
-                   {messageAlert}
+                  {messageAlert}
                   <View
                     style={[
                       {
@@ -324,9 +344,18 @@ return (
                     <TouchableOpacity
                       style={[
                         styles.buttonNotFull,
-                        { backgroundColor: "#3187EA", marginTop: 0, paddingHorizontal: 30, },
+                        {
+                          backgroundColor: "#3187EA",
+                          marginTop: 0,
+                          paddingHorizontal: 30,
+                        },
                       ]}
-                      onPress={() => functions.gotoScreen(this.props.navigation, "ManagerAuctionScreen")}
+                      onPress={() =>
+                        functions.gotoScreen(
+                          this.props.navigation,
+                          "ManagerAuctionScreen"
+                        )
+                      }
                     >
                       <Text style={{ color: "white" }}>Quản lý đấu giá</Text>
                     </TouchableOpacity>
@@ -336,9 +365,6 @@ return (
               </View>
               {/* END */}
             </Modal>
-
-
-
 
             {/* Modal short */}
             <Modal
@@ -625,7 +651,9 @@ return (
             </Modal>
           </Portal>
           <BackgroundHome full="1" start="1">
-            <View style={[styles.homeBody, styles.marginHeader, { marginTop: 0 }]}>
+            <View
+              style={[styles.homeBody, styles.marginHeader, { marginTop: 0 }]}
+            >
               {/* Address */}
               <Address text1={namePhone} text2={address} component={this} />
               {/* END */}
@@ -698,7 +726,7 @@ return (
                   keyboardType="numeric"
                   onChangeText={(value) =>
                     this.setState({
-                      money: value.replace(/[^0-9]/g, ''),
+                      money: value.replace(/[^0-9]/g, ""),
                     })
                   }
                   value={this.state.money}
@@ -710,10 +738,15 @@ return (
 
                 <View style={{ paddingRight: 20 }}>
                   <CheckBox
-                    containerStyle ={{backgroundColor: 'transparent', borderWidth: 0}}
+                    containerStyle={{
+                      backgroundColor: "transparent",
+                      borderWidth: 0,
+                    }}
                     title="Xác nhận đồng ý đấu giá sản phẩm và không khiếu nại"
                     checked={this.state.checked1}
-                    onPress={() => this.setState({ checked1: !this.state.checked1 })}
+                    onPress={() =>
+                      this.setState({ checked1: !this.state.checked1 })
+                    }
                   />
                 </View>
 
@@ -873,7 +906,9 @@ return (
               >
                 <View style={[styles.seach, { marginTop: 0 }]}>
                   <Text style={styles.money1}>Tổng tiền sản phẩm</Text>
-                  <Text style={styles.money2}>{ functions.convertMoney(this.state.money) } ¥</Text>
+                  <Text style={styles.money2}>
+                    {functions.convertMoney(this.state.money)} ¥
+                  </Text>
                 </View>
                 <View style={[styles.seach, styles.marginTop10]}>
                   <Text style={styles.money1}>Tiền thuế</Text>
@@ -913,7 +948,7 @@ return (
                         { color: "#D63F5C" },
                       ]}
                     >
-                      { functions.convertMoney(this.state.money) } ¥
+                      {functions.convertMoney(this.state.money)} ¥
                     </Text>
                   </View>
                 </View>
@@ -921,17 +956,24 @@ return (
               </View>
               {/* END CONTAINER 3 */}
               <View>
-                <View style={[styles.flexRowStart, styles.padding, { flex: 1 }]}>
-                  <CheckBox 
-                  checked={this.state.checked2}
-                  onPress={() => this.setState({ checked2: !this.state.checked2 })}
+                <View
+                  style={[styles.flexRowStart, styles.padding, { flex: 1 }]}
+                >
+                  <CheckBox
+                    checked={this.state.checked2}
+                    onPress={() =>
+                      this.setState({ checked2: !this.state.checked2 })
+                    }
                   />
                   <View style={{ flex: 1, marginTop: 10 }}>
-                  <Text style={styles.containerHeaderText1}>
-                    Đồng ý với
-                    <Text style={[styles.href]}> Điều khoản & chính sách</Text>
-                    <Text> của to japan</Text>
-                  </Text>
+                    <Text style={styles.containerHeaderText1}>
+                      Đồng ý với
+                      <Text style={[styles.href]}>
+                        {" "}
+                        Điều khoản & chính sách
+                      </Text>
+                      <Text> của to japan</Text>
+                    </Text>
                   </View>
                 </View>
 

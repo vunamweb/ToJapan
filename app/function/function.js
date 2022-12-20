@@ -1130,13 +1130,15 @@ class Functions {
     callback = (responseData) => {
       if (!responseData.success)
         component.setState({
-          type: 2,
+          type: 4,
+          errorFaildAuction: responseData.error,
           visibleAlert: true,
           ActivityIndicator1: false,
+
         });
       else
         component.setState({
-          type: 3,
+          type: 5,
           visibleAlert: true,
           ActivityIndicator1: false,
         });

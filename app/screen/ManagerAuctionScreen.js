@@ -385,7 +385,7 @@ showModal = (id) => {
               renderLabel={({ route, color }) => (
                 <View style={{ flexDirection: "row", paddingTop: 5 }}>
                   <Text style={{ color: "black" }}>{route.title}</Text>
-                  {route.key == "1" ? (
+                  {route.key == this.state.index + 1 ? (
                     <View
                       style={[
                         styles.circleSmall,
