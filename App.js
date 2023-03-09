@@ -1,8 +1,10 @@
-import {Component} from 'react';
+import React, {Component} from 'react';
 
 import { createAppContainer } from 'react-navigation';
 
 import Function from './app/function/function';
+
+import './app/config/config';
 
 const AppNavigator = Function.initNavigarion();
 

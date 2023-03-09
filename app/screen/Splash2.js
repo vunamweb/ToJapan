@@ -12,12 +12,11 @@ import {
   TouchableOpacity,
   ImageBackground,
   Button,
+  AsyncStorage
 } from "react-native";
 
 import styles from "../../app/style/style";
 import functions from "../../app/function/function";
-
-import LoginScreen from '../../app/screen/LoginScreen';
 
 const image = require("../../app/access/img/bg_splash_1.png");
 const imageAuction = require("../../app/access/img/Group_auction.png");
@@ -28,35 +27,30 @@ const imageMercari = require("../../app/access/img/Group_mecari.png");
 class Splash2 extends Component {
   constructor(props) {
     super(props);
-    this.state = { isLoading: true }
+    this.state = { isLoading: true };
   }
 
   async componentDidMount() {
     // Preload data from an external API
     // Preload data using AsyncStorage
-    const data = await this.performTimeConsumingTask();
-    if (data !== null) {
-      this.setState({ isLoading: false });
+    try {
+      let value = await AsyncStorage.getItem("dataPersonal");
+
+      if (value != "" && value != null)
+        functions.gotoScreen(this.props.navigation, "HomeScreen");
+      else functions.gotoScreen(this.props.navigation, "LoginScreen");
+    } catch (error) {
+      return null;
     }
   }
 
-  performTimeConsumingTask = async() => {
-    return new Promise((resolve) =>
-      setTimeout(
-        () => { resolve('result') },
-        4000
-      )
-    );
-  }
-
   render() {
-    if (this.state.isLoading) 
     return (
       <View style={[styles.container]}>
         <ImageBackground
           source={image}
           resizeMode="cover"
-          style={[styles.imageBackground, {paddingTop: 20}]}
+          style={[styles.imageBackground, { paddingTop: 20 }]}
         >
           {/* ViewHeader */}
           <View style={styles.containerTopSplash1}>
@@ -83,7 +77,7 @@ class Splash2 extends Component {
             <Image source={imageMercari} />
           </View>
           {/* End ViewBody3 */}
-          <View style={{ padding: 20 }}>
+          <View style={styles.container_root_full_center}>
             <TouchableOpacity
               style={[styles.button, { backgroundColor: "white" }]}
             >
@@ -93,9 +87,6 @@ class Splash2 extends Component {
         </ImageBackground>
       </View>
     );
-    else 
-    this.props.navigation.navigate('LoginScreen');
-    //return <LoginScreen />;
   }
 }
 

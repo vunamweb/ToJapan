@@ -49,8 +49,7 @@ class Splash1 extends Component {
       </View>
     );
     else {
-      this.props.navigation.navigate('Splash2')
-      //return <Splash2 />;
+      functions.gotoScreen(this.props.navigation, "Splash2");
     }
   }
 }

@@ -1,4 +1,7 @@
 node_modules/
+IOS/
+Android/
+__tests__/
 .expo/
 dist/
 Android/
@@ -15,3 +18,4 @@ web-build/
 
 # macOS
 .DS_Store
+*.keystore

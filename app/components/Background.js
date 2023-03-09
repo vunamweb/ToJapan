@@ -1,41 +1,40 @@
-import React from 'react'
-import { ImageBackground, StyleSheet, KeyboardAvoidingView } from 'react-native'
-import { theme } from '../core/theme'
+import React from "react";
+
+import {
+  ImageBackground,
+  KeyboardAvoidingView,
+} from "react-native";
+
+import styles from "../../app/style/style";
 
 export default function Background({ children, ...props }) {
-  const style = (props.center == "true") ? styles.container : styles.container_1;
-  return (
-    <ImageBackground
-      resizeMode="repeat"
-      style={styles.background}
-    >
+  
+  const source = require("../../app/access/img/bg_splash_1.png");
+
+  let style =
+    props.center == "true"
+      ? styles.container_root_full_center
+      : styles.container_root_align_center;
+
+  style = (props.sourse != null || props.full == 1) ? styles.container_root_align_center_full : style;
+  
+  if(props.start == 1)
+    style = [style, {alignSelf: 'flex-start', padding: 0}];    
+
+  if(props.sourse != null)
+      return (
+    <ImageBackground source={source} resizeMode="cover" style={[styles.background_1]}>
       <KeyboardAvoidingView style={style} behavior="padding">
         {children}
       </KeyboardAvoidingView>
     </ImageBackground>
-  )
+  );
+  else
+  return (
+    <ImageBackground resizeMode="repeat" style={styles.background_1}>
+      <KeyboardAvoidingView style={style} behavior="padding">
+        {children}
+      </KeyboardAvoidingView>
+    </ImageBackground>
+  );
 }
-
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    width: '100%',
-    backgroundColor: '#FAFAFA',
-  },
-  container: {
-    flex: 1,
-    padding: 20,
-    width: '100%',
-    maxWidth: 340,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  container_1: {
-    flex: 1,
-    padding: 20,
-    width: '100%',
-    maxWidth: 340,
-    alignSelf: 'center',
-  },
-})

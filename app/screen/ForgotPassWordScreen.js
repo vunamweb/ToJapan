@@ -28,14 +28,15 @@ class ForgotPassWordScreen extends Component {
           <Text style={styles.mandatoryColor}>*</Text>
         </View>
         <TextInput
-          label="Nhập địa chỉ email"
+          placeholder="Nhập địa chỉ email"
           title="Email *"
           returnKeyType="next"
           autoCapitalize="none"
           autoCompleteType="email"
           textContentType="emailAddress"
           keyboardType="email-address"
-          leftIcon="email"
+          leftIcon="email-outline"
+          styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
         />
         <TouchableOpacity
           style={[styles.button, { backgroundColor: "#3187EA", marginTop: 0 }]}
