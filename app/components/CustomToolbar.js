@@ -15,7 +15,7 @@ export default function CustomToolbar({ mode, style, ...props }) {
 
         <View style={[styles.circleSmall, { position: 'absolute', backgroundColor: 'white', right: 5, top: -15 }]}>
         <Text style={{ fontSize: 15, fontWeight: 700, color: 'blue'}}>
-          {props.component.state.countCart == 0 ? props.component.state.cart.length.toString() : props.component.state.countCart.toString()}
+          {props.component.state.countCart == 0 ? 0 : props.component.state.countCart.toString()}
           </Text>
         </View>
         
