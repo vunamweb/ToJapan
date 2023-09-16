@@ -19,6 +19,8 @@ import TextInput from "../components/TextInput";
 import styles from "../../app/style/style";
 import functions from "../../app/function/function";
 
+import { ScrollView } from "react-native-gesture-handler";
+
 class LoginScreen extends Component {
   constructor(props) {
     super(props);
@@ -56,6 +58,7 @@ class LoginScreen extends Component {
 
   render() {
     return (
+      <ScrollView>
       <Background center="true">
         <Logo type="login" />
         <Header>Đăng nhập</Header>
@@ -134,6 +137,7 @@ class LoginScreen extends Component {
           </TouchableOpacity>
         </View>
       </Background>
+      </ScrollView>
     );
   }
 }
