@@ -40,7 +40,7 @@ export default CustomToolbar2 = ({ mode, style, ...props }) => {
       <View style={styles.rightContainer}>
         <View style={styles.rightIcon}>
         <View style={[styles.circleSmall, { position: 'absolute', backgroundColor: 'white', right: 0, top: -10, zIndex: 9999 }]}>
-        <Text style={{ fontSize: 15, fontWeight: 700, color: 'blue'}}>
+        <Text style={{ fontSize: 15, fontWeight: "700", color: 'blue'}}>
         0
         </Text>
         </View>

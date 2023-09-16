@@ -24,9 +24,9 @@ global.actionPriceWrongAuction = "Giá đấu của bạn nhỏ hơn giá hiện
 global.actionNoDK1 = "Vui lòng Xác nhận đồng ý đấu giá sản phẩm và không khiếu nại"
 global.actionNoDK2 = "Vui lòng Đồng ý với Điều khoản & chính sách của to japan"
 // URL
-global.urlRoot = 'https://mobile.tojapan.jp';
+global.urlRoot = 'http://tom-be.2tsolution.net';
 global.urlData = 'https://statics.tomexpress.jp/';
-global.urlLogin = '/login';
+global.urlLogin = '/api/v1/mobile/login';
 global.urlRegistration = '/register';
 global.urlUpdateUser = '/user/update'
 global.urlChangePassword = '/user/password'
