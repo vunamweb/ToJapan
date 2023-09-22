@@ -53,7 +53,7 @@ var height = Math.floor((Dimensions.get("window").width * 0.9 * 296) / 1560);
 
 const minHeight = 50;
 
-class CategoryScreen extends Component {
+class CategoryScreen extends React.PureComponent {
   state = {
     listService: [],
     listProductByTag: [],
@@ -241,7 +241,7 @@ class CategoryScreen extends Component {
   }
 
   _renderItem_3 = ({ item, index }) => {
-    return <Auction item={item} index={index} parent={this} />
+    return <Auction item={item} index={index} parent={this}/>
   };
 
   static navigationOptions = ({ navigation }) => ({
@@ -284,8 +284,8 @@ class CategoryScreen extends Component {
       my: this,
     });
 
-    /*var intervalId = setInterval(this.time, 1000);
-    this.setState({ intervalId: intervalId });*/
+    //var intervalId = setInterval(this.time, 1000);
+    //this.setState({ intervalId: intervalId });
 
     //this.getData();
 
@@ -301,13 +301,14 @@ class CategoryScreen extends Component {
 
   componentWillUnmount() {
     //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
-    clearInterval(this.state.intervalId);
+    //clearInterval(this.state.intervalId);
   }
 
   time = () => {
-    this.setState({
+    //callBack((count) => count + 1);
+    /*this.setState({
       currentCount: this.state.currentCount + 1,
-    });
+    });*/
   };
 
   getData = async () => {
@@ -359,6 +360,7 @@ class CategoryScreen extends Component {
     return (
       <ScrollView ref="_scrollView">
         <Background full="1">
+      <View full="1">
           <View
             style={[
               styles.fullWith,
@@ -414,6 +416,7 @@ class CategoryScreen extends Component {
               </View>
               {this.state.ActivityIndicator4 == "" ? View1 : View2}
               {/* Slider Product */}
+              <View>
               <SliderProduct1
                 dataCarouselSlider={this.state.listService}
                 renderCarouselSlider={this._renderItem_2}
@@ -421,11 +424,13 @@ class CategoryScreen extends Component {
                 renderProductSlider={this._renderItem_3}
                 scrollEnabled={true}
               />
+              </View>
               {/* END */}
             </View>
           </View>
+        </View>
         </Background>
-      </ScrollView>
+        </ScrollView>
     );
   }
 }

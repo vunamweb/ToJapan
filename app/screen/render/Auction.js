@@ -12,6 +12,8 @@ import { Text } from "react-native-paper";
 import styles from "../../style/style";
 import functions from "../../../app/function/function";
 
+import Countdown from "./Countdown";
+
 const image2 = require("../../../app/assets/shopping_bag.png");
 const image2_auction = require("../../../app/assets/auction-buy.png");
 const heart = require("../../../app/assets/heart.png");
@@ -20,7 +22,7 @@ const clock = require("../../../app/assets/clock.png");
 
 const minHeight = 50;
 
-const childItem = ({ item, index, parent }) => {
+Auction = ({ item, index, parent }) => {
     if (index % 2 == 0)
     return (
       <View style={{ width: "50%", marginTop: 20 }}>
@@ -66,7 +68,7 @@ const childItem = ({ item, index, parent }) => {
               <View/> : 
               <View style={{ flexDirection: 'row', marginBottom: 5 }}>
                 <Image style={{ width: 16, height: 16 }} source={clock}/>
-                <Text style={{ marginLeft: 10, color: '#3187EA' }}>{parent.getCountDown(item.End).day}d: {parent.getCountDown(item.End).hours}h : {parent.getCountDown(item.End).minutes}m : {parent.getCountDown(item.End).seconds}s</Text>
+                <Countdown end={item.End}/>
                 </View>
               }
                 <TouchableOpacity
@@ -190,7 +192,7 @@ const childItem = ({ item, index, parent }) => {
               <View/> : 
               <View style={{ flexDirection: 'row', marginBottom: 5 }}>
                 <Image style={{ width: 16, height: 16 }} source={clock}/>
-                <Text style={{ marginLeft: 10, color: '#3187EA' }}>{parent.getCountDown(item.End).day}d: {parent.getCountDown(item.End).hours}h : {parent.getCountDown(item.End).minutes}m : {parent.getCountDown(item.End).seconds}s</Text>
+                <Countdown end={item.End}/>
                 </View>
               }
                 <TouchableOpacity
@@ -268,4 +270,4 @@ const childItem = ({ item, index, parent }) => {
     );
 };
 
-export default childItem;
+export default Auction;
