@@ -28,6 +28,8 @@ import SliderProduct1 from "../components/SliderProduct1";
 import IconBottom from "../components/IconBottom";
 import HeaderBg from "../components/HeaderBackground";
 
+import Auction from "./render/Auction";
+
 import styles from "../style/style";
 import functions from "../../app/function/function";
 
@@ -239,251 +241,7 @@ class CategoryScreen extends Component {
   }
 
   _renderItem_3 = ({ item, index }) => {
-    if (index % 2 == 0)
-      return (
-        <View style={{ width: "50%", marginTop: 20 }}>
-          <View style={{ paddingRight: 5, width: "100%" }}>
-            <View
-              style={{
-                borderRadius: 30,
-                backgroundColor: "white",
-                width: "100%",
-                padding: 10,
-              }}
-            >
-              <View style={{ padding: 0 }}>
-                <Image
-                  style={{ width: "100%", height: 128, marginTop: 20 }}
-                  source={{
-                    uri: item.Image != undefined ? item.Image : item.image,
-                  }}
-                />
-                <TouchableOpacity
-                  style={{ position: "absolute", top: 0, right: 5 }}
-                  onPress={() =>
-                    this.addRemoveFavorite(
-                      item.code != undefined ? item.code : item.ID
-                    )
-                  }
-                >
-                  <View>
-                    {this.checkFavorite(
-                      item.code != undefined ? item.code : item.ID
-                    ) ? (
-                      <Image
-                        style={{ width: 16, height: 16 }}
-                        source={heart_active}
-                      />
-                    ) : (
-                      <Image source={heart} />
-                    )}
-                  </View>
-                </TouchableOpacity>
-                <View style={{ marginTop: 30 }}>
-                {item.code != undefined ? 
-                <View/> : 
-                <View style={{ flexDirection: 'row', marginBottom: 5 }}>
-                  <Image style={{ width: 16, height: 16 }} source={clock}/>
-                  <Text style={{ marginLeft: 10, color: '#3187EA' }}>{this.getCountDown(item.End).day}d: {this.getCountDown(item.End).hours}h : {this.getCountDown(item.End).minutes}m : {this.getCountDown(item.End).seconds}s</Text>
-                  </View>
-                }
-                  <TouchableOpacity
-                    onPress={() =>
-                      functions.gotoScreenProduct(
-                        this.props.navigation.state.params.itemId,
-                        item.code != undefined ? item.code : item.ID,
-                        this.props.navigation,
-                        "ProductScreen"
-                      )
-                    }
-                  >
-                    <Text
-                      style={{
-                        color: "#23262F",
-                        fontSize: 16,
-                        minHeight: minHeight,
-                      }}
-                    >
-                      {item.title != undefined
-                        ? item.title.substr(0, 15)
-                        : item.Title.substr(0, 15)}
-                    </Text>
-                  </TouchableOpacity>
-                  <Text
-                    style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}
-                  >
-                    Từ {this.props.navigation.state.params.itemId}
-                  </Text>
-                  <Rating
-                    imageSize={15}
-                    readonly
-                    startingValue={0}
-                    style={styles.rating}
-                  />
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <View>
-                      <Text
-                        style={[
-                          { color: "#D63F5C", fontSize: 16 },
-                          styles.fontBold,
-                        ]}
-                      >
-                        {item.price != undefined
-                          ? functions.convertMoney(item.price)
-                          : functions.convertMoney(item.Price)}{" "}
-                        ¥
-                      </Text>
-                      <Text style={{ fontSize: 12, color: "#777E90" }}>
-                        {item.priceVN != undefined
-                          ? functions.convertMoney(item.priceVN)
-                          : functions.convertMoney(item.PriceVN)}{" "}
-                        VND
-                      </Text>
-                    </View>
-                    <TouchableOpacity
-                      onPress={() =>
-                        functions.gotoScreenProduct(
-                          this.props.navigation.state.params.itemId,
-                          item.code != undefined ? item.code : item.ID,
-                          this.props.navigation,
-                          "ProductScreen"
-                        )
-                      }
-                    >
-                      <Image
-                        style={{ width: 32, height: 32 }}
-                        source={
-                          item.code != undefined ? image2 : image2_auction
-                        }
-                      />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-      );
-    else
-      return (
-        <View style={{ width: "50%", marginTop: 20 }}>
-          <View style={{ paddingLeft: 5, width: "100%" }}>
-            <View
-              style={{
-                borderRadius: 30,
-                backgroundColor: "white",
-                width: "100%",
-                padding: 10,
-              }}
-            >
-              <View style={{ padding: 0 }}>
-                <Image
-                  style={{ width: "100%", height: 128, marginTop: 20 }}
-                  source={{
-                    uri: item.Image != undefined ? item.Image : item.image,
-                  }}
-                />
-                <TouchableOpacity
-                  style={{ position: "absolute", top: 0, right: 5 }}
-                  onPress={() => this.addRemoveFavorite(item.code)}
-                >
-                  <View>
-                    {this.checkFavorite(item.code) ? (
-                      <Image
-                        style={{ width: 16, height: 16 }}
-                        source={heart_active}
-                      />
-                    ) : (
-                      <Image source={heart} />
-                    )}
-                  </View>
-                </TouchableOpacity>
-                <View style={{ marginTop: 30 }}>
-                {item.code != undefined ? 
-                <View/> : 
-                <View style={{ flexDirection: 'row', marginBottom: 5 }}>
-                  <Image style={{ width: 16, height: 16 }} source={clock}/>
-                  <Text style={{ marginLeft: 10, color: '#3187EA' }}>{this.getCountDown(item.End).day}d: {this.getCountDown(item.End).hours}h : {this.getCountDown(item.End).minutes}m : {this.getCountDown(item.End).seconds}s</Text>
-                  </View>
-                }
-                  <TouchableOpacity
-                    onPress={() =>
-                      functions.gotoScreenProduct(
-                        this.props.navigation.state.params.itemId,
-                        item.code != undefined ? item.code : item.ID,
-                        this.props.navigation,
-                        "ProductScreen"
-                      )
-                    }
-                  >
-                    <Text
-                      style={{
-                        color: "#23262F",
-                        fontSize: 16,
-                        minHeight: minHeight,
-                      }}
-                    >
-                      {item.title != undefined
-                        ? item.title.substr(0, 15)
-                        : item.Title.substr(0, 15)}
-                    </Text>
-                  </TouchableOpacity>
-                  <Text
-                    style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}
-                  >
-                    Từ {this.props.navigation.state.params.itemId}
-                  </Text>
-                  <Rating
-                    imageSize={15}
-                    readonly
-                    startingValue={0}
-                    style={styles.rating}
-                  />
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <View>
-                      <Text
-                        style={[
-                          { color: "#D63F5C", fontSize: 16 },
-                          styles.fontBold,
-                        ]}
-                      >
-                        {item.price != undefined
-                          ? functions.convertMoney(item.price)
-                          : functions.convertMoney(item.Price)}{" "}
-                        ¥
-                      </Text>
-                      <Text style={{ fontSize: 12, color: "#777E90" }}>
-                        {item.priceVN != undefined
-                          ? functions.convertMoney(item.priceVN)
-                          : functions.convertMoney(item.PriceVN)}{" "}
-                        VND
-                      </Text>
-                    </View>
-                    <TouchableOpacity>
-                      <Image
-                        style={{ width: 32, height: 32 }}
-                        source={
-                          item.code != undefined ? image2 : image2_auction
-                        }
-                      />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-      );
+    return <Auction item={item} index={index} parent={this} />
   };
 
   static navigationOptions = ({ navigation }) => ({
@@ -526,19 +284,19 @@ class CategoryScreen extends Component {
       my: this,
     });
 
-    var intervalId = setInterval(this.time, 1000);
-    this.setState({ intervalId: intervalId });
+    /*var intervalId = setInterval(this.time, 1000);
+    this.setState({ intervalId: intervalId });*/
 
     //this.getData();
 
     var itemId = this.props.navigation.state.params.itemId;
 
-    functions.getBanners(this);
-    functions.getPopularItem(this, itemId);
-    functions.getPopularName(this);
-    functions.getPoplularBranch(this);
+    //functions.getBanners(this);
+    //functions.getPopularItem(this, itemId);
+    //functions.getPopularName(this);
+    //functions.getPoplularBranch(this);
     functions.getListService(this, itemId);
-    functions.getListFavorite(this);
+    //functions.getListFavorite(this);
   }
 
   componentWillUnmount() {
