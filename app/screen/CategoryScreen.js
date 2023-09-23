@@ -130,8 +130,8 @@ class CategoryScreen extends React.PureComponent {
     response.minutes = minutes;
     response.seconds = seconds;
 
-    return response
-   }
+    return response;
+  };
 
   _renderItem_1({ item, index }) {
     return (
@@ -240,8 +240,9 @@ class CategoryScreen extends React.PureComponent {
     );
   }
 
-  _renderItem_3 = ({ item, index }) => {
-    return <Auction item={item} index={index} parent={this}/>
+  _renderItem_3 = ({item, index}) => {
+    return <Auction key={index} item={item} index={index} parent={this} />;
+    //return <Text>{index}</Text>;
   };
 
   static navigationOptions = ({ navigation }) => ({
@@ -277,7 +278,10 @@ class CategoryScreen extends React.PureComponent {
   };
 
   componentDidMount() {
+    //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    LogBox.ignoreAllLogs(true);
+
     component = this;
 
     this.props.navigation.setParams({
@@ -291,12 +295,12 @@ class CategoryScreen extends React.PureComponent {
 
     var itemId = this.props.navigation.state.params.itemId;
 
-    //functions.getBanners(this);
-    //functions.getPopularItem(this, itemId);
-    //functions.getPopularName(this);
-    //functions.getPoplularBranch(this);
+    functions.getBanners(this);
+    functions.getPopularItem(this, itemId);
+    functions.getPopularName(this);
+    functions.getPoplularBranch(this);
     functions.getListService(this, itemId);
-    //functions.getListFavorite(this);
+    functions.getListFavorite(this);
   }
 
   componentWillUnmount() {
@@ -358,13 +362,12 @@ class CategoryScreen extends React.PureComponent {
     );
 
     return (
-      <ScrollView ref="_scrollView">
-        <Background full="1">
-      <View full="1">
+      <ScrollView>
+        <Background full="1" repeat={false}>
           <View
             style={[
               styles.fullWith,
-              { padding: 20, paddingTop: 0, marginTop: 0 },
+              { padding: 20, paddingTop: 0, marginTop: 30 },
             ]}
           >
             {/* Banner */}
@@ -417,20 +420,20 @@ class CategoryScreen extends React.PureComponent {
               {this.state.ActivityIndicator4 == "" ? View1 : View2}
               {/* Slider Product */}
               <View>
-              <SliderProduct1
-                dataCarouselSlider={this.state.listService}
-                renderCarouselSlider={this._renderItem_2}
-                dataProductSlider={this.state.listProductByTag}
-                renderProductSlider={this._renderItem_3}
-                scrollEnabled={true}
-              />
+                <SliderProduct1
+                  dataCarouselSlider={this.state.listService}
+                  renderCarouselSlider={this._renderItem_2}
+                  dataProductSlider={this.state.listProductByTag}
+                  renderProductSlider={this._renderItem_3}
+                  scrollEnabled={true}
+                  parentHasScrol={false}
+                />
               </View>
               {/* END */}
             </View>
           </View>
-        </View>
         </Background>
-        </ScrollView>
+      </ScrollView>
     );
   }
 }

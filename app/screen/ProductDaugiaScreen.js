@@ -279,7 +279,9 @@ class ProductDaugiaScreen extends Component {
   componentDidMount() {
     var intervalId = setInterval(this.time, 1000);
     this.setState({ intervalId: intervalId });
+
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    LogBox.ignoreAllLogs(true);
 
     component = this;
 

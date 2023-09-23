@@ -51,7 +51,7 @@ Countdown = ({end}) => {
         const interval = setInterval(() => {
           //console.log('This will run every second!');
           setCount((count) => count +1);
-        }, 5000);
+        }, 1000);
         return () => clearInterval(interval);
       }, []);
 

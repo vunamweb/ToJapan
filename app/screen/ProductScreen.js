@@ -207,6 +207,7 @@ class ProductScreen extends Component {
 
   componentDidMount() {
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    LogBox.ignoreAllLogs(true);
 
     component = this;
 
