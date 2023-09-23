@@ -420,7 +420,10 @@ class HomeScreen extends Component {
     functions.getListFavorite(this);
 
     this.setCart();
+
     //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    //LogBox.ignoreAllLogs(true);
+    
   }
 
   setCart = async () => {
@@ -451,6 +454,8 @@ class HomeScreen extends Component {
   };
 
   render() {
+    LogBox.ignoreAllLogs(true);
+
     var View1 = <View />;
     var View2 = (
       <ActivityIndicator

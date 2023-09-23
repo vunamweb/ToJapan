@@ -28,12 +28,18 @@ export default class App extends React.Component {
           />
           {/* END */}
           {/* List Product */}
-          <ListView
-            data={this.props.dataProductSlider}
-            renderItem={this.props.renderProductSlider}
-            col={col}
-            scrollEnabled={this.props.scrollEnabled}
-          />
+          {!this.props.parentHasScrol ? (
+            <ListView
+              data={this.props.dataProductSlider}
+              renderItem={this.props.renderProductSlider}
+              col={col}
+              scrollEnabled={this.props.scrollEnabled}
+            />
+          ) : (
+            this.props.dataProductSlider.map((item, index) => {
+              return this.props.renderProductSlider(item, index);
+            })
+          )}
           {/* END */}
         </View>
       );
