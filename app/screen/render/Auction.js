@@ -68,7 +68,7 @@ Auction = ({ item, index, parent }) => {
               <View/> : 
               <View style={{ flexDirection: 'row', marginBottom: 5 }}>
                 <Image style={{ width: 16, height: 16 }} source={clock}/>
-                <Countdown end={item.End}/>
+                <Countdown type={false} end={item.End}/>
                 </View>
               }
                 <TouchableOpacity

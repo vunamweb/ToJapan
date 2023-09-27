@@ -1463,6 +1463,8 @@ class Functions {
 
   convertMoney = (number) => {
     //return number;
+    number = (number != undefined) ? number : 0;
+    
     var number = number.toLocaleString("en-US", {
       style: "currency",
       currency: "USD",

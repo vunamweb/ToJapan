@@ -30,6 +30,8 @@ import Address from "../components/Address";
 import styles from "../../app/style/style";
 import functions from "../../app/function/function";
 
+import Countdown from "./render/Countdown";
+
 const img1 = require("../../app/assets/product.png");
 const img2 = require("../../app/assets/circle_bg.png");
 const image2_auction = require("../../app/assets/auction-buy.png");
@@ -277,8 +279,8 @@ class ProductDaugiaScreen extends Component {
   };
 
   componentDidMount() {
-    var intervalId = setInterval(this.time, 1000);
-    this.setState({ intervalId: intervalId });
+    //var intervalId = setInterval(this.time, 1000);
+    //this.setState({ intervalId: intervalId });
 
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
     LogBox.ignoreAllLogs(true);
@@ -295,14 +297,14 @@ class ProductDaugiaScreen extends Component {
 
   componentWillUnmount() {
     //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
-    clearInterval(this.state.intervalId);
+    //clearInterval(this.state.intervalId);
   }
 
-  time = () => {
+  /*time = () => {
     this.setState({
       currentCount: this.state.currentCount + 1,
     });
-  };
+  };*/
 
   addProduct = () => {
     this.setState({
@@ -377,16 +379,16 @@ class ProductDaugiaScreen extends Component {
         <View />
       );
 
-    var dateCurrent = moment().unix();
-    var dateEndBid = moment(product.end).unix();
+    //var dateCurrent = moment().unix();
+    //var dateEndBid = moment(product.end).unix();
 
-    var time = dateEndBid - dateCurrent;
-    var date = new Date(time * 1000);
+    //var time = dateEndBid - dateCurrent;
+    //var date = new Date(time * 1000);
 
-    var day = Math.floor(time / 86400);
-    var hours = Math.floor((time - day * 24 * 3600) / 3600);
+    //var day = Math.floor(time / 86400);
+    /*var hours = Math.floor((time - day * 24 * 3600) / 3600);
     var minutes = date.getMinutes();
-    var seconds = date.getSeconds();
+    var seconds = date.getSeconds();*/
 
     var productSimilar =
       this.state.product.description != undefined ? (
@@ -459,7 +461,7 @@ class ProductDaugiaScreen extends Component {
                   ]}
                 >
                   <Text style={styles.money2}>
-                    {day}d: {hours}h : {minutes}m : {seconds}s
+                    <Countdown type={true} end={product.end}/>
                   </Text>
                 </View>
                 <View style={[styles.flexRowStart]}>

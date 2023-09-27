@@ -43,6 +43,9 @@ import Dropdown from "../components/Select";
 import styles from "../style/style";
 import functions from "../../app/function/function";
 
+
+import Countdown from "./render/Countdown";
+
 const countries = [
   "Gói cơ bản 700",
   "Gói nâng cao 700",
@@ -207,8 +210,8 @@ class AuctionScreen extends Component {
   componentDidMount() {
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
 
-    var intervalId = setInterval(this.time, 1000);
-    this.setState({ intervalId: intervalId });
+    //var intervalId = setInterval(this.time, 1000);
+    //this.setState({ intervalId: intervalId });
 
     functions.getListAddress(this);
     functions.getUserDetail(this);
@@ -216,7 +219,7 @@ class AuctionScreen extends Component {
 
   componentWillUnmount() {
     //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
-    clearInterval(this.state.intervalId);
+    //clearInterval(this.state.intervalId);
   }
 
   addBid = (product) => {
@@ -252,16 +255,16 @@ class AuctionScreen extends Component {
 
     var product = this.getProduct();
 
-    var dateCurrent = moment().unix();
-    var dateEndBid = moment(product.end).unix();
+    //var dateCurrent = moment().unix();
+    //var dateEndBid = moment(product.end).unix();
 
-    var time = dateEndBid - dateCurrent;
-    var date = new Date(time * 1000);
+    //var time = dateEndBid - dateCurrent;
+    //var date = new Date(time * 1000);
 
-    var day = Math.floor(time / 86400);
-    var hours = Math.floor((time - day * 24 * 3600) / 3600);
-    var minutes = date.getMinutes();
-    var seconds = date.getSeconds();
+    //var day = Math.floor(time / 86400);
+    //var hours = Math.floor((time - day * 24 * 3600) / 3600);
+    //var minutes = date.getMinutes();
+    //var seconds = date.getSeconds();
 
     var View1 = <View />;
     var View2 = <ActivityIndicator size="large" animating={true} />;
@@ -685,7 +688,7 @@ class AuctionScreen extends Component {
                     ]}
                   >
                     <Text style={styles.money2}>
-                      {day}d: {hours}h : {minutes}m : {seconds}s
+                       <Countdown type={true} end={product.end}/>
                     </Text>
                   </View>
                 </View>
