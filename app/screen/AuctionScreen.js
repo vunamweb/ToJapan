@@ -198,7 +198,7 @@ class AuctionScreen extends Component {
   };
 
   static navigationOptions = ({ navigation }) => ({
-    //headerStyle: { backgroundColor: '#00FF57' },
+    headerStyle: { height: 90 },
     headerBackground: () => <HeaderBg />,
 
     headerTitleStyle: {
@@ -209,6 +209,7 @@ class AuctionScreen extends Component {
 
   componentDidMount() {
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    LogBox.ignoreAllLogs(true);
 
     //var intervalId = setInterval(this.time, 1000);
     //this.setState({ intervalId: intervalId });

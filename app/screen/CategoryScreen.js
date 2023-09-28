@@ -246,7 +246,7 @@ class CategoryScreen extends React.PureComponent {
   };
 
   static navigationOptions = ({ navigation }) => ({
-    //headerStyle: { backgroundColor: '#00FF57' },
+    headerStyle: { height: 90 },
     headerBackground: () => <HeaderBg />,
     headerRight: (
       <View style={{ paddingRight: 20 }}>
@@ -367,7 +367,7 @@ class CategoryScreen extends React.PureComponent {
           <View
             style={[
               styles.fullWith,
-              { padding: 20, paddingTop: 0, marginTop: 30 },
+              { padding: 20, paddingTop: 0, marginTop: 0 },
             ]}
           >
             {/* Banner */}

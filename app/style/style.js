@@ -66,7 +66,7 @@ module.exports = StyleSheet.create({
     alignItems: "center",
   },
   marginHeader: {
-    marginTop: 30,
+    marginTop: 0,
   },
   marginLeft10: {
     marginLeft: 10,
