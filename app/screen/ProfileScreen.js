@@ -150,7 +150,7 @@ class ProfileScreen extends Component {
       <TouchableOpacity
         onPress={() => this.goto(link)}
       >
-        <View style={styles.flexRowStart}>
+        <View style={[styles.flexRowStart, {paddingLeft: 10, paddingTop: 10}]}>
           <Image style={{ width: 24, height: 24 }}  source={item.img} />
           <View style={{ flex: 1 }}>
             <View
