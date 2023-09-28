@@ -44,7 +44,7 @@ getCountDown = (endTime) => {
     return response
    }
 
-Countdown = ({end}) => {
+Countdown = ({end, type}) => {
     const [count, setCount] = useState(0);
 
     useEffect(() => {
@@ -57,9 +57,14 @@ Countdown = ({end}) => {
 
     var text = getCountDown(end).day + 'd:' + getCountDown(end).hours + 'h :' + getCountDown(end).minutes +'m :' + getCountDown(end).seconds + 's';
 
-    return (
-      <Text style={{ marginLeft: 10, color: '#3187EA' }}>{text}</Text>
-    );
+    if(!type)
+      return (
+        <Text style={{ marginLeft: 10, color: '#3187EA' }}>{text}</Text>
+      );
+    else 
+     return(
+<Text style={styles.money2}>{text}</Text>  
+     )
 };
 
 export default Countdown;

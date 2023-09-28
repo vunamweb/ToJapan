@@ -52,7 +52,7 @@ class WaletScreen extends Component {
   }
 
   static navigationOptions = ({ navigation }) => ({
-    //headerStyle: { backgroundColor: '#00FF57' },
+    headerStyle: { height: 90 },
     headerBackground: () => <HeaderBg />,
 
     headerRight: (
@@ -70,6 +70,9 @@ class WaletScreen extends Component {
   });
 
   componentDidMount() {
+    LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
+    LogBox.ignoreAllLogs(true);
+    
     var userDetail = this.props.navigation.state.params.itemId;
     userDetail = JSON.parse(userDetail);
 
@@ -82,7 +85,6 @@ class WaletScreen extends Component {
     QD = userDetail.JPY;
 
     this.setState({ change: true });
-    //LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
   }
 
   render() {
@@ -224,8 +226,8 @@ class WaletScreen extends Component {
                   style={{
                     height: 1,
                     backgroundColor: "#cccccc",
-                    marginLeft: 20,
-                    marginRight: 20,
+                    marginLeft: 0,
+                    marginRight: 0,
                   }}
                 />
 
@@ -344,8 +346,8 @@ class WaletScreen extends Component {
                   style={{
                     height: 1,
                     backgroundColor: "#cccccc",
-                    marginLeft: 20,
-                    marginRight: 20,
+                    marginLeft: 0,
+                    marginRight: 0,
                   }}
                 />
 

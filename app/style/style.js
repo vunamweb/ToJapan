@@ -66,7 +66,7 @@ module.exports = StyleSheet.create({
     alignItems: "center",
   },
   marginHeader: {
-    marginTop: 30,
+    marginTop: 0,
   },
   marginLeft10: {
     marginLeft: 10,
@@ -490,8 +490,8 @@ module.exports = StyleSheet.create({
   // Adress
   address: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
+    //justifyContent: "space-evenly",
+    //alignItems: "center",
   },
   addressText1: {
     fontSize: 14,

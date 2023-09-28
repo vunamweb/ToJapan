@@ -38,7 +38,7 @@ class AddDressScreen extends Component {
   };
 
   static navigationOptions = ({ navigation }) => ({
-    //headerStyle: { backgroundColor: '#00FF57' },
+    headerStyle: { height: 90 },
     headerBackground: () => <HeaderBg />,
 
     headerTitleStyle: {
@@ -94,13 +94,14 @@ class AddDressScreen extends Component {
 
           <View style={[styles.flexRowStart, { alignItems: "center" }]}>
             <Dropdown
-              data={countries}
+              data={[84]}
               buttonStyle={{
                 borderRadius: 20,
                 width: 80,
                 backgroundColor: "transparent",
                 borderColor: "#ccc",
                 borderWidth: 1,
+                marginTop: -20
               }}
               renderCustomizedButtonChild={(selectedItem, index) => {
                 return (
@@ -293,7 +294,7 @@ class AddDressScreen extends Component {
             style={[
               styles.button,
               styles.marginBottom10,
-              { backgroundColor: "#3187EA", marginTop: 0 },
+              { backgroundColor: "#3187EA", marginTop: 10 },
             ]}
             onPress={() =>
               functions.addAddess(
