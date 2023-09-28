@@ -24,6 +24,8 @@ export default function TextInputzzzz({ errorText, description, ...props }) {
   : 
   <TextInput.Icon name={props.leftIcon} />;
 
+  left = (props.leftIcon) ? left : null;
+
   let right = <TextInput.Icon  
   color={props.colorIcon} 
   name={props.rightIcon} 
@@ -32,6 +34,8 @@ export default function TextInputzzzz({ errorText, description, ...props }) {
     return false;
   }}
   />;
+
+  right = (props.rightIcon) ? right : null;
 
   return (
     <View style={[style1, styleRoot.borderNormal, {borderWidth: 1, borderColor: 'white', overflow: 'hidden', height: 65}, props.styleParent]}>
