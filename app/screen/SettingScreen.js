@@ -87,7 +87,7 @@ class SettingScreen extends Component {
       <TouchableOpacity
         onPress={() => functions.gotoScreen(this.props.navigation, link)}
       >
-        <View style={styles.flexRowStart}>
+        <View style={[styles.flexRowStart, {paddingLeft: 10, paddingTop: 10}]}>
           <Image style={{ width: 24, height: 24 }} source={item.img} />
           <View style={{ flex: 1 }}>
             <View

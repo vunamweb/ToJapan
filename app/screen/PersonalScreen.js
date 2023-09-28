@@ -34,7 +34,7 @@ class PersonalScreen extends Component {
   };
 
   static navigationOptions = ({ navigation }) => ({
-    //headerStyle: { backgroundColor: '#00FF57' },
+    headerStyle: { height: 90 },
     headerBackground: () => <HeaderBg />,
 
     headerTitleStyle: {
