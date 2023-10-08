@@ -141,7 +141,7 @@ module.exports = StyleSheet.create({
     flex: 1,
     padding: 20,
     width: "100%",
-    maxWidth: 340,
+    //maxWidth: 340,
     alignSelf: "center",
   },
   container_root_align_center_full: {

@@ -211,7 +211,7 @@ class CartScreen extends Component {
   };
 
   static navigationOptions = ({ navigation }) => ({
-    //headerStyle: { backgroundColor: '#00FF57' },
+    headerStyle: { height: 90 },
     headerBackground: () => <HeaderBg />,
     headerRight: (
       <View style={[{ paddingRight: 20, marginTop: 0, flexDirection: "row" }, styles.hide]}>
@@ -351,7 +351,7 @@ class CartScreen extends Component {
           <View style={styles.homeBody}>
           {this.state.ActivityIndicator == "" ? View1 : View2}
             {/* Header */}
-            <View style={[styles.seach, { paddingRight: 20, paddingLeft: 20 }]}>
+            <View style={[styles.seach, { paddingRight: 20, paddingLeft: 20, marginTop: 0 }]}>
               <CheckBox
                 containerStyle ={{backgroundColor: 'transparent', borderWidth: 0}}
                 title="Chọn tất cả"

@@ -72,7 +72,7 @@ const image4 = require("../../app/assets/info.png");
 
 class SettingScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
-    //headerStyle: { backgroundColor: '#00FF57' },
+    headerStyle: { height: 90 },
     headerBackground: () => <HeaderBg />,
     headerTitleStyle: {
       color: "white",

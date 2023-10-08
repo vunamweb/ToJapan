@@ -22,7 +22,7 @@ export default function Address({ mode, style, ...props }) {
           <Text style={styles.addressText1}>{props.text1}</Text>
           <Text style={styles.addressText2}>{props.text2}</Text>
       </View>
-      <Image source={img1}/>
+      <Image style={{ position: "absolute", right: 20, top: 20 }} source={img1}/>
     </View>
     </TouchableOpacity>
   );

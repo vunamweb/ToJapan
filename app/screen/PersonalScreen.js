@@ -107,8 +107,8 @@ class PersonalScreen extends Component {
           
           <View style={[styles.flexRowStart, {alignItems: 'center'}]}>
           <Dropdown
-            data={countries}
-            buttonStyle={{ borderRadius: 20, width: 80, backgroundColor: 'transparent', borderColor: '#ccc', borderWidth: 1 }}
+            data={[84]}
+            buttonStyle={{ borderRadius: 20, width: 80, backgroundColor: 'transparent', borderColor: '#ccc', borderWidth: 1, marginTop: -20 }}
             renderCustomizedButtonChild={(selectedItem, index) => {
               return (
                 <View style={[styles.flexRowStart]}>
