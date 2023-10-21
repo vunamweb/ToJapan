@@ -122,8 +122,8 @@ class ProductDaugiaScreen extends Component {
     response.minutes = minutes;
     response.seconds = seconds;
 
-    return response
-   }
+    return response;
+  };
 
   _renderItem = ({ item, index }) => {
     return (
@@ -229,10 +229,15 @@ class ProductDaugiaScreen extends Component {
               </View>
             </TouchableOpacity>
             <View style={{ marginTop: 30 }}>
-            <View style={{ flexDirection: 'row', marginBottom: 5 }}>
-                  <Image style={{ width: 16, height: 16 }} source={clock}/>
-                  <Text style={{ marginLeft: 10, color: '#3187EA' }}>{this.getCountDown(item.End).day}d: {this.getCountDown(item.End).hours}h : {this.getCountDown(item.End).minutes}m : {this.getCountDown(item.End).seconds}s</Text>
-                  </View>
+              <View style={{ flexDirection: "row", marginBottom: 5 }}>
+                <Image style={{ width: 16, height: 16 }} source={clock} />
+                <Text style={{ marginLeft: 10, color: "#3187EA" }}>
+                  {this.getCountDown(item.End).day}d:{" "}
+                  {this.getCountDown(item.End).hours}h :{" "}
+                  {this.getCountDown(item.End).minutes}m :{" "}
+                  {this.getCountDown(item.End).seconds}s
+                </Text>
+              </View>
               <Text
                 style={{ color: "#23262F", fontSize: 16, minHeight: minHeight }}
               >
@@ -461,7 +466,7 @@ class ProductDaugiaScreen extends Component {
                   ]}
                 >
                   <Text style={styles.money2}>
-                    <Countdown type={true} end={product.end}/>
+                    <Countdown type={true} end={product.end} />
                   </Text>
                 </View>
                 <View style={[styles.flexRowStart]}>
