@@ -18,7 +18,12 @@ export default function CustomToolbar1({ mode, style, ...props }) {
         {/* top container */}
         <View style={[styles.navBar]}>
           {/* left icon */}
-          <View style={styles.leftContainer}>
+          <View
+            style={[
+              styles.leftContainer,
+              { borderRadius: 10, backgroundColor: "red" },
+            ]}
+          >
             <TouchableOpacity
               onPress={() => props.component.props.navigation.goBack()}
             >
@@ -32,7 +37,10 @@ export default function CustomToolbar1({ mode, style, ...props }) {
               <TouchableOpacity
                 onPress={() => functions.gotoCart(props.component)}
               >
-                <Image style={{ width: 24, height: 24 }} source={require("../assets/shopping-bag.png")} />
+                <Image
+                  style={{ width: 24, height: 24 }}
+                  source={require("../assets/shopping-bag.png")}
+                />
               </TouchableOpacity>
             </View>
             <View style={[styles.rightIcon, styles.hide]}>
@@ -53,13 +61,24 @@ export default function CustomToolbar1({ mode, style, ...props }) {
             <Image source={require("../assets/share.png")} />
           </View>
           <View style={styles.rightIcon}>
-          <TouchableOpacity
-              onPress={() => props.component.addRemoveFavorite(props.component.props.navigation.state.params.id)}
+            <TouchableOpacity
+              onPress={() =>
+                props.component.addRemoveFavorite(
+                  props.component.props.navigation.state.params.id
+                )
+              }
             >
-          {
-              ( props.component.checkFavorite(props.component.props.navigation.state.params.id)) ? <Image style={{ width: 16, height: 16 }} source={heart_active}/> : <Image source={heart}/> 
-          }
-          </TouchableOpacity>
+              {props.component.checkFavorite(
+                props.component.props.navigation.state.params.id
+              ) ? (
+                <Image
+                  style={{ width: 16, height: 16 }}
+                  source={heart_active}
+                />
+              ) : (
+                <Image source={heart} />
+              )}
+            </TouchableOpacity>
           </View>
         </View>
         {/* END bottom container */}
@@ -70,12 +89,34 @@ export default function CustomToolbar1({ mode, style, ...props }) {
       <View
         style={[
           styles.fullWith,
-          { position: "absolute", top: 0, paddingTop: 70, backgroundColor: "#13AB2C", padding: 20 },
+          {
+            position: "absolute",
+            top: 0,
+            paddingTop: 70,
+            backgroundColor: "#13AB2C",
+            padding: 20,
+          },
         ]}
       >
-        <View style={[styles.leftContainer, { flexDirection: "row",position: 'absolute', left: 90, bottom: 20 }]}>
-          <TouchableOpacity style={{ marginTop: 10 }} onPress={() => functions.gotoCart(props.component)}>
-            <Image style={{ width: 24, height: 24 }} source={require("../assets/shopping-bag.png")} />
+        <View
+          style={[
+            styles.leftContainer,
+            {
+              flexDirection: "row",
+              position: "absolute",
+              left: 90,
+              bottom: 20,
+            },
+          ]}
+        >
+          <TouchableOpacity
+            style={{ marginTop: 10 }}
+            onPress={() => functions.gotoCart(props.component)}
+          >
+            <Image
+              style={{ width: 24, height: 24 }}
+              source={require("../assets/shopping-bag.png")}
+            />
           </TouchableOpacity>
           <View style={{ marginLeft: 20 }}>
             <Text style={{ fontSize: 18, fontWeight: "700", color: "white" }}>
@@ -84,7 +125,7 @@ export default function CustomToolbar1({ mode, style, ...props }) {
             <Text style={{ fontSize: 14, color: "white" }}>
               Đã thêm sản phầm vào giỏ hàng({props.component.state.countCart})
             </Text>
-          </View>   
+          </View>
         </View>
         {/* left icon */}
         <View style={[styles.leftContainer, { width: 30 }]}>

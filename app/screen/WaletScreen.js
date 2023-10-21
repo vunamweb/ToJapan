@@ -44,12 +44,16 @@ const img2 = require("../../app/assets/check.png");
 const img3 = require("../../app/assets/JP.png");
 const img5 = require("../../app/assets/history.png");
 
-var moneyJYP = 0, moneyJYPHOLD = 0, moneyVN = 0, moneyVNHOLD = 0, QD;
+var moneyJYP = 0,
+  moneyJYPHOLD = 0,
+  moneyVN = 0,
+  moneyVNHOLD = 0,
+  QD;
 
 class WaletScreen extends Component {
-  state= {
-     change: false
-  }
+  state = {
+    change: false,
+  };
 
   static navigationOptions = ({ navigation }) => ({
     headerStyle: { height: 90 },
@@ -72,7 +76,7 @@ class WaletScreen extends Component {
   componentDidMount() {
     LogBox.ignoreAllLogs(["VirtualizedLists should never be nested"]);
     LogBox.ignoreAllLogs(true);
-    
+
     var userDetail = this.props.navigation.state.params.itemId;
     userDetail = JSON.parse(userDetail);
 
@@ -88,7 +92,6 @@ class WaletScreen extends Component {
   }
 
   render() {
-    
     return (
       <Provider>
         <ScrollView>
@@ -113,7 +116,7 @@ class WaletScreen extends Component {
                 <View>
                   <Text style={styles.paymentText2}>Tiền có sẵn</Text>
                   <Text style={(styles.marginTop5, styles.waletText1)}>
-                    { functions.convertMoney(moneyJYP) } ¥
+                    {functions.convertMoney(moneyJYP)} ¥
                   </Text>
                 </View>
                 <View style={{ marginLeft: 50 }}>
@@ -128,7 +131,7 @@ class WaletScreen extends Component {
                   </View>
 
                   <Text style={(styles.marginTop5, styles.waletText1)}>
-                    { functions.convertMoney(moneyJYPHOLD) } ¥
+                    {functions.convertMoney(moneyJYPHOLD)} ¥
                   </Text>
                 </View>
               </View>
@@ -165,11 +168,11 @@ class WaletScreen extends Component {
                       style={[
                         {
                           backgroundColor: "#3187EA",
-                          paddingVertical: 3,
+                          paddingVertical: 10,
                           paddingHorizontal: 15,
                           borderRadius: 10,
+                          flexDirection: "row"
                         },
-                        styles.flexRowStart,
                       ]}
                     >
                       <Image source={img2} />
@@ -190,12 +193,12 @@ class WaletScreen extends Component {
                   <View>
                     <Text style={styles.paymentText2}>Tiền có sẵn</Text>
                     <Text style={(styles.marginTop5, styles.waletText1)}>
-                      { functions.convertMoney(moneyJYP) } ¥
+                      {functions.convertMoney(moneyJYP)} ¥
                     </Text>
                     <Text style={styles.paymentText2}>
                       Quy đổi
-                      <Text style={[styles.fontBold, styles.marginLeft5]}>
-                        {QD} ¥
+                      <Text style={[styles.fontBold]}>
+                      &nbsp;&nbsp;{QD} ¥
                       </Text>
                     </Text>
                   </View>
@@ -211,12 +214,12 @@ class WaletScreen extends Component {
                     </View>
 
                     <Text style={(styles.marginTop5, styles.waletText1)}>
-                      { functions.convertMoney(moneyJYPHOLD) } ¥
+                      {functions.convertMoney(moneyJYPHOLD)} ¥
                     </Text>
                     <Text style={styles.paymentText2}>
                       Quy đổi
                       <Text style={[styles.fontBold, styles.marginLeft5]}>
-                        {QD} ¥
+                      &nbsp;&nbsp;{QD} ¥
                       </Text>
                     </Text>
                   </View>
@@ -246,7 +249,10 @@ class WaletScreen extends Component {
                       { backgroundColor: "#3187EA", marginTop: 0 },
                     ]}
                     onPress={() =>
-                      functions.gotoScreen(this.props.navigation, "AddMoneyScreen")
+                      functions.gotoScreen(
+                        this.props.navigation,
+                        "AddMoneyScreen"
+                      )
                     }
                   >
                     <Text style={{ color: "white" }}>Nạp tiền</Text>
@@ -294,8 +300,7 @@ class WaletScreen extends Component {
                       Viêt nam đồng
                     </Text>
                   </View>
-                  <View style={[styles.flexRowStart]}>
-                  </View>
+                  <View style={[styles.flexRowStart]} />
                 </View>
 
                 <View
@@ -310,12 +315,12 @@ class WaletScreen extends Component {
                   <View>
                     <Text style={styles.paymentText2}>Tiền có sẵn</Text>
                     <Text style={(styles.marginTop5, styles.waletText1)}>
-                      { functions.convertMoney(moneyVN) } ¥
+                      {functions.convertMoney(moneyVN)} ¥
                     </Text>
                     <Text style={styles.paymentText2}>
                       Quy đổi
                       <Text style={[styles.fontBold, styles.marginLeft5]}>
-                        {QD} ¥
+                      &nbsp;&nbsp;{QD} ¥
                       </Text>
                     </Text>
                   </View>
@@ -336,7 +341,7 @@ class WaletScreen extends Component {
                     <Text style={styles.paymentText2}>
                       Quy đổi
                       <Text style={[styles.fontBold, styles.marginLeft5]}>
-                        {QD} ¥
+                      &nbsp;&nbsp;{QD} ¥
                       </Text>
                     </Text>
                   </View>
@@ -366,7 +371,10 @@ class WaletScreen extends Component {
                       { backgroundColor: "#3187EA", marginTop: 0 },
                     ]}
                     onPress={() =>
-                      functions.gotoScreen(this.props.navigation, "AddMoneyScreen")
+                      functions.gotoScreen(
+                        this.props.navigation,
+                        "AddMoneyScreen"
+                      )
                     }
                   >
                     <Text style={{ color: "white" }}>Nạp tiền</Text>

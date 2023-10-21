@@ -32,18 +32,10 @@ import functions from "../../app/function/function";
 
 import Countdown from "./render/Countdown";
 
-const img1 = require("../../app/assets/product.png");
-const img2 = require("../../app/assets/circle_bg.png");
 const image2_auction = require("../../app/assets/auction-buy.png");
-const img3 = require("../../app/assets/heart.png");
-
-const img = require("../../app/assets/image_6.png");
-const image1 = require("../../app/assets/heart.png");
-const image2 = require("../../app/assets/shopping_bag.png");
 const image3 = require("../../app/assets/ship.png");
 const heart = require("../../app/assets/heart.png");
 const heart_active = require("../../app/assets/heart-active.png");
-const clock = require("../../app/assets/clock.png");
 
 const minHeight = 50;
 
@@ -122,8 +114,8 @@ class ProductDaugiaScreen extends Component {
     response.minutes = minutes;
     response.seconds = seconds;
 
-    return response
-   }
+    return response;
+  };
 
   _renderItem = ({ item, index }) => {
     return (
@@ -229,10 +221,15 @@ class ProductDaugiaScreen extends Component {
               </View>
             </TouchableOpacity>
             <View style={{ marginTop: 30 }}>
-            <View style={{ flexDirection: 'row', marginBottom: 5 }}>
-                  <Image style={{ width: 16, height: 16 }} source={clock}/>
-                  <Text style={{ marginLeft: 10, color: '#3187EA' }}>{this.getCountDown(item.End).day}d: {this.getCountDown(item.End).hours}h : {this.getCountDown(item.End).minutes}m : {this.getCountDown(item.End).seconds}s</Text>
-                  </View>
+              <View style={{ flexDirection: "row", marginBottom: 5 }}>
+                <Image style={{ width: 16, height: 16 }} source={clock} />
+                <Text style={{ marginLeft: 10, color: "#3187EA" }}>
+                  {this.getCountDown(item.End).day}d:{" "}
+                  {this.getCountDown(item.End).hours}h :{" "}
+                  {this.getCountDown(item.End).minutes}m :{" "}
+                  {this.getCountDown(item.End).seconds}s
+                </Text>
+              </View>
               <Text
                 style={{ color: "#23262F", fontSize: 16, minHeight: minHeight }}
               >
@@ -461,7 +458,7 @@ class ProductDaugiaScreen extends Component {
                   ]}
                 >
                   <Text style={styles.money2}>
-                    <Countdown type={true} end={product.end}/>
+                    <Countdown type={true} end={product.end} />
                   </Text>
                 </View>
                 <View style={[styles.flexRowStart]}>

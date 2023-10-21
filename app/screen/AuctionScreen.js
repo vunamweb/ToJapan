@@ -43,7 +43,6 @@ import Dropdown from "../components/Select";
 import styles from "../style/style";
 import functions from "../../app/function/function";
 
-
 import Countdown from "./render/Countdown";
 
 const countries = [
@@ -689,7 +688,7 @@ class AuctionScreen extends Component {
                     ]}
                   >
                     <Text style={styles.money2}>
-                       <Countdown type={true} end={product.end}/>
+                      <Countdown type={true} end={product.end} />
                     </Text>
                   </View>
                 </View>
@@ -867,7 +866,10 @@ class AuctionScreen extends Component {
                     style={[
                       styles.shortOption,
                       styles.borderNormal,
-                      { borderWidth: 1, borderColor: "#3187EA" },
+                      {
+                        borderWidth: this.state.transfer ? 1 : 0,
+                        borderColor: "#3187EA",
+                      },
                     ]}
                   >
                     <RadioButton
@@ -887,7 +889,17 @@ class AuctionScreen extends Component {
                       )
                     }
                   >
-                    <View style={[styles.shortOption, styles.marginTop20]}>
+                    <View
+                      style={[
+                        styles.shortOption,
+                        styles.marginTop20,
+                        styles.borderNormal,
+                        {
+                          borderWidth: !this.state.transfer ? 1 : 0,
+                          borderColor: "#3187EA",
+                        },
+                      ]}
+                    >
                       <RadioButton
                         status={!this.state.transfer ? "checked" : "unchecked"}
                         onPress={() => this.setState({ transfer: false })}
@@ -895,7 +907,11 @@ class AuctionScreen extends Component {
                       <View style={{ flex: 1 }}>
                         <Text style={styles.paymentText4}>Ví VND</Text>
                         <Text style={[styles.marginTop10, styles.paymentText2]}>
-                          Số dư khả dụng: {this.state.userDetail.Balance}đ
+                          Số dư khả dụng:{" "}
+                          {functions.convertMoney(
+                            this.state.userDetail.Balance
+                          )}
+                          đ
                         </Text>
                       </View>
                     </View>
