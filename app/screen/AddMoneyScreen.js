@@ -11,7 +11,8 @@ import {
   ImageBackground,
   Text,
   useWindowDimensions,
-  ActivityIndicator
+  ActivityIndicator,
+  Clipboard,
 } from "react-native";
 import { Rating, AirbnbRating, Slider } from "react-native-elements";
 import { Modal, Portal, Provider, RadioButton } from "react-native-paper";
@@ -249,10 +250,10 @@ class AddMoneyScreen extends Component {
     money: 0,
     listBank: {
       data: {
-        "STK": null,
-        "TenTK": null,
-        "Bank": null
-      }
+        STK: null,
+        TenTK: null,
+        Bank: null,
+      },
     },
     routes: [
       { key: "1", title: "JYP", icon: "ios-paper" },
@@ -281,6 +282,10 @@ class AddMoneyScreen extends Component {
     functions.getListBank(this);
   }
 
+  copyText = (copyText) => {
+    Clipboard.setString(copyText);
+  };
+
   _handleIndexChange = (index) => {
     this.setState({ index });
   };
@@ -308,10 +313,12 @@ class AddMoneyScreen extends Component {
           <TextInput
             placeholder="Nhập số tiền nạp"
             title="Nhập số tiền nạp"
-            keyboardType='numeric'
-            onChangeText={(value) => this.setState({money: value.replace(/[^0-9]/g, '')})}
+            keyboardType="numeric"
+            onChangeText={(value) =>
+              this.setState({ money: parseInt(value.replace(/[^0-9]/g, "")) })
+            }
             value={this.state.money}
-            styleParent={{borderColor: '#E6E8EC', backgroundColor: 'white'}}
+            styleParent={{ borderColor: "#E6E8EC", backgroundColor: "white" }}
           />
 
           <View style={[styles.titleTextinput, styles.textGeneral]}>
@@ -324,7 +331,7 @@ class AddMoneyScreen extends Component {
               <Text style={styles.shortText}>Chuyển khoản ngân hàng</Text>
               {loading}
               {listBank}
-              </View>
+            </View>
           </View>
         </View>
         {/* Total */}
@@ -357,7 +364,7 @@ class AddMoneyScreen extends Component {
                 fontWeight: "700",
               }}
             >
-              { functions.convertMoney(this.state.money) } ¥
+              {functions.convertMoney(this.state.money)} ¥
             </Text>
           </View>
           {/* end */}
@@ -373,9 +380,7 @@ class AddMoneyScreen extends Component {
                 //alignItems: 'center'
               },
             ]}
-            onPress={() =>
-              functions.depositBank(component)
-            }
+            onPress={() => functions.depositBank(component)}
           >
             <Text style={{ color: "white", fontSize: 18, fontWeight: "700" }}>
               Xác nhận
@@ -399,29 +404,28 @@ class AddMoneyScreen extends Component {
     var position;
 
     try {
-       bankArray.push(
-          <View>
-            <View style={[styles.shortOption, { padding: 0 }]}>
-                <RadioButton status="checked" />
-                <View
-                  style={[
-                    {
-                      backgroundColor: "##E3F2FC",
-                      paddingVertical: 8,
-                      paddingHorizontal: 15,
-                      borderRadius: 10,
-                    },
-                  ]}
-                >
-                  <Text style={(styles.shopText2, styles.marginTop10)}>
-                    {listBank.data.Bank}
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.line} />
+      bankArray.push(
+        <View>
+          <View style={[styles.shortOption, { padding: 0 }]}>
+            <RadioButton status="checked" />
+            <View
+              style={[
+                {
+                  backgroundColor: "##E3F2FC",
+                  paddingVertical: 8,
+                  paddingHorizontal: 15,
+                  borderRadius: 10,
+                },
+              ]}
+            >
+              <Text style={(styles.shopText2, styles.marginTop10)}>
+                {listBank.data.Bank}
+              </Text>
+            </View>
           </View>
-        )
-      
+          <View style={styles.line} />
+        </View>
+      );
     } catch (error) {
       console.log(error);
     }
@@ -435,129 +439,173 @@ class AddMoneyScreen extends Component {
     var View1 = <View />;
     var View2 = (
       <ActivityIndicator
-                size="large"
-                animating={this.state.ActivityIndicator}
-              />
+        size="large"
+        animating={this.state.ActivityIndicator}
+      />
     );
 
     loading = this.state.ActivityIndicator == "" ? View1 : View2;
 
     return (
       <Provider>
-      <Portal>
-        <Modal
-        visible={this.state.visible}
-        contentContainerStyle={styles.shortModal}
-        >
-          {/* HEADER */}
-          <View style={styles.shortHeaderModal}>
-                <Text style={{ color: "white", fontSize: 20 }}>
-                  Thông tin thanh toán
-                </Text>
-                <TouchableOpacity
-                  onPress={() =>
-                    this.setState({
-                      visible: false,
-                    })
-                  }
-                  style={{
-                    position: "absolute",
-                    top: 10,
-                    right: 0,
-                    marginRight: 20,
-                  }}
-                >
-                  <Text style={{ color: "white" }}>x</Text>
-                </TouchableOpacity>
-              </View>
-              {/* END */}
-              {/* BODY */}
-              <View style={styles.bgWhite}>
+        <Portal>
+          <Modal
+            visible={this.state.visible}
+            contentContainerStyle={styles.shortModal}
+          >
+            {/* HEADER */}
+            <View style={styles.shortHeaderModal}>
+              <Text style={{ color: "white", fontSize: 20 }}>
+                Thông tin thanh toán
+              </Text>
+              <TouchableOpacity
+                onPress={() =>
+                  this.setState({
+                    visible: false,
+                  })
+                }
+                style={{
+                  position: "absolute",
+                  top: 10,
+                  right: 0,
+                  marginRight: 20,
+                }}
+              >
+                <Text style={{ color: "white" }}>x</Text>
+              </TouchableOpacity>
+            </View>
+            {/* END */}
+            {/* BODY */}
+            <View style={styles.bgWhite}>
               <View
-                  style={[
-                    styles.shortOption,
-                    {
-                      justifyContent: "space-between",
-                      paddingTop: 0,
-                      paddingBottom: 0,
-                    },
-                  ]}
+                style={[
+                  styles.shortOption,
+                  {
+                    justifyContent: "space-between",
+                    paddingTop: 0,
+                    paddingBottom: 0,
+                  },
+                ]}
+              >
+                <Text style={styles.containerHeaderText1}>Tổng thanh toán</Text>
+                <Text style={[styles.inforPaymentText1, styles.fontBold]}>
+                  {functions.convertMoney(this.state.money)} đ
+                </Text>
+              </View>
+
+              <View style={[styles.marginLeft10, styles.marginTop20]}>
+                <Text style={styles.shopText2}>Ngân hàng</Text>
+                <Text
+                  style={[styles.shortText, { marginLeft: 0, marginTop: 0 }]}
                 >
-                  <Text style={styles.containerHeaderText1}>Tổng thanh toán</Text>
-                  <Text style={[styles.inforPaymentText1, styles.fontBold]}>{this.state.money} đ</Text>
-                </View>
+                  {this.state.listBank.data.Bank}
+                </Text>
+              </View>
 
-                <View style={[styles.marginLeft10, styles.marginTop20]}>
-                  <Text style={styles.shopText2}>Ngân hàng</Text>
-                  <Text style={[styles.shortText, {marginLeft: 0, marginTop: 0}]}>{this.state.listBank.data.Bank}</Text>
-                </View>
-
-                <View style={[styles.flexRowStart, styles.marginTop20, {justifyContent: 'space-between'}]}>
+              <View
+                style={[
+                  styles.flexRowStart,
+                  styles.marginTop20,
+                  { justifyContent: "space-between" },
+                ]}
+              >
                 <View style={styles.marginLeft10}>
                   <Text style={styles.shopText2}>Số tài khoản</Text>
-                  <Text style={[styles.shortText, {marginLeft: 0, marginTop: 0}]}>{this.state.listBank.data.STK}</Text>
+                  <Text
+                    style={[styles.shortText, { marginLeft: 0, marginTop: 0 }]}
+                  >
+                    {this.state.listBank.data.STK}
+                  </Text>
                 </View>
-                <Image source={img1}/>
-                </View>
+                <Image source={img1} />
+              </View>
 
-                <View style={[styles.marginLeft10, styles.marginTop20]}>
-                  <Text style={styles.shopText2}>Chủ tài khoản</Text>
-                  <Text style={[styles.shortText, {marginLeft: 0, marginTop: 0}]}>{this.state.listBank.data.TenTK}</Text>
-                </View>
+              <View style={[styles.marginLeft10, styles.marginTop20]}>
+                <Text style={styles.shopText2}>Chủ tài khoản</Text>
+                <Text
+                  style={[styles.shortText, { marginLeft: 0, marginTop: 0 }]}
+                >
+                  {this.state.listBank.data.TenTK}
+                </Text>
+              </View>
 
-               <View style={[styles.flexRowStart, styles.marginTop20, {justifyContent: 'space-between'}]}>
+              <View
+                style={[
+                  styles.flexRowStart,
+                  styles.marginTop20,
+                  { justifyContent: "space-between" },
+                ]}
+              >
                 <View style={styles.marginLeft10}>
                   <Text style={styles.shopText2}>Nội dung chuyển khoản</Text>
-                  <Text style={[styles.shortText, {marginLeft: 0, marginTop: 0}]}>DB712050FFI EZ6763 linh le</Text>
+                  <Text
+                    style={[styles.shortText, { marginLeft: 0, marginTop: 0 }]}
+                  >
+                    DB712050FFI EZ6763 linh le
+                  </Text>
                 </View>
-                <Image source={img1}/>
+                <Image source={img1} />
+              </View>
+
+              <View
+                style={[
+                  styles.shortHeaderModal,
+                  styles.padding,
+                  styles.marginTop20,
+                  {
+                    marginLeft: 20,
+                    marginRight: 20,
+                    backgroundColor: "#FFF8DE",
+                    flexDirection: "column",
+                  },
+                ]}
+              >
+                <View style={styles.flexRowStart}>
+                  <Image source={img2} />
+                  <Text style={styles.marginLeft5}>Lưu ý</Text>
                 </View>
 
-                <View style={[styles.shortHeaderModal, styles.padding, styles.marginTop20, {marginLeft: 20, marginRight: 20, backgroundColor: '#FFF8DE', flexDirection: 'column'}]}>
+                <Text style={styles.marginTop10}>
+                  Vui lòng chuyển tiền chính xác theo thông tin tài khoản ngân
+                  hàng và nội dung chuyển khoản.
+                </Text>
 
-                  <View style={styles.flexRowStart}>
-<Image source={img2}/>
-<Text style={styles.marginLeft5}>Lưu ý</Text>
-                 </View>
+                <Text style={[styles.marginTop20, styles.marginLeft10]}>
+                  Trường hợp được thanh toán tại máy ATM, vì không thể ghi được
+                  nội dung thanh toán nên quý khách vui lòng thông báo qua email
+                  hoặc gọi trực tiếp tổng đài ToJapan để được hỗ trợ.
+                </Text>
 
-                 <Text style={styles.marginTop10}>
-                 Vui lòng chuyển tiền chính xác theo thông tin tài khoản ngân hàng và nội dung chuyển khoản.
-                 </Text>
-
-                 <Text style={[styles.marginTop20, styles.marginLeft10]}>
-                 Trường hợp được thanh toán tại máy ATM, vì không thể ghi được nội dung thanh toán nên quý khách vui lòng thông báo qua email hoặc gọi trực tiếp tổng đài ToJapan để được hỗ trợ.
-                 </Text>
-
-                 <Text style={[styles.marginTop10, styles.marginLeft10]}>
-                 Giao dịch của quý khách chỉ được xác nhận thanh toán sau khi ToJapan nhận được thông báo từ Ngân hàng với nội dung thanh toán đầy đủ.
-                 </Text>
-                </View>
-
-</View>
-              {/* END BODY */}
-</Modal>
-      </Portal>
-      <View style={{ marginTop: 30, flex: 1, justifyContent: "flex-start" }}>
-        <TabView
-          navigationState={this.state}
-          renderScene={this._renderScene}
-          onIndexChange={this._handleIndexChange}
-          tabStyle={{ color: "red" }}
-          //initialLayout={{ width: layout.width }}
-          renderTabBar={(props) => (
-            <TabBar
-              {...props}
-              style={{ backgroundColor: "white" }}
-              renderLabel={({ route, color }) => (
-                <View style={{ flexDirection: "row", paddingTop: 5 }}>
-                  <Text style={{ color: "black" }}>{route.title}</Text>
-                </View>
-              )}
-            />
-          )}
-        />
-      </View>
-      
+                <Text style={[styles.marginTop10, styles.marginLeft10]}>
+                  Giao dịch của quý khách chỉ được xác nhận thanh toán sau khi
+                  ToJapan nhận được thông báo từ Ngân hàng với nội dung thanh
+                  toán đầy đủ.
+                </Text>
+              </View>
+            </View>
+            {/* END BODY */}
+          </Modal>
+        </Portal>
+        <View style={{ marginTop: 30, flex: 1, justifyContent: "flex-start" }}>
+          <TabView
+            navigationState={this.state}
+            renderScene={this._renderScene}
+            onIndexChange={this._handleIndexChange}
+            tabStyle={{ color: "red" }}
+            //initialLayout={{ width: layout.width }}
+            renderTabBar={(props) => (
+              <TabBar
+                {...props}
+                style={{ backgroundColor: "white" }}
+                renderLabel={({ route, color }) => (
+                  <View style={{ flexDirection: "row", paddingTop: 5 }}>
+                    <Text style={{ color: "black" }}>{route.title}</Text>
+                  </View>
+                )}
+              />
+            )}
+          />
+        </View>
       </Provider>
     );
   }
