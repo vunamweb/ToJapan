@@ -168,11 +168,11 @@ class WaletScreen extends Component {
                       style={[
                         {
                           backgroundColor: "#3187EA",
-                          paddingVertical: 3,
+                          paddingVertical: 10,
                           paddingHorizontal: 15,
                           borderRadius: 10,
+                          flexDirection: "row"
                         },
-                        styles.flexRowStart,
                       ]}
                     >
                       <Image source={img2} />
@@ -197,8 +197,8 @@ class WaletScreen extends Component {
                     </Text>
                     <Text style={styles.paymentText2}>
                       Quy đổi
-                      <Text style={[styles.fontBold, styles.marginLeft5]}>
-                        {QD} ¥
+                      <Text style={[styles.fontBold]}>
+                      &nbsp;&nbsp;{QD} ¥
                       </Text>
                     </Text>
                   </View>
@@ -219,7 +219,7 @@ class WaletScreen extends Component {
                     <Text style={styles.paymentText2}>
                       Quy đổi
                       <Text style={[styles.fontBold, styles.marginLeft5]}>
-                        {QD} ¥
+                      &nbsp;&nbsp;{QD} ¥
                       </Text>
                     </Text>
                   </View>
@@ -320,7 +320,7 @@ class WaletScreen extends Component {
                     <Text style={styles.paymentText2}>
                       Quy đổi
                       <Text style={[styles.fontBold, styles.marginLeft5]}>
-                        {QD} ¥
+                      &nbsp;&nbsp;{QD} ¥
                       </Text>
                     </Text>
                   </View>
@@ -341,7 +341,7 @@ class WaletScreen extends Component {
                     <Text style={styles.paymentText2}>
                       Quy đổi
                       <Text style={[styles.fontBold, styles.marginLeft5]}>
-                        {QD} ¥
+                      &nbsp;&nbsp;{QD} ¥
                       </Text>
                     </Text>
                   </View>
