@@ -517,7 +517,9 @@ class AddMoneyScreen extends Component {
                     {this.state.listBank.data.STK}
                   </Text>
                 </View>
-                <Image source={img1} />
+                <TouchableOpacity onPress={() => this.copyText(this.state.listBank.data.STK)}>
+                  <Image source={img1} />
+                </TouchableOpacity>
               </View>
 
               <View style={[styles.marginLeft10, styles.marginTop20]}>
@@ -544,7 +546,9 @@ class AddMoneyScreen extends Component {
                     DB712050FFI EZ6763 linh le
                   </Text>
                 </View>
-                <Image source={img1} />
+                <TouchableOpacity onPress={() => this.copyText("DB712050FFI EZ6763 linh le")}>
+                  <Image source={img1} />
+                </TouchableOpacity>
               </View>
 
               <View
