@@ -32,18 +32,10 @@ import functions from "../../app/function/function";
 
 import Countdown from "./render/Countdown";
 
-const img1 = require("../../app/assets/product.png");
-const img2 = require("../../app/assets/circle_bg.png");
 const image2_auction = require("../../app/assets/auction-buy.png");
-const img3 = require("../../app/assets/heart.png");
-
-const img = require("../../app/assets/image_6.png");
-const image1 = require("../../app/assets/heart.png");
-const image2 = require("../../app/assets/shopping_bag.png");
 const image3 = require("../../app/assets/ship.png");
 const heart = require("../../app/assets/heart.png");
 const heart_active = require("../../app/assets/heart-active.png");
-const clock = require("../../app/assets/clock.png");
 
 const minHeight = 50;
 
