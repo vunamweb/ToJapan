@@ -29,22 +29,23 @@ import styles from "../../app/style/style";
 import functions from "../../app/function/function";
 
 const carouselItems = [
-  {
+  /*{
     title: "Mercari",
     shop: "mercari",
     img: require("../../app/assets/mercari_1.png"),
-  },
+  },*/
   {
-    title: "Y!Auction",
+    title: "Đấu giá",
     shop: "yahoo_auction",
-    img: require("../../app/assets/Y!Auction.png"),
+    //img: require("../../app/assets/Y!Auction.png"),
+    img: require("../../app/assets/yahoo-shopping.png"),
   },
-  {
+  /*{
     title: "Y!Shopping",
     shop: "yahoo_shopping",
     img: require("../../app/assets/yahoo-shopping.png"),
-  },
-  {
+  },*/
+  /*{
     title: "Amazon JP",
     shop: "amazon",
     img: require("../../app/assets/Amazon_JS.png"),
@@ -53,7 +54,7 @@ const carouselItems = [
     title: "Rakuten",
     shop: "rakuten",
     img: require("../../app/assets/Rakuten_1.png"),
-  },
+  },*/
 ];
 
 const dataCarouselSlider = [
