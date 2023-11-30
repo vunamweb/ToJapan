@@ -58,7 +58,7 @@ class LoginScreen extends Component {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <Background center="true">
         <Logo type="login" />
         <Header>Đăng nhập</Header>

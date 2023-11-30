@@ -111,11 +111,11 @@ class RegisterScreen extends Component {
           }}
         />
         <View style={[styles.titleTextinput, styles.textGeneral]}>
-          <Text>ID</Text>
+          <Text>Username</Text>
           <Text style={styles.mandatoryColor}>*</Text>
         </View>
         <TextInput
-          placeholder="Nhập ID"
+          placeholder="Nhập Username"
           autoCapitalize="none"
           value={ID}
           styleParent={{borderColor: this.state.colorBorderID,  backgroundColor: 'white'}}

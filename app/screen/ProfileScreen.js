@@ -67,7 +67,7 @@ const data2 = [
 ];
 
 const data3 = [
-  {
+  /*{
     text: "Người dùng lần đầu",
     img: require("../../app/assets/nguoidungdautien.png"),
   },
@@ -78,11 +78,13 @@ const data3 = [
   {
     text: "FAQ/ Liên hệ chúng tôi",
     img: require("../../app/assets/faq.png"),
-  },
+  },*/
   {
     text: "Liên hệ ToJapan",
     img: require("../../app/assets/Contact.png"),
     border: "none",
+    link: "News",
+    type: "3",
   },
 ];
 
@@ -90,24 +92,30 @@ const data4 = [
   {
     text: "Giới thiệu ToJapan",
     img: require("../../app/assets/gioithieu.png"),
+    link: "News",
+    type: "4",
   },
-  {
+  /*{
     text: "Tin tức",
     img: require("../../app/assets/tintuc.png"),
-  },
+  },*/
   {
     text: "Điều khoản dịch vụ",
     img: require("../../app/assets/dieukhoan.png"),
+    link: "News",
+    type: "1",
   },
   {
     text: "Chính sách bảo mật",
     img: require("../../app/assets/chinhsachbaomat.png"),
+    link: "News",
+    type: "2",
   },
-  {
+  /*{
     text: "Quy chế hoạt động sàn TMĐT",
     img: require("../../app/assets/quyche.png"),
     border: "none",
-  },
+  },*/
 ];
 
 const img1 = require("../../app/assets/question.png");
@@ -137,21 +145,22 @@ class ProfileScreen extends Component {
     },
   };
 
-  goto = (link) => {
-    if(link != "" && link != null)
-    functions.gotoScreen(this.props.navigation, link) 
-  }
+  goto = (link, type) => {
+    if (link != "" && link != null)
+      functions.gotoScreenWithParam(type, this.props.navigation, link);
+  };
 
   _renderItem = ({ item, index }) => {
     let height = item.border == "none" ? 0 : 1;
     let link = item.link != null ? item.link : "";
+    let type = item.type != null ? item.type : "";
 
     return (
-      <TouchableOpacity
-        onPress={() => this.goto(link)}
-      >
-        <View style={[styles.flexRowStart, {paddingLeft: 10, paddingTop: 10}]}>
-          <Image style={{ width: 24, height: 24 }}  source={item.img} />
+      <TouchableOpacity onPress={() => this.goto(link, type)}>
+        <View
+          style={[styles.flexRowStart, { paddingLeft: 10, paddingTop: 10 }]}
+        >
+          <Image style={{ width: 24, height: 24 }} source={item.img} />
           <View style={{ flex: 1 }}>
             <View
               style={[
@@ -258,26 +267,26 @@ class ProfileScreen extends Component {
                 Số tiền này là một ước tính dựa trên tỷ lệ chuyển đổi tiền tệ
                 gần đây nhất.
               </Text>
-              <Collapse
+              {/*<Collapse
                 title="Hoạt động của tôi"
                 data={data1}
                 renderItem={this._renderItem}
                 col={1}
-              />
+              />*/}
 
-              <Collapse
+              {/*<Collapse
                 title="Quản lý mua bán"
                 data={data2}
                 renderItem={this._renderItem}
                 col={1}
-              />
+            />*/}
 
               <Collapse
                 title="Hỗ trợ khách hàng"
                 data={data3}
                 renderItem={this._renderItem}
                 col={1}
-              />
+          />
 
               <Collapse
                 title="Về chúng tôi"

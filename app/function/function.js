@@ -32,6 +32,7 @@ import HistorySearchScreen from "../screen/HistorySearchScreen";
 import ComplainScreen from "../screen/ComplainScreen";
 import PersonalScreen from "../screen/PersonalScreen";
 import ChangePasswordScreen from "../screen/ChangePasswordScreen";
+import News from "../screen/News";
 
 import network from "../network/network";
 
@@ -181,6 +182,10 @@ class Functions {
 
       ChangePasswordScreen: {
         screen: ChangePasswordScreen,
+      },
+
+      News: {
+        screen: News,
       },
     });
   };
