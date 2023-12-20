@@ -10,7 +10,7 @@ import {
   AsyncStorage,
 } from "react-native";
 import { CheckBox, Rating, AirbnbRating, Tooltip } from "react-native-elements";
-import { Text } from "react-native-paper";
+import { Text, Modal, Portal, Provider } from "react-native-paper";
 
 import Background from "../components/Background";
 import TextInput from "../components/TextInput";
@@ -143,6 +143,7 @@ class ProfileScreen extends Component {
       Hold: 0,
       JPY: 0,
     },
+    visibleAlert: false
   };
 
   goto = (link, type) => {
@@ -210,6 +211,60 @@ class ProfileScreen extends Component {
 
   render() {
     return (
+      <Provider>
+        <Portal>
+        <Modal
+              visible={this.state.visibleAlert}
+              contentContainerStyle={[styles.shortModal]}
+            >
+{/* Body */}
+              <View style={{ backgroundColor: "#fff", width: '100%', paddingBottom: 20 }}>
+                <View>
+                  <View style={{ height: 1, backgroundColor: "#cccccc" }} />
+                  <Text style={{ textAlign: 'center', fontSize: 15, marginTop: 20 }}>Bạn đồng ý xoá tài khoản ?</Text>
+                  <View
+                    style={[
+                      {
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                      },
+                      styles.padding,
+                    ]}
+                  >
+                    {/* Button huy */}
+                    <TouchableOpacity
+                      style={[
+                        styles.buttonNotFull,
+                        {
+                          backgroundColor: "white",
+                          marginTop: 0,
+                          borderColor: "#3187EA",
+                          borderWidth: 1,
+                          paddingHorizontal: 30,
+                        },
+                      ]}
+                      onPress={() => this.setState({ visibleAlert: false })}
+                    >
+                      <Text style={{ color: "#3187EA" }}>Thoát</Text>
+                    </TouchableOpacity>
+                    {/* END */}
+                    {/* Button ap dung */}
+                    <TouchableOpacity
+                      style={[
+                        styles.buttonNotFull,
+                        { backgroundColor: "#3187EA", marginTop: 0, paddingHorizontal: 30, },
+                      ]}
+                      onPress={() => functions.deleteUser(this)}
+                    >
+                      <Text style={{ color: "white" }}>Đồng ý</Text>
+                    </TouchableOpacity>
+                    {/* END */}
+                  </View>
+                </View>
+              </View>
+              {/* END */}
+            </Modal>
+            </Portal>
       <View style={{ flex: 1 }}>
         <ScrollView>
           <Background sourse="true" start="1">
@@ -309,6 +364,20 @@ class ProfileScreen extends Component {
               >
                 <Text style={{ color: "#D63F5C" }}>Đăng xuất</Text>
               </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.setState({ visibleAlert: true })}
+                style={[
+                  styles.button,
+                  {
+                    backgroundColor: "white",
+                    marginTop: 20,
+                    borderColor: "#D63F5C",
+                    borderWidth: 1,
+                  },
+                ]}
+              >
+                <Text style={{ color: "#D63F5C" }}>Xoá Tài khoản</Text>
+              </TouchableOpacity>
             </View>
           </Background>
         </ScrollView>
@@ -318,6 +387,7 @@ class ProfileScreen extends Component {
           {/* END */}
         </View>
       </View>
+      </Provider>
     );
   }
 }
