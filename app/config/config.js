@@ -60,6 +60,7 @@ global.removefavorite = '/api/v1/mobile/user/favorite/:id'
 global.urlListFavorite = '/api/v1/mobile/user/favorite'
 global.urlAuction = '/api/v1/mobile/user/auction/active'
 global.urlDeleteAllCart = '/api/v1/mobile/cart/remove/clear'
+global.deleteUser = '/api/v1/mobile/user/update'
 // cost ship, vat
 global.ship = 0
 global.giam_gia = 0

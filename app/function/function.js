@@ -221,12 +221,12 @@ class Functions {
     try {
       await AsyncStorage.setItem("dataPersonal", JSON.stringify(responseData));
 
-      if(component.state.checked) {
+      if (component.state.checked) {
         await AsyncStorage.setItem("userName", component.state.userName);
         await AsyncStorage.setItem("passWord", component.state.passWord);
       } else {
-        await AsyncStorage.setItem("userName", '');
-        await AsyncStorage.setItem("passWord", '');
+        await AsyncStorage.setItem("userName", "");
+        await AsyncStorage.setItem("passWord", "");
       }
 
       this.setCart();
@@ -352,6 +352,27 @@ class Functions {
     };
 
     network.fetchPUT_HEADER(url, data, token, callback);
+  };
+
+  deleteUser = async (component) => {
+    let url = global.urlRoot + global.deleteUser;
+
+    var datauser = await this.getDataUser();
+    datauser = JSON.parse(datauser);
+    var token = datauser.token;
+
+    let body = {};
+    let data;
+
+    data = JSON.stringify(body);
+
+    functions.logout(component);
+
+    callback = async (responseData) => {
+      functions.logout(component);
+    };
+
+    network.fetchPOST_HEADER(url, data, token, callback);
   };
 
   addProductTocartBuyNow = async (productId, Shop, quantity, component) => {
@@ -1139,7 +1160,6 @@ class Functions {
           errorFaildAuction: responseData.error,
           visibleAlert: true,
           ActivityIndicator1: false,
-
         });
       else
         component.setState({
@@ -1468,8 +1488,8 @@ class Functions {
 
   convertMoney = (number) => {
     //return number;
-    number = (number != undefined) ? number : 0;
-    
+    number = number != undefined ? number : 0;
+
     var number = number.toLocaleString("en-US", {
       style: "currency",
       currency: "USD",
