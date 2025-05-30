@@ -96,7 +96,7 @@ Auction = ({ item, index, parent }) => {
                 <Text
                   style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}
                 >
-                  Từ {parent.props.navigation.state.params.itemId}
+                  Từ {parent.props.navigation.state.params.itemId != 'yahoo_auction' ? parent.props.navigation.state.params.itemId : 'ToJapan'}
                 </Text>
                 <Rating
                   imageSize={15}
@@ -220,7 +220,7 @@ Auction = ({ item, index, parent }) => {
                 <Text
                   style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}
                 >
-                  Từ {parent.props.navigation.state.params.itemId}
+                    Từ {parent.props.navigation.state.params.itemId != 'yahoo_auction' ? parent.props.navigation.state.params.itemId : 'ToJapan'}
                 </Text>
                 <Rating
                   imageSize={15}

@@ -562,7 +562,7 @@ class ProductDaugiaScreen extends Component {
                 />
                 <View style={[styles.addressContent, { paddingLeft: 5 }]}>
                   <Text style={styles.paymentText2}>
-                    Kích hoạt VIP Yahoo! Auction
+                    Kích hoạt VIP ToJapan
                   </Text>
                   <Text style={styles.money3}>10.000 Point</Text>
                 </View>

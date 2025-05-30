@@ -260,7 +260,7 @@ class CategoryScreen extends React.PureComponent {
     headerTitleStyle: {
       color: "white",
     },
-    title: navigation.state.params.itemId,
+    title: (navigation.state.params.itemId != 'yahoo_auction') ? navigation.state.params.itemId : 'ToJapan',
   });
 
   gotoSearch = () => {
