@@ -25,7 +25,7 @@ global.actionNoDK1 = "Vui lòng Xác nhận đồng ý đấu giá sản phẩm 
 global.actionNoDK2 = "Vui lòng Đồng ý với Điều khoản & chính sách của to japan"
 // URL
 global.urlRoot = 'http://tom-be.2tsolution.net';
-global.urlData = 'https://statics.tomexpress.jp/';
+global.urlData = 'http://vunam.io.vn/';
 global.urlLogin = '/api/v1/mobile/login';
 global.urlRegistration = '/api/v1/mobile/register';
 global.urlUpdateUser = '/api/v1/mobile/user/update'

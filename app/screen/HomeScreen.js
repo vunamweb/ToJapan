@@ -29,23 +29,23 @@ import styles from "../../app/style/style";
 import functions from "../../app/function/function";
 
 const carouselItems = [
-  /*{
+  {
     title: "Mercari",
     shop: "mercari",
     img: require("../../app/assets/mercari_1.png"),
-  },*/
+  },
   {
     title: "Đấu giá",
     shop: "yahoo_auction",
     //img: require("../../app/assets/Y!Auction.png"),
     img: require("../../app/assets/yahoo-shopping.png"),
   },
-  /*{
+  {
     title: "Y!Shopping",
     shop: "yahoo_shopping",
     img: require("../../app/assets/yahoo-shopping.png"),
-  },*/
-  /*{
+  },
+  {
     title: "Amazon JP",
     shop: "amazon",
     img: require("../../app/assets/Amazon_JS.png"),
@@ -54,7 +54,7 @@ const carouselItems = [
     title: "Rakuten",
     shop: "rakuten",
     img: require("../../app/assets/Rakuten_1.png"),
-  },*/
+  }
 ];
 
 const dataCarouselSlider = [
@@ -95,7 +95,36 @@ const minHeight = 50;
 
 class HomeScreen extends Component {
   state = {
-    dataProductSlider: [],
+    dataProductSlider: [
+  {
+    title: "[Crocs] Classic All",
+    shop: "Amazon",
+    price: "5,434",
+    priceVN: "1,016,158",
+    image: "http://vunam.io.vn/tojapan/image/image_6.png"
+  },
+  {
+    title: "[Crocs] Classic All",
+    shop: "Amazon",
+    price: "5,434",
+    priceVN: "1,016,158",
+    image: "http://vunam.io.vn/tojapan/image/image_6.png"
+  },
+  {
+    title: "[Crocs] Classic All",
+    shop: "Amazon",
+    price: "5,434",
+    priceVN: "1,016,158",
+    image: "http://vunam.io.vn/tojapan/image/image_6.png"
+  },
+  {
+    title: "[Crocs] Classic All",
+    shop: "Amazon",
+    price: "5,434",
+    priceVN: "1,016,158",
+    image: "http://vunam.io.vn/tojapan/image/image_6.png"
+  },
+],
     dataBanner: [],
     dataPopularBranch: [],
     cart: [],
@@ -262,7 +291,7 @@ class HomeScreen extends Component {
                   <Text
                     style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}
                   >
-                    Từ {this.state.shop}
+                    Từ Amazon
                   </Text>
                   <Rating
                     imageSize={15}
@@ -417,7 +446,7 @@ class HomeScreen extends Component {
 
     functions.getBanners(this);
     functions.getPoplularBranch(this);
-    functions.getListPopularProduct(this, "mercari");
+    //functions.getListPopularProduct(this, "mercari");
     functions.getListFavorite(this);
 
     this.setCart();
@@ -455,6 +484,8 @@ class HomeScreen extends Component {
   };
 
   render() {
+    component__ = this;
+
     LogBox.ignoreAllLogs(true);
 
     var View1 = <View />;

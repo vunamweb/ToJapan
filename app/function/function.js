@@ -470,6 +470,17 @@ class Functions {
     body.password = passWord;
     body = JSON.stringify(body);
 
+    var responseData = {
+      "token": "Bearer fe772ad0e2405ad5317a512138523d7d7daa4087ddee982cc6a7df4402a3d5905b9395dd78a62b4276bd4ad5340f8ffa8fb95992c883dcd816a5240f3146ecaa",
+      "data": {
+        "makh": "tuan6727",
+        "name": "MR Tuấn",
+        "phone": "sszz",
+        "address": "8 Hoàng Minh Giám,p9, Phú Nhuận",
+        "dob": "cvddzz"
+      }
+    };
+
     var callback = (responseData) => {
       if (responseData.data == null) {
         component.setState({ errorMessage: global.loginWrong });
@@ -506,8 +517,9 @@ class Functions {
       component.setState({ errorMessage: "" });
     }
 
-    component.setState({ ActivityIndicator: true });
-    network.fetchPOST(url, body, callback);
+    callback(responseData);
+    //component.setState({ ActivityIndicator: true });
+    //network.fetchPOST(url, body, callback);
   };
 
   register = (name, passWord, confirmPassword, phone, email, ID, component) => {
@@ -1218,6 +1230,21 @@ class Functions {
 
     let body = {};
 
+    var responseData = {
+    "success": true,
+    "data": [
+        "tojapan/image/TOJAPANbanners-1559x295-05.jpg",
+        "tojapan/image/TOJAPANbanners-1559x295-10.jpg",
+        "tojapan/image/TOJAPANbanners-1559x295-01.jpg",
+        "tojapan/image/TOJAPANbanners-1559x295-02.jpg",
+        "tojapan/image/TOJAPANbanners-1559x295-04.jpg",
+        "tojapan/image/TOJAPANbanners-1559x295-03.jpg",
+        "tojapan/image/TOJAPANbanners-1559x295-06.jpg",
+        "tojapan/image/TOJAPANbanners-1559x295-07.jpg"
+    ],
+    "total": 8
+}
+
     callback = async (responseData) => {
       var listBanner = [];
       var count;
@@ -1237,7 +1264,9 @@ class Functions {
       });
     };
 
-    network.fetchGET_HEADER(url, body, token, callback);
+    callback(responseData);
+
+    //network.fetchGET_HEADER(url, body, token, callback);
   };
 
   getPoplularBranch = async (component) => {
@@ -1248,6 +1277,24 @@ class Functions {
     var token = datauser.token;
 
     let body = {};
+
+    var responseData = {
+    "success": true,
+    "data": [
+        {
+            "Brand": "imac",
+            "Image": "si7101-MBA-01.jpeg"
+        },
+        {
+            "Brand": "Macbook"
+        },
+        {
+            "Brand": "louis vuitton",
+            "Image": "863_dec_1-1000x1000.jpeg"
+        }
+    ],
+    "total": 3
+}
 
     callback = async (responseData) => {
       var listPopularBranch = [];
@@ -1263,7 +1310,9 @@ class Functions {
       });
     };
 
-    network.fetchGET_HEADER(url, body, token, callback);
+    callback(responseData);
+
+    //network.fetchGET_HEADER(url, body, token, callback);
   };
 
   getUserDetail = async (component) => {
