@@ -256,7 +256,7 @@ class HomeScreen extends Component {
             >
               <View style={{ padding: 0 }}>
                 <Image
-                  style={{ width: "100%", height: 128, marginTop: 20}}
+                  style={{ width: "100%", height: 90, marginTop: 20}}
                   source={{ uri: item.image }}
                 />
                 <TouchableOpacity
@@ -339,7 +339,7 @@ class HomeScreen extends Component {
             >
               <View style={{ padding: 0 }}>
                 <Image
-                  style={{ width: "100%", height: 128, marginTop: 20 }}
+                  style={{ width: "100%", height: 90, marginTop: 20 }}
                   source={{ uri: item.image }}
                 />
                 <TouchableOpacity

@@ -137,23 +137,23 @@ class CartScreen extends Component {
       >
         <View style={{ flexDirection: "row", flex: 1 }}>
           <Image
-            style={{ width: 128, height: 128 }}
-            source={{ uri: item.Image }}
+            style={{ width: 128, height: 90 }}
+            source={{ uri: item.image }}
           />
           <View style={{ marginTop: 0, marginLeft: 20, marginRight: 20, flex: 1 }}>
-            <Text style={[styles.money3]}>{item.Name}</Text>
+            <Text style={[styles.money3]}>{item.title}</Text>
             <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
-              Từ {item.Shop}
+              Từ {item.shop}
             </Text>
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
               <View>
                 <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                  { functions.convertMoney(item.Price) } ¥
+                  { functions.convertMoney(item.price) } ¥
                 </Text>
                 <Text style={{ fontSize: 12, color: "#777E90" }}>
-                  { functions.convertMoney((item.PriceVN != undefined ? item.PriceVN : item.Price * 184)) } VND
+                  { functions.convertMoney((item.priceVN != undefined ? item.priceVN : item.price * 184)) } VND
                 </Text>
               </View>
             </View>
@@ -380,7 +380,7 @@ class CartScreen extends Component {
               ]}
             >
               <Text style={styles.money1}>Tổng phụ</Text>
-              <Text style={styles.money2}>{ functions.convertMoney(subTotalJYP) } ¥</Text>
+              <Text style={styles.money2}>5353 ¥</Text>
             </View>
             {/* END */}
             {/* Money2 */}
@@ -426,10 +426,10 @@ class CartScreen extends Component {
                 <Text
                   style={{ fontSize: 22, color: "#D63F5C", fontWeight: "700" }}
                 >
-                  { functions.convertMoney(totalJYP) } ¥
+                  35543 ¥
                 </Text>
                 <Text style={{ fontSize: 14, color: "#23262F" }}>
-                { functions.convertMoney(totalJYP * 184) } đ
+                54534464645 đ
                 </Text>
               </View>
               {/* end */}

@@ -307,7 +307,7 @@ class Functions {
   };
 
   addCart = async (product, cat, component) => {
-    this.addProductTocart(product.code, cat, 1, component);
+    this.addProductTocart(product, cat, 1, component);
   };
 
   addBuyNowShop = async (product, cat, component) => {
@@ -330,28 +330,27 @@ class Functions {
     network.fetchPATCH_HEADER(url, body, token, callback);
   };
 
-  addProductTocart = async (productId, Shop, quantity, component) => {
-    let url = global.urlRoot + global.urlAddProductToCart;
+  addProductTocart = async (product, Shop, quantity, component) => {
+    var responseData = [];
 
-    var datauser = await this.getDataUser();
-    datauser = JSON.parse(datauser);
-    var token = datauser.token;
+    responseData.push(product);
+    responseData.push(product);
+    responseData.push(product);
+    responseData.push(product);
 
-    let body = {};
-    let data;
-
-    body.Shop = this.convertShopToID(Shop);
-    body.Code = productId;
-    body.Quantity = quantity;
-    data = JSON.stringify(body);
-
+    responseData[0].Code = 1;
+    responseData[1].Code = 2;
+    responseData[2].Code = 3;
+    responseData[3].Code = 4;
+    
     callback = async (responseData) => {
-      await AsyncStorage.setItem("cart", JSON.stringify(responseData.data));
+      await AsyncStorage.setItem("cart", JSON.stringify(responseData));
 
-      component.setState({ order: true, countCart: responseData.data.length });
+      component.setState({ order: true, countCart: 4 });
     };
 
-    network.fetchPUT_HEADER(url, data, token, callback);
+    callback(responseData);
+    //network.fetchPUT_HEADER(url, data, token, callback);
   };
 
   deleteUser = async (component) => {

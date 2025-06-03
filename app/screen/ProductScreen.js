@@ -73,11 +73,73 @@ class ProductScreen extends Component {
     visibleFilter: false,
     product: {
       images: [],
-      buy_now: null,
+      title: "[Crocs] Classic All",
+        shop: "Amazon",
+        price: "5,434",
+        priceVN: "1,016,158",
+        image: "http://vunam.io.vn/tojapan/image/image_6.png",
     },
-    productSimilar1: [],
-    productSimilar2: [],
-    countCart: 0,
+    productSimilar1: [
+      {
+        title: "[Crocs] Classic All",
+        shop: "Amazon",
+        price: "5,434",
+        priceVN: "1,016,158",
+        image: "http://vunam.io.vn/tojapan/image/image_6.png"
+      },
+      {
+        title: "[Crocs] Classic All",
+        shop: "Amazon",
+        price: "5,434",
+        priceVN: "1,016,158",
+        image: "http://vunam.io.vn/tojapan/image/image_6.png"
+      },
+      {
+        title: "[Crocs] Classic All",
+        shop: "Amazon",
+        price: "5,434",
+        priceVN: "1,016,158",
+        image: "http://vunam.io.vn/tojapan/image/image_6.png"
+      },
+      {
+        title: "[Crocs] Classic All",
+        shop: "Amazon",
+        price: "5,434",
+        priceVN: "1,016,158",
+        image: "http://vunam.io.vn/tojapan/image/image_6.png"
+      },
+    ],
+    productSimilar2: [
+      {
+        title: "[Crocs] Classic All",
+        shop: "Amazon",
+        price: "5,434",
+        priceVN: "1,016,158",
+        image: "http://vunam.io.vn/tojapan/image/image_6.png"
+      },
+      {
+        title: "[Crocs] Classic All",
+        shop: "Amazon",
+        price: "5,434",
+        priceVN: "1,016,158",
+        image: "http://vunam.io.vn/tojapan/image/image_6.png"
+      },
+      {
+        title: "[Crocs] Classic All",
+        shop: "Amazon",
+        price: "5,434",
+        priceVN: "1,016,158",
+        image: "http://vunam.io.vn/tojapan/image/image_6.png"
+      },
+      {
+        title: "[Crocs] Classic All",
+        shop: "Amazon",
+        price: "5,434",
+        priceVN: "1,016,158",
+        image: "http://vunam.io.vn/tojapan/image/image_6.png"
+      },
+    ],
+    countCart: 2,
     bgTVGH: 'white',
     colorTVGH: '#3187EA',
     bgMN: '#E3F2FC',
@@ -166,15 +228,15 @@ class ProductScreen extends Component {
             }}
           >
             <Image
-              style={[styles.fullWith, { width: "100%", height: 300 }]}
-              source={{ uri: item.Image }}
+              style={[styles.fullWith, { width: "100%", height: 100 }]}
+              source={{ uri: item.image }}
             />
             <View style={{ marginTop: 30 }}>
               <Text style={{ color: "#23262F", fontSize: 16 }}>
-                {item.Title}
+                {item.title}
               </Text>
               <Text style={{ color: "#23262F", fontSize: 12, marginTop: 5 }}>
-                Từ {component.props.navigation.state.params.cat}
+                Từ yahoo
               </Text>
               <Rating
                 imageSize={15}
@@ -190,13 +252,13 @@ class ProductScreen extends Component {
               >
                 <View>
                   <Text style={{ color: "#D63F5C", fontSize: 16 }}>
-                    {item.Price} ¥
+                    {item.price} ¥
                   </Text>
                   <Text style={{ fontSize: 12, color: "#777E90" }}>
-                    {item.Price * 184} VND
+                    32142343 VND
                   </Text>
                 </View>
-                <Image source={image2} />
+                <Image style={{ width: 32, height: 32 }} source={image2} />
               </View>
             </View>
           </View>
@@ -214,8 +276,8 @@ class ProductScreen extends Component {
     var cat = this.props.navigation.state.params.cat;
     var id = this.props.navigation.state.params.id;
 
-    functions.getProduct(this, cat, id);
-    functions.getListFavorite(this);
+    //functions.getProduct(this, cat, id);
+    //functions.getListFavorite(this);
   }
 
   gotoTop = () => {
@@ -228,7 +290,7 @@ class ProductScreen extends Component {
   addProduct = async () => {
     await functions.addCart(
       this.state.product,
-      this.props.navigation.state.params.cat,
+      "mercari",
       this
     );
 
@@ -244,7 +306,7 @@ class ProductScreen extends Component {
   }
 
   showSimilarProduct = (id) => {
-    
+
     functions.getProduct(this, this.props.navigation.state.params.cat, id);
 
     this.gotoTop();
@@ -275,31 +337,31 @@ class ProductScreen extends Component {
   }
 
   addRemoveFavorite = (product) => {
-    if(this.checkFavorite(product))
+    if (this.checkFavorite(product))
       functions.deleteFavorite(this, this.getIdFavoriteFromProduct(product));
-    else 
+    else
       functions.addFavorite(product, this.props.navigation.state.params.cat, this);
- }
+  }
 
- checkFavorite = (product) => {
-  var count;
-  var listFavorite = this.state.ListFavorite;
+  checkFavorite = (product) => {
+    var count;
+    var listFavorite = this.state.ListFavorite;
 
-  for(count = 0; count < listFavorite.length; count++)
-    if(listFavorite[count].Product == product)
-      return true;
+    for (count = 0; count < listFavorite.length; count++)
+      if (listFavorite[count].Product == product)
+        return true;
 
-  return false;    
-}
+    return false;
+  }
 
-getIdFavoriteFromProduct = (product) => {
-  var count;
-  var listFavorite = this.state.ListFavorite;
+  getIdFavoriteFromProduct = (product) => {
+    var count;
+    var listFavorite = this.state.ListFavorite;
 
-  for(count = 0; count < listFavorite.length; count++)
-    if(listFavorite[count].Product == product)
-      return listFavorite[count]._id;
-}
+    for (count = 0; count < listFavorite.length; count++)
+      if (listFavorite[count].Product == product)
+        return listFavorite[count]._id;
+  }
 
   static navigationOptions = ({ navigation }) => ({
     title: "",
@@ -309,7 +371,7 @@ getIdFavoriteFromProduct = (product) => {
   render() {
     var buttonBuyNow =
       this.state.product.buy_now != undefined &&
-      this.state.product.buy_now > 0 ? (
+        this.state.product.buy_now > 0 ? (
         <TouchableOpacity
           style={[styles.button, { backgroundColor: this.state.bgMN, marginTop: 20 }]}
         >
@@ -346,11 +408,11 @@ getIdFavoriteFromProduct = (product) => {
       ) : (
         <View>
           <TouchableOpacity
-          onPress={this.MN.bind(this)}
-          style={[styles.button, { backgroundColor: this.state.bgMN, marginTop: 20 }]}
-        >
-          <Text style={{ color: this.state.colorMN }}>Mua ngay</Text>
-        </TouchableOpacity>
+            onPress={this.MN.bind(this)}
+            style={[styles.button, { backgroundColor: this.state.bgMN, marginTop: 20 }]}
+          >
+            <Text style={{ color: this.state.colorMN }}>Mua ngay</Text>
+          </TouchableOpacity>
 
           <TouchableOpacity
             onPress={this.TVGH.bind(this)}
@@ -385,8 +447,8 @@ getIdFavoriteFromProduct = (product) => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: "#13AB2C", fontSize: 22 }}>
                 {this.state.product.BidData != undefined
-                  ? this.state.product.BidData.Bid + "¥"
-                  : global.noBid}{" "}
+                  ? "104" + "¥"
+                  : "No Bid"}{" "}
               </Text>
               <Text
                 style={{
@@ -397,7 +459,7 @@ getIdFavoriteFromProduct = (product) => {
                 }}
               >
                 {this.state.product.BidData != undefined
-                  ? this.state.product.BidData.Bid * 196 + "đ"
+                  ? 30 * 196 + "đ"
                   : ""}
               </Text>
             </View>
@@ -431,7 +493,7 @@ getIdFavoriteFromProduct = (product) => {
                 fontWeight: "600",
               }}
             >
-              {this.state.product.startTime}
+              7H
             </Text>
           </View>
           <View
@@ -451,7 +513,7 @@ getIdFavoriteFromProduct = (product) => {
                 fontWeight: "600",
               }}
             >
-              {this.state.product.endTime}
+              20H
             </Text>
           </View>
           <View
@@ -471,7 +533,7 @@ getIdFavoriteFromProduct = (product) => {
                 fontWeight: "600",
               }}
             >
-              {this.state.product.auto_time}
+              20
             </Text>
           </View>
           <View
@@ -557,7 +619,7 @@ getIdFavoriteFromProduct = (product) => {
       );
 
     var productSimilar =
-      this.state.product.description != undefined ? (
+      true ? (
         <View>
           <Header1>Sản phẩm Tương tự</Header1>
           {/* Slider Product */}
@@ -737,10 +799,7 @@ getIdFavoriteFromProduct = (product) => {
               <Image
                 style={[styles.fullWith, { width: "100%", height: 300 }]}
                 source={{
-                  uri:
-                    this.state.product.image != undefined
-                      ? this.state.product.image
-                      : this.state.product.images[0],
+                  uri: "http://vunam.io.vn/tojapan/image/product.png"
                 }}
               />
               <CustomToolbar1 component={this} />
@@ -749,7 +808,7 @@ getIdFavoriteFromProduct = (product) => {
             <View style={[styles.homeBody, { marginTop: -40 }]}>
               <ActivityIndicator
                 size="large"
-                animating={this.state.ActivityIndicator}
+                animating={false}
               />
               <View style={styles.homeContent}>
                 <Text style={{ fontSize: 18, fontWeight: "700" }}>
@@ -772,7 +831,7 @@ getIdFavoriteFromProduct = (product) => {
                     <Text style={{ color: "#D63F5C", fontSize: 22 }}>
                       {this.state.product.price != undefined
                         ? functions.convertMoney(this.state.product.price)
-                        : this.state.product.Price}{" "}
+                        : 200}{" "}
                       ¥
                     </Text>
                     <Text
@@ -785,7 +844,7 @@ getIdFavoriteFromProduct = (product) => {
                     >
                       {this.state.product.priceVN != undefined
                         ? functions.convertMoney(this.state.product.priceVN)
-                        : this.state.product.PriceVN}{" "}
+                        : 103566}{" "}
                       đ
                     </Text>
                   </View>
@@ -827,9 +886,19 @@ getIdFavoriteFromProduct = (product) => {
                 </Text>
                 <View style={{ marginTop: 20 }}>
                   <Text style={{ fontSize: 16, color: "#23262F" }}>
-                    {this.state.product.content != undefined
-                      ? this.state.product.content
-                      : this.state.product.description}
+                    Ends July 10, 2022 Seiko CHRONOGRAPH Chronograph Ref.6138-8000
+                    Panda Day-Date Men's Mechanical Self-winding Watch Gentleman
+                    Antique
+                    {"\n"}
+                    Country of origin ... Made in Switzerland
+                    {"\n"}{"\n"}
+                    Specifications ... Mechanical manual winding
+                    {"\n"}{"\n"}
+                    Case size: about 39 mm
+                    {"\n"}{"\n"}
+                    Consumption tax, shipping fee, and because we are opening an
+                    individual store, we do not charge consumption tax. The
+                    shipping fee is freight collect.
                   </Text>
                 </View>
                 {/* END mô tả san pham */}
