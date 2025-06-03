@@ -37,7 +37,7 @@ Auction = ({ item, index, parent }) => {
           >
             <View style={{ padding: 0 }}>
               <Image
-                style={{ width: "100%", height: 128, marginTop: 20 }}
+                style={{ width: "100%", height: 90, marginTop: 20 }}
                 source={{
                   uri: item.Image != undefined ? item.Image : item.image,
                 }}
@@ -167,7 +167,7 @@ Auction = ({ item, index, parent }) => {
           >
             <View style={{ padding: 0 }}>
               <Image
-                style={{ width: "100%", height: 128, marginTop: 20 }}
+                style={{ width: "100%", height: 90, marginTop: 20 }}
                 source={{
                   uri: item.Image != undefined ? item.Image : item.image,
                 }}

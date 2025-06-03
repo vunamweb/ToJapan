@@ -202,32 +202,54 @@ const dataTKPB2 = [
 
 const dataProductSlider = [
   {
-    text1: "釣り用フックキーパー 釣り用フ...",
-    text2: "Terrain Sandals 2...",
-    text3: "x1",
+    id: 1,
+    Status: "Done",
+    created_at: "2022-07-12",
+    image: "http://vunam.io.vn/tojapan/image/image_6.png",
+    Description: "釣り用フックキーパー 釣り用フ...",
+    Amount: 30,
     text4: "5,434",
-    text5: "1,016,158",
+    Total: "1,016,158",
   },
   {
-    text1: "釣り用フックキーパー 釣り用フ...",
-    text2: "Terrain Sandals 2...",
-    text3: "x1",
+    id: 2,
+    Status: "No",
+    created_at: "2022-07-12",
+    image: "http://vunam.io.vn/tojapan/image/image_6.png",
+    Description: "釣り用フックキーパー 釣り用フ...",
+    Amount: 10,
     text4: "5,434",
-    text5: "1,016,158",
+    Total: "1,016,158",
   },
   {
-    text1: "釣り用フックキーパー 釣り用フ...",
-    text2: "Terrain Sandals 2...",
-    text3: "x1",
+    id: 3,
+    Status: "Payment",
+    created_at: "2022-07-12",
+    image: "http://vunam.io.vn/tojapan/image/image_6.png",
+    Description: "釣り用フックキーパー 釣り用フ...",
+    Amount: 50,
     text4: "5,434",
-    text5: "1,016,158",
+    Total: "1,016,158",
   },
   {
-    text1: "釣り用フックキーパー 釣り用フ...",
-    text2: "Terrain Sandals 2...",
-    text3: "x1",
+    id: 4,
+    Status: "Done",
+    created_at: "2022-07-12",
+    image: "http://vunam.io.vn/tojapan/image/image_6.png",
+    Description: "釣り用フックキーパー 釣り用フ...",
+    Amount: 90,
+    text4: "2,434",
+    Total: "4,016,158",
+  },
+  {
+    id: 5,
+    Status: "Payment",
+    created_at: "2022-07-12",
+    image: "http://vunam.io.vn/tojapan/image/image_6.png",
+    Description: "釣り用フックキーパー 釣り用フ...",
+    Amount: 30,
     text4: "5,434",
-    text5: "1,016,158",
+    Total: "1,016,158",
   },
 ];
 
@@ -315,7 +337,7 @@ class ManagerOrder extends Component {
       else if (statusOrder == status) count++;
     }
 
-    return count.toString();
+    return "1"; //count.toString();
   };
 
   showOrder = (status) => {
@@ -433,8 +455,8 @@ class ManagerOrder extends Component {
       <SliderProduct
         dataCarouselSlider={null}
         renderCarouselSlider={this._renderItem_2_}
-        dataProductSlider={this.showOrder(status)}
-        //dataProductSlider={dataProductSlider}
+        //dataProductSlider={this.showOrder(status)}
+        dataProductSlider={dataProductSlider}
         renderProductSlider={this._renderItem_3}
         col={1}
         style="1"
@@ -499,8 +521,8 @@ class ManagerOrder extends Component {
         {/* END TEXT HEADER */}
         <View style={{ width: "100%", flexDirection: "row", flex: 1 }}>
           <Image
-            style={{ width: 128, height: 128 }}
-            source={{ uri: item.ProductData.productImages[0].uri }}
+            style={{ width: 128, height: 90 }}
+            source={{ uri: item.image }}
           />
           <View style={{ marginTop: 0, marginLeft: 20, flex: 1 }}>
             <Text style={styles.money3}>{item.Description}</Text>

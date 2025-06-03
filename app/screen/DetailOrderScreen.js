@@ -182,13 +182,13 @@ class DetailOrderScreen extends Component {
     var order = this.props.navigation.state.params.itemId;
     order = JSON.parse(order);
 
-    var name = order.Address.Name;
-    var phone = order.Address.Phone;
+    var name = "釣り用フックキーパー 釣り用フ..."; //order.Address.Name;
+    var phone = "+8492383934" //order.Address.Phone;
     var namePhone = name + " |" + "  " + phone;
 
-    var address = order.Address.Address;
+    var address = "Viet Nam, TPHCM" //order.Address.Address;
 
-    var MDH = order.Shopping + order.id;
+    var MDH = "Mercari 1289"; //order.Shopping + order.id;
 
     return (
       <Provider>
@@ -555,7 +555,7 @@ class DetailOrderScreen extends Component {
                     { width: "100%", flexDirection: "row", flex: 1 },
                   ]}
                 >
-                  <Image source={{ uri: order.ProductData.productImages[0].uri }} style={{ width: 70, height: 70 }} />
+                  <Image source={{ uri: "http://vunam.io.vn/tojapan/image/image_6.png" }} style={{ width: 70, height: 70 }} />
                   <View style={{ marginTop: 0, marginLeft: 20, flex: 1 }}>
                     <Text style={styles.money3}>{order.Description}</Text>
                     <Text style={styles.money3}>x{order.Amount}</Text>

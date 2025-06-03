@@ -342,7 +342,7 @@ class Functions {
     responseData[1].Code = 2;
     responseData[2].Code = 3;
     responseData[3].Code = 4;
-    
+
     callback = async (responseData) => {
       await AsyncStorage.setItem("cart", JSON.stringify(responseData));
 
@@ -760,14 +760,201 @@ class Functions {
   };
 
   getListService = async (component, service) => {
-    let url = global.urlRoot + global.urlService;
-    url = url.replace("{cat}", service);
-
-    var datauser = await this.getDataUser();
-    datauser = JSON.parse(datauser);
-    var token = datauser.token;
-
-    let body = {};
+    var responseData = {
+      "success": true,
+      "data": [
+        {
+          "_id": "6222ef866f36fe6cb6ebfbaf",
+          "catid": "1",
+          "ten": "Túi xách",
+          "tenvn": "Túi xách",
+          "id": "6222ef866f36fe6cb6ebfbaf"
+        },
+        {
+          "_id": "6222ef8c6f36fe6cb6ec0a5a",
+          "catid": "7",
+          "ten": "Điện gia dụng & Thiết bị số ",
+          "tenvn": "Điện gia dụng & Thiết bị số ",
+          "id": "6222ef8c6f36fe6cb6ec0a5a"
+        },
+        {
+          "_id": "6222ef8e6f36fe6cb6ec0f5f",
+          "catid": "9",
+          "ten": "Phụ kiện / Đồng hồ",
+          "tenvn": "Phụ kiện / Đồng hồ",
+          "id": "6222ef8e6f36fe6cb6ec0f5f"
+        },
+        {
+          "_id": "6222ef8e6f36fe6cb6ec0f3a",
+          "catid": "9",
+          "ten": "Thời trang / Phụ kiện",
+          "tenvn": "Thời trang / Phụ kiện",
+          "id": "6222ef8e6f36fe6cb6ec0f3a"
+        },
+        {
+          "_id": "6222ef8e6f36fe6cb6ec0da2",
+          "catid": "8",
+          "ten": "Quần vợt",
+          "tenvn": "Quần vợt",
+          "id": "6222ef8e6f36fe6cb6ec0da2"
+        },
+        {
+          "_id": "6222ef8d6f36fe6cb6ec0d5a",
+          "catid": "8",
+          "ten": "Tập thể dục",
+          "tenvn": "Tập thể dục",
+          "id": "6222ef8d6f36fe6cb6ec0d5a"
+        },
+        {
+          "_id": "6222ef8d6f36fe6cb6ec0d3d",
+          "catid": "8",
+          "ten": "Xe đạp",
+          "tenvn": "Xe đạp",
+          "id": "6222ef8d6f36fe6cb6ec0d3d"
+        },
+        {
+          "_id": "6222ef8d6f36fe6cb6ec0d21",
+          "catid": "8",
+          "ten": "Câu cá ",
+          "tenvn": "Câu cá ",
+          "id": "6222ef8d6f36fe6cb6ec0d21"
+        },
+        {
+          "_id": "6222ef8d6f36fe6cb6ec0cf0",
+          "catid": "8",
+          "ten": "Golf",
+          "tenvn": "Golf",
+          "id": "6222ef8d6f36fe6cb6ec0cf0"
+        },
+        {
+          "_id": "6222ef8d6f36fe6cb6ec0ce3",
+          "catid": "8",
+          "ten": "Thể thao & Dã ngoại",
+          "tenvn": "Thể thao & Dã ngoại",
+          "id": "6222ef8d6f36fe6cb6ec0ce3"
+        },
+        {
+          "_id": "6222ef8d6f36fe6cb6ec0bd3",
+          "catid": "7",
+          "ten": "Thiết bị gia dụng",
+          "tenvn": "Thiết bị gia dụng",
+          "id": "6222ef8d6f36fe6cb6ec0bd3"
+        },
+        {
+          "_id": "6222ef8d6f36fe6cb6ec0ba0",
+          "catid": "7",
+          "ten": "Điều hòa",
+          "tenvn": "Điều hòa",
+          "id": "6222ef8d6f36fe6cb6ec0ba0"
+        },
+        {
+          "_id": "6222ef8d6f36fe6cb6ec0b65",
+          "catid": "7",
+          "ten": "Thiết bị âm thanh",
+          "tenvn": "Thiết bị âm thanh",
+          "id": "6222ef8d6f36fe6cb6ec0b65"
+        },
+        {
+          "_id": "6222ef8c6f36fe6cb6ec0af6",
+          "catid": "7",
+          "ten": "PC / Máy tính bảng",
+          "tenvn": "PC / Máy tính bảng",
+          "id": "6222ef8c6f36fe6cb6ec0af6"
+        },
+        {
+          "_id": "6222ef8c6f36fe6cb6ec0a9c",
+          "catid": "7",
+          "ten": "Điện thoại di động",
+          "tenvn": "Điện thoại di động",
+          "id": "6222ef8c6f36fe6cb6ec0a9c"
+        },
+        {
+          "_id": "6222ef856f36fe6cb6ebfa4d",
+          "catid": "1",
+          "ten": "Thời trang nữ",
+          "tenvn": "Thời trang nữ",
+          "id": "6222ef856f36fe6cb6ebfa4d"
+        },
+        {
+          "_id": "6222ef8b6f36fe6cb6ec080e",
+          "catid": "6",
+          "ten": "Mỹ phẩm & Làm đẹp",
+          "tenvn": "Mỹ phẩm & Làm đẹp",
+          "id": "6222ef8b6f36fe6cb6ec080e"
+        },
+        {
+          "_id": "6222ef886f36fe6cb6ec00df",
+          "catid": "3",
+          "ten": "Bình sữa/ dụng cụ ăn dặm",
+          "tenvn": "Bình sữa/ dụng cụ ăn dặm",
+          "id": "6222ef886f36fe6cb6ec00df"
+        },
+        {
+          "_id": "6222ef886f36fe6cb6ec0080",
+          "catid": "3",
+          "ten": "Tã / Đồ vệ sinh / Tắm",
+          "tenvn": "Tã / Đồ vệ sinh / Tắm",
+          "id": "6222ef886f36fe6cb6ec0080"
+        },
+        {
+          "_id": "6222ef876f36fe6cb6ebff94",
+          "catid": "3",
+          "ten": "Thời trang trẻ em",
+          "tenvn": "Thời trang trẻ em",
+          "id": "6222ef876f36fe6cb6ebff94"
+        },
+        {
+          "_id": "6222ef876f36fe6cb6ebfeb0",
+          "catid": "2",
+          "ten": "Đồng hồ đeo tay",
+          "tenvn": "Đồng hồ đeo tay",
+          "id": "6222ef876f36fe6cb6ebfeb0"
+        },
+        {
+          "_id": "6222ef876f36fe6cb6ebfe00",
+          "catid": "2",
+          "ten": "Túi",
+          "tenvn": "Túi",
+          "id": "6222ef876f36fe6cb6ebfe00"
+        },
+        {
+          "_id": "6222ef866f36fe6cb6ebfd11",
+          "catid": "2",
+          "ten": "Thời trang nam",
+          "tenvn": "Thời trang nam",
+          "id": "6222ef866f36fe6cb6ebfd11"
+        },
+        {
+          "_id": "6222ef866f36fe6cb6ebfcc6",
+          "catid": "1",
+          "ten": "Đồng hồ đeo tay",
+          "tenvn": "Đồng hồ đeo tay",
+          "id": "6222ef866f36fe6cb6ebfcc6"
+        },
+        {
+          "_id": "6222ef866f36fe6cb6ebfb4c",
+          "catid": "1",
+          "ten": "Giày dép",
+          "tenvn": "Giày dép",
+          "id": "6222ef866f36fe6cb6ebfb4c"
+        },
+        {
+          "_id": "6222ef856f36fe6cb6ebfadd",
+          "catid": "1",
+          "ten": "Quần",
+          "tenvn": "Quần",
+          "id": "6222ef856f36fe6cb6ebfadd"
+        },
+        {
+          "_id": "6222ef856f36fe6cb6ebfab8",
+          "catid": "1",
+          "ten": "Áo",
+          "tenvn": "Áo",
+          "id": "6222ef856f36fe6cb6ebfab8"
+        }
+      ],
+      "total": 27
+    };
 
     callback = async (responseData) => {
       var data = responseData.data;
@@ -783,8 +970,9 @@ class Functions {
       );
     };
 
+    callback(responseData);
     //component.setState({ ActivityIndicator: true });
-    network.fetchGET_HEADER(url, body, token, callback);
+    //network.fetchGET_HEADER(url, body, token, callback);
   };
 
   getListProductByTagClick = async (
@@ -832,18 +1020,36 @@ class Functions {
   ) => {
     //if (cat == "yahoo_auction") cat = "yahoo";
 
-    let url =
-      cat != "yahoo_auction"
-        ? global.urlRoot + global.urlProductByTag
-        : global.urlRoot + global.urlProductByTagAuction;
-    url = url.replace("{cat}", cat);
-    url = url.replace("{cat_id}", cat_id);
-
-    var datauser = await this.getDataUser();
-    datauser = JSON.parse(datauser);
-    var token = datauser.token;
-
-    let body = {};
+    var responseData = [
+      {
+        title: "[Crocs] Classic All",
+        shop: "Amazon",
+        price: "5,434",
+        priceVN: "1,016,158",
+        image: "http://vunam.io.vn/tojapan/image/image_6.png"
+      },
+      {
+        title: "[Crocs] Classic All",
+        shop: "Amazon",
+        price: "5,434",
+        priceVN: "1,016,158",
+        image: "http://vunam.io.vn/tojapan/image/image_6.png"
+      },
+      {
+        title: "[Crocs] Classic All",
+        shop: "Amazon",
+        price: "5,434",
+        priceVN: "1,016,158",
+        image: "http://vunam.io.vn/tojapan/image/image_6.png"
+      },
+      {
+        title: "[Crocs] Classic All",
+        shop: "Amazon",
+        price: "5,434",
+        priceVN: "1,016,158",
+        image: "http://vunam.io.vn/tojapan/image/image_6.png"
+      },
+    ];
 
     callback = async (responseData) => {
       /*functions.getPopularItem(
@@ -854,15 +1060,16 @@ class Functions {
         cat
       );*/
       component.setState({
-        listProductByTag: responseData.data,
+        listProductByTag: responseData,
         listService: listService,
         service: cat_name,
-        //ActivityIndicator3: false,
+        ActivityIndicator3: false,
         ActivityIndicator4: false,
       });
     };
 
-    network.fetchGET_HEADER(url, body, token, callback);
+    callback(responseData);
+    //network.fetchGET_HEADER(url, body, token, callback);
   };
 
   getListProductByTagFilter = async (component, cat, cat_id, filter, price) => {
@@ -896,64 +1103,83 @@ class Functions {
   };
 
   getPopularItem = async (component, shop) => {
-    let url = global.urlRoot + global.urlPopularItem;
+    var responseData = [
+      {
+        "_id": "620d1c27f4f786c9e14eeeb3",
+        "catid": "345977011",
+        "ten": "Thực phẩm và dụng cụ ăn dặm cho bé",
+        "tenvn": "Thực phẩm và dụng cụ ăn dặm cho bé",
+        "id": "620d1c27f4f786c9e14eeeb3"
+      },
+      {
+        "_id": "6222daa26f36fe6cb6c263a3",
+        "catid": "101164",
+        "ten": "Trò chơi sinh tồn · súng đồ chơi",
+        "tenvn": "Trò chơi sinh tồn · súng đồ chơi",
+        "id": "6222daa26f36fe6cb6c263a3"
+      },
+      {
+        "_id": "621d753b6f36fe6cb64d9fd4",
+        "catid": "13457",
+        "ten": "Thời trang",
+        "tenvn": "Thời trang",
+        "id": "621d753b6f36fe6cb64d9fd4"
+      },
+      {
+        "_id": "6222daa26f36fe6cb6c263a3",
+        "catid": "101164",
+        "ten": "Trò chơi sinh tồn · súng đồ chơi",
+        "tenvn": "Trò chơi sinh tồn · súng đồ chơi",
+        "id": "6222daa26f36fe6cb6c263a3"
+      },
+    ]
 
-    var datauser = await this.getDataUser();
-    datauser = JSON.parse(datauser);
-    var token = datauser.token;
-
-    let body = {};
-
-    callback = async (responseData) => {
-      var data = responseData.data;
-      var listPopularItem = [];
-      var count;
-      var service = functions.convertShopToPopularItem(shop);
-
-      for (count = 0; count < data.length; count++) {
-        switch (service) {
-          case "AMZ":
-            listPopularItem.push(data[count].AMZ);
-            break;
-
-          case "RKT":
-            listPopularItem.push(data[count].RKT);
-            break;
-
-          case "MCR":
-            listPopularItem.push(data[count].MCR);
-            break;
-
-          default:
-            listPopularItem.push(data[count].YA);
-        }
-      }
-
-      /*functions.getPopularName(
-        component,
-        responseDataBefore,
-        cat_name,
-        listService,
-        listPopularItem
-      );*/
+    callback = (responseData) => {
       component.setState({
-        listPopularItem: listPopularItem,
+        listPopularItem: responseData,
         ActivityIndicator1: false,
       });
     };
 
-    network.fetchGET_HEADER(url, body, token, callback);
+    callback(responseData);
+    //network.fetchGET_HEADER(url, body, token, callback);
   };
 
   getPopularName = async (component) => {
-    let url = global.urlRoot + global.urlPopularName;
-
-    var datauser = await this.getDataUser();
-    datauser = JSON.parse(datauser);
-    var token = datauser.token;
-
-    let body = {};
-
+    var responseData = {
+      "success": true,
+      "data": [
+        {
+          "_id": "62268dd6ca4f5841edd706ad",
+          "vi": "Laptop"
+        },
+        {
+          "_id": "6227331b90d3a442ec0e3c28",
+          "vi": "âm ly"
+        },
+        {
+          "_id": "6227337f90d3a442ec0e3c32",
+          "vi": "Đồng Hồ"
+        },
+        {
+          "_id": "636ef48219671608719f0e92",
+          "vi": "macbook"
+        },
+        {
+          "_id": "64af8794fb3ce2439d7d7985",
+          "vi": "Âm ly KenWood "
+        },
+        {
+          "_id": "64af884ffb3ce2439d7d7d0f",
+          "vi": "Âm ly pioneer"
+        },
+        {
+          "_id": "64af8893fb3ce2439d7d7f4e",
+          "vi": "Âm ly sansui"
+        }
+      ],
+      "total": 7
+    };
     callback = async (responseData) => {
       component.setState({
         listPopularName: responseData.data,
@@ -961,7 +1187,8 @@ class Functions {
       });
     };
 
-    network.fetchGET_HEADER(url, body, token, callback);
+    callback(responseData);
+    //network.fetchGET_HEADER(url, body, token, callback);
   };
 
   getProduct = async (component, cat, id) => {
@@ -1198,8 +1425,8 @@ class Functions {
       component.setState({ ActivityIndicator: false });
     };
 
-    component.setState({ ActivityIndicator: true });
-    network.fetchGET_HEADER(url, body, token, callback);
+    component.setState({ ActivityIndicator: false });
+    //network.fetchGET_HEADER(url, body, token, callback);
   };
 
   getAuction = async (component) => {
@@ -1230,8 +1457,8 @@ class Functions {
     let body = {};
 
     var responseData = {
-    "success": true,
-    "data": [
+      "success": true,
+      "data": [
         "tojapan/image/TOJAPANbanners-1559x295-05.jpg",
         "tojapan/image/TOJAPANbanners-1559x295-10.jpg",
         "tojapan/image/TOJAPANbanners-1559x295-01.jpg",
@@ -1240,9 +1467,9 @@ class Functions {
         "tojapan/image/TOJAPANbanners-1559x295-03.jpg",
         "tojapan/image/TOJAPANbanners-1559x295-06.jpg",
         "tojapan/image/TOJAPANbanners-1559x295-07.jpg"
-    ],
-    "total": 8
-}
+      ],
+      "total": 8
+    }
 
     callback = async (responseData) => {
       var listBanner = [];
@@ -1278,22 +1505,22 @@ class Functions {
     let body = {};
 
     var responseData = {
-    "success": true,
-    "data": [
+      "success": true,
+      "data": [
         {
-            "Brand": "imac",
-            "Image": "si7101-MBA-01.jpeg"
+          "Brand": "imac",
+          "Image": "si7101-MBA-01.jpeg"
         },
         {
-            "Brand": "Macbook"
+          "Brand": "Macbook"
         },
         {
-            "Brand": "louis vuitton",
-            "Image": "863_dec_1-1000x1000.jpeg"
+          "Brand": "louis vuitton",
+          "Image": "863_dec_1-1000x1000.jpeg"
         }
-    ],
-    "total": 3
-}
+      ],
+      "total": 3
+    }
 
     callback = async (responseData) => {
       var listPopularBranch = [];
