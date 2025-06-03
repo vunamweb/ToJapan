@@ -479,7 +479,7 @@ class DetailOrderScreen extends Component {
             </Modal>
           </Portal>
           <Background full="1" start="1">
-            <View style={[styles.homeBody, styles.marginHeader, { marginTop: 0 }]}>
+            <View style={[styles.homeBody, styles.marginHeader, { marginTop: 30 }]}>
               {/* Address */}
               <Address text1={namePhone} text2={address} component={this} />
               {/* END */}

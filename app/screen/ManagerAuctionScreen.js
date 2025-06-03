@@ -42,6 +42,59 @@ const image4 = require("../../app/assets/shopping-bag.png");
 
 var idBid;
 
+const dataProductSlider = [
+  {
+    id: 1,
+    Status: "Done",
+    created_at: "2022-07-12",
+    image: "http://vunam.io.vn/tojapan/image/image_6.png",
+    Description: "釣り用フックキーパー 釣り用フ...",
+    Amount: 30,
+    text4: "5,434",
+    Total: "1,016,158",
+  },
+  {
+    id: 2,
+    Status: "No",
+    created_at: "2022-07-12",
+    image: "http://vunam.io.vn/tojapan/image/image_6.png",
+    Description: "釣り用フックキーパー 釣り用フ...",
+    Amount: 10,
+    text4: "5,434",
+    Total: "1,016,158",
+  },
+  {
+    id: 3,
+    Status: "Payment",
+    created_at: "2022-07-12",
+    image: "http://vunam.io.vn/tojapan/image/image_6.png",
+    Description: "釣り用フックキーパー 釣り用フ...",
+    Amount: 50,
+    text4: "5,434",
+    Total: "1,016,158",
+  },
+  {
+    id: 4,
+    Status: "Done",
+    created_at: "2022-07-12",
+    image: "http://vunam.io.vn/tojapan/image/image_6.png",
+    Description: "釣り用フックキーパー 釣り用フ...",
+    Amount: 90,
+    text4: "2,434",
+    Total: "4,016,158",
+  },
+  {
+    id: 5,
+    Status: "Payment",
+    created_at: "2022-07-12",
+    image: "http://vunam.io.vn/tojapan/image/image_6.png",
+    Description: "釣り用フックキーパー 釣り用フ...",
+    Amount: 30,
+    text4: "5,434",
+    Total: "1,016,158",
+  },
+];
+
 class ManagerAuctionScreen extends Component {
   state = {
     index: 0,
@@ -130,7 +183,7 @@ class ManagerAuctionScreen extends Component {
     }
   }
 
-  return count.toString();
+  return "4"; //count.toString();
 }
 
 hideModal = () => {
@@ -156,7 +209,7 @@ showModal = (id) => {
       my: this,
     });
 
-    functions.getAuction(this);
+    //functions.getAuction(this);
   }
 
   _handleIndexChange = (index) => {

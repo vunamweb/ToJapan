@@ -768,7 +768,7 @@ class ManagerOrder extends Component {
           </Modal>
         </Portal>
         {/* END */}
-        <View style={{ marginTop: 0, flex: 1 }}>
+        <View style={{ marginTop: 20, flex: 1 }}>
           {this.state.ActivityIndicator == "" ? View1 : View2}
           <TabView
             navigationState={this.state}
