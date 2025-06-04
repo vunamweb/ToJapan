@@ -24,7 +24,7 @@ A cross-platform mobile e-commerce application built with **React Native**, powe
 ![Home Screen](images/home_2.png)
 ![Category Screen](images/category.png)
 ![Product Details](images/product.png)
-![Home Screen](images/add_cart.png)
+![Home Screen](images/add_product.png)
 ![Cart](images/cart.png)
 ![Order Screen](images/order.png)
 
