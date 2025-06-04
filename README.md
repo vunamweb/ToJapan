@@ -19,34 +19,30 @@ A cross-platform mobile e-commerce application built with **React Native**, powe
 
 > Add screenshots in the `images/` folder and reference them here.
 
+![Login Screen](images/login.png)
 ![Home Screen](images/home.png)
+![Category Screen](images/category.png)
 ![Product Details](images/product-details.png)
 ![Cart](images/cart.png)
+![Order Screen](images/order.png)
 
 ---
 
 ## 🧑‍💻 Tech Stack
 
 **Frontend: (Mobile App)**  
-- React Native (Expo or bare)
+- React Native (bare)
 - Redux / Context API (for state)
 - Axios (API requests)
 - React Navigation
+- React Viewpager
+- React-native-paper
+- React-native-elements
 
 **Backend: (API)**  
-- PHP (Core or with a micro framework like Slim or Lumen)
-- MySQL (or other relational DB)
+- PHP (Core with a micro framework Slim)
+- MySQL
 - JWT for authentication
 - RESTful API architecture
 
----
-
-## 🛠️ Getting Started
-
-### 📱 Mobile App (React Native)
-
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/yourusername/ecommerce-app.git
-   cd ecommerce-app
 
