@@ -20,9 +20,11 @@ A cross-platform mobile e-commerce application built with **React Native**, powe
 > Add screenshots in the `images/` folder and reference them here.
 
 ![Login Screen](images/login.png)
-![Home Screen](images/home.png)
+![Home Screen](images/home_1.png)
+![Home Screen](images/home_2.png)
 ![Category Screen](images/category.png)
-![Product Details](images/product-details.png)
+![Product Details](images/product.png)
+![Home Screen](images/add_cart.png)
 ![Cart](images/cart.png)
 ![Order Screen](images/order.png)
 
